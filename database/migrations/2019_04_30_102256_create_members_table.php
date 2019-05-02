@@ -22,7 +22,7 @@ class CreateMembersTable extends Migration
             $table->date('birthday');
             $table->integer('age');
             $table->integer('contact_number')->nullable();
-            $table->string('email' 30)->nullable();
+            $table->string('email', 30)->nullable();
             $table->enum('marital_status', ['married', 'widowed', 'separate', 'divorced', 'single'])->nullable();
             $table->timestamps();
         });
