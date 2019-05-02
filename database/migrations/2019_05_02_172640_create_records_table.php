@@ -15,6 +15,7 @@ class CreateRecordsTable extends Migration
     {
         Schema::create('records', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('reference_no')->nullable();
             $table->enum('service_type', ['ews', 'mmws', 'vws', 'ss', 'pm', 'na']);
             $table->date('given_at');
             $table->integer('status'); // 0:unverified 1:verified 2:removed 3:edited
