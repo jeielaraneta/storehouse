@@ -44,4 +44,22 @@ class CredentialsGenerator extends Model
         }
         return $password;
     }
+
+    /**
+     *
+     * Generate 5 digits member code
+     *
+     * @return string
+    */
+    public function generateMemberCode()
+    {
+        $string_set = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $password = '';
+        for ($i=0; $i <= 4; $i++) {
+            $rand = rand(1, 62);
+            $shuffle = str_shuffle(substr($string_set, $rand, ($rand-$i) ));
+            $password .= substr($shuffle, 1, 1);
+        }
+        return $password;
+    }
 }

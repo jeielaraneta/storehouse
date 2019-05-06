@@ -16,6 +16,8 @@ class Member extends Model
      * @var array
      */
     protected $fillable = [
-        'username', 'first_name', 'middle_name', 'last_name', 'contact_number', 'email', 'password',
+        'code', 'first_name', 'middle_name', 'last_name', 'birthday', 'age', 'email', 'contact_number', 'marital_status', 'membership_status', 'address_line_1', 'barangay', 'city', 'province'
     ];
+
+    
 }
