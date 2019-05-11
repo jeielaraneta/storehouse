@@ -1,7 +1,6 @@
 <template>
     <div class="card">
-        <div class="card-header">Members </div>
-
+        <div class="card-header">Members</div>
         <div class="card-body">
             Comming Soon!
         </div>

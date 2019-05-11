@@ -11,9 +11,10 @@ window.Vue = require('vue');
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faCoffee)
+library.add(faUserPlus)
 
 /**
  * The following block of code may be used to automatically register your
@@ -26,7 +27,8 @@ library.add(faCoffee)
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('member-index-component', require('./components/member/MemberIndexComponent.vue').default);
+Vue.component('member-create-button', require('./components/member/MemberCreateButton.vue').default);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 /**
