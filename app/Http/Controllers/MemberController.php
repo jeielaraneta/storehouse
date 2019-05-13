@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Member;
+use App\Http\Requests\StoreNewMember;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -10,6 +11,13 @@ class MemberController extends Controller
 {
 
     protected $member;
+
+    /**
+     * Where to redirect users after registration.
+     *
+     * @var string
+     */
+    protected $redirectTo = '/member';
 
     /**
      * Create a new controller instance.
@@ -48,17 +56,10 @@ class MemberController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        /*$this->member->age = $this->member->computeAge($request->birthday);
-        dd($this->member->age);*/
+    public function store(StoreNewMember $request) {
 
-        $validated = $this->validator($request->all());
+        $validated = $request->validated();
 
-        if(!$validated) {
-            return redirect('member-create')->withErrors($validator, 'Member');
-        }
-      
         $this->member->first_name = $request->first_name;
         $this->member->middle_name = $request->middle_name;
         $this->member->last_name = $request->last_name;
@@ -75,7 +76,7 @@ class MemberController extends Controller
 
         $this->member->save();
 
-        return redirect( route('create-member'));
+        return redirect('member')->with('status', 'New member added!');
     }
 
     /**
@@ -101,20 +102,4 @@ class MemberController extends Controller
         //
     }
 
-    /**
-     * Get a validator for an incoming member registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'first_name' => ['required', 'string', 'max:255'],
-            'middle_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'contact_number' => ['digits:11'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users']
-        ]);
-    }
 }
