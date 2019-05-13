@@ -22,5 +22,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::prefix('/member')->group(function () {
 
     Route::get('/', 'MemberController@index')->name('member-index');
+    Route::get('/create-member', 'MemberController@create')->name('member-create');
 
 });

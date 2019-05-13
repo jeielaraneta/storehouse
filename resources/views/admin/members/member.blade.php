@@ -5,7 +5,7 @@
 
     <div class="row mb-2 text-left">
         <div class="col-md-12 ">
-            <member-create-button></member-create-button>        
+            <member-create-button create-member-route="{{ route('member-create') }}"></member-create-button>
         </div>        
     </div>
 

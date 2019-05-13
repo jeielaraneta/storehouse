@@ -16,6 +16,12 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(faUserPlus)
 
+import datePicker from 'vue-bootstrap-datetimepicker';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
+
+Vue.use(datePicker);
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -29,7 +35,11 @@ library.add(faUserPlus)
 
 Vue.component('member-index-component', require('./components/member/MemberIndexComponent.vue').default);
 Vue.component('member-create-button', require('./components/member/MemberCreateButton.vue').default);
+Vue.component('member-create-form', require('./components/member/MemberCreateForm.vue').default);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
+Vue.component('date-picker', datePicker);
+
+/**/
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
