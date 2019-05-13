@@ -2,7 +2,8 @@
     <div class="card">
         <div class="card-header">Create New Member</div>
         <div class="card-body">
-            <form>
+            <form method="POST" :action="this.submitMemberRoute" enctype="multipart/form-data">
+                <input type="hidden" name="_token" :value="csrf">
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label for="first_name">First Name</label>
@@ -84,6 +85,7 @@
                 <div class="form-group row">
                     <div class="col-md-12">
                         <button type="submit" class="btn btn-primary float-right">Submit</button>
+                        <button type="reset" class="btn btn-danger float-right mx-3">Cancel</button>
                     </div>
                 </div>
             </form>
@@ -93,7 +95,7 @@
 
 <script>
     export default {
-        props: ['birthday'],
+        props: ['birthday', 'submitMemberRoute'],
         data() {
             return {
                 options: {
@@ -101,7 +103,8 @@
                     useCurrent: false,
                     showClear: true,
                     showClose: true
-                }
+                },
+                csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             }
         },
         mounted() {

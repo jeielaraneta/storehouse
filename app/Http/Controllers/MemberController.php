@@ -2,17 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Member;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class MemberController extends Controller
 {
+
+    protected $member;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Member $members)
     {
+        $this->member = $members;
         $this->middleware(['auth','verified']);
     }
 
@@ -44,7 +50,32 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        /*$this->member->age = $this->member->computeAge($request->birthday);
+        dd($this->member->age);*/
+
+        $validated = $this->validator($request->all());
+
+        if(!$validated) {
+            return redirect('member-create')->withErrors($validator, 'Member');
+        }
+      
+        $this->member->first_name = $request->first_name;
+        $this->member->middle_name = $request->middle_name;
+        $this->member->last_name = $request->last_name;
+        $this->member->birthday = $request->birthday;
+        $this->member->age = $this->member->computeAge($request->birthday);
+        $this->member->email = $request->email;
+        $this->member->contact_number = $request->contact_number;
+        $this->member->marital_status = $request->marital_status;
+        $this->member->membership_status = $request->membership_status;
+        $this->member->address_line_1 = $request->address_line_1;
+        $this->member->barangay = $request->barangay;
+        $this->member->city = $request->city;
+        $this->member->province = $request->province;
+
+        $this->member->save();
+
+        return redirect( route('create-member'));
     }
 
     /**
@@ -68,5 +99,22 @@ class MemberController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Get a validator for an incoming member registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'first_name' => ['required', 'string', 'max:255'],
+            'middle_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'contact_number' => ['digits:11'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users']
+        ]);
     }
 }

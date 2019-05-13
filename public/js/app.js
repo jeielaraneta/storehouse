@@ -11358,8 +11358,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['birthday'],
+  props: ['birthday', 'submitMemberRoute'],
   data: function data() {
     return {
       options: {
@@ -11367,7 +11369,8 @@ __webpack_require__.r(__webpack_exports__);
         useCurrent: false,
         showClear: true,
         showClose: true
-      }
+      },
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
     };
   },
   mounted: function mounted() {
@@ -68109,44 +68112,61 @@ var render = function() {
     _c("div", { staticClass: "card-header" }, [_vm._v("Create New Member")]),
     _vm._v(" "),
     _c("div", { staticClass: "card-body" }, [
-      _c("form", [
-        _vm._m(0),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-row" }, [
-          _c(
-            "div",
-            { staticClass: "form-group col-md-4" },
-            [
-              _c("label", { attrs: { for: "birthday" } }, [_vm._v("Birthday")]),
-              _vm._v(" "),
-              _c("date-picker", {
-                attrs: {
-                  id: "birthday",
-                  name: "birthday",
-                  value: _vm.birthday,
-                  config: _vm.options
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
+      _c(
+        "form",
+        {
+          attrs: {
+            method: "POST",
+            action: this.submitMemberRoute,
+            enctype: "multipart/form-data"
+          }
+        },
+        [
           _c("input", {
-            staticClass: "form-control",
-            attrs: { type: "hidden", id: "age", name: "age" }
+            attrs: { type: "hidden", name: "_token" },
+            domProps: { value: _vm.csrf }
           }),
           _vm._v(" "),
-          _vm._m(1)
-        ]),
-        _vm._v(" "),
-        _vm._m(2),
-        _vm._v(" "),
-        _vm._m(3),
-        _vm._v(" "),
-        _vm._m(4),
-        _vm._v(" "),
-        _vm._m(5)
-      ])
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-row" }, [
+            _c(
+              "div",
+              { staticClass: "form-group col-md-4" },
+              [
+                _c("label", { attrs: { for: "birthday" } }, [
+                  _vm._v("Birthday")
+                ]),
+                _vm._v(" "),
+                _c("date-picker", {
+                  attrs: {
+                    id: "birthday",
+                    name: "birthday",
+                    value: _vm.birthday,
+                    config: _vm.options
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control",
+              attrs: { type: "hidden", id: "age", name: "age" }
+            }),
+            _vm._v(" "),
+            _vm._m(1)
+          ]),
+          _vm._v(" "),
+          _vm._m(2),
+          _vm._v(" "),
+          _vm._m(3),
+          _vm._v(" "),
+          _vm._m(4),
+          _vm._v(" "),
+          _vm._m(5)
+        ]
+      )
     ])
   ])
 }
@@ -68342,6 +68362,15 @@ var staticRenderFns = [
             attrs: { type: "submit" }
           },
           [_vm._v("Submit")]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-danger float-right mx-3",
+            attrs: { type: "reset" }
+          },
+          [_vm._v("Cancel")]
         )
       ])
     ])

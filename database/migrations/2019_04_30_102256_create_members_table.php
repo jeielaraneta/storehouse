@@ -21,7 +21,7 @@ class CreateMembersTable extends Migration
             $table->string('last_name', 30);
             $table->date('birthday');
             $table->integer('age');
-            $table->integer('contact_number')->nullable();
+            $table->bigInteger('contact_number')->nullable();
             $table->string('email', 30)->unique()->nullable();
             $table->enum('marital_status', ['married', 'widowed', 'separate', 'divorced', 'single'])->nullable();
             $table->enum('membership_status', ['active', 'regular attendee', 'visitor', 'inactive'])->nullable();
