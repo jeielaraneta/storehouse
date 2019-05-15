@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Member;
+use App\Models\CredentialsGenerator;
 use App\Http\Requests\StoreNewMember;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -58,8 +59,11 @@ class MemberController extends Controller
      */
     public function store(StoreNewMember $request) {
 
+        $memberCode = new CredentialsGenerator();
+
         $validated = $request->validated();
 
+        $this->member->code = $memberCode->generateMemberCode();
         $this->member->first_name = $request->first_name;
         $this->member->middle_name = $request->middle_name;
         $this->member->last_name = $request->last_name;
