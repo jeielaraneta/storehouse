@@ -18,7 +18,8 @@
                 </div>
             @endif
 
-            <member-index-component></member-index-component>
+            <!-- :columns="['name', 'email', 'address' , 'created_at']" -->
+            <member-index-component fetch-url="{{ route('member-all') }}" ></member-index-component>
 
         </div>
     </div>

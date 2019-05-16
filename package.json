@@ -28,7 +28,9 @@
         "@fortawesome/free-solid-svg-icons": "^5.8.2",
         "@fortawesome/vue-fontawesome": "^0.1.6",
         "i": "^0.3.6",
+        "lodash.orderby": "^4.6.0",
         "npm": "^6.9.0",
+        "v-datatable-light": "^0.5.0",
         "vue-bootstrap-datetimepicker": "^5.0.1"
     }
 }

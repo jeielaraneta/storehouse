@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Member;
 use App\Models\CredentialsGenerator;
+use App\Http\Resources\MemberResource;
 use App\Http\Requests\StoreNewMember;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -104,6 +105,19 @@ class MemberController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Get users for the data table.
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    public function getAllMembers(Request $request)
+    {
+        $member = $this->member->all();
+        return MemberResource::collection($member);
     }
 
 }

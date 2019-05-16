@@ -6,9 +6,9 @@
 
 <script>
     export default {
-        props: ['createMemberRoute'],
         mounted() {
             console.log('Add New Member Button mounted.')
-        }
+        },
+        props: ['createMemberRoute']
     }
 </script>

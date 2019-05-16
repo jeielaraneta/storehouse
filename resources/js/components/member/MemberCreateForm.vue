@@ -42,7 +42,7 @@
 
                     <div class="form-group col-md-4">
                         <label for="martial_status">Marital Status</label>
-                        <select id="martial_status" class="custom-select custom-select mb-3">
+                        <select id="martial_status" class="custom-select custom-select mb-3" name="martial_status">
                             <option selected>Select martital status</option>
                             <option value="married">Married</option>
                             <option value="widowed">Widowed</option>
@@ -54,7 +54,7 @@
 
                     <div class="form-group col-md-4">
                         <label for="membership_status">Membership Status</label>
-                        <select id="membership_status" class="custom-select custom-select mb-3">
+                        <select id="membership_status" class="custom-select custom-select mb-3" name="membership_status">
                             <option selected>Select membership status</option>
                             <option value="active">Active</option>
                             <option value="regular attendee">Regular Attendee</option>
