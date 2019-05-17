@@ -27,7 +27,8 @@ Vue.use(datePicker);
  /* import datatables */
 
 import { DataTable, ItemsPerPageDropdown, Pagination } from 'v-datatable-light';
-import orderBy from "lodash.orderby";
+import orderBy from 'lodash.orderby';
+import Spinner from "vue-simple-spinner";
 
 /**
  * The following block of code may be used to automatically register your
@@ -51,6 +52,8 @@ Vue.component('date-picker', datePicker);
 Vue.component('data-table', DataTable);
 Vue.component('itemsPerPageDropdown', ItemsPerPageDropdown);
 Vue.component('pagination', Pagination);
+Vue.component('orderBy', orderBy);
+Vue.component('spinner', Spinner);
 
 /**/
 
