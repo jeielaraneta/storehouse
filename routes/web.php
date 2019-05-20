@@ -15,6 +15,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::prefix('/member')->group(function () {
+
+    Route::get('/', 'MemberController@index')->name('member-index');
+    Route::get('/create', 'MemberController@create')->name('member-create');
+    Route::get('/show-all', 'MemberController@getAllMembers')->name('member-all');
+    Route::post('/store', 'MemberController@store')->name('member-store');
+
+});
