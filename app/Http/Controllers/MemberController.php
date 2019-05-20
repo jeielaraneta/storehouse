@@ -39,7 +39,8 @@ class MemberController extends Controller
      */
     public function index()
     {
-        return view('admin/members/member');
+        $member = $this->member->all();
+        return view('admin/members/member', ['members' => $member]);
     }
 
     /**
@@ -114,7 +115,7 @@ class MemberController extends Controller
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function getAllMembers(Request $request)
+    public function getAllMembers()
     {
         $member = $this->member->all();
         return MemberResource::collection($member);
