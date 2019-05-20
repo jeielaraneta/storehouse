@@ -24,12 +24,6 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
 
 Vue.use(datePicker);
 
- /* import datatables */
-
-import { DataTable, ItemsPerPageDropdown, Pagination } from 'v-datatable-light';
-import orderBy from 'lodash.orderby';
-import Spinner from "vue-simple-spinner";
-
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -48,14 +42,6 @@ Vue.component('member-create-form', require('./components/member/MemberCreateFor
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.component('date-picker', datePicker);
-
-Vue.component('data-table', DataTable);
-Vue.component('itemsPerPageDropdown', ItemsPerPageDropdown);
-Vue.component('pagination', Pagination);
-Vue.component('orderBy', orderBy);
-Vue.component('spinner', Spinner);
-
-/**/
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

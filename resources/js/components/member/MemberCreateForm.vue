@@ -41,8 +41,8 @@
                     </div>
 
                     <div class="form-group col-md-4">
-                        <label for="martial_status">Marital Status</label>
-                        <select id="martial_status" class="custom-select custom-select mb-3" name="martial_status">
+                        <label for="marital_status">Marital Status</label>
+                        <select id="marital_status" class="custom-select custom-select mb-3" name="marital_status">
                             <option selected>Select martital status</option>
                             <option value="married">Married</option>
                             <option value="widowed">Widowed</option>
