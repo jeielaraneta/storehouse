@@ -12,9 +12,11 @@ window.Vue = require('vue');
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
+import { faUserAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(faUserPlus)
+library.add(faUserAlt)
 
 /* import datepicker */
 
@@ -38,6 +40,7 @@ Vue.use(datePicker);
 Vue.component('member-index-component', require('./components/member/MemberIndexComponent.vue').default);
 Vue.component('member-create-button', require('./components/member/MemberCreateButton.vue').default);
 Vue.component('member-create-form', require('./components/member/MemberCreateForm.vue').default);
+Vue.component('member-show-button', require('./components/member/MemberShowButton.vue').default);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 

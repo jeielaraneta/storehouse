@@ -33,7 +33,6 @@
                             </tr>
                         </thead>
                         <tbody>
-
                             @if ( count($members) > 0 )
                                  @foreach ($members as $member)
                                     <tr>
@@ -42,19 +41,19 @@
                                         <td>{{$member->email}}</td>
                                         <td>{{$member->membership_status}}</td>
                                         <td>{{$member->created_at}}</td>
-                                        <td></td>
+                                        <td><member-show-button show-member-route=""></member-show-button></td>
                                     </tr>
                                 @endforeach
                             @endif
                         </tbody>
                         <tfoot>
                             <tr>
+                                <th>Code</th>
                                 <th>Name</th>
-                                <th>Position</th>
-                                <th>Office</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
+                                <th>Email</th>
+                                <th>Membership Status</th>
+                                <th>Created At</th>
+                                <th>Actions</th>
                             </tr>
                         </tfoot>
                     </table>
