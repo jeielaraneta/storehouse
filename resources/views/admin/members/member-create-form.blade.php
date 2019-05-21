@@ -23,7 +23,7 @@
                 </div><br />
             @endif
 
-            <member-create-form submit-member-route="{{ route('member-store') }}"></member-create-form>
+            <member-create-form submit-member-route="{{ route('member.store') }}"></member-create-form>
 
         </div>
     </div>

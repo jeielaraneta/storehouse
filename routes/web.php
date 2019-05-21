@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes(['verify' => true]);
@@ -21,8 +21,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::prefix('/member')->group(function () {
 
-    Route::get('/', 'MemberController@index')->name('member-index');
-    Route::get('/create', 'MemberController@create')->name('member-create');
-    Route::post('/store', 'MemberController@store')->name('member-store');
+    Route::get('/', 'MemberController@index')->name('member.index');
+    Route::get('/create', 'MemberController@create')->name('member.create');
+    Route::post('/store', 'MemberController@store')->name('member.store');
 
 });

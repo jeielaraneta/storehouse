@@ -68379,7 +68379,7 @@ var staticRenderFns = [
         _c(
           "button",
           {
-            staticClass: "btn btn-primary float-right",
+            staticClass: "btn btn-success float-right",
             attrs: { type: "submit" }
           },
           [_vm._v("Submit")]

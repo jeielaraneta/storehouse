@@ -84,7 +84,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-md-12">
-                        <button type="submit" class="btn btn-primary float-right">Submit</button>
+                        <button type="submit" class="btn btn-success float-right">Submit</button>
                         <button type="reset" class="btn btn-danger float-right mx-3">Cancel</button>
                     </div>
                 </div>
