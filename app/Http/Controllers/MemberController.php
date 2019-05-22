@@ -50,7 +50,7 @@ class MemberController extends Controller
      */
     public function create()
     {
-        return view('admin/members/member-create-form');
+        return view('admin/members/forms/member-create-form');
     }
 
     /**
@@ -93,7 +93,8 @@ class MemberController extends Controller
      */
     public function show($id)
     {
-        //
+        $member = $this->member->findorFail($id);
+        return view('admin/members/member-profile', ['memberData' => $member]);
     }
 
     /**

@@ -58,7 +58,7 @@
                                             <td>{{$member->email}}</td>
                                             <td>{{$member->membership_status}}</td>
                                             <td>{{$member->created_at}}</td>
-                                            <td><member-show-button show-member-route=""></member-show-button></td>
+                                            <td><member-show-button show-member-route="{{ route('member.show', $member->id) }}"></member-show-button></td>
                                         </tr>
                                     @endforeach
                                 @endif

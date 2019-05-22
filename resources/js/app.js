@@ -38,9 +38,10 @@ Vue.use(datePicker);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('member-index-component', require('./components/member/MemberIndexComponent.vue').default);
-Vue.component('member-create-button', require('./components/member/MemberCreateButton.vue').default);
-Vue.component('member-create-form', require('./components/member/MemberCreateForm.vue').default);
-Vue.component('member-show-button', require('./components/member/MemberShowButton.vue').default);
+Vue.component('member-profile-component', require('./components/member/MemberProfileComponent.vue').default);
+Vue.component('member-create-button', require('./components/member/buttons/MemberCreateButton.vue').default);
+Vue.component('member-create-form', require('./components/member/forms/MemberCreateForm.vue').default);
+Vue.component('member-show-button', require('./components/member/buttons/MemberShowButton.vue').default);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
