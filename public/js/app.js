@@ -11305,6 +11305,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
@@ -68251,14 +68280,34 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
       _vm._v("Personal Profile "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-info btn-sm float-right",
-          attrs: { role: "button" }
-        },
-        [_vm._v(" Edit")]
-      )
+      _vm._v(" "),
+      _c("div", { staticClass: "btn-group float-right" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary btn-sm dropdown-toggle",
+            attrs: {
+              type: "button",
+              "data-toggle": "dropdown",
+              "aria-haspopup": "true",
+              "aria-expanded": "false"
+            }
+          },
+          [_vm._v("\n\t\t\t    \tActions\n\t\t\t  \t")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "dropdown-menu" }, [
+          _c(
+            "button",
+            { staticClass: "dropdown-item", attrs: { type: "button" } },
+            [_vm._v("Action")]
+          ),
+          _vm._v(" "),
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("Delete")
+          ])
+        ])
+      ])
     ])
   },
   function() {
@@ -68266,15 +68315,34 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _vm._v("Contact Information "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-info btn-sm float-right",
-          attrs: { role: "button" }
-        },
-        [_vm._v(" Edit")]
-      )
+      _vm._v("Contact Information \n        \t"),
+      _c("div", { staticClass: "btn-group float-right" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary btn-sm dropdown-toggle",
+            attrs: {
+              type: "button",
+              "data-toggle": "dropdown",
+              "aria-haspopup": "true",
+              "aria-expanded": "false"
+            }
+          },
+          [_vm._v("\n\t\t\t    \tActions\n\t\t\t  \t")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "dropdown-menu" }, [
+          _c(
+            "button",
+            { staticClass: "dropdown-item", attrs: { type: "button" } },
+            [_vm._v("Edit")]
+          ),
+          _vm._v(" "),
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("Delete")
+          ])
+        ])
+      ])
     ])
   },
   function() {
@@ -68282,15 +68350,34 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _vm._v("Membership Profile "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-info btn-sm float-right",
-          attrs: { role: "button" }
-        },
-        [_vm._v(" Edit")]
-      )
+      _vm._v("Membership Profile >\n        \t"),
+      _c("div", { staticClass: "btn-group float-right" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary btn-sm dropdown-toggle",
+            attrs: {
+              type: "button",
+              "data-toggle": "dropdown",
+              "aria-haspopup": "true",
+              "aria-expanded": "false"
+            }
+          },
+          [_vm._v("\n\t\t\t    \tActions\n\t\t\t  \t")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "dropdown-menu" }, [
+          _c(
+            "button",
+            { staticClass: "dropdown-item", attrs: { type: "button" } },
+            [_vm._v("Edit")]
+          ),
+          _vm._v(" "),
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("Delete")
+          ])
+        ])
+      ])
     ])
   }
 ]

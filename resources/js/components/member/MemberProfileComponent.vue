@@ -1,6 +1,15 @@
 <template>
 	<div class="card">
-        <div class="card-header">Personal Profile <button role="button" class="btn btn-info btn-sm float-right"><!-- <font-awesome-icon icon="user-alt" /> --> Edit</button>
+        <div class="card-header">Personal Profile <!-- <font-awesome-icon icon="user-alt" /> -->
+        	<div class="btn-group float-right">
+			  	<button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			    	Actions
+			  	</button>
+			  	<div class="dropdown-menu">
+			  		<button class="dropdown-item" type="button">Action</button>
+				    <a class="dropdown-item" href="#">Delete</a>
+			  	</div>
+			</div>
         </div>
         <div class="card-body">
         	
@@ -15,7 +24,17 @@
         	</div>
         </div>
 
-        <div class="card-header">Contact Information <button role="button" class="btn btn-info btn-sm float-right"><!-- <font-awesome-icon icon="user-alt" /> --> Edit</button></div>
+        <div class="card-header">Contact Information 
+        	<div class="btn-group float-right">
+			  	<button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			    	Actions
+			  	</button>
+			  	<div class="dropdown-menu">
+			    	<button class="dropdown-item" type="button">Edit</button>
+				    <a class="dropdown-item" href="#">Delete</a>
+			  	</div>
+			</div>
+        </div>
         <div class="card-body">
         	<div class="row">
         		<p> {{this.memberData.email}}</p>
@@ -28,7 +47,17 @@
         	</div>
         </div>
 
-        <div class="card-header">Membership Profile <button role="button" class="btn btn-info btn-sm float-right"><!-- <font-awesome-icon icon="user-alt" /> --> Edit</button></div>
+        <div class="card-header">Membership Profile >
+        	<div class="btn-group float-right">
+			  	<button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			    	Actions
+			  	</button>
+			  	<div class="dropdown-menu">
+			    	<button class="dropdown-item" type="button">Edit</button>
+				    <a class="dropdown-item" href="#">Delete</a>
+			  	</div>
+			</div>
+        </div>
         <div class="card-body">
         	<div class="row">
         		<p> {{this.memberData.code}}</p>
