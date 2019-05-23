@@ -11334,11 +11334,91 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/*	
+	DATETIME PICKER ICONS
+		time: 'far fa-clock',
+    date: 'far fa-calendar',
+    up: 'fas fa-arrow-up',
+    down: 'fas fa-arrow-down',
+    previous: 'fas fa-chevron-left',
+    next: 'fas fa-chevron-right',
+    today: 'fas fa-calendar-check',
+    clear: 'far fa-trash-alt',
+    close: 'far fa-times-circle'
+*/
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
   },
-  props: ['memberData']
+  props: ['memberData', 'birthday'],
+  data: function data() {
+    return {
+      options: {
+        format: 'MM/DD/YYYY',
+        useCurrent: false,
+        showClear: true,
+        icons: {
+          previous: 'fas fa-chevron-left',
+          next: 'fas fa-chevron-right',
+          today: 'fas fa-calendar-check',
+          clear: 'far fa-trash-alt',
+          close: 'far fa-times-circle'
+        },
+        defaultDate: this.memberData.birthday
+      },
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      isHidden: true,
+      isDisabled: true
+    };
+  }
 });
 
 /***/ }),
@@ -11503,26 +11583,20 @@ __webpack_require__.r(__webpack_exports__);
         format: 'MM/DD/YYYY',
         useCurrent: false,
         showClear: true,
-        showClose: true
+        showClose: true,
+        icons: {
+          previous: 'fas fa-chevron-left',
+          next: 'fas fa-chevron-right',
+          today: 'fas fa-calendar-check',
+          clear: 'far fa-trash-alt',
+          close: 'far fa-times-circle'
+        }
       },
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
     };
   },
   mounted: function mounted() {
     console.log('Component mounted.');
-  }
-});
-$.extend(true, $.fn.datetimepicker.defaults, {
-  icons: {
-    time: 'far fa-clock',
-    date: 'far fa-calendar',
-    up: 'fas fa-arrow-up',
-    down: 'fas fa-arrow-down',
-    previous: 'fas fa-chevron-left',
-    next: 'fas fa-chevron-right',
-    today: 'fas fa-calendar-check',
-    clear: 'far fa-trash-alt',
-    close: 'far fa-times-circle'
   }
 });
 
@@ -68207,32 +68281,250 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card" }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", { staticClass: "card-body" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("p", [
-          _vm._v(
-            " " +
-              _vm._s(this.memberData.first_name) +
-              " " +
-              _vm._s(this.memberData.middle_name) +
-              " " +
-              _vm._s(this.memberData.last_name)
-          )
+    _c("div", { staticClass: "card-header" }, [
+      _vm._v("Personal Profile "),
+      _vm._v(" "),
+      _c("div", { staticClass: "btn-group float-right" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary btn-sm dropdown-toggle",
+            attrs: {
+              type: "button",
+              "data-toggle": "dropdown",
+              "aria-haspopup": "true",
+              "aria-expanded": "false"
+            }
+          },
+          [_vm._v("\n\t\t\t    \tActions\n\t\t\t  \t")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "dropdown-menu" }, [
+          _c(
+            "button",
+            {
+              staticClass: "dropdown-item",
+              attrs: { type: "button" },
+              on: {
+                click: [
+                  function($event) {
+                    _vm.isHidden = false
+                  },
+                  function($event) {
+                    _vm.isDisabled = false
+                  }
+                ]
+              }
+            },
+            [_vm._v("Edit")]
+          ),
+          _vm._v(" "),
+          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+            _vm._v("Delete")
+          ])
         ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("p", [_vm._v(" " + _vm._s(this.memberData.birthday) + " ")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("p", [_vm._v(" " + _vm._s(this.memberData.marital_status) + " ")])
       ])
     ]),
     _vm._v(" "),
-    _vm._m(1),
+    _c("div", { staticClass: "card-body" }, [
+      _c(
+        "form",
+        { attrs: { method: "POST", enctype: "multipart/form-data" } },
+        [
+          _c("input", {
+            attrs: { type: "hidden", name: "_token" },
+            domProps: { value: _vm.csrf }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group row" }, [
+            _c(
+              "label",
+              {
+                staticClass: "col-sm-2 col-form-label",
+                attrs: { for: "first_name" }
+              },
+              [_vm._v("First Name")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-10" }, [
+              _c("input", {
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "first_name",
+                  name: "first_name",
+                  disabled: _vm.isDisabled
+                },
+                domProps: { value: this.memberData.first_name }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group row" }, [
+            _c(
+              "label",
+              {
+                staticClass: "col-sm-2 col-form-label",
+                attrs: { for: "middle_name" }
+              },
+              [_vm._v("Middle Name")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-10" }, [
+              _c("input", {
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "middle_name",
+                  name: "middle_name",
+                  disabled: _vm.isDisabled
+                },
+                domProps: { value: this.memberData.middle_name }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group row" }, [
+            _c(
+              "label",
+              {
+                staticClass: "col-sm-2 col-form-label",
+                attrs: { for: "last_name" }
+              },
+              [_vm._v("Last Name")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-10" }, [
+              _c("input", {
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "last_name",
+                  name: "last_name",
+                  disabled: _vm.isDisabled
+                },
+                domProps: { value: this.memberData.last_name }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group row" }, [
+            _c(
+              "label",
+              {
+                staticClass: "col-sm-2 col-form-label",
+                attrs: { for: "birthday" }
+              },
+              [_vm._v("Birthday")]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-sm-10" },
+              [
+                _c("date-picker", {
+                  attrs: {
+                    id: "birthday",
+                    name: "birthday",
+                    value: _vm.birthday,
+                    config: _vm.options,
+                    disabled: _vm.isDisabled,
+                    autocomplete: "off"
+                  }
+                })
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group row" }, [
+            _c(
+              "label",
+              {
+                staticClass: "col-sm-2 col-form-label",
+                attrs: { for: "marital_status" }
+              },
+              [_vm._v("Marital Status")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-10" }, [
+              _c(
+                "select",
+                {
+                  staticClass: "custom-select custom-select mb-3",
+                  attrs: {
+                    id: "marital_status",
+                    name: "marital_status",
+                    disabled: _vm.isDisabled
+                  },
+                  domProps: { value: this.memberData.marital_status }
+                },
+                [
+                  _c("option", { attrs: { selected: "" } }, [
+                    _vm._v("Select martital status")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "married" } }, [
+                    _vm._v("Married")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "widowed" } }, [
+                    _vm._v("Widowed")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "separate" } }, [
+                    _vm._v("Separated")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "divorced" } }, [
+                    _vm._v("Divorced")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "single" } }, [
+                    _vm._v("Single")
+                  ])
+                ]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          !_vm.isHidden
+            ? _c("div", { staticClass: "form-group row" }, [
+                _c("div", { staticClass: "col-md-12" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success float-right",
+                      attrs: { type: "submit" }
+                    },
+                    [_vm._v("Save changes")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger float-right mx-3",
+                      on: {
+                        click: [
+                          function($event) {
+                            _vm.isHidden = true
+                          },
+                          function($event) {
+                            _vm.isDisabled = true
+                          }
+                        ]
+                      }
+                    },
+                    [_vm._v("Cancel")]
+                  )
+                ])
+              ])
+            : _vm._e()
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _vm._m(0),
     _vm._v(" "),
     _c("div", { staticClass: "card-body" }, [
       _c("div", { staticClass: "row" }, [
@@ -68260,7 +68552,7 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _vm._m(2),
+    _vm._m(1),
     _vm._v(" "),
     _c("div", { staticClass: "card-body" }, [
       _c("div", { staticClass: "row" }, [
@@ -68274,42 +68566,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _vm._v("Personal Profile "),
-      _vm._v(" "),
-      _c("div", { staticClass: "btn-group float-right" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-primary btn-sm dropdown-toggle",
-            attrs: {
-              type: "button",
-              "data-toggle": "dropdown",
-              "aria-haspopup": "true",
-              "aria-expanded": "false"
-            }
-          },
-          [_vm._v("\n\t\t\t    \tActions\n\t\t\t  \t")]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "dropdown-menu" }, [
-          _c(
-            "button",
-            { staticClass: "dropdown-item", attrs: { type: "button" } },
-            [_vm._v("Action")]
-          ),
-          _vm._v(" "),
-          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-            _vm._v("Delete")
-          ])
-        ])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -68350,7 +68606,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _vm._v("Membership Profile >\n        \t"),
+      _vm._v("Membership Profile\n        \t"),
       _c("div", { staticClass: "btn-group float-right" }, [
         _c(
           "button",
@@ -80911,8 +81167,12 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 
 
+
+
 _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_0__["library"].add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_1__["faUserPlus"]);
 _fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_0__["library"].add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_1__["faUserAlt"]);
+_fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_0__["library"].add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_1__["faChevronLeft"]);
+_fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_0__["library"].add(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_1__["faChevronRight"]);
 /* import datepicker */
 
 
@@ -80945,6 +81205,19 @@ Vue.component('date-picker', vue_bootstrap_datetimepicker__WEBPACK_IMPORTED_MODU
 Vue.config.productionTip = false;
 var app = new Vue({
   el: '#app'
+});
+$.extend(true, jQuery.fn.datetimepicker.defaults, {
+  icons: {
+    time: 'far fa-clock',
+    date: 'far fa-calendar',
+    up: 'fas fa-arrow-up',
+    down: 'fas fa-arrow-down',
+    previous: 'fas fa-chevron-left',
+    next: 'fas fa-chevron-right',
+    today: 'fas fa-calendar-check',
+    clear: 'far fa-trash-alt',
+    close: 'far fa-times-circle'
+  }
 });
 
 /***/ }),
