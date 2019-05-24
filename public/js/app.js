@@ -11381,6 +11381,221 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /*	
 	DATETIME PICKER ICONS
@@ -11416,7 +11631,20 @@ __webpack_require__.r(__webpack_exports__);
       },
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       isHidden: true,
-      isDisabled: true
+      isDisabled: true,
+      toEditFirstName: true,
+      toEditMiddleName: true,
+      toEditLastName: true,
+      toEditBirthday: true,
+      toEditMaritalStatus: true,
+      toEditEmail: true,
+      toEditContactNumber: true,
+      toEditAddressLine1: true,
+      toEditBarangay: true,
+      toEditCity: true,
+      toEditProvince: true,
+      toEditCode: true,
+      toEditmembershipStatus: true
     };
   }
 });
@@ -68281,50 +68509,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card" }, [
-    _c("div", { staticClass: "card-header" }, [
-      _vm._v("Personal Profile "),
-      _vm._v(" "),
-      _c("div", { staticClass: "btn-group float-right" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-primary btn-sm dropdown-toggle",
-            attrs: {
-              type: "button",
-              "data-toggle": "dropdown",
-              "aria-haspopup": "true",
-              "aria-expanded": "false"
-            }
-          },
-          [_vm._v("\n\t\t\t    \tActions\n\t\t\t  \t")]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "dropdown-menu" }, [
-          _c(
-            "button",
-            {
-              staticClass: "dropdown-item",
-              attrs: { type: "button" },
-              on: {
-                click: [
-                  function($event) {
-                    _vm.isHidden = false
-                  },
-                  function($event) {
-                    _vm.isDisabled = false
-                  }
-                ]
-              }
-            },
-            [_vm._v("Edit")]
-          ),
-          _vm._v(" "),
-          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-            _vm._v("Delete")
-          ])
-        ])
-      ])
-    ]),
+    _vm._m(0),
     _vm._v(" "),
     _c("div", { staticClass: "card-body" }, [
       _c(
@@ -68346,19 +68531,71 @@ var render = function() {
               [_vm._v("First Name")]
             ),
             _vm._v(" "),
-            _c("div", { staticClass: "col-sm-10" }, [
+            _c("div", { staticClass: "col-sm-8" }, [
               _c("input", {
                 staticClass: "form-control",
                 attrs: {
                   type: "text",
                   id: "first_name",
                   name: "first_name",
-                  disabled: _vm.isDisabled
+                  disabled: _vm.toEditFirstName
                 },
                 domProps: { value: this.memberData.first_name }
               })
-            ])
-          ]),
+            ]),
+            _vm._v(" "),
+            _vm.toEditFirstName
+              ? _c("div", { staticClass: "col-sm-2" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary btn-sm float-right mx-3",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.toEditFirstName = false
+                        }
+                      }
+                    },
+                    [_vm._v("Edit")]
+                  )
+                ])
+              : _c("div", { staticClass: "col-sm-2" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger btn-sm float-right mx-1",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.toEditFirstName = true
+                        }
+                      }
+                    },
+                    [_vm._v("Cancel")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success btn-sm float-right mx-1",
+                      attrs: { type: "button" }
+                    },
+                    [_vm._v("Save")]
+                  )
+                ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "form",
+        { attrs: { method: "POST", enctype: "multipart/form-data" } },
+        [
+          _c("input", {
+            attrs: { type: "hidden", name: "_token" },
+            domProps: { value: _vm.csrf }
+          }),
           _vm._v(" "),
           _c("div", { staticClass: "form-group row" }, [
             _c(
@@ -68370,19 +68607,71 @@ var render = function() {
               [_vm._v("Middle Name")]
             ),
             _vm._v(" "),
-            _c("div", { staticClass: "col-sm-10" }, [
+            _c("div", { staticClass: "col-sm-8" }, [
               _c("input", {
                 staticClass: "form-control",
                 attrs: {
                   type: "text",
                   id: "middle_name",
                   name: "middle_name",
-                  disabled: _vm.isDisabled
+                  disabled: _vm.toEditMiddleName
                 },
                 domProps: { value: this.memberData.middle_name }
               })
-            ])
-          ]),
+            ]),
+            _vm._v(" "),
+            _vm.toEditMiddleName
+              ? _c("div", { staticClass: "col-sm-2" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary btn-sm float-right mx-3",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.toEditMiddleName = false
+                        }
+                      }
+                    },
+                    [_vm._v("Edit")]
+                  )
+                ])
+              : _c("div", { staticClass: "col-sm-2" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger btn-sm float-right mx-1",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.toEditMiddleName = true
+                        }
+                      }
+                    },
+                    [_vm._v("Cancel")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success btn-sm float-right mx-1",
+                      attrs: { type: "button" }
+                    },
+                    [_vm._v("Save")]
+                  )
+                ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "form",
+        { attrs: { method: "POST", enctype: "multipart/form-data" } },
+        [
+          _c("input", {
+            attrs: { type: "hidden", name: "_token" },
+            domProps: { value: _vm.csrf }
+          }),
           _vm._v(" "),
           _c("div", { staticClass: "form-group row" }, [
             _c(
@@ -68394,19 +68683,71 @@ var render = function() {
               [_vm._v("Last Name")]
             ),
             _vm._v(" "),
-            _c("div", { staticClass: "col-sm-10" }, [
+            _c("div", { staticClass: "col-sm-8" }, [
               _c("input", {
                 staticClass: "form-control",
                 attrs: {
                   type: "text",
                   id: "last_name",
                   name: "last_name",
-                  disabled: _vm.isDisabled
+                  disabled: _vm.toEditLastName
                 },
                 domProps: { value: this.memberData.last_name }
               })
-            ])
-          ]),
+            ]),
+            _vm._v(" "),
+            _vm.toEditLastName
+              ? _c("div", { staticClass: "col-sm-2" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary btn-sm float-right mx-3",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.toEditLastName = false
+                        }
+                      }
+                    },
+                    [_vm._v("Edit")]
+                  )
+                ])
+              : _c("div", { staticClass: "col-sm-2" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger btn-sm float-right mx-1",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.toEditLastName = true
+                        }
+                      }
+                    },
+                    [_vm._v("Cancel")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success btn-sm float-right mx-1",
+                      attrs: { type: "button" }
+                    },
+                    [_vm._v("Save")]
+                  )
+                ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "form",
+        { attrs: { method: "POST", enctype: "multipart/form-data" } },
+        [
+          _c("input", {
+            attrs: { type: "hidden", name: "_token" },
+            domProps: { value: _vm.csrf }
+          }),
           _vm._v(" "),
           _c("div", { staticClass: "form-group row" }, [
             _c(
@@ -68420,7 +68761,7 @@ var render = function() {
             _vm._v(" "),
             _c(
               "div",
-              { staticClass: "col-sm-10" },
+              { staticClass: "col-sm-8" },
               [
                 _c("date-picker", {
                   attrs: {
@@ -68428,14 +68769,66 @@ var render = function() {
                     name: "birthday",
                     value: _vm.birthday,
                     config: _vm.options,
-                    disabled: _vm.isDisabled,
+                    disabled: _vm.toEditBirthday,
                     autocomplete: "off"
                   }
                 })
               ],
               1
-            )
-          ]),
+            ),
+            _vm._v(" "),
+            _vm.toEditBirthday
+              ? _c("div", { staticClass: "col-sm-2" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary btn-sm float-right mx-3",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.toEditBirthday = false
+                        }
+                      }
+                    },
+                    [_vm._v("Edit")]
+                  )
+                ])
+              : _c("div", { staticClass: "col-sm-2" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger btn-sm float-right mx-1",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.toEditBirthday = true
+                        }
+                      }
+                    },
+                    [_vm._v("Cancel")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success btn-sm float-right mx-1",
+                      attrs: { type: "button" }
+                    },
+                    [_vm._v("Save")]
+                  )
+                ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "form",
+        { attrs: { method: "POST", enctype: "multipart/form-data" } },
+        [
+          _c("input", {
+            attrs: { type: "hidden", name: "_token" },
+            domProps: { value: _vm.csrf }
+          }),
           _vm._v(" "),
           _c("div", { staticClass: "form-group row" }, [
             _c(
@@ -68447,7 +68840,7 @@ var render = function() {
               [_vm._v("Marital Status")]
             ),
             _vm._v(" "),
-            _c("div", { staticClass: "col-sm-10" }, [
+            _c("div", { staticClass: "col-sm-8" }, [
               _c(
                 "select",
                 {
@@ -68455,7 +68848,7 @@ var render = function() {
                   attrs: {
                     id: "marital_status",
                     name: "marital_status",
-                    disabled: _vm.isDisabled
+                    disabled: _vm.toEditMaritalStatus
                   },
                   domProps: { value: this.memberData.marital_status }
                 },
@@ -68485,79 +68878,671 @@ var render = function() {
                   ])
                 ]
               )
-            ])
-          ]),
-          _vm._v(" "),
-          !_vm.isHidden
-            ? _c("div", { staticClass: "form-group row" }, [
-                _c("div", { staticClass: "col-md-12" }, [
+            ]),
+            _vm._v(" "),
+            _vm.toEditMaritalStatus
+              ? _c("div", { staticClass: "col-sm-2" }, [
                   _c(
                     "button",
                     {
-                      staticClass: "btn btn-success float-right",
-                      attrs: { type: "submit" }
+                      staticClass: "btn btn-secondary btn-sm float-right mx-3",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.toEditMaritalStatus = false
+                        }
+                      }
                     },
-                    [_vm._v("Save changes")]
+                    [_vm._v("Edit")]
+                  )
+                ])
+              : _c("div", { staticClass: "col-sm-2" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger btn-sm float-right mx-1",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.toEditMaritalStatus = true
+                        }
+                      }
+                    },
+                    [_vm._v("Cancel")]
                   ),
                   _vm._v(" "),
                   _c(
                     "button",
                     {
-                      staticClass: "btn btn-danger float-right mx-3",
+                      staticClass: "btn btn-success btn-sm float-right mx-1",
+                      attrs: { type: "button" }
+                    },
+                    [_vm._v("Save")]
+                  )
+                ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      !_vm.isHidden
+        ? _c("div", { staticClass: "form-group row" }, [_vm._m(1)])
+        : _vm._e()
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-header" }, [_vm._v("Contact Information")]),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-body" }, [
+      _c(
+        "form",
+        { attrs: { method: "POST", enctype: "multipart/form-data" } },
+        [
+          _c("input", {
+            attrs: { type: "hidden", name: "_token" },
+            domProps: { value: _vm.csrf }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group row" }, [
+            _c(
+              "label",
+              {
+                staticClass: "col-sm-2 col-form-label",
+                attrs: { for: "email" }
+              },
+              [_vm._v("Email")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-8" }, [
+              _c("input", {
+                staticClass: "form-control",
+                attrs: {
+                  type: "email",
+                  id: "email",
+                  name: "email",
+                  disabled: _vm.toEditEmail
+                },
+                domProps: { value: this.memberData.email }
+              })
+            ]),
+            _vm._v(" "),
+            _vm.toEditEmail
+              ? _c("div", { staticClass: "col-sm-2" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary btn-sm float-right mx-3",
+                      attrs: { type: "button" },
                       on: {
-                        click: [
-                          function($event) {
-                            _vm.isHidden = true
-                          },
-                          function($event) {
-                            _vm.isDisabled = true
-                          }
-                        ]
+                        click: function($event) {
+                          _vm.toEditEmail = false
+                        }
+                      }
+                    },
+                    [_vm._v("Edit")]
+                  )
+                ])
+              : _c("div", { staticClass: "col-sm-2" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger btn-sm float-right mx-1",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.toEditEmail = true
+                        }
                       }
                     },
                     [_vm._v("Cancel")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success btn-sm float-right mx-1",
+                      attrs: { type: "button" }
+                    },
+                    [_vm._v("Save")]
                   )
                 ])
-              ])
-            : _vm._e()
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "form",
+        { attrs: { method: "POST", enctype: "multipart/form-data" } },
+        [
+          _c("input", {
+            attrs: { type: "hidden", name: "_token" },
+            domProps: { value: _vm.csrf }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group row" }, [
+            _c(
+              "label",
+              {
+                staticClass: "col-sm-2 col-form-label",
+                attrs: { for: "contact_number" }
+              },
+              [_vm._v("Contact Number")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-8" }, [
+              _c("input", {
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "contact_number",
+                  name: "contact_number",
+                  disabled: _vm.toEditContactNumber
+                },
+                domProps: { value: this.memberData.contact_number }
+              })
+            ]),
+            _vm._v(" "),
+            _vm.toEditContactNumber
+              ? _c("div", { staticClass: "col-sm-2" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary btn-sm float-right mx-3",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.toEditContactNumber = false
+                        }
+                      }
+                    },
+                    [_vm._v("Edit")]
+                  )
+                ])
+              : _c("div", { staticClass: "col-sm-2" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger btn-sm float-right mx-1",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.toEditContactNumber = true
+                        }
+                      }
+                    },
+                    [_vm._v("Cancel")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success btn-sm float-right mx-1",
+                      attrs: { type: "button" }
+                    },
+                    [_vm._v("Save")]
+                  )
+                ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "form",
+        { attrs: { method: "POST", enctype: "multipart/form-data" } },
+        [
+          _c("input", {
+            attrs: { type: "hidden", name: "_token" },
+            domProps: { value: _vm.csrf }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group row" }, [
+            _c(
+              "label",
+              {
+                staticClass: "col-sm-2 col-form-label",
+                attrs: { for: "address_line_1" }
+              },
+              [_vm._v("Address Line 1")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-8" }, [
+              _c("input", {
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "address_line_1",
+                  name: "address_line_1",
+                  disabled: _vm.toEditAddressLine1
+                },
+                domProps: { value: this.memberData.address_line_1 }
+              })
+            ]),
+            _vm._v(" "),
+            _vm.toEditAddressLine1
+              ? _c("div", { staticClass: "col-sm-2" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary btn-sm float-right mx-3",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.toEditAddressLine1 = false
+                        }
+                      }
+                    },
+                    [_vm._v("Edit")]
+                  )
+                ])
+              : _c("div", { staticClass: "col-sm-2" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger btn-sm float-right mx-1",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.toEditAddressLine1 = true
+                        }
+                      }
+                    },
+                    [_vm._v("Cancel")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success btn-sm float-right mx-1",
+                      attrs: { type: "button" }
+                    },
+                    [_vm._v("Save")]
+                  )
+                ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "form",
+        { attrs: { method: "POST", enctype: "multipart/form-data" } },
+        [
+          _c("input", {
+            attrs: { type: "hidden", name: "_token" },
+            domProps: { value: _vm.csrf }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group row" }, [
+            _c(
+              "label",
+              {
+                staticClass: "col-sm-2 col-form-label",
+                attrs: { for: "barangay" }
+              },
+              [_vm._v("Barangay")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-8" }, [
+              _c("input", {
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "barangay",
+                  name: "barangay",
+                  disabled: _vm.toEditBarangay
+                },
+                domProps: { value: this.memberData.barangay }
+              })
+            ]),
+            _vm._v(" "),
+            _vm.toEditBarangay
+              ? _c("div", { staticClass: "col-sm-2" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary btn-sm float-right mx-3",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.toEditBarangay = false
+                        }
+                      }
+                    },
+                    [_vm._v("Edit")]
+                  )
+                ])
+              : _c("div", { staticClass: "col-sm-2" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger btn-sm float-right mx-1",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.toEditBarangay = true
+                        }
+                      }
+                    },
+                    [_vm._v("Cancel")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success btn-sm float-right mx-1",
+                      attrs: { type: "button" }
+                    },
+                    [_vm._v("Save")]
+                  )
+                ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "form",
+        { attrs: { method: "POST", enctype: "multipart/form-data" } },
+        [
+          _c("input", {
+            attrs: { type: "hidden", name: "_token" },
+            domProps: { value: _vm.csrf }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group row" }, [
+            _c(
+              "label",
+              {
+                staticClass: "col-sm-2 col-form-label",
+                attrs: { for: "city" }
+              },
+              [_vm._v("City")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-8" }, [
+              _c("input", {
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "city",
+                  name: "city",
+                  disabled: _vm.toEditCity
+                },
+                domProps: { value: this.memberData.address_line_1 }
+              })
+            ]),
+            _vm._v(" "),
+            _vm.toEditCity
+              ? _c("div", { staticClass: "col-sm-2" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary btn-sm float-right mx-3",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.toEditCity = false
+                        }
+                      }
+                    },
+                    [_vm._v("Edit")]
+                  )
+                ])
+              : _c("div", { staticClass: "col-sm-2" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger btn-sm float-right mx-1",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.toEditCity = true
+                        }
+                      }
+                    },
+                    [_vm._v("Cancel")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success btn-sm float-right mx-1",
+                      attrs: { type: "button" }
+                    },
+                    [_vm._v("Save")]
+                  )
+                ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "form",
+        { attrs: { method: "POST", enctype: "multipart/form-data" } },
+        [
+          _c("input", {
+            attrs: { type: "hidden", name: "_token" },
+            domProps: { value: _vm.csrf }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group row" }, [
+            _c(
+              "label",
+              {
+                staticClass: "col-sm-2 col-form-label",
+                attrs: { for: "province" }
+              },
+              [_vm._v("Province")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-8" }, [
+              _c("input", {
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "province",
+                  name: "province",
+                  disabled: _vm.toEditCity
+                },
+                domProps: { value: this.memberData.province }
+              })
+            ]),
+            _vm._v(" "),
+            _vm.toEditProvince
+              ? _c("div", { staticClass: "col-sm-2" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary btn-sm float-right mx-3",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.toEditProvince = false
+                        }
+                      }
+                    },
+                    [_vm._v("Edit")]
+                  )
+                ])
+              : _c("div", { staticClass: "col-sm-2" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger btn-sm float-right mx-1",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.toEditProvince = true
+                        }
+                      }
+                    },
+                    [_vm._v("Cancel")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success btn-sm float-right mx-1",
+                      attrs: { type: "button" }
+                    },
+                    [_vm._v("Save")]
+                  )
+                ])
+          ])
         ]
       )
     ]),
     _vm._v(" "),
-    _vm._m(0),
+    _c("div", { staticClass: "card-header" }, [_vm._v("Membership Profile")]),
     _vm._v(" "),
     _c("div", { staticClass: "card-body" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("p", [_vm._v(" " + _vm._s(this.memberData.email))])
-      ]),
+      _c(
+        "form",
+        { attrs: { method: "POST", enctype: "multipart/form-data" } },
+        [
+          _c("input", {
+            attrs: { type: "hidden", name: "_token" },
+            domProps: { value: _vm.csrf }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group row" }, [
+            _c(
+              "label",
+              {
+                staticClass: "col-sm-2 col-form-label",
+                attrs: { for: "code" }
+              },
+              [_vm._v("Code")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-8" }, [
+              _c("input", {
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "code",
+                  name: "code",
+                  disabled: _vm.toEditCode
+                },
+                domProps: { value: this.memberData.code }
+              })
+            ]),
+            _vm._v(" "),
+            _vm.toEditCode
+              ? _c("div", { staticClass: "col-sm-2" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary btn-sm float-right mx-3",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.toEditCode = false
+                        }
+                      }
+                    },
+                    [_vm._v("Edit")]
+                  )
+                ])
+              : _c("div", { staticClass: "col-sm-2" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger btn-sm float-right mx-1",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.toEditCode = true
+                        }
+                      }
+                    },
+                    [_vm._v("Cancel")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success btn-sm float-right mx-1",
+                      attrs: { type: "button" }
+                    },
+                    [_vm._v("Save")]
+                  )
+                ])
+          ])
+        ]
+      ),
       _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("p", [_vm._v(" " + _vm._s(this.memberData.contact_number))])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("p", [
-          _vm._v(
-            " " +
-              _vm._s(this.memberData.address_line_1) +
-              " " +
-              _vm._s(this.memberData.barangay) +
-              " " +
-              _vm._s(this.memberData.city) +
-              " " +
-              _vm._s(this.memberData.province) +
-              " "
-          )
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _vm._m(1),
-    _vm._v(" "),
-    _c("div", { staticClass: "card-body" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("p", [_vm._v(" " + _vm._s(this.memberData.code))])
-      ]),
+      _c(
+        "form",
+        { attrs: { method: "POST", enctype: "multipart/form-data" } },
+        [
+          _c("input", {
+            attrs: { type: "hidden", name: "_token" },
+            domProps: { value: _vm.csrf }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group row" }, [
+            _c(
+              "label",
+              {
+                staticClass: "col-sm-2 col-form-label",
+                attrs: { for: "membership_status" }
+              },
+              [_vm._v("Membership Status")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-8" }, [
+              _c("input", {
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "membership_status",
+                  name: "membership_status",
+                  disabled: _vm.toEditmembershipStatus
+                },
+                domProps: { value: this.memberData.membership_status }
+              })
+            ]),
+            _vm._v(" "),
+            _vm.toEditmembershipStatus
+              ? _c("div", { staticClass: "col-sm-2" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary btn-sm float-right mx-3",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.toEditmembershipStatus = false
+                        }
+                      }
+                    },
+                    [_vm._v("Edit")]
+                  )
+                ])
+              : _c("div", { staticClass: "col-sm-2" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger btn-sm float-right mx-1",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.toEditmembershipStatus = true
+                        }
+                      }
+                    },
+                    [_vm._v("Cancel")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success btn-sm float-right mx-1",
+                      attrs: { type: "button" }
+                    },
+                    [_vm._v("Save")]
+                  )
+                ])
+          ])
+        ]
+      ),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("p", [_vm._v(" " + _vm._s(this.memberData.membership_status))])
@@ -68571,7 +69556,8 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _vm._v("Contact Information \n        \t"),
+      _vm._v("Personal Profile "),
+      _vm._v(" "),
       _c("div", { staticClass: "btn-group float-right" }, [
         _c(
           "button",
@@ -68591,7 +69577,7 @@ var staticRenderFns = [
           _c(
             "button",
             { staticClass: "dropdown-item", attrs: { type: "button" } },
-            [_vm._v("Edit")]
+            [_vm._v("Deactivate")]
           ),
           _vm._v(" "),
           _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
@@ -68605,35 +69591,15 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _vm._v("Membership Profile\n        \t"),
-      _c("div", { staticClass: "btn-group float-right" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-primary btn-sm dropdown-toggle",
-            attrs: {
-              type: "button",
-              "data-toggle": "dropdown",
-              "aria-haspopup": "true",
-              "aria-expanded": "false"
-            }
-          },
-          [_vm._v("\n\t\t\t    \tActions\n\t\t\t  \t")]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "dropdown-menu" }, [
-          _c(
-            "button",
-            { staticClass: "dropdown-item", attrs: { type: "button" } },
-            [_vm._v("Edit")]
-          ),
-          _vm._v(" "),
-          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-            _vm._v("Delete")
-          ])
-        ])
-      ])
+    return _c("div", { staticClass: "col-md-12" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-success float-right",
+          attrs: { type: "submit" }
+        },
+        [_vm._v("Save changes")]
+      )
     ])
   }
 ]
