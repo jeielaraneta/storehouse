@@ -1,5 +1,5 @@
 <template>
-	<div class="card">
+	<div class="card">		
         <div class="card-header">Personal Profile <!-- <font-awesome-icon icon="user-alt" /> -->
         	<div class="btn-group float-right">
 			  	<button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -9,16 +9,17 @@
 			  		<button class="dropdown-item" type="button">Deactivate</button>
 				    <a class="dropdown-item" href="#">Delete</a>
 			  	</div>
-			</div>
+			</div> 
         </div>
         <div class="card-body">
 
         	<form method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="_token" :value="csrf">
+                <input type="hidden" class="form-control" id="id" name="id" :value="this.memberData.id">
                 <div class="form-group row">
                 	<label for="first_name" class="col-sm-2 col-form-label">First Name</label>
 				    <div class="col-sm-8">
-				      <input type="text" class="form-control" id="first_name" name="first_name" :value="this.memberData.first_name" :disabled="toEditFirstName">
+				      	<input type="text" class="form-control" id="first_name" name="first_name" :value="this.memberData.first_name" :disabled="toEditFirstName">
 				    </div>
 
 				    <div class="col-sm-2" v-if="toEditFirstName">
@@ -302,12 +303,20 @@
 				</div>
 			</form>
 
-			<form method="POST" enctype="multipart/form-data">
+			<form method="POST" :action="this.updateMemberRoute" enctype="multipart/form-data">
                 <input type="hidden" name="_token" :value="csrf">
+                <input type="hidden" class="form-control" id="id" name="id" :value="this.memberData.id">
                 <div class="form-group row">
                 	<label for="membership_status" class="col-sm-2 col-form-label">Membership Status</label>
 				    <div class="col-sm-8">
-				      <input type="text" class="form-control" id="membership_status" name="membership_status" :value="this.memberData.membership_status" :disabled="toEditmembershipStatus">
+                        <select id="membership_status" class="custom-select custom-select mb-3" name="membership_status" :value="this.memberData.membership_status" :disabled="toEditmembershipStatus">
+                            <option selected>Select membership status</option>
+                            <option value="active">Active</option>
+                            <option value="regular attendee">Regular Attendee</option>
+                            <option value="visitor">Visitor</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+
 				    </div>
 
 				    <div class="col-sm-2" v-if="toEditmembershipStatus">
@@ -318,15 +327,11 @@
 
 				    	<button class="btn btn-danger btn-sm float-right mx-1" type="button" @click="toEditmembershipStatus = true">Cancel</button>
 
-				    	<button class="btn btn-success btn-sm float-right mx-1" type="button">Save</button>
+				    	<button class="btn btn-success btn-sm float-right mx-1" type="button" @click="update">Save</button>
 
 				    </div>
 				</div>
 			</form>
-        	
-        	<div class="row">
-        		<p> {{this.memberData.membership_status}}</p>
-        	</div>
         </div>
     </div>
 </template>
@@ -353,7 +358,7 @@
           	console.log('Component mounted.') 
       	},
 
-      	props: ['memberData', 'birthday'],
+      	props: ['memberData', 'birthday', 'updateMemberRoute'],
 
       	data() {
             return {
@@ -388,6 +393,21 @@
                 toEditmembershipStatus: true
             }
         },
+	    methods: {
+	      	update() {
+
+	      		var membership_status = $('#membership_status').val();
+
+	      		window.axios.put(this.updateMemberRoute, {membership_status: membership_status})
+	      			.then( response => {
+			      		console.log(response.data.success)
+			      		this.toEditmembershipStatus = true
+			    	});
+	      	},
+	      	del(id) {
+	        // To do
+	      	}
+	    }
   	}
 
 </script>

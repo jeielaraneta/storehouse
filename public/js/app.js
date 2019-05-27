@@ -11596,6 +11596,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /*	
 	DATETIME PICKER ICONS
@@ -11613,7 +11618,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     console.log('Component mounted.');
   },
-  props: ['memberData', 'birthday'],
+  props: ['memberData', 'birthday', 'updateMemberRoute'],
   data: function data() {
     return {
       options: {
@@ -11646,6 +11651,21 @@ __webpack_require__.r(__webpack_exports__);
       toEditCode: true,
       toEditmembershipStatus: true
     };
+  },
+  methods: {
+    update: function update() {
+      var _this = this;
+
+      var membership_status = $('#membership_status').val();
+      window.axios.put(this.updateMemberRoute, {
+        membership_status: membership_status
+      }).then(function (response) {
+        console.log(response.data.success);
+        _this.toEditmembershipStatus = true;
+      });
+    },
+    del: function del(id) {// To do
+    }
   }
 });
 
@@ -68521,6 +68541,12 @@ var render = function() {
             domProps: { value: _vm.csrf }
           }),
           _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control",
+            attrs: { type: "hidden", id: "id", name: "id" },
+            domProps: { value: this.memberData.id }
+          }),
+          _vm._v(" "),
           _c("div", { staticClass: "form-group row" }, [
             _c(
               "label",
@@ -69470,11 +69496,23 @@ var render = function() {
       _vm._v(" "),
       _c(
         "form",
-        { attrs: { method: "POST", enctype: "multipart/form-data" } },
+        {
+          attrs: {
+            method: "POST",
+            action: this.updateMemberRoute,
+            enctype: "multipart/form-data"
+          }
+        },
         [
           _c("input", {
             attrs: { type: "hidden", name: "_token" },
             domProps: { value: _vm.csrf }
+          }),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control",
+            attrs: { type: "hidden", id: "id", name: "id" },
+            domProps: { value: this.memberData.id }
           }),
           _vm._v(" "),
           _c("div", { staticClass: "form-group row" }, [
@@ -69488,16 +69526,39 @@ var render = function() {
             ),
             _vm._v(" "),
             _c("div", { staticClass: "col-sm-8" }, [
-              _c("input", {
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  id: "membership_status",
-                  name: "membership_status",
-                  disabled: _vm.toEditmembershipStatus
+              _c(
+                "select",
+                {
+                  staticClass: "custom-select custom-select mb-3",
+                  attrs: {
+                    id: "membership_status",
+                    name: "membership_status",
+                    disabled: _vm.toEditmembershipStatus
+                  },
+                  domProps: { value: this.memberData.membership_status }
                 },
-                domProps: { value: this.memberData.membership_status }
-              })
+                [
+                  _c("option", { attrs: { selected: "" } }, [
+                    _vm._v("Select membership status")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "active" } }, [
+                    _vm._v("Active")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "regular attendee" } }, [
+                    _vm._v("Regular Attendee")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "visitor" } }, [
+                    _vm._v("Visitor")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "inactive" } }, [
+                    _vm._v("Inactive")
+                  ])
+                ]
+              )
             ]),
             _vm._v(" "),
             _vm.toEditmembershipStatus
@@ -69535,18 +69596,15 @@ var render = function() {
                     "button",
                     {
                       staticClass: "btn btn-success btn-sm float-right mx-1",
-                      attrs: { type: "button" }
+                      attrs: { type: "button" },
+                      on: { click: _vm.update }
                     },
                     [_vm._v("Save")]
                   )
                 ])
           ])
         ]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("p", [_vm._v(" " + _vm._s(this.memberData.membership_status))])
-      ])
+      )
     ])
   ])
 }
