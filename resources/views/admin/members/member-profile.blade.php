@@ -28,6 +28,8 @@
                 </div><br />
             @endif
 
+            {{$memberData}}
+
             <member-profile-component :member-data="{{ json_encode($memberData) }}" update-member-route="{{ route('member.update', $memberData->id) }}"></member-profile-component>
 
      

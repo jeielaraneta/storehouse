@@ -11613,6 +11613,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /*	
 	DATETIME PICKER ICONS
@@ -11628,7 +11632,7 @@ __webpack_require__.r(__webpack_exports__);
 */
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
-    console.log('Component mounted.');
+    console.log(marital_status);
   },
   props: ['memberData', 'birthday', 'updateMemberRoute'],
   data: function data() {
@@ -11663,7 +11667,20 @@ __webpack_require__.r(__webpack_exports__);
       toEditCity: true,
       toEditProvince: true,
       toEditCode: true,
-      toEditmembershipStatus: true
+      toEditMembershipStatus: true,
+      first_name: this.memberData.first_name,
+      middle_name: this.memberData.middle_name,
+      last_name: this.memberData.last_name,
+      birth_day: this.memberData.birthday,
+      marital_status: this.memberData.martital_status,
+      email: this.memberData.email,
+      contact_number: this.memberData.contact_number,
+      address_line_1: this.memberData.address_line_1,
+      barangay: this.memberData.barangay,
+      city: this.memberData.city,
+      province: this.memberData.province,
+      code: this.memberData.code,
+      membership_status: this.memberData.membership_status
     };
   },
   methods: {
@@ -11843,7 +11860,7 @@ __webpack_require__.r(__webpack_exports__);
         membership_status: membership_status
       }).then(function (response) {
         console.log(response.data.success);
-        _this13.toEditmembershipStatus = true;
+        _this13.toEditMembershipStatus = true;
         _this13.isSuccesful = true;
         _this13.isHidden = false;
         _this13.alertMessage = response.data.success ? "Member's profile updated sucessfully!" : "Error";
@@ -68783,6 +68800,15 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "col-sm-8" }, [
                 _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model:value",
+                      value: _vm.first_name,
+                      expression: "first_name",
+                      arg: "value"
+                    }
+                  ],
                   staticClass: "form-control",
                   attrs: {
                     type: "text",
@@ -68790,7 +68816,15 @@ var render = function() {
                     name: "first_name",
                     disabled: _vm.toEditFirstName
                   },
-                  domProps: { value: this.memberData.first_name }
+                  domProps: { value: _vm.first_name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.first_name = $event.target.value
+                    }
+                  }
                 })
               ]),
               _vm._v(" "),
@@ -68868,6 +68902,15 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "col-sm-8" }, [
                 _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model:value",
+                      value: _vm.middle_name,
+                      expression: "middle_name",
+                      arg: "value"
+                    }
+                  ],
                   staticClass: "form-control",
                   attrs: {
                     type: "text",
@@ -68875,7 +68918,15 @@ var render = function() {
                     name: "middle_name",
                     disabled: _vm.toEditMiddleName
                   },
-                  domProps: { value: this.memberData.middle_name }
+                  domProps: { value: _vm.middle_name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.middle_name = $event.target.value
+                    }
+                  }
                 })
               ]),
               _vm._v(" "),
@@ -68953,6 +69004,15 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "col-sm-8" }, [
                 _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model:value",
+                      value: _vm.last_name,
+                      expression: "last_name",
+                      arg: "value"
+                    }
+                  ],
                   staticClass: "form-control",
                   attrs: {
                     type: "text",
@@ -68960,7 +69020,15 @@ var render = function() {
                     name: "last_name",
                     disabled: _vm.toEditLastName
                   },
-                  domProps: { value: this.memberData.last_name }
+                  domProps: { value: _vm.last_name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.last_name = $event.target.value
+                    }
+                  }
                 })
               ]),
               _vm._v(" "),
@@ -69040,38 +69108,22 @@ var render = function() {
                 "div",
                 { staticClass: "col-sm-8" },
                 [
-                  _vm.toEditBirthday
-                    ? _c("input", {
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          id: "last_name",
-                          name: "last_name",
-                          disabled: ""
-                        },
-                        domProps: { value: this.memberData.birthday },
-                        on: {
-                          click: function($event) {
-                            _vm.isHidden = true
-                          }
-                        }
-                      })
-                    : _c("date-picker", {
-                        attrs: {
-                          id: "birthday",
-                          name: "birthday",
-                          value: _vm.birthday,
-                          config: _vm.options,
-                          autocomplete: "off"
-                        },
-                        model: {
-                          value: _vm.birthday,
-                          callback: function($$v) {
-                            _vm.birthday = $$v
-                          },
-                          expression: "birthday"
-                        }
-                      })
+                  _c("date-picker", {
+                    attrs: {
+                      id: "birthday",
+                      name: "birthday",
+                      config: _vm.options,
+                      autocomplete: "off",
+                      disabled: _vm.toEditBirthday
+                    },
+                    model: {
+                      value: _vm.birth_day,
+                      callback: function($$v) {
+                        _vm.birth_day = $$v
+                      },
+                      expression: "birth_day"
+                    }
+                  })
                 ],
                 1
               ),
@@ -69152,16 +69204,39 @@ var render = function() {
                 _c(
                   "select",
                   {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model:value",
+                        value: _vm.marital_status,
+                        expression: "marital_status",
+                        arg: "value"
+                      }
+                    ],
                     staticClass: "custom-select custom-select mb-3",
                     attrs: {
                       id: "marital_status",
                       name: "marital_status",
                       disabled: _vm.toEditMaritalStatus
                     },
-                    domProps: { value: this.memberData.marital_status }
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.marital_status = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
                   },
                   [
-                    _c("option", { attrs: { selected: "" } }, [
+                    _c("option", { attrs: { disabled: "", selected: "" } }, [
                       _vm._v("Select martital status")
                     ]),
                     _vm._v(" "),
@@ -69268,6 +69343,15 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "col-sm-8" }, [
                 _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model:value",
+                      value: _vm.email,
+                      expression: "email",
+                      arg: "value"
+                    }
+                  ],
                   staticClass: "form-control",
                   attrs: {
                     type: "email",
@@ -69275,7 +69359,15 @@ var render = function() {
                     name: "email",
                     disabled: _vm.toEditEmail
                   },
-                  domProps: { value: this.memberData.email }
+                  domProps: { value: _vm.email },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.email = $event.target.value
+                    }
+                  }
                 })
               ]),
               _vm._v(" "),
@@ -69353,6 +69445,15 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "col-sm-8" }, [
                 _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model:value",
+                      value: _vm.contact_number,
+                      expression: "contact_number",
+                      arg: "value"
+                    }
+                  ],
                   staticClass: "form-control",
                   attrs: {
                     type: "text",
@@ -69360,7 +69461,15 @@ var render = function() {
                     name: "contact_number",
                     disabled: _vm.toEditContactNumber
                   },
-                  domProps: { value: this.memberData.contact_number }
+                  domProps: { value: _vm.contact_number },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.contact_number = $event.target.value
+                    }
+                  }
                 })
               ]),
               _vm._v(" "),
@@ -69438,6 +69547,15 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "col-sm-8" }, [
                 _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model:value",
+                      value: _vm.address_line_1,
+                      expression: "address_line_1",
+                      arg: "value"
+                    }
+                  ],
                   staticClass: "form-control",
                   attrs: {
                     type: "text",
@@ -69445,7 +69563,15 @@ var render = function() {
                     name: "address_line_1",
                     disabled: _vm.toEditAddressLine1
                   },
-                  domProps: { value: this.memberData.address_line_1 }
+                  domProps: { value: _vm.address_line_1 },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.address_line_1 = $event.target.value
+                    }
+                  }
                 })
               ]),
               _vm._v(" "),
@@ -69523,6 +69649,15 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "col-sm-8" }, [
                 _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model:value",
+                      value: _vm.barangay,
+                      expression: "barangay",
+                      arg: "value"
+                    }
+                  ],
                   staticClass: "form-control",
                   attrs: {
                     type: "text",
@@ -69530,7 +69665,15 @@ var render = function() {
                     name: "barangay",
                     disabled: _vm.toEditBarangay
                   },
-                  domProps: { value: this.memberData.barangay }
+                  domProps: { value: _vm.barangay },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.barangay = $event.target.value
+                    }
+                  }
                 })
               ]),
               _vm._v(" "),
@@ -69608,6 +69751,15 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "col-sm-8" }, [
                 _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model:value",
+                      value: _vm.city,
+                      expression: "city",
+                      arg: "value"
+                    }
+                  ],
                   staticClass: "form-control",
                   attrs: {
                     type: "text",
@@ -69615,7 +69767,15 @@ var render = function() {
                     name: "city",
                     disabled: _vm.toEditCity
                   },
-                  domProps: { value: this.memberData.address_line_1 }
+                  domProps: { value: _vm.city },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.city = $event.target.value
+                    }
+                  }
                 })
               ]),
               _vm._v(" "),
@@ -69693,14 +69853,31 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "col-sm-8" }, [
                 _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model:value",
+                      value: _vm.province,
+                      expression: "province",
+                      arg: "value"
+                    }
+                  ],
                   staticClass: "form-control",
                   attrs: {
                     type: "text",
                     id: "province",
                     name: "province",
-                    disabled: _vm.toEditCity
+                    disabled: _vm.toEditProvince
                   },
-                  domProps: { value: this.memberData.province }
+                  domProps: { value: _vm.province },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.province = $event.target.value
+                    }
+                  }
                 })
               ]),
               _vm._v(" "),
@@ -69782,6 +69959,15 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "col-sm-8" }, [
                 _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model:value",
+                      value: _vm.code,
+                      expression: "code",
+                      arg: "value"
+                    }
+                  ],
                   staticClass: "form-control",
                   attrs: {
                     type: "text",
@@ -69789,7 +69975,15 @@ var render = function() {
                     name: "code",
                     disabled: _vm.toEditCode
                   },
-                  domProps: { value: this.memberData.code }
+                  domProps: { value: _vm.code },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.code = $event.target.value
+                    }
+                  }
                 })
               ]),
               _vm._v(" "),
@@ -69848,13 +70042,7 @@ var render = function() {
         _vm._v(" "),
         _c(
           "form",
-          {
-            attrs: {
-              method: "POST",
-              action: this.updateMemberRoute,
-              enctype: "multipart/form-data"
-            }
-          },
+          { attrs: { method: "POST", enctype: "multipart/form-data" } },
           [
             _c("input", {
               attrs: { type: "hidden", name: "_token" },
@@ -69875,16 +70063,39 @@ var render = function() {
                 _c(
                   "select",
                   {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model:value",
+                        value: _vm.membership_status,
+                        expression: "membership_status",
+                        arg: "value"
+                      }
+                    ],
                     staticClass: "custom-select custom-select mb-3",
                     attrs: {
                       id: "membership_status",
                       name: "membership_status",
                       disabled: _vm.toEditMembershipStatus
                     },
-                    domProps: { value: this.memberData.membership_status }
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.membership_status = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
                   },
                   [
-                    _c("option", { attrs: { selected: "" } }, [
+                    _c("option", { attrs: { disabled: "", selected: "" } }, [
                       _vm._v("Select membership status")
                     ]),
                     _vm._v(" "),
