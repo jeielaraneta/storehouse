@@ -21,7 +21,7 @@ class MemberController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/member';
+    protected $redirectTo = '/members';
 
     /**
      * Create a new controller instance.
