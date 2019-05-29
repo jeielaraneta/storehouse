@@ -19,7 +19,7 @@ Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::prefix('/member')->group(function () {
+Route::prefix('/members')->group(function () {
 
     Route::get('/', 'MemberController@index')->name('member.index');
     Route::get('/create', 'MemberController@create')->name('member.create');
@@ -29,7 +29,7 @@ Route::prefix('/member')->group(function () {
 
 });
 
-Route::prefix('/record')->group(function () {
+Route::prefix('/records')->group(function () {
 
     Route::get('/', 'RecordController@index')->name('record.index');
     Route::get('/create', 'RecordController@create')->name('record.create');
