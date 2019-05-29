@@ -25,5 +25,6 @@ Route::prefix('/member')->group(function () {
     Route::get('/create', 'MemberController@create')->name('member.create');
     Route::post('/store', 'MemberController@store')->name('member.store');
     Route::get('/show/{id}', 'MemberController@show')->name('member.show');
+    Route::put('/update/{id}', 'MemberController@update')->name('member.update');
 
 });

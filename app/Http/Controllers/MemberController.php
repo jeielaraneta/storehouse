@@ -7,6 +7,8 @@ use App\Models\CredentialsGenerator;
 use App\Http\Resources\MemberResource;
 use App\Http\Requests\StoreNewMember;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Support\Facades\Validator;
 
 class MemberController extends Controller
@@ -104,9 +106,13 @@ class MemberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, $id) {
+
+        $memberProfile = $this->member->find($id);
+
+        $update = $memberProfile->update($request->all());
+
+        return response()->json([ 'success' => $update ? true : false]);
     }
 
     /**
