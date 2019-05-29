@@ -28,3 +28,10 @@ Route::prefix('/member')->group(function () {
     Route::put('/update/{id}', 'MemberController@update')->name('member.update');
 
 });
+
+Route::prefix('/record')->group(function () {
+
+    Route::get('/', 'RecordController@index')->name('record.index');
+    Route::get('/create', 'RecordController@create')->name('record.create');
+
+});

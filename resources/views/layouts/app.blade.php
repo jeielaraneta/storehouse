@@ -60,6 +60,9 @@
                             @endif
                         @else
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('record.index') }}">{{ __('Records') }}</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('member.index') }}">{{ __('Members') }}</a>
                             </li>
                             <li class="nav-item dropdown">
