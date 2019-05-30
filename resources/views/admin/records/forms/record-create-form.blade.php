@@ -23,6 +23,8 @@
                 </div><br />
             @endif
 
+            <record-create-form submit-record-route="{{ route('record.store') }}"></record-create-form>
+
         </div>
     </div>
 </div>

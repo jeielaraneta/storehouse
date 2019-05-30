@@ -84,7 +84,7 @@ class MemberController extends Controller
 
         $this->member->save();
 
-        return redirect('member')->with('status', 'New member added!');
+        return redirect('members')->with('status', 'New member added!');
     }
 
     /**

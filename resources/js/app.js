@@ -47,6 +47,10 @@ Vue.component('member-create-button', require('./components/member/buttons/Membe
 Vue.component('member-create-form', require('./components/member/forms/MemberCreateForm.vue').default);
 Vue.component('member-show-button', require('./components/member/buttons/MemberShowButton.vue').default);
 
+Vue.component('record-create-button', require('./components/record/buttons/RecordCreateButton.vue').default);
+Vue.component('record-create-form', require('./components/record/forms/RecordCreateForm.vue').default);
+
+
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.component('date-picker', datePicker);

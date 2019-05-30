@@ -33,5 +33,6 @@ Route::prefix('/records')->group(function () {
 
     Route::get('/', 'RecordController@index')->name('record.index');
     Route::get('/create', 'RecordController@create')->name('record.create');
+    Route::post('/store', 'RecordController@store')->name('record.store');
 
 });
