@@ -63,7 +63,7 @@ class MemberController extends Controller
      */
     public function store(StoreNewMember $request) {
 
-        $memberCode = new CredentialsGenerator();
+        $memberCode = new RandomTextGenerator();
 
         $validated = $request->validated();
 

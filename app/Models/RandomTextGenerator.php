@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CredentialsGenerator extends Model
+class RandomTextGenerator extends Model
 {
      /**
      *
@@ -69,7 +69,7 @@ class CredentialsGenerator extends Model
      *
      * @return string
     */
-    public function generateReferenceCode()
+    public function generateGiverCode()
     {
         $string_set = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $password = '';

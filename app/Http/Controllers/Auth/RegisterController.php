@@ -33,16 +33,16 @@ class RegisterController extends Controller
      */
     protected $redirectTo = '/home';
 
-    protected $credGen;
+    protected $randTextGen;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(CredentialsGenerator $credGen)
+    public function __construct(RandomTextGenerator $randTextGen)
     {
-        $this->credGen = $credGen;
+        $this->randTextGen = $randTextGen;
         $this->middleware('guest');
     }
 
@@ -89,7 +89,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'username' => $this->credGen->generateUsername($data['first_name'], $data['middle_name'], $data['last_name']),
+            'username' => $this->randTextGen->generateUsername($data['first_name'], $data['middle_name'], $data['last_name']),
             'first_name' => $data['first_name'],
             'middle_name' => $data['middle_name'],
             'last_name' => $data['last_name'],

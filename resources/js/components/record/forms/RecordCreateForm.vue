@@ -1,18 +1,38 @@
 <template>
     <div class="card">
-        <div class="card-header">Create New Member</div>
+        <div class="card-header">Create New Record</div>
         <div class="card-body">
-            <form method="POST" :action="this.submitMemberRoute" enctype="multipart/form-data">
+            <form method="POST" :action="this.submitRecordRoute" enctype="multipart/form-data">
                 <input type="hidden" name="_token" :value="csrf">
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="reference_no">Reference No.</label>
-                        <input type="text" class="form-control" id="reference_no" name="reference_no">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="record_type" id="record_type1" value="dd">
+                            <label class="form-check-label" for="record_type1">Direct Deposit</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="record_type" id="record_type2" value="ob">
+                            <label class="form-check-label" for="record_type2">Offering Box</label>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="anonymous" v-model="isAnonymous">
+                            <label class="form-check-label" for="anonymous">
+                                Anonymous Giver
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="gic">Giver Identification Code</label>
+                        <input type="text" class="form-control" id="gic" name="gic" :disabled="isAnonymous">
                     </div>
 
                     <div class="form-group col-md-6">
                         <label for="member_id">Member's Name</label>
-                        <input type="text" class="form-control" id="member_id" name="member_id">
+                        <input type="text" class="form-control" id="member_id" name="member_id" :disabled="isAnonymous">
                     </div>
                 </div>
                 <div class="form-row">
@@ -30,7 +50,7 @@
                     </div>
                     <div class="form-group col-md-4">
                         <label for="givent_at">Given At</label>
-                        <date-picker id="givent_at" name="givent_at" v-bind:value="givent_at" :config="options"></date-picker>
+                        <date-picker id="givent_at" name="givent_at" v-bind:value="givent_at" autocomplete="off" :config="options"></date-picker>
                     </div>
 
                      <div class="form-group col-md-4">
@@ -101,7 +121,9 @@
                         close: 'far fa-times-circle'
                     }
                 },
-                csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+
+                isAnonymous: false,
             }
         },
         mounted() {
