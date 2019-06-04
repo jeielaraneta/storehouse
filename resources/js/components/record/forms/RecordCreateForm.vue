@@ -140,7 +140,7 @@
             return {
                 des_offerings: [
                     {
-                        amount: '',
+                        amount: 0,
                         designation: 'select',
                         designated_for: ''
                     }
@@ -179,7 +179,7 @@
             resetForm(e){
                 this.des_offerings = [
                     {
-                        amount: '',
+                        amount: 0,
                         designation: 'select',
                         designated_for: ''
                     }

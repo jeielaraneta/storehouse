@@ -12225,7 +12225,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       des_offerings: [{
-        amount: '',
+        amount: 0,
         designation: 'select',
         designated_for: ''
       }],
@@ -12266,7 +12266,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     resetForm: function resetForm(e) {
       this.des_offerings = [{
-        amount: '',
+        amount: 0,
         designation: 'select',
         designated_for: ''
       }];
