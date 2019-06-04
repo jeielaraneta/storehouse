@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-header">Create New Record</div>
         <div class="card-body">
-            <form method="POST" :action="this.submitRecordRoute" enctype="multipart/form-data">
+            <form method="POST" :action="this.submitRecordRoute" enctype="multipart/form-data" @reset.prevent="resetForm">
                 <input type="hidden" name="_token" :value="csrf">
                 <div class="form-row">
                     <div class="form-group col-md-6">
@@ -81,23 +81,53 @@
                 </div>
 
                 <div class="form-row">
+                    <label for="designation">Special Offering</label>
+                </div>
+                
+                <div class="form-row" v-for="(input,k) in des_offerings" :key="k">
                     <div class="form-group col-md-4">
-                        <label for="special_offering">Special Offering</label>
-                        <input type="text" class="form-control" id="special_offering" name="special_offering">
+                        <select id="designation" class="custom-select custom-select mb-3" name="designation" v-model="input.designation">
+                            <option disabled selected value="select">Select designation</option>
+                            <option value="ce">C.E Ministry</option>
+                            <option value="music">Music Ministry</option>
+                            <option value="outreach">Community Outreach Ministry</option>
+                            <option value="local_missions">Local Missions</option>
+                            <option value="intl_missions">International Missions</option>
+                            <option value="others">Others</option>
+                        </select>
                     </div>
 
-                    <div class="form-group col-md-8">
-                        <label for="designation">Designation</label>
-                        <input type="text" class="form-control" id="designation" name="designation">
+                    <div class="form-group col-md-4" v-if="input.designation == 'others'">
+                        <input type="text" id="designated_for" name="designated_for" class="form-control" v-model="input.designated_for" placeholder="Designated for">
                     </div>
-                </div>  
-                
+
+                    <div class="form-group col-md-2">
+                        <input type="text" id="designated_amount" name="designated_amount" class="form-control" v-model.number="input.amount" placeholder="Enter amount">
+                    </div>
+
+                    <div class="form-group col-md-2">
+                        <span>
+                            <i class="fas fa-minus-circle fa-lg" @click="remove(k)" v-show="k || ( !k && des_offerings.length > 1)"></i>
+                            <i class="fas fa-plus-circle fa-lg" @click="add(k)" v-show="k == des_offerings.length-1"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="total_amount" class="col-sm-2 col-form-label">Total Amount</label>
+                    <div class="col-md-2">
+                        <input type="text" id="total_amount" name="total_amount" class="form-control" :value="total_amount" disabled>
+                    </div>
+                    
+                </div>
+
                 <div class="form-group row">
                     <div class="col-md-12">
                         <button type="submit" class="btn btn-success float-right">Submit</button>
                         <button type="reset" class="btn btn-danger float-right mx-3">Cancel</button>
                     </div>
                 </div>
+
             </form>
         </div>
     </div>
@@ -108,6 +138,13 @@
         props: ['givent_at', 'submitRecordRoute'],
         data() {
             return {
+                des_offerings: [
+                    {
+                        amount: '',
+                        designation: 'select',
+                        designated_for: ''
+                    }
+                ],
                 options: {
                     format: 'MM/DD/YYYY',
                     useCurrent: false,
@@ -122,8 +159,32 @@
                     }
                 },
                 csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-
                 isAnonymous: false,
+            }
+        },
+        computed: {
+            total_amount() {
+                return this.des_offerings.reduce((total, input) => {
+                    return total + input.amount;
+                }, 0);
+            }
+        },
+        methods: {
+            add(index) {
+                this.des_offerings.push({ amount: '', designation: 'select', designated_for: ''});
+            },
+            remove(index) {
+                this.des_offerings.splice(index, 1);
+            },
+            resetForm(e){
+                this.des_offerings = [
+                    {
+                        amount: '',
+                        designation: 'select',
+                        designated_for: ''
+                    }
+                ];
+                this.isAnonymous = false;
             }
         },
         mounted() {
