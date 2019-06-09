@@ -129,11 +129,9 @@ class MemberController extends Controller
     /**
      * Get users for the data table.
      *
-     * @param Request $request
-     *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function getAllMembers()
+    public function getCodeAndNameOfAllMembers()
     {
         $member = $this->member->all();
         return MemberResource::collection($member);

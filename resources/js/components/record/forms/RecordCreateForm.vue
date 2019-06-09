@@ -25,14 +25,9 @@
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="gic">Giver Identification Code</label>
-                        <input type="text" class="form-control" id="gic" name="gic" :disabled="isAnonymous">
-                    </div>
-
-                    <div class="form-group col-md-6">
-                        <label for="member_id">Member's Name</label>
-                        <input type="text" class="form-control" id="member_id" name="member_id" :disabled="isAnonymous">
+                    <div class="form-group col-md-12">
+                        <label for="member_id">Member's Name or Giver Indentification Code (GIC) </label>
+                        <multiselect v-model="initValue" :options="searchValues" :custom-label="nameWithCode" placeholder="Search for Member's name or GIC" label="name" track-by="name" id="member_id" name="member_id" :disabled="isAnonymous"></multiselect>
                     </div>
                 </div>
                 <div class="form-row">
@@ -66,17 +61,17 @@
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label for="tithe_amount">Tithe</label>
-                        <input type="text" class="form-control" id="tithe_amount" name="tithe_amount">
+                        <input type="text" class="form-control" id="tithe_amount" v-model.number="tithe" name="tithe_amount">
                     </div>
 
                     <div class="form-group col-md-4">
                         <label for="love_amount">Love</label>
-                        <input type="text" class="form-control" id="love_amount" name="love_amount">
+                        <input type="text" class="form-control" id="love_amount" v-model.number="love" name="love_amount">
                     </div>
 
                     <div class="form-group col-md-4">
                         <label for="faith_amount">Faith</label>
-                        <input type="text" class="form-control" id="faith_amount" name="faith_amount">
+                        <input type="text" class="form-control" id="faith_amount" v-model.number="faith" name="faith_amount">
                     </div>
                 </div>
 
@@ -118,8 +113,11 @@
                     <div class="col-md-2">
                         <input type="text" id="total_amount" name="total_amount" class="form-control" :value="total_amount" disabled>
                     </div>
-                    
                 </div>
+
+                <!-- <label class="typo__label">Member's Name</label>
+                        <multiselect v-model="value" :options="searchValues" :custom-label="nameWithCode" placeholder="Select one" label="name" track-by="name"></multiselect>
+                <pre class="language-json"><code>{{ value  }}</code></pre> -->
 
                 <div class="form-group row">
                     <div class="col-md-12">
@@ -135,9 +133,12 @@
 
 <script>
     export default {
-        props: ['givent_at', 'submitRecordRoute'],
+        props: ['givent_at', 'submitRecordRoute', 'memberSearch', 'memberSearchRoute'],
         data() {
             return {
+                tithe: 0,
+                faith: 0,
+                love: 0,
                 des_offerings: [
                     {
                         amount: 0,
@@ -158,6 +159,19 @@
                         close: 'far fa-times-circle'
                     }
                 },
+
+                /*value: { name: 'Vue.js', language: 'JavaScript' },
+                option: [
+                    { name: 'Vue.js', language: 'JavaScript' },
+                    { name: 'Rails', language: 'Ruby' },
+                    { name: 'Sinatra', language: 'Ruby' },
+                    { name: 'Laravel', language: 'PHP' },
+                    { name: 'Phoenix', language: 'Elixir' }
+                ],*/
+
+                initValue: [],
+                searchValues: [],
+
                 csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                 isAnonymous: false,
             }
@@ -165,7 +179,7 @@
         computed: {
             total_amount() {
                 return this.des_offerings.reduce((total, input) => {
-                    return total + input.amount;
+                    return total + input.amount; // + this.tithe + this.love + this.faith;
                 }, 0);
             }
         },
@@ -173,9 +187,11 @@
             add(index) {
                 this.des_offerings.push({ amount: '', designation: 'select', designated_for: ''});
             },
+
             remove(index) {
                 this.des_offerings.splice(index, 1);
             },
+
             resetForm(e){
                 this.des_offerings = [
                     {
@@ -185,9 +201,23 @@
                     }
                 ];
                 this.isAnonymous = false;
+            },
+
+            nameWithCode ({ name, code }) {
+                return `${name} — [${code}]`
+            },
+
+            searchMembers() {
+                window.axios.get(this.memberSearchRoute)
+                    .then( response => {
+                        this.searchValues = response.data.data;
+                        this.initValue = response.data.data[0];
+                });
             }
+
         },
         mounted() {
+            this.searchMembers();
             console.log('Component mounted.')
         }
     }

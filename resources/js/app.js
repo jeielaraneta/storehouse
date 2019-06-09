@@ -30,6 +30,11 @@ import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
 
 Vue.use(datePicker);
 
+
+import Multiselect from 'vue-multiselect';
+
+Vue.component('multiselect', Multiselect)
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

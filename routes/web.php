@@ -26,6 +26,7 @@ Route::prefix('/members')->group(function () {
     Route::post('/store', 'MemberController@store')->name('member.store');
     Route::get('/show/{id}', 'MemberController@show')->name('member.show');
     Route::put('/update/{id}', 'MemberController@update')->name('member.update');
+    Route::get('/search', 'MemberController@getCodeAndNameOfAllMembers')->name('member.search');
 
 });
 
