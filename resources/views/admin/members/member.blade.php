@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container-fluid">
 
     <div class="row mb-2 text-left">
         <div class="col-md-12 ">
@@ -35,7 +35,7 @@
             @endif
 
             <div class="card">
-                <div class="card-header">Members</div>
+                <div class="card-header bg-transparent border-primary"><h5>Members</h5></div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="membersTable" class="table table-bordered table-striped display cell-border" style="width:100%">

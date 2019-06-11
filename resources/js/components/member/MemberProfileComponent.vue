@@ -16,18 +16,25 @@
 		    </div>
 		</div>
 		
-
 		<div class="card">		
-	        <div class="card-header">Personal Profile <!-- <font-awesome-icon icon="user-alt" /> -->
-	        	<div class="btn-group float-right">
-				  	<button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				    	Actions
-				  	</button>
-				  	<div class="dropdown-menu">
-				  		<button class="dropdown-item" type="button">Deactivate</button>
-					    <a class="dropdown-item" href="#">Delete</a>
-				  	</div>
-				</div> 
+	        <div class="card-header bg-transparent border-primary">
+	        	<div class="row">
+		        	<div class="col-md-6">
+		        		<h5>Personal Profile</h5>
+		        	</div>
+		        	<div class="col-md-6">
+		        		<div class=" btn-group float-right">
+					  		<button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    	Actions
+						  	</button>
+						  	<div class="dropdown-menu">
+						  		<button class="dropdown-item" type="button">Deactivate</button>
+							    <a class="dropdown-item" href="#">Delete</a>
+						  	</div>
+						</div> 
+
+		        	</div>
+				</div>
 	        </div>
 	        <div class="card-body">
 
@@ -158,7 +165,7 @@
 
 	        </div>
 
-	        <div class="card-header">Contact Information</div>
+	        <div class="card-header bg-transparent border-primary"> <h5>Contact Information</h5> </div>
 	        <div class="card-body">
 	        	<form method="POST" enctype="multipart/form-data">
 	                <input type="hidden" name="_token" :value="csrf">
@@ -293,7 +300,7 @@
 				</form>
 	        </div>
 
-	        <div class="card-header">Membership Profile</div>
+	        <div class="card-header bg-transparent border-primary"><h5>Membership Profile</h5></div>
 	        <div class="card-body">
 	        	<form method="POST" enctype="multipart/form-data">
 	                <input type="hidden" name="_token" :value="csrf">

@@ -19,10 +19,7 @@ class MemberResource extends JsonResource
 
         return [
             'code' => $this->code,
-            'name' => $this->first_name . ' ' . $this->last_name,
-            'email' => $this->email,
-            'membership_status' => $this->membership_status,
-            'created_at' => Carbon::parse($this->created_at)->toDayDateTimeString(),
+            'name' => $this->first_name . ' ' . $this->last_name
         ];
         //return parent::toArray($request);
     }

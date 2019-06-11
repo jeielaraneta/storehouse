@@ -21,7 +21,7 @@ class MemberController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/member';
+    protected $redirectTo = '/members';
 
     /**
      * Create a new controller instance.
@@ -63,7 +63,7 @@ class MemberController extends Controller
      */
     public function store(StoreNewMember $request) {
 
-        $memberCode = new CredentialsGenerator();
+        $memberCode = new RandomTextGenerator();
 
         $validated = $request->validated();
 
@@ -84,7 +84,7 @@ class MemberController extends Controller
 
         $this->member->save();
 
-        return redirect('member')->with('status', 'New member added!');
+        return redirect('members')->with('status', 'New member added!');
     }
 
     /**
@@ -129,11 +129,9 @@ class MemberController extends Controller
     /**
      * Get users for the data table.
      *
-     * @param Request $request
-     *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function getAllMembers()
+    public function getCodeAndNameOfAllMembers()
     {
         $member = $this->member->all();
         return MemberResource::collection($member);
