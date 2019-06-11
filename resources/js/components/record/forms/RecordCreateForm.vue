@@ -1,6 +1,6 @@
 <template>
-    <div class="card">
-        <div class="card-header">Create New Record</div>
+    <div class="card" >
+        <div class="card-header bg-transparent border-primary"><h5>Create New Record</h5></div>
         <div class="card-body">
             <form method="POST" :action="this.submitRecordRoute" enctype="multipart/form-data" @reset.prevent="resetForm">
                 <input type="hidden" name="_token" :value="csrf">
@@ -8,7 +8,7 @@
                     <div class="form-group col-md-6">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="record_type" id="record_type1" value="dd">
-                            <label class="form-check-label" for="record_type1">Direct Deposit</label>
+                            <label class="form-check-label" for="record_type1">Bank Deposit</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="record_type" id="record_type2" value="ob">
@@ -61,17 +61,17 @@
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label for="tithe_amount">Tithe</label>
-                        <input type="text" class="form-control" id="tithe_amount" v-model.number="tithe" name="tithe_amount">
+                        <input type="number" class="form-control" id="tithe_amount" v-model.number="tithe" name="tithe_amount">
                     </div>
 
                     <div class="form-group col-md-4">
                         <label for="love_amount">Love</label>
-                        <input type="text" class="form-control" id="love_amount" v-model.number="love" name="love_amount">
+                        <input type="number" class="form-control" id="love_amount" v-model.number="love" name="love_amount">
                     </div>
 
                     <div class="form-group col-md-4">
                         <label for="faith_amount">Faith</label>
-                        <input type="text" class="form-control" id="faith_amount" v-model.number="faith" name="faith_amount">
+                        <input type="number" class="form-control" id="faith_amount" v-model.number="faith" name="faith_amount">
                     </div>
                 </div>
 
@@ -97,7 +97,7 @@
                     </div>
 
                     <div class="form-group col-md-2">
-                        <input type="text" id="designated_amount" name="designated_amount" class="form-control" v-model.number="input.amount" placeholder="Enter amount">
+                        <input type="number" id="designated_amount" name="designated_amount" class="form-control amount" v-model.number="input.amount" placeholder="Enter amount">
                     </div>
 
                     <div class="form-group col-md-2">
@@ -115,9 +115,7 @@
                     </div>
                 </div>
 
-                <!-- <label class="typo__label">Member's Name</label>
-                        <multiselect v-model="value" :options="searchValues" :custom-label="nameWithCode" placeholder="Select one" label="name" track-by="name"></multiselect>
-                <pre class="language-json"><code>{{ value  }}</code></pre> -->
+                <!-- <pre class="language-json"><code>{{ value }}</code></pre> -->
 
                 <div class="form-group row">
                     <div class="col-md-12">
@@ -133,12 +131,16 @@
 
 <script>
     export default {
+
         props: ['givent_at', 'submitRecordRoute', 'memberSearch', 'memberSearchRoute'],
+
         data() {
             return {
+
                 tithe: 0,
                 faith: 0,
                 love: 0,
+
                 des_offerings: [
                     {
                         amount: 0,
@@ -146,6 +148,7 @@
                         designated_for: ''
                     }
                 ],
+
                 options: {
                     format: 'MM/DD/YYYY',
                     useCurrent: false,
@@ -160,15 +163,6 @@
                     }
                 },
 
-                /*value: { name: 'Vue.js', language: 'JavaScript' },
-                option: [
-                    { name: 'Vue.js', language: 'JavaScript' },
-                    { name: 'Rails', language: 'Ruby' },
-                    { name: 'Sinatra', language: 'Ruby' },
-                    { name: 'Laravel', language: 'PHP' },
-                    { name: 'Phoenix', language: 'Elixir' }
-                ],*/
-
                 initValue: [],
                 searchValues: [],
 
@@ -176,16 +170,20 @@
                 isAnonymous: false,
             }
         },
+
         computed: {
             total_amount() {
-                return this.des_offerings.reduce((total, input) => {
-                    return total + input.amount; // + this.tithe + this.love + this.faith;
+                var special_offering = this.des_offerings.reduce((total, input) => {
+                    return total + Number(input.amount);
                 }, 0);
+
+                return Number(this.tithe) + Number(this.love) + Number(this.faith) + special_offering;
             }
         },
+
         methods: {
             add(index) {
-                this.des_offerings.push({ amount: '', designation: 'select', designated_for: ''});
+                this.des_offerings.push({ amount: 0, designation: 'select', designated_for: ''});
             },
 
             remove(index) {
@@ -201,21 +199,25 @@
                     }
                 ];
                 this.isAnonymous = false;
+                this.initValue = "";
+                this.tithe = 0;
+                this.love = 0;
+                this.faith = 0;
             },
 
             nameWithCode ({ name, code }) {
-                return `${name} — [${code}]`
+                return `${name} — ${code}`
             },
 
             searchMembers() {
                 window.axios.get(this.memberSearchRoute)
                     .then( response => {
                         this.searchValues = response.data.data;
-                        this.initValue = response.data.data[0];
+                        this.initValue = "";
                 });
             }
-
         },
+
         mounted() {
             this.searchMembers();
             console.log('Component mounted.')

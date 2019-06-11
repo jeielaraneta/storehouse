@@ -12,15 +12,17 @@ window.Vue = require('vue');
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
-import { faUserAlt } from '@fortawesome/free-solid-svg-icons'
+import { faUsers } from '@fortawesome/free-solid-svg-icons'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import { faChartLine } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(faUserPlus)
-library.add(faUserAlt)
+library.add(faUsers)
 library.add(faChevronLeft)
 library.add(faChevronRight)
+library.add(faChartLine)
 
 /* import datepicker */
 

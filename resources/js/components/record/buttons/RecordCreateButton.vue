@@ -1,6 +1,6 @@
 <template>
 
-    <a role="button" :href="this.createRecordRoute" class="btn btn-primary float-right"><font-awesome-icon icon="user-plus" /> Add New Record</a>
+    <a role="button" :href="this.createRecordRoute" class="btn btn-primary float-right"><i class="fas fa-money-check-alt"></i> Add New Record</a>
                   
 </template>
 

@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <div class="card-header">Create New Member</div>
+        <div class="card-header bg-transparent border-primary"><h5>Create New Member</h5></div>
         <div class="card-body">
             <form method="POST" :action="this.submitMemberRoute" enctype="multipart/form-data">
                 <input type="hidden" name="_token" :value="csrf">
