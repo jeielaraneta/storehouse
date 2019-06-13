@@ -23,8 +23,6 @@ class CreateRecordsTable extends Migration
             $table->integer('tithe_amount')->nullable();
             $table->integer('love_amount')->nullable();
             $table->integer('faith_amount')->nullable();
-            $table->integer('special_offering')->nullable();
-            $table->string('designation', 75)->nullable();
             $table->integer('total_amount')->nullable();
             $table->timestamps();
         });

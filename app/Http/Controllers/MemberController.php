@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Member;
-use App\Models\CredentialsGenerator;
+use App\Models\RandomTextGenerator;
 use App\Http\Resources\MemberResource;
 use App\Http\Requests\StoreNewMember;
 use Illuminate\Http\Request;
