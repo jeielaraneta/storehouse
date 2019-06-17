@@ -11,25 +11,40 @@
                             <label class="form-check-label" for="record_type1">Bank Deposit</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="record_type" id="record_type2" value="ob">
+                            <input class="form-check-input" type="radio" name="record_type" id="record_type2" value="ob" checked="">
                             <label class="form-check-label" for="record_type2">Offering Box</label>
                         </div>
                     </div>
                     <div class="form-group col-md-6">
-                        <div class="form-check">
+                        <!-- <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="anonymous" v-model="isAnonymous">
                             <label class="form-check-label" for="anonymous">
                                 Anonymous Giver
                             </label>
-                        </div>
+                        </div> -->
+                        <select id="giver_type" class="custom-select custom-select mb-3" v-model="isSelected">
+                            <option disabled selected value="">Select Giver Type</option>
+                            <option value="identified">Identified Giver</option>
+                            <option selected value="anonymous">Anonymous</option>
+                            <option value="group">Group</option>
+                        </select>
                     </div>
                 </div>
-                <div class="form-row">
+                
+                <div class="form-row" v-show="isSelected == 'identified'">
                     <div class="form-group col-md-12">
                         <label for="member_id">Member's Name or Giver Indentification Code (GIC) </label>
-                        <multiselect v-model="initValue" :options="searchValues" :custom-label="nameWithCode" placeholder="Search for Member's name or GIC" label="name" track-by="name" id="member_id" name="member_id" :disabled="isAnonymous"></multiselect>
+                        <multiselect v-model="initValue" :options="searchValues" :custom-label="nameWithCode" placeholder="Search for Member's name or GIC" label="name" track-by="name" id="member_id" name="member_id"></multiselect>
                     </div>
                 </div>
+
+                <div class="form-row" v-show="isSelected == 'group'">
+                    <div class="form-group col-md-12">
+                        <label for="">Group's Name</label>
+                        <input type="text" class="form-control">
+                    </div>
+                </div>
+
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label for="service_type">Service Type</label>
@@ -167,7 +182,7 @@
                 searchValues: [],
 
                 csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                isAnonymous: false,
+                isSelected: '',
             }
         },
 

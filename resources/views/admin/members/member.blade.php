@@ -5,7 +5,7 @@
 
     <div class="row mb-2 text-left">
         <div class="col-md-12 ">
-            <member-create-button create-member-route="{{ route('member.create') }}"></member-create-button>
+            <create-button route="{{ route('member.create') }}" btn-text="Add New Member" btn-icon="user-plus"></create-button>
         </div>        
     </div>
 
@@ -58,7 +58,7 @@
                                             <td>{{$member->email}}</td>
                                             <td>{{$member->membership_status}}</td>
                                             <td>{{$member->created_at}}</td>
-                                            <td><member-show-button show-member-route="{{ route('member.show', $member->id) }}"></member-show-button></td>
+                                            <td><show-button route="{{ route('member.show', $member->id) }}" btn-text="View"></show-button></td>
                                         </tr>
                                     @endforeach
                                 @endif
