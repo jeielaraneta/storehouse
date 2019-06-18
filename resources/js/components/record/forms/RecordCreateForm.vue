@@ -23,9 +23,9 @@
                             </label>
                         </div> -->
                         <select id="giver_type" class="custom-select custom-select mb-3" v-model="isSelected" name="giver_type">
-                            <option disabled selected value="">Select Giver Type</option>
+                            <!-- <option disabled selected value="">Select Giver Type</option> -->
                             <option value="identified">Identified Giver</option>
-                            <option selected value="anonymous">Anonymous</option>
+                            <option selected value="">Anonymous Giver</option>
                             <option value="group">Group</option>
                         </select>
                     </div>
@@ -34,14 +34,14 @@
                 <div class="form-row" v-show="isSelected == 'identified'">
                     <div class="form-group col-md-12">
                         <label for="gic">Member's Name or Giver Indentification Code (GIC) </label>
-                        <multiselect v-model="initValue" :options="searchValues" :custom-label="nameWithCode" placeholder="Search for Member's name or GIC" label="name" track-by="name" id="gic" name="gic" :value="initValue.name"></multiselect>
+                        <multiselect v-model="initValue" :options="searchValues" :custom-label="nameWithCode" placeholder="Search for Member's name or GIC" label="name" track-by="name" id="gic" name="gic"></multiselect>
                     </div>
                 </div>
 
                 <div class="form-row" v-show="isSelected == 'group'">
                     <div class="form-group col-md-12">
                         <label for="">Group's Name</label>
-                        <input type="text" class="form-control" name="group_name">
+                        <input type="text" class="form-control" name="agc">
                     </div>
                 </div>
 
