@@ -70951,7 +70951,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "custom-select custom-select mb-3",
-                  attrs: { id: "giver_type" },
+                  attrs: { id: "giver_type", name: "giver_type" },
                   on: {
                     change: function($event) {
                       var $$selectedVal = Array.prototype.filter
@@ -71009,7 +71009,7 @@ var render = function() {
                 "div",
                 { staticClass: "form-group col-md-12" },
                 [
-                  _c("label", { attrs: { for: "member_id" } }, [
+                  _c("label", { attrs: { for: "gic" } }, [
                     _vm._v("Member's Name or Giver Indentification Code (GIC) ")
                   ]),
                   _vm._v(" "),
@@ -71020,8 +71020,9 @@ var render = function() {
                       placeholder: "Search for Member's name or GIC",
                       label: "name",
                       "track-by": "name",
-                      id: "member_id",
-                      name: "member_id"
+                      id: "gic",
+                      name: "gic",
+                      value: _vm.initValue.name
                     },
                     model: {
                       value: _vm.initValue,
@@ -71458,7 +71459,10 @@ var staticRenderFns = [
     return _c("div", { staticClass: "form-group col-md-12" }, [
       _c("label", { attrs: { for: "" } }, [_vm._v("Group's Name")]),
       _vm._v(" "),
-      _c("input", { staticClass: "form-control", attrs: { type: "text" } })
+      _c("input", {
+        staticClass: "form-control",
+        attrs: { type: "text", name: "group_name" }
+      })
     ])
   },
   function() {
