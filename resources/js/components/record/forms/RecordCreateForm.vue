@@ -7,11 +7,11 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="record_type" id="record_type1" value="dd">
+                            <input class="form-check-input" type="radio" name="record_type" id="record_type1" value="dd" v-model="record_type"> <!-- @input="submitValue" @change="submitValue" -->
                             <label class="form-check-label" for="record_type1">Bank Deposit</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="record_type" id="record_type2" value="ob" checked="">
+                            <input class="form-check-input" type="radio" name="record_type" id="record_type2" value="ob" v-model="record_type" checked="" >
                             <label class="form-check-label" for="record_type2">Offering Box</label>
                         </div>
                     </div>
@@ -30,21 +30,21 @@
                         </select>
                     </div>
                 </div>
-                
+                {{record_type}}
                 <div class="form-row" v-show="isSelected == 'identified'">
                     <div class="form-group col-md-12">
                         <label for="gic">Member's Name or Giver Indentification Code (GIC) </label>
-                        <multiselect v-model="initValue" :options="searchValues" :custom-label="nameWithCode" placeholder="Search for Member's name or GIC" label="name" track-by="name" id="gic" name="gic"></multiselect>
+                        <multiselect v-model="gic" :options="searchValues" :custom-label="nameWithCode" placeholder="Search for Member's name or GIC" label="name" track-by="name" id="gic" name="gic"></multiselect>
                     </div>
                 </div>
-
+                {{gic}}
                 <div class="form-row" v-show="isSelected == 'group'">
                     <div class="form-group col-md-12">
                         <label for="">Group's Name</label>
-                        <input type="text" class="form-control" name="agc">
+                        <input type="text" class="form-control" name="agc" v-model="agc">
                     </div>
                 </div>
-
+                {{agc}}
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label for="service_type">Service Type</label>
@@ -178,11 +178,17 @@
                     }
                 },
 
-                initValue: [],
                 searchValues: [],
 
                 csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                 isSelected: '',
+
+                gic: [],
+                record_type: [],
+                agc: [],
+                
+
+                //recordValues: []
             }
         },
 
@@ -214,7 +220,7 @@
                     }
                 ];
                 this.isAnonymous = false;
-                this.initValue = "";
+                this.gic = "";
                 this.tithe = 0;
                 this.love = 0;
                 this.faith = 0;
@@ -228,9 +234,22 @@
                 window.axios.get(this.memberSearchRoute)
                     .then( response => {
                         this.searchValues = response.data.data;
-                        this.initValue = "";
+                        this.gic = "";
                 });
-            }
+            },
+
+            /*submitValue({ type, target, name }) {
+                const event = {
+                    type,
+                    isCheckbox: target.type === 'checkbox',
+                    target: {
+                        value: target.value,
+                        checked: target.checked,
+                        named: name
+                    }
+                }
+                this.recordValues.push(event)
+            }*/
         },
 
         mounted() {
