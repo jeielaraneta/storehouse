@@ -7,11 +7,11 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="record_type" id="record_type1" value="dd" v-model="record_type"> <!-- @input="submitValue" @change="submitValue" -->
+                            <input class="form-check-input" type="radio" name="record_type" id="record_type1" value="dd" v-model="record_type" @change="onChange">
                             <label class="form-check-label" for="record_type1">Bank Deposit</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="record_type" id="record_type2" value="ob" v-model="record_type" checked="" >
+                            <input class="form-check-input" type="radio" name="record_type" id="record_type2" value="ob" v-model="record_type" checked="" @change="onChange">
                             <label class="form-check-label" for="record_type2">Offering Box</label>
                         </div>
                     </div>
@@ -22,7 +22,7 @@
                                 Anonymous Giver
                             </label>
                         </div> -->
-                        <select id="giver_type" class="custom-select custom-select mb-3" v-model="isSelected" name="giver_type">
+                        <select id="giver_type" class="custom-select custom-select mb-3" v-model="isSelected" name="giver_type" @change="onChange">
                             <!-- <option disabled selected value="">Select Giver Type</option> -->
                             <option value="identified">Identified Giver</option>
                             <option selected value="">Anonymous Giver</option>
@@ -30,25 +30,25 @@
                         </select>
                     </div>
                 </div>
-                {{record_type}}
+                
                 <div class="form-row" v-show="isSelected == 'identified'">
                     <div class="form-group col-md-12">
                         <label for="gic">Member's Name or Giver Indentification Code (GIC) </label>
-                        <multiselect v-model="gic" :options="searchValues" :custom-label="nameWithCode" placeholder="Search for Member's name or GIC" label="name" track-by="name" id="gic" name="gic"></multiselect>
+                        <multiselect v-model="gic" :options="searchValues" :custom-label="nameWithCode" placeholder="Search for Member's name or GIC" label="name" track-by="name" id="gic" name="gic" @input="onChange"></multiselect>
                     </div>
                 </div>
-                {{gic}}
+            
                 <div class="form-row" v-show="isSelected == 'group'">
                     <div class="form-group col-md-12">
                         <label for="">Group's Name</label>
-                        <input type="text" class="form-control" name="agc" v-model="agc">
+                        <input type="text" class="form-control" name="agc" v-model="agc" @change="onChange">
                     </div>
                 </div>
-                {{agc}}
+                
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label for="service_type">Service Type</label>
-                        <select id="service_type" class="custom-select custom-select mb-3" name="service_type">
+                        <select id="service_type" class="custom-select custom-select mb-3" name="service_type" v-model="service_type" @change="onChange">
                             <option disabled selected>Select Service Type</option>
                             <option value="ews">EWS</option>
                             <option value="mmws">MMWS</option>
@@ -58,14 +58,15 @@
                             <option value="na">Not Applicable</option>
                         </select>
                     </div>
+
                     <div class="form-group col-md-4">
-                        <label for="givent_at">Given At</label>
-                        <date-picker id="givent_at" name="givent_at" v-bind:value="givent_at" autocomplete="off" :config="options"></date-picker>
+                        <label for="giventAt">Given At</label>
+                        <date-picker id="giventAt" name="giventAt" v-bind:value="giventAt" autocomplete="off" :config="options" v-model="givent_at" @input="onChange"></date-picker>
                     </div>
 
                      <div class="form-group col-md-4">
                         <label for="service_type">Status</label>
-                        <select id="status" class="custom-select custom-select mb-3" name="status">
+                        <select id="status" class="custom-select custom-select mb-3" name="status" v-model="status" @change="onChange">
                             <option value="0">Unverified</option>
                             <option value="1">Verified</option>
                         </select>
@@ -76,17 +77,17 @@
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label for="tithe_amount">Tithe</label>
-                        <input type="number" class="form-control" id="tithe_amount" v-model.number="tithe" name="tithe_amount">
+                        <input type="number" class="form-control" id="tithe_amount" v-model.number="tithe" name="tithe_amount" @input="onChange">
                     </div>
 
                     <div class="form-group col-md-4">
                         <label for="love_amount">Love</label>
-                        <input type="number" class="form-control" id="love_amount" v-model.number="love" name="love_amount">
+                        <input type="number" class="form-control" id="love_amount" v-model.number="love" name="love_amount" @input="onChange">
                     </div>
 
                     <div class="form-group col-md-4">
                         <label for="faith_amount">Faith</label>
-                        <input type="number" class="form-control" id="faith_amount" v-model.number="faith" name="faith_amount">
+                        <input type="number" class="form-control" id="faith_amount" v-model.number="faith" name="faith_amount" @input="onChange">
                     </div>
                 </div>
 
@@ -126,11 +127,17 @@
                 <div class="form-group row">
                     <label for="total_amount" class="col-sm-2 col-form-label">Total Amount</label>
                     <div class="col-md-2">
-                        <input type="text" id="total_amount" name="total_amount" class="form-control" :value="total_amount" disabled>
+                        <input type="text" id="total_amount" name="total_amount" class="form-control" v-model:value="total_amount" disabled @change="onChange">
                     </div>
                 </div>
 
                 <!-- <pre class="language-json"><code>{{ value }}</code></pre> -->
+
+               <!--  {{gic}} {{record_type}} {{isSelected}} {{service_type}} {{agc}} {{givent_at}} {{status}}
+
+                {{tithe}} {{faith}} {{love}} {{des_offerings}} {{total_amount}} -->
+
+                {{record_data}}
 
                 <div class="form-group row">
                     <div class="col-md-12">
@@ -147,11 +154,17 @@
 <script>
     export default {
 
-        props: ['givent_at', 'submitRecordRoute', 'memberSearch', 'memberSearchRoute'],
+        props: ['giventAt', 'submitRecordRoute', 'memberSearch', 'memberSearchRoute'],
 
         data() {
             return {
 
+                gic: '',
+                record_type: '',
+                service_type: '',
+                agc: '',
+                givent_at: '',
+                status: '',
                 tithe: 0,
                 faith: 0,
                 love: 0,
@@ -183,12 +196,7 @@
                 csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                 isSelected: '',
 
-                gic: [],
-                record_type: [],
-                agc: [],
-                
-
-                //recordValues: []
+                record_data: []
             }
         },
 
@@ -237,6 +245,24 @@
                         this.gic = "";
                 });
             },
+
+            onChange() {
+                return this.record_data = {
+                    record_type: this.record_type,
+                    giver_type: this.isSelected,
+                    gic: this.gic['id'],
+                    agc: this.agc,
+                    service_type: this.service_type,
+                    givent_at: this.givent_at,
+                    status: this.status,
+                    tithe: this.tithe,
+                    love: this.love,
+                    faith: this.faith,
+                    total_amount: this.total_amount
+
+                }
+                //this.record_data.push(event)
+            }
 
             /*submitValue({ type, target, name }) {
                 const event = {
