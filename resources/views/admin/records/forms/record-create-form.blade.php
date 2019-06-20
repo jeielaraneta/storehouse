@@ -23,9 +23,8 @@
                 </div><br />
             @endif
 
-            <record-create-form submit-record-route="{{ route('record.store') }}" member-search-route="{{ route('member.search') }}"></record-create-form>
-
         </div>
+        <record-create-form submit-record-route="{{ route('record.store') }}" member-search-route="{{ route('member.search') }}"></record-create-form>
     </div>
 </div>
 @endsection

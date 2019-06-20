@@ -12221,22 +12221,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['giventAt', 'submitRecordRoute', 'memberSearch', 'memberSearchRoute'],
   data: function data() {
     return {
+      alertMessage: "",
+      isHidden: true,
+      isSuccesful: true,
       gic: '',
-      record_type: '',
+      record_type: 'ob',
       service_type: '',
       agc: '',
       givent_at: '',
-      status: '',
+      status: 0,
       tithe: 0,
       faith: 0,
       love: 0,
       des_offerings: [{
-        amount: 0,
         designation: 'select',
+        amount: 0,
         designated_for: ''
       }],
       options: {
@@ -12255,7 +12270,8 @@ __webpack_require__.r(__webpack_exports__);
       searchValues: [],
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       isSelected: '',
-      record_data: []
+      record_data: [],
+      submit_record: []
     };
   },
   computed: {
@@ -12302,8 +12318,9 @@ __webpack_require__.r(__webpack_exports__);
         _this.gic = "";
       });
     },
-    onChange: function onChange() {
+    getValues: function getValues() {
       return this.record_data = {
+        _token: this.csrf,
         record_type: this.record_type,
         giver_type: this.isSelected,
         gic: this.gic['id'],
@@ -12314,23 +12331,20 @@ __webpack_require__.r(__webpack_exports__);
         tithe: this.tithe,
         love: this.love,
         faith: this.faith,
-        total_amount: this.total_amount //this.record_data.push(event)
-
+        total_amount: this.total_amount,
+        special_offering: this.des_offerings
       };
+    },
+    submitForm: function submitForm(e) {
+      e.preventDefault();
+      window.axios.post(this.submitRecordRoute, this.record_data).then(function (response) {
+        /*console.log(response.data.success)
+        this.toEditMaritalStatus = true
+        this.isSuccesful = true
+        this.isHidden = false
+        this.alertMessage = response.data.success ? "Member's profile updated sucessfully!" : "Error"*/
+      });
     }
-    /*submitValue({ type, target, name }) {
-        const event = {
-            type,
-            isCheckbox: target.type === 'checkbox',
-            target: {
-                value: target.value,
-                checked: target.checked,
-                named: name
-            }
-        }
-        this.recordValues.push(event)
-    }*/
-
   },
   mounted: function mounted() {
     this.searchMembers();
@@ -70952,512 +70966,150 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card" }, [
-    _vm._m(0),
+  return _c("div", { staticClass: "col-md-12" }, [
+    !_vm.isHidden
+      ? _c("div", [
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.isSuccesful,
+                  expression: "isSuccesful"
+                }
+              ],
+              staticClass: "alert alert-success",
+              attrs: { role: "alert" }
+            },
+            [
+              _vm._v(
+                "\n            " + _vm._s(_vm.alertMessage) + "\n            "
+              ),
+              _vm._m(0)
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: !_vm.isSuccesful,
+                  expression: "!isSuccesful"
+                }
+              ],
+              staticClass: "alert alert-danger",
+              attrs: { role: "alert" }
+            },
+            [
+              _vm._v(
+                "\n            " + _vm._s(_vm.alertMessage) + "\n            "
+              ),
+              _vm._m(1)
+            ]
+          )
+        ])
+      : _vm._e(),
     _vm._v(" "),
-    _c("div", { staticClass: "card-body" }, [
-      _c(
-        "form",
-        {
-          attrs: {
-            method: "POST",
-            action: this.submitRecordRoute,
-            enctype: "multipart/form-data"
-          },
-          on: {
-            reset: function($event) {
-              $event.preventDefault()
-              return _vm.resetForm($event)
+    _c("div", { staticClass: "card" }, [
+      _vm._m(2),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-body" }, [
+        _c(
+          "form",
+          {
+            attrs: { method: "POST", enctype: "multipart/form-data" },
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.submitForm($event)
+              },
+              reset: function($event) {
+                $event.preventDefault()
+                return _vm.resetForm($event)
+              }
             }
-          }
-        },
-        [
-          _c("input", {
-            attrs: { type: "hidden", name: "_token" },
-            domProps: { value: _vm.csrf }
-          }),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-row" }, [
-            _c("div", { staticClass: "form-group col-md-6" }, [
-              _c("div", { staticClass: "form-check form-check-inline" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.record_type,
-                      expression: "record_type"
-                    }
-                  ],
-                  staticClass: "form-check-input",
-                  attrs: {
-                    type: "radio",
-                    name: "record_type",
-                    id: "record_type1",
-                    value: "dd"
-                  },
-                  domProps: { checked: _vm._q(_vm.record_type, "dd") },
-                  on: {
-                    change: [
-                      function($event) {
-                        _vm.record_type = "dd"
-                      },
-                      _vm.onChange
-                    ]
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "label",
-                  {
-                    staticClass: "form-check-label",
-                    attrs: { for: "record_type1" }
-                  },
-                  [_vm._v("Bank Deposit")]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-check form-check-inline" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.record_type,
-                      expression: "record_type"
-                    }
-                  ],
-                  staticClass: "form-check-input",
-                  attrs: {
-                    type: "radio",
-                    name: "record_type",
-                    id: "record_type2",
-                    value: "ob",
-                    checked: ""
-                  },
-                  domProps: { checked: _vm._q(_vm.record_type, "ob") },
-                  on: {
-                    change: [
-                      function($event) {
-                        _vm.record_type = "ob"
-                      },
-                      _vm.onChange
-                    ]
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "label",
-                  {
-                    staticClass: "form-check-label",
-                    attrs: { for: "record_type2" }
-                  },
-                  [_vm._v("Offering Box")]
-                )
-              ])
-            ]),
+          },
+          [
+            _c("input", {
+              attrs: { type: "hidden", id: "_token", name: "_token" },
+              domProps: { value: _vm.csrf }
+            }),
             _vm._v(" "),
-            _c("div", { staticClass: "form-group col-md-6" }, [
-              _c(
-                "select",
-                {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.isSelected,
-                      expression: "isSelected"
-                    }
-                  ],
-                  staticClass: "custom-select custom-select mb-3",
-                  attrs: { id: "giver_type", name: "giver_type" },
-                  on: {
-                    change: [
-                      function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.isSelected = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      },
-                      _vm.onChange
-                    ]
-                  }
-                },
-                [
-                  _c("option", { attrs: { value: "identified" } }, [
-                    _vm._v("Identified Giver")
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { selected: "", value: "" } }, [
-                    _vm._v("Anonymous Giver")
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "group" } }, [_vm._v("Group")])
-                ]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.isSelected == "identified",
-                  expression: "isSelected == 'identified'"
-                }
-              ],
-              staticClass: "form-row"
-            },
-            [
-              _c(
-                "div",
-                { staticClass: "form-group col-md-12" },
-                [
-                  _c("label", { attrs: { for: "gic" } }, [
-                    _vm._v("Member's Name or Giver Indentification Code (GIC) ")
-                  ]),
-                  _vm._v(" "),
-                  _c("multiselect", {
-                    attrs: {
-                      options: _vm.searchValues,
-                      "custom-label": _vm.nameWithCode,
-                      placeholder: "Search for Member's name or GIC",
-                      label: "name",
-                      "track-by": "name",
-                      id: "gic",
-                      name: "gic"
-                    },
-                    on: { input: _vm.onChange },
-                    model: {
-                      value: _vm.gic,
-                      callback: function($$v) {
-                        _vm.gic = $$v
-                      },
-                      expression: "gic"
-                    }
-                  })
-                ],
-                1
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.isSelected == "group",
-                  expression: "isSelected == 'group'"
-                }
-              ],
-              staticClass: "form-row"
-            },
-            [
-              _c("div", { staticClass: "form-group col-md-12" }, [
-                _c("label", { attrs: { for: "" } }, [_vm._v("Group's Name")]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.agc,
-                      expression: "agc"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text", name: "agc" },
-                  domProps: { value: _vm.agc },
-                  on: {
-                    change: _vm.onChange,
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+            _c("div", { staticClass: "form-row" }, [
+              _c("div", { staticClass: "form-group col-md-6" }, [
+                _c("div", { staticClass: "form-check form-check-inline" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.record_type,
+                        expression: "record_type"
                       }
-                      _vm.agc = $event.target.value
+                    ],
+                    staticClass: "form-check-input",
+                    attrs: { type: "radio", id: "record_type1", value: "dd" },
+                    domProps: { checked: _vm._q(_vm.record_type, "dd") },
+                    on: {
+                      change: [
+                        function($event) {
+                          _vm.record_type = "dd"
+                        },
+                        _vm.getValues
+                      ]
                     }
-                  }
-                })
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-row" }, [
-            _c("div", { staticClass: "form-group col-md-4" }, [
-              _c("label", { attrs: { for: "service_type" } }, [
-                _vm._v("Service Type")
-              ]),
-              _vm._v(" "),
-              _c(
-                "select",
-                {
-                  directives: [
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
                     {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.service_type,
-                      expression: "service_type"
-                    }
-                  ],
-                  staticClass: "custom-select custom-select mb-3",
-                  attrs: { id: "service_type", name: "service_type" },
-                  on: {
-                    change: [
-                      function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.service_type = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      },
-                      _vm.onChange
-                    ]
-                  }
-                },
-                [
-                  _c("option", { attrs: { disabled: "", selected: "" } }, [
-                    _vm._v("Select Service Type")
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "ews" } }, [_vm._v("EWS")]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "mmws" } }, [_vm._v("MMWS")]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "vws" } }, [_vm._v("VWS")]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "ss" } }, [
-                    _vm._v("Sunday School")
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "pm" } }, [
-                    _vm._v("Prayer Meeting")
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "na" } }, [
-                    _vm._v("Not Applicable")
-                  ])
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "form-group col-md-4" },
-              [
-                _c("label", { attrs: { for: "giventAt" } }, [
-                  _vm._v("Given At")
+                      staticClass: "form-check-label",
+                      attrs: { for: "record_type1" }
+                    },
+                    [_vm._v("Bank Deposit")]
+                  )
                 ]),
                 _vm._v(" "),
-                _c("date-picker", {
-                  attrs: {
-                    id: "giventAt",
-                    name: "giventAt",
-                    value: _vm.giventAt,
-                    autocomplete: "off",
-                    config: _vm.options
-                  },
-                  on: { input: _vm.onChange },
-                  model: {
-                    value: _vm.givent_at,
-                    callback: function($$v) {
-                      _vm.givent_at = $$v
-                    },
-                    expression: "givent_at"
-                  }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group col-md-4" }, [
-              _c("label", { attrs: { for: "service_type" } }, [
-                _vm._v("Status")
-              ]),
-              _vm._v(" "),
-              _c(
-                "select",
-                {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.status,
-                      expression: "status"
+                _c("div", { staticClass: "form-check form-check-inline" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.record_type,
+                        expression: "record_type"
+                      }
+                    ],
+                    staticClass: "form-check-input",
+                    attrs: { type: "radio", id: "record_type2", value: "ob" },
+                    domProps: { checked: _vm._q(_vm.record_type, "ob") },
+                    on: {
+                      change: [
+                        function($event) {
+                          _vm.record_type = "ob"
+                        },
+                        _vm.getValues
+                      ]
                     }
-                  ],
-                  staticClass: "custom-select custom-select mb-3",
-                  attrs: { id: "status", name: "status" },
-                  on: {
-                    change: [
-                      function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.status = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      },
-                      _vm.onChange
-                    ]
-                  }
-                },
-                [
-                  _c("option", { attrs: { value: "0" } }, [
-                    _vm._v("Unverified")
-                  ]),
+                  }),
                   _vm._v(" "),
-                  _c("option", { attrs: { value: "1" } }, [_vm._v("Verified")])
-                ]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-row" }, [
-            _c("div", { staticClass: "form-group col-md-4" }, [
-              _c("label", { attrs: { for: "tithe_amount" } }, [
-                _vm._v("Tithe")
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-check-label",
+                      attrs: { for: "record_type2" }
+                    },
+                    [_vm._v("Offering Box")]
+                  )
+                ])
               ]),
               _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model.number",
-                    value: _vm.tithe,
-                    expression: "tithe",
-                    modifiers: { number: true }
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: {
-                  type: "number",
-                  id: "tithe_amount",
-                  name: "tithe_amount"
-                },
-                domProps: { value: _vm.tithe },
-                on: {
-                  input: [
-                    function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.tithe = _vm._n($event.target.value)
-                    },
-                    _vm.onChange
-                  ],
-                  blur: function($event) {
-                    return _vm.$forceUpdate()
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group col-md-4" }, [
-              _c("label", { attrs: { for: "love_amount" } }, [_vm._v("Love")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model.number",
-                    value: _vm.love,
-                    expression: "love",
-                    modifiers: { number: true }
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: {
-                  type: "number",
-                  id: "love_amount",
-                  name: "love_amount"
-                },
-                domProps: { value: _vm.love },
-                on: {
-                  input: [
-                    function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.love = _vm._n($event.target.value)
-                    },
-                    _vm.onChange
-                  ],
-                  blur: function($event) {
-                    return _vm.$forceUpdate()
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group col-md-4" }, [
-              _c("label", { attrs: { for: "faith_amount" } }, [
-                _vm._v("Faith")
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model.number",
-                    value: _vm.faith,
-                    expression: "faith",
-                    modifiers: { number: true }
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: {
-                  type: "number",
-                  id: "faith_amount",
-                  name: "faith_amount"
-                },
-                domProps: { value: _vm.faith },
-                on: {
-                  input: [
-                    function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.faith = _vm._n($event.target.value)
-                    },
-                    _vm.onChange
-                  ],
-                  blur: function($event) {
-                    return _vm.$forceUpdate()
-                  }
-                }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _vm._m(1),
-          _vm._v(" "),
-          _vm._l(_vm.des_offerings, function(input, k) {
-            return _c("div", { key: k, staticClass: "form-row" }, [
-              _c("div", { staticClass: "form-group col-md-4" }, [
+              _c("div", { staticClass: "form-group col-md-6" }, [
                 _c(
                   "select",
                   {
@@ -71465,125 +71117,312 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: input.designation,
-                        expression: "input.designation"
+                        value: _vm.isSelected,
+                        expression: "isSelected"
                       }
                     ],
                     staticClass: "custom-select custom-select mb-3",
-                    attrs: { id: "designation", name: "designation" },
+                    attrs: { id: "giver_type" },
                     on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.$set(
-                          input,
-                          "designation",
-                          $event.target.multiple
+                      change: [
+                        function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.isSelected = $event.target.multiple
                             ? $$selectedVal
                             : $$selectedVal[0]
-                        )
-                      }
+                        },
+                        _vm.getValues
+                      ]
                     }
                   },
                   [
-                    _c(
-                      "option",
-                      {
-                        attrs: { disabled: "", selected: "", value: "select" }
+                    _c("option", { attrs: { value: "identified" } }, [
+                      _vm._v("Identified Giver")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { selected: "", value: "" } }, [
+                      _vm._v("Anonymous Giver")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "group" } }, [
+                      _vm._v("Group")
+                    ])
+                  ]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.isSelected == "identified",
+                    expression: "isSelected == 'identified'"
+                  }
+                ],
+                staticClass: "form-row"
+              },
+              [
+                _c(
+                  "div",
+                  { staticClass: "form-group col-md-12" },
+                  [
+                    _c("label", { attrs: { for: "gic" } }, [
+                      _vm._v(
+                        "Member's Name or Giver Indentification Code (GIC) "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("multiselect", {
+                      attrs: {
+                        options: _vm.searchValues,
+                        "custom-label": _vm.nameWithCode,
+                        placeholder: "Search for Member's name or GIC",
+                        label: "name",
+                        "track-by": "name",
+                        id: "gic"
                       },
-                      [_vm._v("Select designation")]
-                    ),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "ce" } }, [
-                      _vm._v("C.E Ministry")
+                      on: { input: _vm.getValues },
+                      model: {
+                        value: _vm.gic,
+                        callback: function($$v) {
+                          _vm.gic = $$v
+                        },
+                        expression: "gic"
+                      }
+                    })
+                  ],
+                  1
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.isSelected == "group",
+                    expression: "isSelected == 'group'"
+                  }
+                ],
+                staticClass: "form-row"
+              },
+              [
+                _c("div", { staticClass: "form-group col-md-12" }, [
+                  _c("label", { attrs: { for: "" } }, [_vm._v("Group's Name")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.agc,
+                        expression: "agc"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.agc },
+                    on: {
+                      change: _vm.getValues,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.agc = $event.target.value
+                      }
+                    }
+                  })
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-row" }, [
+              _c("div", { staticClass: "form-group col-md-4" }, [
+                _c("label", { attrs: { for: "service_type" } }, [
+                  _vm._v("Service Type")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.service_type,
+                        expression: "service_type"
+                      }
+                    ],
+                    staticClass: "custom-select custom-select mb-3",
+                    attrs: { id: "service_type" },
+                    on: {
+                      change: [
+                        function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.service_type = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        },
+                        _vm.getValues
+                      ]
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { disabled: "", selected: "" } }, [
+                      _vm._v("Select Service Type")
                     ]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "music" } }, [
-                      _vm._v("Music Ministry")
+                    _c("option", { attrs: { value: "ews" } }, [_vm._v("EWS")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "mmws" } }, [
+                      _vm._v("MMWS")
                     ]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "outreach" } }, [
-                      _vm._v("Community Outreach Ministry")
+                    _c("option", { attrs: { value: "vws" } }, [_vm._v("VWS")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "ss" } }, [
+                      _vm._v("Sunday School")
                     ]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "local_missions" } }, [
-                      _vm._v("Local Missions")
+                    _c("option", { attrs: { value: "pm" } }, [
+                      _vm._v("Prayer Meeting")
                     ]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "intl_missions" } }, [
-                      _vm._v("International Missions")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "others" } }, [
-                      _vm._v("Others")
+                    _c("option", { attrs: { value: "na" } }, [
+                      _vm._v("Not Applicable")
                     ])
                   ]
                 )
               ]),
               _vm._v(" "),
-              input.designation == "others"
-                ? _c("div", { staticClass: "form-group col-md-4" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: input.designated_for,
-                          expression: "input.designated_for"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "text",
-                        id: "designated_for",
-                        name: "designated_for",
-                        placeholder: "Designated for"
+              _c(
+                "div",
+                { staticClass: "form-group col-md-4" },
+                [
+                  _c("label", { attrs: { for: "giventAt" } }, [
+                    _vm._v("Given At")
+                  ]),
+                  _vm._v(" "),
+                  _c("date-picker", {
+                    attrs: {
+                      id: "giventAt",
+                      value: _vm.giventAt,
+                      autocomplete: "off",
+                      config: _vm.options
+                    },
+                    on: { input: _vm.getValues },
+                    model: {
+                      value: _vm.givent_at,
+                      callback: function($$v) {
+                        _vm.givent_at = $$v
                       },
-                      domProps: { value: input.designated_for },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(input, "designated_for", $event.target.value)
-                        }
-                      }
-                    })
-                  ])
-                : _vm._e(),
+                      expression: "givent_at"
+                    }
+                  })
+                ],
+                1
+              ),
               _vm._v(" "),
-              _c("div", { staticClass: "form-group col-md-2" }, [
+              _c("div", { staticClass: "form-group col-md-4" }, [
+                _c("label", { attrs: { for: "service_type" } }, [
+                  _vm._v("Status")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.status,
+                        expression: "status"
+                      }
+                    ],
+                    staticClass: "custom-select custom-select mb-3",
+                    attrs: { id: "status" },
+                    on: {
+                      change: [
+                        function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.status = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        },
+                        _vm.getValues
+                      ]
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "0" } }, [
+                      _vm._v("Unverified")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "1" } }, [
+                      _vm._v("Verified")
+                    ])
+                  ]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-row" }, [
+              _c("div", { staticClass: "form-group col-md-4" }, [
+                _c("label", { attrs: { for: "tithe_amount" } }, [
+                  _vm._v("Tithe")
+                ]),
+                _vm._v(" "),
                 _c("input", {
                   directives: [
                     {
                       name: "model",
                       rawName: "v-model.number",
-                      value: input.amount,
-                      expression: "input.amount",
+                      value: _vm.tithe,
+                      expression: "tithe",
                       modifiers: { number: true }
                     }
                   ],
-                  staticClass: "form-control amount",
-                  attrs: {
-                    type: "number",
-                    id: "designated_amount",
-                    name: "designated_amount",
-                    placeholder: "Enter amount"
-                  },
-                  domProps: { value: input.amount },
+                  staticClass: "form-control",
+                  attrs: { type: "number", id: "tithe_amount" },
+                  domProps: { value: _vm.tithe },
                   on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(input, "amount", _vm._n($event.target.value))
-                    },
+                    input: [
+                      function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.tithe = _vm._n($event.target.value)
+                      },
+                      _vm.getValues
+                    ],
                     blur: function($event) {
                       return _vm.$forceUpdate()
                     }
@@ -71591,99 +71430,351 @@ var render = function() {
                 })
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "form-group col-md-2" }, [
-                _c("span", [
-                  _c("i", {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: k || (!k && _vm.des_offerings.length > 1),
-                        expression: "k || ( !k && des_offerings.length > 1)"
-                      }
-                    ],
-                    staticClass: "fas fa-minus-circle fa-lg",
-                    on: {
-                      click: function($event) {
-                        return _vm.remove(k)
-                      }
+              _c("div", { staticClass: "form-group col-md-4" }, [
+                _c("label", { attrs: { for: "love_amount" } }, [
+                  _vm._v("Love")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model.number",
+                      value: _vm.love,
+                      expression: "love",
+                      modifiers: { number: true }
                     }
-                  }),
-                  _vm._v(" "),
-                  _c("i", {
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "number", id: "love_amount" },
+                  domProps: { value: _vm.love },
+                  on: {
+                    input: [
+                      function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.love = _vm._n($event.target.value)
+                      },
+                      _vm.getValues
+                    ],
+                    blur: function($event) {
+                      return _vm.$forceUpdate()
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-md-4" }, [
+                _c("label", { attrs: { for: "faith_amount" } }, [
+                  _vm._v("Faith")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model.number",
+                      value: _vm.faith,
+                      expression: "faith",
+                      modifiers: { number: true }
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "number", id: "faith_amount" },
+                  domProps: { value: _vm.faith },
+                  on: {
+                    input: [
+                      function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.faith = _vm._n($event.target.value)
+                      },
+                      _vm.getValues
+                    ],
+                    blur: function($event) {
+                      return _vm.$forceUpdate()
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _vm._m(3),
+            _vm._v(" "),
+            _vm._l(_vm.des_offerings, function(input, k) {
+              return _c("div", { key: k, staticClass: "form-row" }, [
+                _c("div", { staticClass: "form-group col-md-4" }, [
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: input.designation,
+                          expression: "input.designation"
+                        }
+                      ],
+                      staticClass: "custom-select custom-select mb-3",
+                      attrs: { id: "designation" },
+                      on: {
+                        change: [
+                          function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              input,
+                              "designation",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          },
+                          _vm.getValues
+                        ]
+                      }
+                    },
+                    [
+                      _c(
+                        "option",
+                        {
+                          attrs: { disabled: "", selected: "", value: "select" }
+                        },
+                        [_vm._v("Select designation")]
+                      ),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "ce" } }, [
+                        _vm._v("C.E Ministry")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "music" } }, [
+                        _vm._v("Music Ministry")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "outreach" } }, [
+                        _vm._v("Community Outreach Ministry")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "local_missions" } }, [
+                        _vm._v("Local Missions")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "intl_missions" } }, [
+                        _vm._v("International Missions")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "others" } }, [
+                        _vm._v("Others")
+                      ])
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                input.designation == "others"
+                  ? _c("div", { staticClass: "form-group col-md-4" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: input.designated_for,
+                            expression: "input.designated_for"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          id: "designated_for",
+                          placeholder: "Designated for"
+                        },
+                        domProps: { value: input.designated_for },
+                        on: {
+                          input: [
+                            function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                input,
+                                "designated_for",
+                                $event.target.value
+                              )
+                            },
+                            _vm.getValues
+                          ]
+                        }
+                      })
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group col-md-2" }, [
+                  _c("input", {
                     directives: [
                       {
-                        name: "show",
-                        rawName: "v-show",
-                        value: k == _vm.des_offerings.length - 1,
-                        expression: "k == des_offerings.length-1"
+                        name: "model",
+                        rawName: "v-model.number",
+                        value: input.amount,
+                        expression: "input.amount",
+                        modifiers: { number: true }
                       }
                     ],
-                    staticClass: "fas fa-plus-circle fa-lg",
+                    staticClass: "form-control amount",
+                    attrs: {
+                      type: "number",
+                      id: "designated_amount",
+                      placeholder: "Enter amount"
+                    },
+                    domProps: { value: input.amount },
                     on: {
-                      click: function($event) {
-                        return _vm.add(k)
+                      input: [
+                        function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(input, "amount", _vm._n($event.target.value))
+                        },
+                        _vm.getValues
+                      ],
+                      blur: function($event) {
+                        return _vm.$forceUpdate()
                       }
                     }
                   })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group col-md-2" }, [
+                  _c("span", [
+                    _c("i", {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: k || (!k && _vm.des_offerings.length > 1),
+                          expression: "k || (!k && des_offerings.length > 1)"
+                        }
+                      ],
+                      staticClass: "fas fa-minus-circle fa-lg",
+                      on: {
+                        click: function($event) {
+                          return _vm.remove(k)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("i", {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: k == _vm.des_offerings.length - 1,
+                          expression: "k == des_offerings.length-1"
+                        }
+                      ],
+                      staticClass: "fas fa-plus-circle fa-lg",
+                      on: {
+                        click: function($event) {
+                          return _vm.add(k)
+                        }
+                      }
+                    })
+                  ])
                 ])
               ])
-            ])
-          }),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group row" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-sm-2 col-form-label",
-                attrs: { for: "total_amount" }
-              },
-              [_vm._v("Total Amount")]
-            ),
+            }),
             _vm._v(" "),
-            _c("div", { staticClass: "col-md-2" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model:value",
-                    value: _vm.total_amount,
-                    expression: "total_amount",
-                    arg: "value"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  id: "total_amount",
-                  name: "total_amount",
-                  disabled: ""
+            _c("div", { staticClass: "form-group row" }, [
+              _c(
+                "label",
+                {
+                  staticClass: "col-sm-2 col-form-label",
+                  attrs: { for: "total_amount" }
                 },
-                domProps: { value: _vm.total_amount },
-                on: {
-                  change: _vm.onChange,
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+                [_vm._v("Total Amount")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-2" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model:value",
+                      value: _vm.total_amount,
+                      expression: "total_amount",
+                      arg: "value"
                     }
-                    _vm.total_amount = $event.target.value
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", id: "total_amount", disabled: "" },
+                  domProps: { value: _vm.total_amount },
+                  on: {
+                    change: _vm.getValues,
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.total_amount = $event.target.value
+                    }
                   }
-                }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _vm._v(
-            "\n\n            " + _vm._s(_vm.record_data) + "\n\n            "
-          ),
-          _vm._m(2)
-        ],
-        2
-      )
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _vm._v(
+              "\n                " +
+                _vm._s(_vm.record_data) +
+                "\n\n                "
+            ),
+            _vm._m(4)
+          ],
+          2
+        )
+      ])
     ])
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "alert",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "alert",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
