@@ -17,4 +17,12 @@ class SpecialOffering extends Model
     protected $fillable = [
         'designation', 'designated_for', 'designated_amount', 'record_id'
     ];
+
+    /**
+     * Get the record that owns the special offering.
+     */
+    public function record()
+    {
+        return $this->belongsTo('App\Models\Record');
+    }
 }

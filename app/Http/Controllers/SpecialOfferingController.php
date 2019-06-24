@@ -2,28 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Record;
-use App\Models\RandomTextGenerator;
 use Illuminate\Http\Request;
 
-class RecordController extends Controller
+class SpecialOfferingController extends Controller
 {
-    protected $record, $randomText;
-
-    protected $redirectTo = '/record';
-
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(Record $records, RandomTextGenerator $randomTexts)
+    public function __construct()
     {
-        $this->record = $records;
-        $this->randomText = $randomTexts;
         $this->middleware(['auth','verified']);
     }
-
     /**
      * Display a listing of the resource.
      *
@@ -31,8 +22,7 @@ class RecordController extends Controller
      */
     public function index()
     {
-        $record = $this->record->all();
-        return view('admin/records/record', ['records' => $record]);
+        //
     }
 
     /**
@@ -42,7 +32,7 @@ class RecordController extends Controller
      */
     public function create()
     {
-        return view('admin/records/forms/record-create-form');
+        //
     }
 
     /**
@@ -53,21 +43,7 @@ class RecordController extends Controller
      */
     public function store(Request $request)
     {
-        switch ($request->giver_type) {
-            case 'identified':
-                return response()->json([ 'gic' => $request->gic]);
-                break;
-
-            case 'group':
-                return response()->json([ 'agc' => $request->agc]);
-                break;
-            
-            default:
-                return response()->json([ 'random text' => $this->randomText->generateAnonymousGiverCode() ]);
-                break;
-        }
-
-        
+        //
     }
 
     /**

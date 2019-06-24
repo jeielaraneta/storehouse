@@ -39,7 +39,7 @@ class RandomTextGenerator extends Model
         $password = '';
         for ($i=0; $i <= 6; $i++) {
             $rand = rand(1, 62);
-            $shuffle = str_shuffle(substr($string_set, $rand, ($rand-$i) ));
+            $shuffle = str_shuffle(substr($string_set, $rand, ($rand+$i) ));
             $password .= substr($shuffle, 1, 1);
         }
         return $password;
@@ -55,9 +55,9 @@ class RandomTextGenerator extends Model
     {
         $string_set = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $code = '';
-        for ($i=0; $i <= 5; $i++) {
-            $rand = rand(1, 26);
-            $shuffle = str_shuffle(substr($string_set, $rand, ($rand-$i) ));
+        for ($i=0; $i < 4; $i++) {
+            $rand = rand(1, 25);
+            $shuffle = str_shuffle(substr($string_set, $rand, ($rand+$i) ));
             $code .= substr($shuffle, 1, 1);
         }
         return $code;
@@ -65,19 +65,19 @@ class RandomTextGenerator extends Model
 
     /**
      *
-     * Generate 5 digits member code
+     * Generate 5 digits anonymous giver code
      *
      * @return string
     */
-    public function generateGiverCode()
+    public function generateAnonymousGiverCode()
     {
         $string_set = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $password = '';
+        $agc = '';
         for ($i=0; $i <= 4; $i++) {
-            $rand = rand(1, 62);
-            $shuffle = str_shuffle(substr($string_set, $rand, ($rand-$i) ));
-            $password .= substr($shuffle, 1, 1);
+            $rand = rand(1, 25);
+            $shuffle = str_shuffle(substr($string_set, $rand, ($rand+$i) ));
+            $agc .= substr($shuffle, 1, 1);
         }
-        return $password;
+        return $agc;
     }
 }

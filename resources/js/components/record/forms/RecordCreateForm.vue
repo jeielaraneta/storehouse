@@ -148,7 +148,6 @@
                     </div>
 
                     <!-- <pre class="language-json"><code>{{ value }}</code></pre> -->
-                    {{record_data}}
 
                     <div class="form-group row">
                         <div class="col-md-12">
