@@ -19,6 +19,14 @@ class Record extends Model
     ];
 
     /**
+     * Get the member that owns the record.
+     */
+    public function member()
+    {
+        return $this->belongsTo('App\Models\Member');
+    }
+
+    /**
      * Get the special offerings for the record.
      */
     public function specialOfferings()

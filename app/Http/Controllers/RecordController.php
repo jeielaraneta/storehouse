@@ -53,17 +53,63 @@ class RecordController extends Controller
      */
     public function store(Request $request)
     {
+        $user = auth()->user();
+
         switch ($request->giver_type) {
             case 'identified':
-                return response()->json([ 'gic' => $request->gic]);
+
+                $this->record->member_id = $request->gic;
+                $this->record->service_type = $request->service_type;
+                $this->record->record_type = $request->record_type;
+                $this->record->given_at = $request->given_at;
+                $this->record->status = $request->status;
+                $this->record->tithe_amount = $request->tithe_amount;
+                $this->record->love_amount = $request->love_amount;
+                $this->record->faith_amount = $request->faith_amount;
+                $this->record->total_amount = $request->total_amount;
+                $this->record->created_by = $user->id;
+
+                $isSaved = $this->record->save();
+
+                return response()->json([ 'result' => $isSaved]);
                 break;
 
             case 'group':
-                return response()->json([ 'agc' => $request->agc]);
+
+                $this->record->group_name = $request->group_name;
+                $this->record->service_type = $request->service_type;
+                $this->record->record_type = $request->record_type;
+                $this->record->given_at = $request->given_at;
+                $this->record->status = $request->status;
+                $this->record->tithe_amount = $request->tithe_amount;
+                $this->record->love_amount = $request->love_amount;
+                $this->record->faith_amount = $request->faith_amount;
+                $this->record->total_amount = $request->total_amount;
+                $this->record->created_by = $user->id;
+
+                $isSaved = $this->record->save();
+
+                return response()->json([ 'result' => $isSaved]);
                 break;
             
             default:
-                return response()->json([ 'random text' => $this->randomText->generateAnonymousGiverCode() ]);
+
+                $agc = $this->randomText->generateAnonymousGiverCode();
+
+                $this->record->agc = $agc;
+                $this->record->service_type = $request->service_type;
+                $this->record->record_type = $request->record_type;
+                $this->record->given_at = $request->given_at;
+                $this->record->status = $request->status;
+                $this->record->tithe_amount = $request->tithe_amount;
+                $this->record->love_amount = $request->love_amount;
+                $this->record->faith_amount = $request->faith_amount;
+                $this->record->total_amount = $request->total_amount;
+                $this->record->created_by = $user->id;
+
+                $isSaved = $this->record->save();
+
+                return response()->json([ 'result' => $isSaved]);
                 break;
         }
 
