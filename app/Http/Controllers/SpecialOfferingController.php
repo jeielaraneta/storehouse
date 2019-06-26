@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SpecialOffering;
 use Illuminate\Http\Request;
 
 class SpecialOfferingController extends Controller
 {
+    protected $specialOffering;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(SpecialOffering $so)
     {
+        $this->specialOffering = $so;
         $this->middleware(['auth','verified']);
     }
     /**
@@ -43,7 +47,7 @@ class SpecialOfferingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($this->getSpecialOfferingsRecord());
     }
 
     /**
@@ -89,5 +93,9 @@ class SpecialOfferingController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getSpecialOfferingsRecord(Request $request) {
+        return $request;
     }
 }

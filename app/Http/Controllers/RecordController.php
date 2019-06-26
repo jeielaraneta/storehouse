@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Record;
 use App\Models\RandomTextGenerator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RecordController extends Controller
 {
@@ -53,7 +54,7 @@ class RecordController extends Controller
      */
     public function store(Request $request)
     {
-        $user = auth()->user();
+        $user = Auth::user();
 
         switch ($request->giver_type) {
             case 'identified':
@@ -71,7 +72,17 @@ class RecordController extends Controller
 
                 $isSaved = $this->record->save();
 
-                return response()->json([ 'result' => $isSaved]);
+                $savedSpecOff = redirect()->route('specialOffering.getSpecialOffering', [
+                    'special_offering' => $request->special_offering, 
+                    'record_id' => $this->record->id]
+                );
+
+                $result = ($isSaved && $savedSpecOff) ? 'success' : 'failed';
+
+                if($isSaved && $savedSpecOff) {
+                    return response()->json([ 'result' => $result]);
+                }
+
                 break;
 
             case 'group':

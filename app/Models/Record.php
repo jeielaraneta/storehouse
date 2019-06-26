@@ -15,7 +15,7 @@ class Record extends Model
      * @var array
      */
     protected $fillable = [
-        'gic', 'group_name', 'agc', 'service_type', 'record_type', 'given_at', 'status', 'tithe_amount', 'love_amount', 'faith_amount', 'special_offering', 'designation', 'total_amount', 'member_id', 'created_by'
+        'group_name', 'agc', 'service_type', 'record_type', 'given_at', 'status', 'tithe_amount', 'love_amount', 'faith_amount', 'special_offering', 'designation', 'total_amount', 'member_id', 'created_by'
     ];
 
     /**

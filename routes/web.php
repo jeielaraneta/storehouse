@@ -37,3 +37,9 @@ Route::prefix('/records')->group(function () {
     Route::post('/store', 'RecordController@store')->name('record.store');
 
 });
+
+Route::prefix('/specialOffering')->group(function () {
+
+    Route::get('/getSpecialOffering', 'SpecialOfferingController@getSpecialOfferingsRecord')->name('specialOffering.getSpecialOffering');
+
+});
