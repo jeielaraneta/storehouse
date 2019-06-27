@@ -76,8 +76,8 @@
                         </div>
 
                         <div class="form-group col-md-4">
-                            <label for="giventAt">Given At</label>
-                            <date-picker id="giventAt" v-bind:value="giventAt" autocomplete="off" :config="options" v-model="givent_at" @input="getValues"></date-picker>
+                            <label for="givenAt">Given At</label>
+                            <date-picker id="givenAt" v-bind:value="givenAt" autocomplete="off" :config="options" v-model="given_at" @input="getValues"></date-picker>
                         </div>
 
                          <div class="form-group col-md-4">
@@ -129,7 +129,7 @@
                         </div>
 
                         <div class="form-group col-md-2">
-                            <input type="number" id="designated_amount" class="form-control amount" v-model.number="input.amount" placeholder="Enter amount" @input="getValues">
+                            <input type="number" id="designated_amount" class="form-control amount" v-model.number="input.designated_amount" placeholder="Enter amount" @input="getValues">
                         </div>
 
                         <div class="form-group col-md-2">
@@ -148,7 +148,7 @@
                     </div>
 
                     <!-- <pre class="language-json"><code>{{ value }}</code></pre> -->
-
+                    
                     <div class="form-group row">
                         <div class="col-md-12">
                             <button type="submit" class="btn btn-success float-right">Submit</button>
@@ -165,7 +165,7 @@
 <script>
     export default {
 
-        props: ['giventAt', 'submitRecordRoute', 'memberSearch', 'memberSearchRoute'],
+        props: ['givenAt', 'submitRecordRoute', 'memberSearch', 'memberSearchRoute'],
 
         data() {
             return {
@@ -177,7 +177,7 @@
                 record_type: 'ob',
                 service_type: '',
                 agc: '',
-                givent_at: '',
+                given_at: '',
                 status: 0,
                 tithe: 0,
                 faith: 0,
@@ -186,7 +186,7 @@
                 des_offerings: [
                     {
                         designation: 'select',
-                        amount: 0,
+                        designated_amount: 0,
                         designated_for: ''
                     }
                 ],
@@ -218,7 +218,7 @@
         computed: {
             total_amount() {
                 var special_offering = this.des_offerings.reduce((total, input) => {
-                    return total + Number(input.amount);
+                    return total + Number(input.designated_amount);
                 }, 0);
 
                 return Number(this.tithe) + Number(this.love) + Number(this.faith) + special_offering;
@@ -227,7 +227,7 @@
 
         methods: {
             add(index) {
-                this.des_offerings.push({ amount: 0, designation: 'select', designated_for: ''});
+                this.des_offerings.push({ designated_amount: 0, designation: 'select', designated_for: ''});
             },
 
             remove(index) {
@@ -237,7 +237,7 @@
             resetForm(e){
                 this.des_offerings = [
                     {
-                        amount: 0,
+                        designated_amount: 0,
                         designation: 'select',
                         designated_for: ''
                     }
@@ -269,7 +269,7 @@
                     gic: this.gic['id'],
                     agc: this.agc,
                     service_type: this.service_type,
-                    givent_at: this.givent_at,
+                    given_at: this.given_at,
                     status: this.status,
                     tithe: this.tithe,
                     love: this.love,
@@ -284,11 +284,9 @@
 
                 window.axios.post(this.submitRecordRoute, this.record_data)
                     .then( response => {
-                        /*console.log(response.data.success)
-                        this.toEditMaritalStatus = true
                         this.isSuccesful = true
                         this.isHidden = false
-                        this.alertMessage = response.data.success ? "Member's profile updated sucessfully!" : "Error"*/
+                        this.alertMessage = response.data.success ? "Record succesfully added!" : "Error"
                     });
             }
         },

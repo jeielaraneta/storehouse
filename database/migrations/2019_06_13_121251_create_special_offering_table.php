@@ -16,7 +16,7 @@ class CreateSpecialOfferingTable extends Migration
         Schema::create('special_offerings', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('designation', 75);
-            $table->string('designated_for', 75);
+            $table->string('designated_for', 75)->nullable();
             $table->integer('designated_amount');
             $table->timestamps();
         });

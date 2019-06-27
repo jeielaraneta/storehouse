@@ -25,4 +25,5 @@ class SpecialOffering extends Model
     {
         return $this->belongsTo('App\Models\Record');
     }
+
 }

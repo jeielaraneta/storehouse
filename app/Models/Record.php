@@ -33,4 +33,9 @@ class Record extends Model
     {
         return $this->hasMany('App\Models\SpecialOffering');
     }
+
+    public function setGivenAtAttribute($value)
+    {
+        $this->attributes['given_at'] = date('Y-m-d', strtotime($value));
+    }
 }

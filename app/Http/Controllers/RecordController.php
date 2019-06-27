@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Record;
+use App\Models\SpecialOffering;
 use App\Models\RandomTextGenerator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class RecordController extends Controller
 {
-    protected $record, $randomText;
+    protected $record, $specialOffering, $randomText;
 
     protected $redirectTo = '/record';
 
@@ -18,9 +20,10 @@ class RecordController extends Controller
      *
      * @return void
      */
-    public function __construct(Record $records, RandomTextGenerator $randomTexts)
+    public function __construct(Record $records, RandomTextGenerator $randomTexts, SpecialOffering $so)
     {
         $this->record = $records;
+        $this->specialOffering = $so;
         $this->randomText = $randomTexts;
         $this->middleware(['auth','verified']);
     }
@@ -64,24 +67,27 @@ class RecordController extends Controller
                 $this->record->record_type = $request->record_type;
                 $this->record->given_at = $request->given_at;
                 $this->record->status = $request->status;
-                $this->record->tithe_amount = $request->tithe_amount;
-                $this->record->love_amount = $request->love_amount;
-                $this->record->faith_amount = $request->faith_amount;
+                $this->record->tithe_amount = $request->tithe;
+                $this->record->love_amount = $request->love;
+                $this->record->faith_amount = $request->faith;
                 $this->record->total_amount = $request->total_amount;
                 $this->record->created_by = $user->id;
 
                 $isSaved = $this->record->save();
 
-                $savedSpecOff = redirect()->route('specialOffering.getSpecialOffering', [
-                    'special_offering' => $request->special_offering, 
-                    'record_id' => $this->record->id]
-                );
+                $specOff = $request->special_offering;
 
-                $result = ($isSaved && $savedSpecOff) ? 'success' : 'failed';
-
-                if($isSaved && $savedSpecOff) {
-                    return response()->json([ 'result' => $result]);
+                foreach ($specOff as $key => $value) {
+                    $specOff[$key]['record_id'] = $this->record->id;
+                    $specOff[$key]['created_at'] = Carbon::now();
+                    $specOff[$key]['updated_at'] = Carbon::now();
                 }
+
+                $saveSpecOff = SpecialOffering::insert($specOff);
+
+                $result = ($isSaved && $saveSpecOff) ? true : false;
+
+                return response()->json([ 'success' => $result]);
 
                 break;
 
@@ -100,7 +106,20 @@ class RecordController extends Controller
 
                 $isSaved = $this->record->save();
 
-                return response()->json([ 'result' => $isSaved]);
+                $specOff = $request->special_offering;
+
+                foreach ($specOff as $key => $value) {
+                    $specOff[$key]['record_id'] = $this->record->id;
+                    $specOff[$key]['created_at'] = Carbon::now();
+                    $specOff[$key]['updated_at'] = Carbon::now();
+                }
+
+                $saveSpecOff = SpecialOffering::insert($specOff);
+
+                $result = ($isSaved && $saveSpecOff) ? true : false;
+
+                return response()->json([ 'success' => $result]);
+
                 break;
             
             default:
@@ -120,11 +139,22 @@ class RecordController extends Controller
 
                 $isSaved = $this->record->save();
 
-                return response()->json([ 'result' => $isSaved]);
+                $specOff = $request->special_offering;
+
+                foreach ($specOff as $key => $value) {
+                    $specOff[$key]['record_id'] = $this->record->id;
+                    $specOff[$key]['created_at'] = Carbon::now();
+                    $specOff[$key]['updated_at'] = Carbon::now();
+                }
+
+                $saveSpecOff = SpecialOffering::insert($specOff);
+
+                $result = ($isSaved && $saveSpecOff) ? true : false;
+
+                return response()->json([ 'success' => $result]);
+
                 break;
         }
-
-        
     }
 
     /**

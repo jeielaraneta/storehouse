@@ -23,7 +23,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label for="birthday">Birthday</label>
-                        <date-picker id="birthday" name="birthday" v-bind:value="birthday" :config="options"></date-picker>
+                        <date-picker id="birthday" name="birthday" autocomplete="off" v-bind:value="birthday" :config="options"></date-picker>
                     </div>
                     
                     <input type="hidden" class="form-control" id="age" name="age">

@@ -55,7 +55,7 @@ class RandomTextGenerator extends Model
     {
         $string_set = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $code = '';
-        for ($i=0; $i < 4; $i++) {
+        for ($i=0; $i <= 4; $i++) {
             $rand = rand(1, 25);
             $shuffle = str_shuffle(substr($string_set, $rand, ($rand+$i) ));
             $code .= substr($shuffle, 1, 1);
