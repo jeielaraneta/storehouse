@@ -47,7 +47,7 @@ class SpecialOfferingController extends Controller
      */
     public function store(Request $request)
     {
-        dd($this->getSpecialOfferingsRecord());
+        //dd($this->getSpecialOfferingsRecord());
     }
 
     /**

@@ -41,7 +41,7 @@
                             <select id="giver_type" class="custom-select custom-select mb-3" v-model="isSelected" @change="getValues">
                                 <!-- <option disabled selected value="">Select Giver Type</option> -->
                                 <option value="identified">Identified Giver</option>
-                                <option selected value="">Anonymous Giver</option>
+                                <option selected value="anonymous">Anonymous Giver</option>
                                 <option value="group">Group</option>
                             </select>
                         </div>
@@ -57,7 +57,7 @@
                     <div class="form-row" v-show="isSelected == 'group'">
                         <div class="form-group col-md-12">
                             <label for="">Group's Name</label>
-                            <input type="text" class="form-control" v-model="agc" @change="getValues">
+                            <input type="text" class="form-control" v-model="group_name" @change="getValues">
                         </div>
                     </div>
                     
@@ -176,6 +176,7 @@
                 gic: '',
                 record_type: 'ob',
                 service_type: '',
+                group_name: '',
                 agc: '',
                 given_at: '',
                 status: 0,
@@ -208,7 +209,7 @@
                 searchValues: [],
 
                 csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                isSelected: '',
+                isSelected: 'anonymous',
 
                 record_data: [],
                 submit_record: [],
@@ -268,6 +269,7 @@
                     giver_type: this.isSelected,
                     gic: this.gic['id'],
                     agc: this.agc,
+                    group_name: this.group_name,
                     service_type: this.service_type,
                     given_at: this.given_at,
                     status: this.status,
@@ -287,6 +289,25 @@
                         this.isSuccesful = true
                         this.isHidden = false
                         this.alertMessage = response.data.success ? "Record succesfully added!" : "Error"
+
+                        this.des_offerings = [
+                            {
+                                designated_amount: 0,
+                                designation: 'select',
+                                designated_for: ''
+                            }
+                        ];
+                        
+                        this.isAnonymous = false;
+                        this.gic = "";
+                        this.tithe = 0;
+                        this.love = 0;
+                        this.faith = 0;
+                        this.service_type = '';
+                        this.given_at = '';
+                        this.status = 0;
+                        this.isSelected = 'anonymous';
+
                     });
             }
         },

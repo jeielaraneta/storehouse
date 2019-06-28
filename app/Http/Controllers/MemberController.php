@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Member;
-use App\Models\RandomTextGenerator;
+use App\Traits\RandomTextGenerator;
 use App\Http\Resources\MemberResource;
 use App\Http\Requests\StoreNewMember;
 use Illuminate\Http\Request;
@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Validator;
 
 class MemberController extends Controller
 {
+    use RandomTextGenerator;
 
     protected $member;
 
@@ -63,11 +64,9 @@ class MemberController extends Controller
      */
     public function store(StoreNewMember $request) {
 
-        $memberCode = new RandomTextGenerator();
-
         $validated = $request->validated();
 
-        $this->member->code = $memberCode->generateMemberCode();
+        $this->member->code = $this->generateMemberCode();
         $this->member->first_name = $request->first_name;
         $this->member->middle_name = $request->middle_name;
         $this->member->last_name = $request->last_name;

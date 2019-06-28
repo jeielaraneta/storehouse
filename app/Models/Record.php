@@ -28,7 +28,7 @@ class Record extends Model
 
     /**
      * Get the special offerings for the record.
-     */
+    */
     public function specialOfferings()
     {
         return $this->hasMany('App\Models\SpecialOffering');

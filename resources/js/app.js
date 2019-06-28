@@ -50,6 +50,7 @@ Vue.component('member-index-component', require('./components/member/MemberIndex
 Vue.component('member-profile-component', require('./components/member/MemberProfileComponent.vue').default);
 Vue.component('member-create-form', require('./components/member/forms/MemberCreateForm.vue').default);
 
+Vue.component('record-index-component', require('./components/record/RecordIndexComponent.vue').default);
 Vue.component('record-create-form', require('./components/record/forms/RecordCreateForm.vue').default);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);

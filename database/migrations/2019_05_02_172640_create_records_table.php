@@ -15,7 +15,7 @@ class CreateRecordsTable extends Migration
     {
         Schema::create('records', function (Blueprint $table) {
             $table->bigIncrements('id');
-            //$table->integer('gic')->nullable();
+            $table->enum('giver_type', ['identified', 'anonymous', 'group']);
             $table->string('group_name', 75)->nullable();
             $table->string('agc', 75)->nullable(); //anonymous giver code
             $table->enum('service_type', ['ews', 'mmws', 'vws', 'ss', 'pm', 'na']);

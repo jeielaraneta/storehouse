@@ -4,14 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Record;
 use App\Models\SpecialOffering;
-use App\Models\RandomTextGenerator;
+use App\Traits\RandomTextGenerator;
+use App\Http\Resources\RecordResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 class RecordController extends Controller
 {
-    protected $record, $specialOffering, $randomText;
+    use RandomTextGenerator;
+
+    protected $record, $specialOffering;
 
     protected $redirectTo = '/record';
 
@@ -20,11 +23,10 @@ class RecordController extends Controller
      *
      * @return void
      */
-    public function __construct(Record $records, RandomTextGenerator $randomTexts, SpecialOffering $so)
+    public function __construct(Record $records, SpecialOffering $so)
     {
         $this->record = $records;
         $this->specialOffering = $so;
-        $this->randomText = $randomTexts;
         $this->middleware(['auth','verified']);
     }
 
@@ -35,8 +37,11 @@ class RecordController extends Controller
      */
     public function index()
     {
-        $record = $this->record->all();
-        return view('admin/records/record', ['records' => $record]);
+        //$record = $this->record->all();
+
+        $records = $this->record->all();
+        $collect = RecordResource::collection($records);
+        return view('admin/records/record', ['records' => $collect]);
     }
 
     /**
@@ -65,6 +70,7 @@ class RecordController extends Controller
                 $this->record->member_id = $request->gic;
                 $this->record->service_type = $request->service_type;
                 $this->record->record_type = $request->record_type;
+                $this->record->giver_type = $request->giver_type;
                 $this->record->given_at = $request->given_at;
                 $this->record->status = $request->status;
                 $this->record->tithe_amount = $request->tithe;
@@ -96,6 +102,7 @@ class RecordController extends Controller
                 $this->record->group_name = $request->group_name;
                 $this->record->service_type = $request->service_type;
                 $this->record->record_type = $request->record_type;
+                $this->record->giver_type = $request->giver_type;
                 $this->record->given_at = $request->given_at;
                 $this->record->status = $request->status;
                 $this->record->tithe_amount = $request->tithe_amount;
@@ -124,11 +131,12 @@ class RecordController extends Controller
             
             default:
 
-                $agc = $this->randomText->generateAnonymousGiverCode();
+                $agc = $this->generateAnonymousGiverCode();
 
                 $this->record->agc = $agc;
                 $this->record->service_type = $request->service_type;
                 $this->record->record_type = $request->record_type;
+                $this->record->giver_type = $request->giver_type;
                 $this->record->given_at = $request->given_at;
                 $this->record->status = $request->status;
                 $this->record->tithe_amount = $request->tithe_amount;
@@ -165,7 +173,12 @@ class RecordController extends Controller
      */
     public function show($id)
     {
-        //
+        //lagyan mo ng where
+        $records = $this->record->findorFail($id);
+
+        return new RecordResource($records);
+
+        //return view('admin/records/record', ['records' => $records]);
     }
 
     /**

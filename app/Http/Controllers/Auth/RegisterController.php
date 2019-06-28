@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
-use App\Models\RandomTextGenerator;
+use App\Traits\RandomTextGenerator;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -23,8 +23,9 @@ class RegisterController extends Controller
     | provide this functionality without requiring any additional code.
     |
     */
-
     use RegistersUsers;
+
+    use RandomTextGenerator;
 
     /**
      * Where to redirect users after registration.
@@ -40,9 +41,8 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct(RandomTextGenerator $randTextGen)
+    public function __construct()
     {
-        $this->randTextGen = $randTextGen;
         $this->middleware('guest');
     }
 
@@ -89,7 +89,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'username' => $this->randTextGen->generateUsername($data['first_name'], $data['middle_name'], $data['last_name']),
+            'username' => $this->generateUsername($data['first_name'], $data['middle_name'], $data['last_name']),
             'first_name' => $data['first_name'],
             'middle_name' => $data['middle_name'],
             'last_name' => $data['last_name'],
