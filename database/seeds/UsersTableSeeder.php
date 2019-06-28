@@ -4,14 +4,14 @@ use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
-use App\Models\CredentialsGenerator;
+use App\Models\RandomTextGenerator;
 
 class UsersTableSeeder extends Seeder
 {
 
 	protected $credGen;
 
-	public function __construct(CredentialsGenerator $credGen) {
+	public function __construct(RandomTextGenerator $credGen) {
         $this->credGen = $credGen;
     }
 

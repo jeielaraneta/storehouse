@@ -9,23 +9,18 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+/* import fontawesome */
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
 import { faUsers } from '@fortawesome/free-solid-svg-icons'
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
-import { faChartLine } from '@fortawesome/free-solid-svg-icons'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(faUserPlus)
 library.add(faUsers)
-library.add(faChevronLeft)
-library.add(faChevronRight)
-library.add(faChartLine)
+library.add(faPlus)
 
 /* import datepicker */
-
 import datePicker from 'vue-bootstrap-datetimepicker';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
@@ -48,15 +43,14 @@ Vue.component('multiselect', Multiselect)
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
+Vue.component('create-button', require('./components/buttons/createButton.vue').default);
+Vue.component('show-button', require('./components/buttons/showButton.vue').default);
+
 Vue.component('member-index-component', require('./components/member/MemberIndexComponent.vue').default);
 Vue.component('member-profile-component', require('./components/member/MemberProfileComponent.vue').default);
-Vue.component('member-create-button', require('./components/member/buttons/MemberCreateButton.vue').default);
 Vue.component('member-create-form', require('./components/member/forms/MemberCreateForm.vue').default);
-Vue.component('member-show-button', require('./components/member/buttons/MemberShowButton.vue').default);
 
-Vue.component('record-create-button', require('./components/record/buttons/RecordCreateButton.vue').default);
 Vue.component('record-create-form', require('./components/record/forms/RecordCreateForm.vue').default);
-
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 

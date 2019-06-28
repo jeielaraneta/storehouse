@@ -421,7 +421,7 @@
                 middle_name: this.memberData.middle_name,
                 last_name: this.memberData.last_name,
                 birth_day: this.memberData.birthday,
-                marital_status: this.memberData.martital_status,
+                marital_status: this.memberData.marital_status,
                 email: this.memberData.email,
                 contact_number: this.memberData.contact_number,
                 address_line_1: this.memberData.address_line_1,
@@ -593,7 +593,7 @@
 
 	      		var province = $('#code').val();
 
-	      		window.axios.put(this.updateMemberRoute, {code: code})
+	      		window.axios.put(this.updateMemberRoute, {code: code._value})
 	      			.then( response => {
 			      		console.log(response.data.success)
 			      		this.toEditCode = true
