@@ -18,6 +18,7 @@ class MemberResource extends JsonResource
     {
 
         return [
+            'id' => $this->id,
             'code' => $this->code,
             'name' => $this->first_name . ' ' . $this->last_name
         ];

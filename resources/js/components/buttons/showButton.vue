@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-  	<a role="button" :href="this.showMemberRoute" class="btn btn-info btn-sm"><!-- <font-awesome-icon icon="user-alt" /> --> View</a>
+  	<a role="button" :href="this.route" class="btn btn-info btn-sm">{{this.btnText}}</a>
   </div>
 </template>
 
@@ -9,7 +9,7 @@
       mounted() {
           console.log('Component mounted.')  
       },
-      props: ['showMemberRoute']
+      props: ['route', 'btnText']
   }
 
 </script>

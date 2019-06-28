@@ -5,7 +5,7 @@
 
     <div class="row mb-2 text-left">
         <div class="col-md-12 ">
-            <record-create-button create-record-route="{{ route('record.create') }}"></record-create-button>
+            <create-button route="{{ route('record.create') }}" btn-text="Add New Record" btn-icon="plus"></create-button>
         </div>        
     </div>
 
@@ -40,8 +40,6 @@
                    
                 </div>
             </div>
-
-            
 
         </div>
     </div>
