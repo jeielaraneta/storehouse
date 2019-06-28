@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App\Traits;
 
-use Illuminate\Database\Eloquent\Model;
-
-class RandomTextGenerator extends Model
+trait RandomTextGenerator
 {
-    /**
+	/**
      *
      * Generates username
      *
