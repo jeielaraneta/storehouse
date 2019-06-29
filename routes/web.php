@@ -27,6 +27,7 @@ Route::prefix('/members')->group(function () {
     Route::get('/show/{id}', 'MemberController@show')->name('member.show');
     Route::put('/update/{id}', 'MemberController@update')->name('member.update');
     Route::get('/search', 'MemberController@getCodeAndNameOfAllMembers')->name('member.search');
+    Route::get('/api', 'MemberController@apiResource');
 
 });
 
@@ -36,6 +37,7 @@ Route::prefix('/records')->group(function () {
     Route::get('/create', 'RecordController@create')->name('record.create');
     Route::post('/store', 'RecordController@store')->name('record.store');
     Route::get('/show/{id}', 'RecordController@show')->name('record.show');
+    Route::get('/api', 'RecordController@apiResource');
 
 });
 

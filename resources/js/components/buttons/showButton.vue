@@ -7,7 +7,7 @@
 <script>
   export default {
       mounted() {
-          console.log('Component mounted.')  
+          console.log('Show Button mounted.')  
       },
       props: ['route', 'btnText']
   }

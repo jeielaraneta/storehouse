@@ -130,7 +130,7 @@ class MemberController extends Controller
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function getCodeAndNameOfAllMembers()
+    public function apiResource()
     {
         $member = $this->member->all();
         return MemberResource::collection($member);

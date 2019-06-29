@@ -10,7 +10,7 @@
 
 	export default {
 	    mounted() {
-	        console.log('Component mounted.')  
+	        console.log('Record Index Component mounted.')  
 	    }
 	}
 

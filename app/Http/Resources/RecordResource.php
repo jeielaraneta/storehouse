@@ -20,7 +20,7 @@ class RecordResource extends JsonResource
 
         switch ($this->giver_type) {
             case 'identified':
-                $id = $this->member_id;
+                $id = $this->member->first_name;
                 break;
 
             case 'group':
@@ -33,7 +33,7 @@ class RecordResource extends JsonResource
         }
         
         return [
-            'id' => $id,
+            'id' => "$id",
             'giver_type' => $this->giver_type,
             'given_at' => $this->given_at,
             'love_amount' => $this->love_amount,

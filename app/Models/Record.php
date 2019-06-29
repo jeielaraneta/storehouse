@@ -34,6 +34,27 @@ class Record extends Model
         return $this->hasMany('App\Models\SpecialOffering');
     }
 
+    public function getIdAttribute($value)
+    {
+        $value = '';
+
+        switch ($this->giver_type) {
+            case 'identified':
+                $value = $this->member->first_name . ' ' . $this->member->last_name;
+                break;
+
+            case 'group':
+                $value = $this->group_name;
+                break;
+            
+            default:
+                $value = $this->agc;
+                break;
+        }
+
+        return ucfirst($value);
+    }
+
     public function setGivenAtAttribute($value)
     {
         $this->attributes['given_at'] = date('Y-m-d', strtotime($value));

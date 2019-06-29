@@ -14,9 +14,9 @@ class RecordController extends Controller
 {
     use RandomTextGenerator;
 
-    protected $record, $specialOffering;
+    protected $record, $specialOffering, $members;
 
-    protected $redirectTo = '/record';
+    protected $redirectTo = '/records';
 
     /**
      * Create a new controller instance.
@@ -37,11 +37,8 @@ class RecordController extends Controller
      */
     public function index()
     {
-        //$record = $this->record->all();
-
-        $records = $this->record->all();
-        $collect = RecordResource::collection($records);
-        return view('admin/records/record', ['records' => $collect]);
+        $record = $this->record->all();
+        return view('admin/records/record', ['records' => $record]);
     }
 
     /**
@@ -213,5 +210,10 @@ class RecordController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function apiResource(){
+        $record = $this->record->all();
+        return RecordResource::collection($record);
     }
 }

@@ -11,7 +11,7 @@
 
     <div class="row justify-content-center">
         <div class="col-md-12">
-
+            
             <div class="card">
                 <div class="card-header bg-transparent border-primary"><h5>Records</h5></div>
                 <div class="card-body">
@@ -31,14 +31,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tbody>
                                 @if ( count($records) > 0 )
                                     @foreach ($records as $record)
                                         <tr>
                                             <td>{{$record->id}}</td>
                                             <td>{{$record->giver_type}}</td>
                                             <td>{{$record->given_at}}</td>
-                                            <td>{{$record->love_amount}</td>
+                                            <td>{{$record->love_amount}}</td>
                                             <td>{{$record->tithe_amount}}</td>
                                             <td>{{$record->faith_amount}}</td>
                                             <td>{{$record->total_amount}}</td>
@@ -48,7 +47,6 @@
                                     @endforeach
                                 @endif
                             </tbody>
-                            </tbody>
                             <tfoot>
                                 <tr>
                                     <th>Giver's Identicifation</th>
@@ -57,8 +55,8 @@
                                     <th>Love</th>
                                     <th>Tithes</th>
                                     <th>Faith</th>
-                                    <th>Status</th>
                                     <th>Total Amount</th>
+                                    <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
                             </tfoot>
@@ -68,7 +66,7 @@
                 </div>
             </div>
 
-            <!-- <record-index-component></record-index-component> -->
+            <record-index-component></record-index-component>
 
         </div>
     </div>
