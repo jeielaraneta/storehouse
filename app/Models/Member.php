@@ -15,7 +15,7 @@ class Member extends Model
      * @var array
      */
     protected $fillable = [
-        'code', 'first_name', 'middle_name', 'last_name', 'birthday', 'age', 'email', 'contact_number', 'marital_status', 'membership_status', 'address_line_1', 'barangay', 'city', 'province'
+        'code', 'first_name', 'middle_name', 'last_name', 'birthday', 'age', 'email', 'contact_number', 'marital_status', 'membership_status', 'address_line_1', 'barangay', 'city', 'province', 'created_at'
     ];
 
     /**
@@ -44,6 +44,10 @@ class Member extends Model
     public function setBirthdayAttribute($value)
     {
         $this->attributes['birthday'] = date('Y-m-d', strtotime($value));
+    }
+
+    public function setAgeAttribute($value) {
+        $this->attributes['age'] = $this->computeAge($this->attributes['birthday']);
     }
 
     public function computeAge($birthday){
