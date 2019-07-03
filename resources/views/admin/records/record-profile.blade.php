@@ -27,7 +27,10 @@
                 </div><br />
             @endif
             
-            <record-profile-component :record-data="{{ json_encode($recordData) }}" update-record-route="{{ route('record.update', $recordData->id) }}"></record-profile-component>
+            <record-profile-component :record-data="{{ json_encode($recordData) }}" 
+            update-record-route="{{ route('record.update', $recordData )}}">
+
+            </record-profile-component>
     </div>
 </div>
 @endsection

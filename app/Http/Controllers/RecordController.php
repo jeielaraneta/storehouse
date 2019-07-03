@@ -175,13 +175,29 @@ class RecordController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($giverType, $id)
     {
         //lagyan mo ng where
         /*$records = $this->record->findorFail($id);
         return new RecordResource($records);*/
 
         //return view('admin/records/record', ['records' => $records]);
+
+        dd($id);
+
+        switch ($giverType) {
+            case 'Identified':
+                $value = $this->member->first_name . ' ' . $this->member->last_name;
+                break;
+
+            case 'Group':
+                $value = $this->group_name;
+                break;
+            
+            default:
+                $value = $this->agc;
+                break;
+        }
 
         $record = $this->record->findorFail($id);
         return view('admin/records/record-profile', ['recordData' => $record]);

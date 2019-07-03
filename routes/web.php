@@ -36,7 +36,12 @@ Route::prefix('/records')->group(function () {
     Route::get('/', 'RecordController@index')->name('record.index');
     Route::get('/create', 'RecordController@create')->name('record.create');
     Route::post('/store', 'RecordController@store')->name('record.store');
-    Route::get('/show/{id}', 'RecordController@show')->name('record.show');
+    Route::get('/show/{giverType}/{id}', 'RecordController@show')->name('record.show');
+    /*Route::get('/show/{giverType}/{id}', [
+        'as' => 'record-show',
+        'uses' => 'RecordController@show'
+    ]);*/
+
     Route::get('/api', 'RecordController@apiResource');
 
 });

@@ -42,7 +42,7 @@
                                             <td>{{$record->faith_amount}}</td>
                                             <td>{{$record->total_amount}}</td>
                                             <td>{{$record->status}}</td>
-                                            <td><show-button route="{{ route('record.show', $record->id) }}" btn-text="View"></show-button></td>
+                                            <td><show-button route="{{ route('record.show', [$record->giver_type, $record->id]) }}" btn-text="View"></show-button></td>
                                         </tr>
                                     @endforeach
                                 @endif
