@@ -183,8 +183,6 @@ class RecordController extends Controller
 
         //return view('admin/records/record', ['records' => $records]);
 
-        dd($id);
-
         switch ($giverType) {
             case 'Identified':
                 $value = $this->member->first_name . ' ' . $this->member->last_name;
