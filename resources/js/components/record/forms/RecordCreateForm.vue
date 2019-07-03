@@ -18,7 +18,7 @@
         <div class="card" >
             <div class="card-header bg-transparent border-primary"><h5>Create New Record</h5></div>
             <div class="card-body">
-                <form method="POST" enctype="multipart/form-data" @submit.prevent="submitForm" @reset.prevent="resetForm" >
+                <form method="POST" enctype="multipart/form-data" @submit.prevent="submitForm" @reset.prevent="resetForm" id="recordForm">
                     <input type="hidden" id="_token" name="_token" :value="csrf">
                     <div class="form-row">
                         <div class="form-group col-md-6">
@@ -57,7 +57,7 @@
                     <div class="form-row" v-show="isSelected == 'group'">
                         <div class="form-group col-md-12">
                             <label for="">Group's Name</label>
-                            <input type="text" class="form-control" v-model="group_name" @change="getValues">
+                            <input type="text" class="form-control" v-model="group_name" @change="getValues" autocomplete="off" >
                         </div>
                     </div>
                     
@@ -304,11 +304,15 @@
                         this.love = 0;
                         this.faith = 0;
                         this.service_type = '';
+                        this.record_type = 'ob';
                         this.given_at = '';
                         this.status = 0;
                         this.isSelected = 'anonymous';
 
-                    });
+                        //return response.data.success ? "Record succesfully added!" : "Error"
+
+                });
+                //$("#recordForm")[0].reset()
             }
         },
 

@@ -72,9 +72,9 @@ class RecordController extends Controller
                     'giver_type' => $request->giver_type,
                     'given_at' => date('Y-m-d', strtotime($request->given_at)),
                     'status' => $request->status,
-                    'tithe_amount' => $request->tithe_amount,
-                    'love_amount' => $request->love_amount,
-                    'faith_amount' => $request->faith_amount,
+                    'tithe_amount' => $request->tithe,
+                    'love_amount' => $request->love,
+                    'faith_amount' => $request->faith,
                     'total_amount' => $request->total_amount,
                     'created_by' => $user->id
                 );
@@ -106,9 +106,9 @@ class RecordController extends Controller
                     'giver_type' => $request->giver_type,
                     'given_at' => date('Y-m-d', strtotime($request->given_at)),
                     'status' => $request->status,
-                    'tithe_amount' => $request->tithe_amount,
-                    'love_amount' => $request->love_amount,
-                    'faith_amount' => $request->faith_amount,
+                    'tithe_amount' => $request->tithe,
+                    'love_amount' => $request->love,
+                    'faith_amount' => $request->faith,
                     'total_amount' => $request->total_amount,
                     'created_by' => $user->id
                 );
@@ -142,9 +142,9 @@ class RecordController extends Controller
                     'giver_type' => $request->giver_type,
                     'given_at' => date('Y-m-d', strtotime($request->given_at)),
                     'status' => $request->status,
-                    'tithe_amount' => $request->tithe_amount,
-                    'love_amount' => $request->love_amount,
-                    'faith_amount' => $request->faith_amount,
+                    'tithe_amount' => $request->tithe,
+                    'love_amount' => $request->love,
+                    'faith_amount' => $request->faith,
                     'total_amount' => $request->total_amount,
                     'created_by' => $user->id
                 );
@@ -178,11 +178,13 @@ class RecordController extends Controller
     public function show($id)
     {
         //lagyan mo ng where
-        $records = $this->record->findorFail($id);
-
-        return new RecordResource($records);
+        /*$records = $this->record->findorFail($id);
+        return new RecordResource($records);*/
 
         //return view('admin/records/record', ['records' => $records]);
+
+        $record = $this->record->findorFail($id);
+        return view('admin/records/record-profile', ['recordData' => $record]);
     }
 
     /**

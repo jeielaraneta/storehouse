@@ -34,16 +34,19 @@ class Record extends Model
         return $this->hasMany('App\Models\SpecialOffering');
     }
 
-    public function getIdAttribute($value)
-    {
+    public function getGiverTypeAttribute($value) {
+        return ucfirst($value);
+    }
+
+    public function getIdAttribute($value) {
         $value = '';
 
         switch ($this->giver_type) {
-            case 'identified':
+            case 'Identified':
                 $value = $this->member->first_name . ' ' . $this->member->last_name;
                 break;
 
-            case 'group':
+            case 'Group':
                 $value = $this->group_name;
                 break;
             
@@ -53,6 +56,10 @@ class Record extends Model
         }
 
         return ucfirst($value);
+    }
+
+    public function getStatusAttribute($value) {
+        return $value == 0 ?  'Unverified' : 'Verified';
     }
 
     public function setGivenAtAttribute($value)

@@ -51,6 +51,7 @@ Vue.component('member-profile-component', require('./components/member/MemberPro
 Vue.component('member-create-form', require('./components/member/forms/MemberCreateForm.vue').default);
 
 Vue.component('record-index-component', require('./components/record/RecordIndexComponent.vue').default);
+Vue.component('record-profile-component', require('./components/record/RecordProfileComponent.vue').default);
 Vue.component('record-create-form', require('./components/record/forms/RecordCreateForm.vue').default);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
