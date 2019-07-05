@@ -38,24 +38,24 @@ class Record extends Model
         return ucfirst($value);
     }
 
-    public function getIdAttribute($value) {
-        $value = '';
+    public function getAgcAttribute($value) {
+        $ident = '';
 
         switch ($this->giver_type) {
             case 'Identified':
-                $value = $this->member->first_name . ' ' . $this->member->last_name;
+                $ident = $this->member->first_name . ' ' . $this->member->last_name;
                 break;
 
             case 'Group':
-                $value = $this->group_name;
+                $ident = $this->group_name;
                 break;
             
             default:
-                $value = $this->agc;
+                $ident = $value;
                 break;
         }
 
-        return ucfirst($value);
+        return ucfirst($ident);
     }
 
     public function getStatusAttribute($value) {

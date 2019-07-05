@@ -20,7 +20,7 @@ class Member extends Model
 
     /**
      * Get the record for the member.
-     */
+    */
     public function record()
     {
         return $this->hasMany('App\Models\Record');

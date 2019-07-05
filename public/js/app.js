@@ -12108,15 +12108,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /*	
 	DATETIME PICKER ICONS
@@ -12132,7 +12123,7 @@ __webpack_require__.r(__webpack_exports__);
 */
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {},
-  props: ['recordData', 'birthday', 'updateRecordRoute'],
+  props: ['recordData', 'specialOfferingsData', 'birthday', 'updateRecordRoute'],
   data: function data() {
     return {
       options: {
@@ -71109,51 +71100,19 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "col-md-12" }, [
-    !_vm.isHidden
-      ? _c("div", [
-          _c(
-            "div",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.isSuccesful,
-                  expression: "isSuccesful"
-                }
-              ],
-              staticClass: "alert alert-success",
-              attrs: { role: "alert" }
-            },
-            [
-              _vm._v("\n\t\t\t" + _vm._s(_vm.alertMessage) + "\n\t        "),
-              _vm._m(0)
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: !_vm.isSuccesful,
-                  expression: "!isSuccesful"
-                }
-              ],
-              staticClass: "alert alert-danger",
-              attrs: { role: "alert" }
-            },
-            [
-              _vm._v("\n\t    \t" + _vm._s(_vm.alertMessage) + "\n\t        "),
-              _vm._m(1)
-            ]
-          )
-        ])
-      : _vm._e(),
-    _vm._v(" "),
-    _vm._m(2)
+    _c("div", { staticClass: "card" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-body" }, [
+        _vm._v(
+          "\n        \t" +
+            _vm._s(this.recordData) +
+            "\n\n        \t" +
+            _vm._s(this.specialOfferingsData) +
+            "\n        "
+        )
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -71162,42 +71121,10 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c(
-      "button",
-      {
-        staticClass: "close",
-        attrs: {
-          type: "button",
-          "data-dismiss": "alert",
-          "aria-label": "Close"
-        }
-      },
-      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      "div",
+      { staticClass: "card-header bg-transparent border-primary" },
+      [_c("h5", [_vm._v("Record Profile")])]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "close",
-        attrs: {
-          type: "button",
-          "data-dismiss": "alert",
-          "aria-label": "Close"
-        }
-      },
-      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card" }, [
-      _c("div", { staticClass: "card-body" })
-    ])
   }
 ]
 render._withStripped = true

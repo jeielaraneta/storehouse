@@ -34,7 +34,7 @@
                                 @if ( count($records) > 0 )
                                     @foreach ($records as $record)
                                         <tr>
-                                            <td>{{$record->id}}</td>
+                                            <td>{{$record->agc}}</td>
                                             <td>{{$record->giver_type}}</td>
                                             <td>{{$record->given_at}}</td>
                                             <td>{{$record->love_amount}}</td>
@@ -42,7 +42,7 @@
                                             <td>{{$record->faith_amount}}</td>
                                             <td>{{$record->total_amount}}</td>
                                             <td>{{$record->status}}</td>
-                                            <td><show-button route="{{ route('record.show', [$record->giver_type, $record->id]) }}" btn-text="View"></show-button></td>
+                                            <td><show-button route="{{ route('record.show', $record->id)}}" btn-text="View"></show-button></td>
                                         </tr>
                                     @endforeach
                                 @endif

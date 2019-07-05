@@ -1,28 +1,19 @@
 <template>
 	<div class="col-md-12">
-		<div v-if="!isHidden">
-			<div class="alert alert-success" role="alert" v-show="isSuccesful">
-				{{alertMessage}}
-		        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-		            <span aria-hidden="true">&times;</span>
-		        </button>
-		    </div>
-
-		    <div class="alert alert-danger" role="alert" v-show="!isSuccesful">
-		    	{{alertMessage}}
-		        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-		            <span aria-hidden="true">&times;</span>
-		        </button>
-		    </div>
-		</div>
 		
-		<div class="card">		
-	        
-	        <div class="card-body">
-
+		<div class="card">
+		  	<div class="card-header bg-transparent border-primary">
+	        	<h5>Record Profile</h5> 
 	        </div>
-	    </div>
+	        <div class="card-body">
+	        	{{this.recordData}}
+
+	        	{{this.specialOfferingsData}}
+	        </div>
+		</div>
+
 	</div>
+
 </template>
 
 <script>
@@ -47,7 +38,7 @@
           	 
       	},
 
-      	props: ['recordData', 'birthday', 'updateRecordRoute'],
+      	props: ['recordData', 'specialOfferingsData', 'birthday', 'updateRecordRoute'],
 
       	data() {
             return {
