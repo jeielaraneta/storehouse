@@ -16,9 +16,10 @@ import { faUsers } from '@fortawesome/free-solid-svg-icons'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faUserPlus)
-library.add(faUsers)
-library.add(faPlus)
+library.add(faUserPlus);
+library.add(faUsers);
+library.add(faPlus);
+Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 /* import datepicker */
 import datePicker from 'vue-bootstrap-datetimepicker';
@@ -26,11 +27,16 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
 
 Vue.use(datePicker);
-
+Vue.component('date-picker', datePicker);
 
 import Multiselect from 'vue-multiselect';
 
 Vue.component('multiselect', Multiselect)
+
+import { GChart } from 'vue-google-charts';
+
+Vue.use(GChart);
+Vue.component('GChart', GChart);
 
 /**
  * The following block of code may be used to automatically register your
@@ -54,9 +60,9 @@ Vue.component('record-index-component', require('./components/record/RecordIndex
 Vue.component('record-profile-component', require('./components/record/RecordProfileComponent.vue').default);
 Vue.component('record-create-form', require('./components/record/forms/RecordCreateForm.vue').default);
 
-Vue.component('font-awesome-icon', FontAwesomeIcon);
 
-Vue.component('date-picker', datePicker);
+
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

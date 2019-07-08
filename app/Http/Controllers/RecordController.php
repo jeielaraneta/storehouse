@@ -15,7 +15,7 @@ class RecordController extends Controller
 {
     use RandomTextGenerator;
 
-    protected $record, $specialOffering, $members;
+    protected $record;
 
     protected $redirectTo = '/records';
 
@@ -24,10 +24,9 @@ class RecordController extends Controller
      *
      * @return void
      */
-    public function __construct(Record $records, SpecialOffering $so)
+    public function __construct(Record $records)
     {
         $this->record = $records;
-        $this->specialOffering = $so;
         $this->middleware(['auth','verified']);
     }
 

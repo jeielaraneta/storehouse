@@ -129,6 +129,10 @@
 					</form>
 
 	        	</div>
+
+	        	<!-- <div id="piechart" style="width: 900px; height: 500px;"></div>-->
+
+	        	<GChart :data="chartData" :settings="{packages: ['PieChart']}" :options='chartOptions' />
 	        	
 	        	{{this.recordData}}
 
@@ -159,7 +163,8 @@
   	export default {
 
       	mounted() {
-          	 
+      		//this.chart = new google.visualization.PieChart(this.$el);
+
       	},
 
       	props: ['recordData', 'specialOfferingsData', 'givenAt', 'updateRecordRoute'],
@@ -195,11 +200,53 @@
                 service_type: this.recordData.service_type,
                 record_type: this.recordData.record_type,
                 given_at: this.recordData.given_at,
-                status: this.recordData.status
-               
-            }
+                status: this.recordData.status,
+
+                chartsLib: null, 
+
+                chartData: [
+			        ['Task', 'Hours per Day'],
+			        ['Work',     11],
+			        ['Eat',      2],
+			        ['Commute',  2],
+			        ['Watch TV', 2],
+			        ['Sleep',    7]
+			    ],
+
+			    chartOptions: {
+		        
+		          	title: 'My Daily Activities'
+		        }
+		    }
+            
         },
+
+       
+
+       
 	    methods: {
+	    	onChartReady (chart, google) {
+		      	this.chartsLib = google
+		    },
+
+	    	drawChart() {
+	    		var data = google.visualization.arrayToDataTable([
+			        ['Task', 'Hours per Day'],
+			        ['Work',     11],
+			        ['Eat',      2],
+			        ['Commute',  2],
+			        ['Watch TV', 2],
+			        ['Sleep',    7]
+		        ]);
+
+		        var options = {
+		          	title: 'My Daily Activities'
+		        };
+
+		        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+		        chart.draw(data, options);
+	    	},
 
 	    	updateServiceType() {
 
