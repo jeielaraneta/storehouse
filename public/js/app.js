@@ -12332,6 +12332,50 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /*	
 	DATETIME PICKER ICONS
@@ -12346,7 +12390,8 @@ __webpack_require__.r(__webpack_exports__);
     close: 'far fa-times-circle'
 */
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {//this.chart = new google.visualization.PieChart(this.$el);
+  mounted: function mounted() {
+    this.arrangeSpecialOfferingData();
   },
   props: ['recordData', 'specialOfferingsData', 'givenAt', 'updateRecordRoute'],
   data: function data() {
@@ -12378,23 +12423,21 @@ __webpack_require__.r(__webpack_exports__);
       given_at: this.recordData.given_at,
       status: this.recordData.status,
       chartsLib: null,
-      chartData: [['Task', 'Hours per Day'], ['Work', 11], ['Eat', 2], ['Commute', 2], ['Watch TV', 2], ['Sleep', 7]],
+      regularGivingData: [["Type", "Amount"], ["Tithe", this.recordData.tithe_amount], ["Love", this.recordData.love_amount], ["Faith", this.recordData.faith_amount]],
       chartOptions: {
-        title: 'My Daily Activities'
+        title: 'Regular Giving Summary',
+        height: 400 //pieHole: 0.4,
+
       }
     };
   },
+  computed: {},
   methods: {
-    onChartReady: function onChartReady(chart, google) {
-      this.chartsLib = google;
-    },
-    drawChart: function drawChart() {
-      var data = google.visualization.arrayToDataTable([['Task', 'Hours per Day'], ['Work', 11], ['Eat', 2], ['Commute', 2], ['Watch TV', 2], ['Sleep', 7]]);
-      var options = {
-        title: 'My Daily Activities'
-      };
-      var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-      chart.draw(data, options);
+    arrangeSpecialOfferingData: function arrangeSpecialOfferingData() {
+      var arrayA = [];
+      var arr2 = []; //console.log(this.specialOfferingsData.designation);
+
+      console.log(this.recordData.member.first_name);
     },
     updateServiceType: function updateServiceType() {},
     updateRecordType: function updateRecordType() {},
@@ -71360,26 +71403,24 @@ var render = function() {
       _vm._v(" "),
       _vm._m(0),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "card-body" },
-        [
-          _c("div", { staticClass: "row mb-5" }, [
-            _c("div", { staticClass: "col-sm-6" }, [
-              _c("h6", { staticClass: "card-title" }, [
-                _vm._v("Identification: "),
-                _c("span", [_vm._v(_vm._s(this.recordData.agc))])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-6" }, [
-              _c("h6", { staticClass: "card-title" }, [
-                _vm._v("Record ID: "),
-                _c("span", [_vm._v(_vm._s(this.recordData.id))])
-              ])
+      _c("div", { staticClass: "card-body" }, [
+        _c("div", { staticClass: "row mb-5" }, [
+          _c("div", { staticClass: "col-sm-6" }, [
+            _c("h6", { staticClass: "card-title" }, [
+              _vm._v("Identification: "),
+              _c("span", [_vm._v(_vm._s(this.recordData.agc))])
             ])
           ]),
           _vm._v(" "),
+          _c("div", { staticClass: "col-sm-6" }, [
+            _c("h6", { staticClass: "card-title" }, [
+              _vm._v("Record ID: "),
+              _c("span", [_vm._v(_vm._s(this.recordData.id))])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-sm-12" }, [
             _c(
               "form",
@@ -71857,25 +71898,49 @@ var render = function() {
                 ])
               ]
             )
-          ]),
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c(
+            "div",
+            { staticClass: "col-sm-6" },
+            [
+              _c("GChart", {
+                attrs: {
+                  type: "PieChart",
+                  data: _vm.regularGivingData,
+                  options: _vm.chartOptions
+                }
+              })
+            ],
+            1
+          ),
           _vm._v(" "),
-          _c("GChart", {
-            attrs: {
-              data: _vm.chartData,
-              settings: { packages: ["PieChart"] },
-              options: _vm.chartOptions
-            }
-          }),
-          _vm._v(
-            "\n        \t\n        \t" +
-              _vm._s(this.recordData) +
-              "\n\n        \t" +
-              _vm._s(this.specialOfferingsData) +
-              "\n        "
+          _c(
+            "div",
+            { staticClass: "col-sm-6" },
+            [
+              _c("GChart", {
+                attrs: {
+                  type: "PieChart",
+                  data: _vm.regularGivingData,
+                  options: _vm.chartOptions
+                }
+              })
+            ],
+            1
           )
-        ],
-        1
-      )
+        ]),
+        _vm._v(" "),
+        _vm._m(1),
+        _vm._v(" "),
+        _vm._v(
+          "\n\n\t\t    " +
+            _vm._s(this.specialOfferingsData) +
+            "\n\n        \t\n        "
+        )
+      ])
     ])
   ])
 }
@@ -71889,6 +71954,60 @@ var staticRenderFns = [
       { staticClass: "card-header bg-transparent border-primary" },
       [_c("h5", [_vm._v("Record Profile")])]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-sm-12" }, [
+        _c("table", { staticClass: "table table-sm " }, [
+          _c("thead", { staticClass: "thead-dark" }, [
+            _c("tr", [
+              _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
+              _vm._v(" "),
+              _c("th", { attrs: { scope: "col" } }, [_vm._v("First")]),
+              _vm._v(" "),
+              _c("th", { attrs: { scope: "col" } }, [_vm._v("Last")]),
+              _vm._v(" "),
+              _c("th", { attrs: { scope: "col" } }, [_vm._v("Handle")])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("tbody", [
+            _c("tr", [
+              _c("th", { attrs: { scope: "row" } }, [_vm._v("1")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("Mark")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("Otto")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("@mdo")])
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("th", { attrs: { scope: "row" } }, [_vm._v("2")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("Jacob")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("Thornton")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("@fat")])
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("th", { attrs: { scope: "row" } }, [_vm._v("3")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("Larry")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("the Bird")]),
+              _vm._v(" "),
+              _c("td", [_vm._v("@twitter")])
+            ])
+          ])
+        ])
+      ])
+    ])
   }
 ]
 render._withStripped = true

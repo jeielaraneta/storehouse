@@ -18,125 +18,169 @@
 		        	</div>
 	        	</div>
 				
-	        	<div class="col-sm-12">
-	        		<form method="POST" enctype="multipart/form-data">
-		                <input type="hidden" name="_token" :value="csrf">
-		                <div class="form-group row">
-		                	<label for="marital_status" class="col-sm-2 col-form-label">Service Type</label>
-						    <div class="col-sm-8">
+				<div class="row">
+		        	<div class="col-sm-12">
+		        		<form method="POST" enctype="multipart/form-data">
+			                <input type="hidden" name="_token" :value="csrf">
+			                <div class="form-group row">
+			                	<label for="marital_status" class="col-sm-2 col-form-label">Service Type</label>
+							    <div class="col-sm-8">
 
-						    	<select id="service_type" class="custom-select custom-select mb-3" name="service_type" v-model:value="service_type" :disabled="toEditServiceType">
-	                                <option value="ews">EWS</option>
-	                                <option value="mmws">MMWS</option>
-	                                <option value="vws">VWS</option>
-	                                <option value="ss">Sunday School</option>
-	                                <option value="pm">Prayer Meeting</option>
-	                                <option value="na">Not Applicable</option>
-		                        </select>
+							    	<select id="service_type" class="custom-select custom-select mb-3" name="service_type" v-model:value="service_type" :disabled="toEditServiceType">
+		                                <option value="ews">EWS</option>
+		                                <option value="mmws">MMWS</option>
+		                                <option value="vws">VWS</option>
+		                                <option value="ss">Sunday School</option>
+		                                <option value="pm">Prayer Meeting</option>
+		                                <option value="na">Not Applicable</option>
+			                        </select>
 
-						    </div>
+							    </div>
 
-						    <div class="col-sm-2" v-if="toEditServiceType">
-						    	<button class="btn btn-secondary btn-sm float-right mx-3" type="button"  @click="toEditServiceType = false">Edit</button>
-						    </div>
-						    
-						    <div class="col-sm-2" v-else>
+							    <div class="col-sm-2" v-if="toEditServiceType">
+							    	<button class="btn btn-secondary btn-sm float-right mx-3" type="button"  @click="toEditServiceType = false">Edit</button>
+							    </div>
+							    
+							    <div class="col-sm-2" v-else>
 
-						    	<button class="btn btn-danger btn-sm float-right mx-1" type="button" @click="toEditServiceType = true">Cancel</button>
-						    	<button class="btn btn-success btn-sm float-right mx-1" type="button" @click="updateServiceType" v-on:click="isHidden = true">Save</button>
+							    	<button class="btn btn-danger btn-sm float-right mx-1" type="button" @click="toEditServiceType = true">Cancel</button>
+							    	<button class="btn btn-success btn-sm float-right mx-1" type="button" @click="updateServiceType" v-on:click="isHidden = true">Save</button>
 
-						    </div>
-						</div>
-					</form>
+							    </div>
+							</div>
+						</form>
 
-					<form method="POST" enctype="multipart/form-data">
-		                <input type="hidden" name="_token" :value="csrf">
-		                <div class="form-group row">
-		                	<label for="record_type" class="col-sm-2 col-form-label">Record Type</label>
-						    <div class="col-sm-8">
+						<form method="POST" enctype="multipart/form-data">
+			                <input type="hidden" name="_token" :value="csrf">
+			                <div class="form-group row">
+			                	<label for="record_type" class="col-sm-2 col-form-label">Record Type</label>
+							    <div class="col-sm-8">
 
-						    	<select id="record_type" class="custom-select custom-select mb-3" name="record_type" v-model:value="record_type" :disabled="toEditRecordType">
-	                                <option value="ob">Offering Box</option>
-	                                <option value="dd">Bank Deposit</option>
-		                        </select>
+							    	<select id="record_type" class="custom-select custom-select mb-3" name="record_type" v-model:value="record_type" :disabled="toEditRecordType">
+		                                <option value="ob">Offering Box</option>
+		                                <option value="dd">Bank Deposit</option>
+			                        </select>
 
-						    </div>
+							    </div>
 
-						    <div class="col-sm-2" v-if="toEditRecordType">
-						    	<button class="btn btn-secondary btn-sm float-right mx-3" type="button"  @click="toEditRecordType = false">Edit</button>
-						    </div>
-						    
-						    <div class="col-sm-2" v-else>
+							    <div class="col-sm-2" v-if="toEditRecordType">
+							    	<button class="btn btn-secondary btn-sm float-right mx-3" type="button"  @click="toEditRecordType = false">Edit</button>
+							    </div>
+							    
+							    <div class="col-sm-2" v-else>
 
-						    	<button class="btn btn-danger btn-sm float-right mx-1" type="button" @click="toEditRecordType = true">Cancel</button>
-						    	<button class="btn btn-success btn-sm float-right mx-1" type="button" @click="updateRecordType" v-on:click="isHidden = true">Save</button>
+							    	<button class="btn btn-danger btn-sm float-right mx-1" type="button" @click="toEditRecordType = true">Cancel</button>
+							    	<button class="btn btn-success btn-sm float-right mx-1" type="button" @click="updateRecordType" v-on:click="isHidden = true">Save</button>
 
-						    </div>
-						</div>
-					</form>
+							    </div>
+							</div>
+						</form>
 
-					<form method="POST" enctype="multipart/form-data">
-		                <input type="hidden" name="_token" :value="csrf">
+						<form method="POST" enctype="multipart/form-data">
+			                <input type="hidden" name="_token" :value="csrf">
 
-						<div class="form-group row">
-							
-							<label for="givenAt" class="col-sm-2 col-form-label">Given At</label>
-						    <div class="col-sm-8">
+							<div class="form-group row">
+								
+								<label for="givenAt" class="col-sm-2 col-form-label">Given At</label>
+							    <div class="col-sm-8">
 
-						    	<date-picker id="givenAt" name="givenAt" v-model:value="given_at" :config="options" autocomplete="off" :disabled="toEditGivenAt"></date-picker>
+							    	<date-picker id="givenAt" name="givenAt" v-model:value="given_at" :config="options" autocomplete="off" :disabled="toEditGivenAt"></date-picker>
 
-						    </div>
+							    </div>
 
-						    <div class="col-sm-2" v-if="toEditGivenAt">
-						    	<button class="btn btn-secondary btn-sm float-right mx-3" type="button"  @click="toEditGivenAt = false">Edit</button>
-						    </div>
-						    
-						    <div class="col-sm-2" v-else>
+							    <div class="col-sm-2" v-if="toEditGivenAt">
+							    	<button class="btn btn-secondary btn-sm float-right mx-3" type="button"  @click="toEditGivenAt = false">Edit</button>
+							    </div>
+							    
+							    <div class="col-sm-2" v-else>
 
-						    	<button class="btn btn-danger btn-sm float-right mx-1" type="button" @click="toEditGivenAt = true">Cancel</button>
+							    	<button class="btn btn-danger btn-sm float-right mx-1" type="button" @click="toEditGivenAt = true">Cancel</button>
 
-						    	<button class="btn btn-success btn-sm float-right mx-1" type="button" @click="updateGivenAt" v-on:click="isHidden = true">Save</button>
+							    	<button class="btn btn-success btn-sm float-right mx-1" type="button" @click="updateGivenAt" v-on:click="isHidden = true">Save</button>
 
-						    </div>
-							
-						</div>
-					</form>
+							    </div>
+								
+							</div>
+						</form>
 
-					<form method="POST" enctype="multipart/form-data">
-		                <input type="hidden" name="_token" :value="csrf">
-		                <div class="form-group row">
-		                	<label for="status" class="col-sm-2 col-form-label">Status</label>
-						    <div class="col-sm-8">
+						<form method="POST" enctype="multipart/form-data">
+			                <input type="hidden" name="_token" :value="csrf">
+			                <div class="form-group row">
+			                	<label for="status" class="col-sm-2 col-form-label">Status</label>
+							    <div class="col-sm-8">
 
-						    	<select id="status" class="custom-select custom-select mb-3" name="status" v-model:value="status" :disabled="toEditStatus">
-	                                <option value="Unverified">Unverified</option>
-	                                <option value="Verified">Verified</option>
-		                        </select>
+							    	<select id="status" class="custom-select custom-select mb-3" name="status" v-model:value="status" :disabled="toEditStatus">
+		                                <option value="Unverified">Unverified</option>
+		                                <option value="Verified">Verified</option>
+			                        </select>
 
-						    </div>
+							    </div>
 
-						    <div class="col-sm-2" v-if="toEditStatus">
-						    	<button class="btn btn-secondary btn-sm float-right mx-3" type="button"  @click="toEditStatus = false">Edit</button>
-						    </div>
-						    
-						    <div class="col-sm-2" v-else>
+							    <div class="col-sm-2" v-if="toEditStatus">
+							    	<button class="btn btn-secondary btn-sm float-right mx-3" type="button"  @click="toEditStatus = false">Edit</button>
+							    </div>
+							    
+							    <div class="col-sm-2" v-else>
 
-						    	<button class="btn btn-danger btn-sm float-right mx-1" type="button" @click="toEditStatus = true">Cancel</button>
-						    	<button class="btn btn-success btn-sm float-right mx-1" type="button" @click="updateStatus" v-on:click="isHidden = true">Save</button>
+							    	<button class="btn btn-danger btn-sm float-right mx-1" type="button" @click="toEditStatus = true">Cancel</button>
+							    	<button class="btn btn-success btn-sm float-right mx-1" type="button" @click="updateStatus" v-on:click="isHidden = true">Save</button>
 
-						    </div>
-						</div>
-					</form>
+							    </div>
+							</div>
+						</form>
+		        	</div>
+		        </div>
 
-	        	</div>
+	        	<div class="row">
+	        		<div class="col-sm-6">
+	        			<GChart type="PieChart" :data="regularGivingData" :options='chartOptions'/>	
+	        		</div>
 
-	        	<!-- <div id="piechart" style="width: 900px; height: 500px;"></div>-->
+	        		<div class="col-sm-6">
+	        			<GChart type="PieChart" :data="regularGivingData" :options='chartOptions'/>	
+	        		</div>
+			    </div>
 
-	        	<GChart :data="chartData" :settings="{packages: ['PieChart']}" :options='chartOptions' />
+			    <div class="row">
+			    	<div class="col-sm-12">
+	        			<table class="table table-sm ">
+							<thead class="thead-dark">
+							    <tr>
+							      	<th scope="col">#</th>
+							      	<th scope="col">First</th>
+							      	<th scope="col">Last</th>
+							      	<th scope="col">Handle</th>
+							    </tr>
+							</thead>
+							<tbody>
+							    <tr>
+							      	<th scope="row">1</th>
+							      	<td>Mark</td>
+							      	<td>Otto</td>
+							      	<td>@mdo</td>
+							    </tr>
+							    <tr>
+							      	<th scope="row">2</th>
+							      	<td>Jacob</td>
+							      	<td>Thornton</td>
+							      	<td>@fat</td>
+							    </tr>
+							    <tr>
+							      	<th scope="row">3</th>
+							      	<td>Larry</td>
+							      	<td>the Bird</td>
+							      	<td>@twitter</td>
+							    </tr>
+							</tbody>
+						</table>
+			    	</div>
+			    </div>
+
+			    <!-- {{this.recordData}} -->
+
+			    {{this.specialOfferingsData}}
+
 	        	
-	        	{{this.recordData}}
-
-	        	{{this.specialOfferingsData}}
 	        </div>
 		</div>
 
@@ -163,8 +207,7 @@
   	export default {
 
       	mounted() {
-      		//this.chart = new google.visualization.PieChart(this.$el);
-
+      		this.arrangeSpecialOfferingData()
       	},
 
       	props: ['recordData', 'specialOfferingsData', 'givenAt', 'updateRecordRoute'],
@@ -204,49 +247,35 @@
 
                 chartsLib: null, 
 
-                chartData: [
-			        ['Task', 'Hours per Day'],
-			        ['Work',     11],
-			        ['Eat',      2],
-			        ['Commute',  2],
-			        ['Watch TV', 2],
-			        ['Sleep',    7]
+                regularGivingData: [
+			        ["Type", "Amount"],
+			        ["Tithe", this.recordData.tithe_amount],
+			        ["Love", this.recordData.love_amount],
+			        ["Faith", this.recordData.faith_amount]
 			    ],
 
 			    chartOptions: {
-		        
-		          	title: 'My Daily Activities'
+		          	title: 'Regular Giving Summary',
+		          	height: 400,
+		          	//pieHole: 0.4,
 		        }
 		    }
-            
         },
 
-       
+        computed: {
 
+        },
        
 	    methods: {
-	    	onChartReady (chart, google) {
-		      	this.chartsLib = google
-		    },
 
-	    	drawChart() {
-	    		var data = google.visualization.arrayToDataTable([
-			        ['Task', 'Hours per Day'],
-			        ['Work',     11],
-			        ['Eat',      2],
-			        ['Commute',  2],
-			        ['Watch TV', 2],
-			        ['Sleep',    7]
-		        ]);
+	    	arrangeSpecialOfferingData() {
+        		var arrayA = []
+        		var arr2 = []
+        		//console.log(this.specialOfferingsData.designation);
 
-		        var options = {
-		          	title: 'My Daily Activities'
-		        };
-
-		        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-		        chart.draw(data, options);
-	    	},
+        		console.log(this.recordData.member.first_name)
+        	
+        	},
 
 	    	updateServiceType() {
 

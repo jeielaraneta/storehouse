@@ -60,10 +60,6 @@ Vue.component('record-index-component', require('./components/record/RecordIndex
 Vue.component('record-profile-component', require('./components/record/RecordProfileComponent.vue').default);
 Vue.component('record-create-form', require('./components/record/forms/RecordCreateForm.vue').default);
 
-
-
-
-
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

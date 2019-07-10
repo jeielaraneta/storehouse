@@ -176,10 +176,11 @@ class RecordController extends Controller
     */
     public function show($id)
     {
-        
-        $specialOfferings = $this->record->findorFail($id)->specialOfferings;
-
         $record = $this->record->findorFail($id);
+
+        //$specialOfferings = SpecialOffering::where('record_id', $id);
+
+        $specialOfferings = $this->record->specialOfferings()->find($id);//SpecialOffering::find($id)->record;
 
         return view('admin/records/record-profile', ['recordData' => $record, 'specialOfferingsData' => $specialOfferings ]);
     }
