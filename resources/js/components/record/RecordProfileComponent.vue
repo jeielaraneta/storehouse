@@ -133,11 +133,11 @@
 
 	        	<div class="row">
 	        		<div class="col-sm-6">
-	        			<GChart type="PieChart" :data="regularGivingData" :options='chartOptions'/>	
+	        			<GChart type="PieChart" :data="regularGivingChart" :options='regularGivingChartOptions'/>	
 	        		</div>
 
 	        		<div class="col-sm-6">
-	        			<GChart type="PieChart" :data="regularGivingData" :options='chartOptions'/>	
+	        			<GChart type="PieChart" :data="specialOfferingChart" :options='specialOfferingChartOptions'/>	
 	        		</div>
 			    </div>
 
@@ -176,9 +176,9 @@
 			    	</div>
 			    </div>
 
-			    {{this.recordData}}
+			    <!-- {{this.recordData}} -->
 
-			    <!-- {{this.specialOfferingsData}} -->
+			    {{this.specialOfferingsData}}
 
 	        	
 	        </div>
@@ -247,18 +247,26 @@
 
                 chartsLib: null, 
 
-                regularGivingData: [
+                regularGivingChart: [
 			        ["Type", "Amount"],
 			        ["Tithe", this.recordData.tithe_amount],
 			        ["Love", this.recordData.love_amount],
 			        ["Faith", this.recordData.faith_amount]
 			    ],
 
-			    chartOptions: {
+			    specialOfferingChart: [],
+
+			    regularGivingChartOptions: {
 		          	title: 'Regular Giving Summary',
 		          	height: 400,
 		          	//pieHole: 0.4,
-		        }
+		        },
+
+		        specialOfferingChartOptions: {
+		          	title: 'Special Offering Giving Summary',
+		          	height: 400,
+		          	//pieHole: 0.4,
+		        },
 		    }
         },
 
@@ -269,11 +277,18 @@
 	    methods: {
 
 	    	arrangeSpecialOfferingData() {
-        		var arrayA = []
-        		var arr2 = []
-        		console.log(this.specialOfferingsData[0]);
+        		var arrayA = [["Type", "Amount"]];
 
-        		console.log(this.recordData)
+        		this.specialOfferingsData.forEach(function (value, key) {
+        			var newArray = [value.designation, value.designated_amount]
+				    arrayA.push(newArray);
+				});
+
+				this.specialOfferingChart = arrayA;
+
+        		console.log(this.specialOfferingChart)
+        		// console.log(this.specialOfferingsData[0]);
+        		// console.log(this.recordData)
         	
         	},
 

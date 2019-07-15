@@ -178,13 +178,7 @@ class RecordController extends Controller
     {
         $record = $this->record->findorFail($id);
 
-        //$specialOfferings = SpecialOffering::with('record')->find($id)->record;
-
         $specialOfferings = $this->record->with('specialOfferings')->find($id)->specialOfferings;
-
-        //$specialOfferings = DB::table('special_offerings')->where('record_id', '=', $id)->get();
-
-        //dd($specialOfferings);
 
         return view('admin/records/record-profile', ['recordData' => $record, 'specialOfferingsData' => $specialOfferings ]);
     }

@@ -44,6 +44,6 @@ Route::prefix('/records')->group(function () {
 
 Route::prefix('/specialOffering')->group(function () {
 
-    Route::get('/getSpecialOffering', 'SpecialOfferingController@getSpecialOfferingsRecord')->name('specialOffering.getSpecialOffering');
+    Route::get('/show/{id}', 'SpecialOfferingController@show')->name('specialOffering.show');
 
 });
