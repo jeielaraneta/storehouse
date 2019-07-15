@@ -176,9 +176,9 @@
 			    	</div>
 			    </div>
 
-			    <!-- {{this.recordData}} -->
+			    {{this.recordData}}
 
-			    {{this.specialOfferingsData}}
+			    <!-- {{this.specialOfferingsData}} -->
 
 	        	
 	        </div>
@@ -271,9 +271,9 @@
 	    	arrangeSpecialOfferingData() {
         		var arrayA = []
         		var arr2 = []
-        		//console.log(this.specialOfferingsData.designation);
+        		console.log(this.specialOfferingsData[0]);
 
-        		console.log(this.recordData.member.first_name)
+        		console.log(this.recordData)
         	
         	},
 

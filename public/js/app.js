@@ -12435,9 +12435,9 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     arrangeSpecialOfferingData: function arrangeSpecialOfferingData() {
       var arrayA = [];
-      var arr2 = []; //console.log(this.specialOfferingsData.designation);
-
-      console.log(this.recordData.member.first_name);
+      var arr2 = [];
+      console.log(this.specialOfferingsData[0]);
+      console.log(this.recordData);
     },
     updateServiceType: function updateServiceType() {},
     updateRecordType: function updateRecordType() {},
@@ -71934,12 +71934,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _vm._m(1),
-        _vm._v(" "),
-        _vm._v(
-          "\n\n\t\t    " +
-            _vm._s(this.specialOfferingsData) +
-            "\n\n        \t\n        "
-        )
+        _vm._v("\n\n\t\t    " + _vm._s(this.recordData) + "\n\n\t\t    ")
       ])
     ])
   ])
