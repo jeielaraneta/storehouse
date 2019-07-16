@@ -180,7 +180,7 @@ class RecordController extends Controller
 
         $specialOfferings = $this->record->with('specialOfferings')->find($id)->specialOfferings;
 
-        return view('admin/records/record-profile', ['recordData' => $record, 'specialOfferingsData' => $specialOfferings ]);
+        return view('admin/records/record-profile', ['records' => $record, 'specialOfferings' => $specialOfferings ]);
     }
 
     /**

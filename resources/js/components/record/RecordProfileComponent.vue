@@ -10,11 +10,11 @@
 
 	        	<div class="row mb-5">
 	        		<div class="col-sm-6">
-	        			<h6 class="card-title">Identification: <span>{{this.recordData.agc}}</span></h6>
+	        			<h6 class="card-title">Identification: <span>{{this.records.agc}}</span></h6>
 		        	</div>
 
 		        	<div class="col-sm-6">
-		        		<h6 class="card-title">Record ID: <span>{{this.recordData.id}}</span></h6>
+		        		<h6 class="card-title">Record ID: <span>{{this.records.id}}</span></h6>
 		        	</div>
 	        	</div>
 				
@@ -142,44 +142,30 @@
 			    </div>
 
 			    <div class="row">
-			    	<div class="col-sm-12">
-	        			<table class="table table-sm ">
+			    	<div class="col-sm-12 table-responsive">
+	        			<table class="table table-sm">
+	        				<caption>List of Special Offerings</caption>
 							<thead class="thead-dark">
 							    <tr>
 							      	<th scope="col">#</th>
-							      	<th scope="col">First</th>
-							      	<th scope="col">Last</th>
-							      	<th scope="col">Handle</th>
+							      	<th scope="col">Designation</th>
+							      	<th scope="col">Specifically For</th>
+							      	<th scope="col">Amount</th>
+							      	<th scope="col">Created At</th>
 							    </tr>
 							</thead>
 							<tbody>
-							    <tr>
-							      	<th scope="row">1</th>
-							      	<td>Mark</td>
-							      	<td>Otto</td>
-							      	<td>@mdo</td>
-							    </tr>
-							    <tr>
-							      	<th scope="row">2</th>
-							      	<td>Jacob</td>
-							      	<td>Thornton</td>
-							      	<td>@fat</td>
-							    </tr>
-							    <tr>
-							      	<th scope="row">3</th>
-							      	<td>Larry</td>
-							      	<td>the Bird</td>
-							      	<td>@twitter</td>
+							    <tr v-for="(specialOffering, index) in specialOfferings">
+							      	<th scope="row"> {{ index+1}} </th>
+							      	<td>{{specialOffering.designation}}</td>
+							      	<td>{{specialOffering.designated_for || 'None' }}</td>
+							      	<td>{{specialOffering.designated_amount}}</td>
+							      	<td>{{specialOffering.created_at}}</td>
 							    </tr>
 							</tbody>
 						</table>
 			    	</div>
 			    </div>
-
-			    <!-- {{this.recordData}} -->
-
-			    {{this.specialOfferingsData}}
-
 	        	
 	        </div>
 		</div>
@@ -210,7 +196,7 @@
       		this.arrangeSpecialOfferingData()
       	},
 
-      	props: ['recordData', 'specialOfferingsData', 'givenAt', 'updateRecordRoute'],
+      	props: ['records', 'specialOfferings', 'givenAt', 'updateRecordRoute'],
 
       	data() {
             return {
@@ -225,7 +211,7 @@
 					    clear: 'far fa-trash-alt',
 					    close: 'far fa-times-circle'
 					},
-                	defaultDate: this.recordData.given_at
+                	defaultDate: this.records.given_at
                 },
 
                 csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -240,18 +226,18 @@
                 toEditGivenAt: true,
                 toEditStatus: true,
 
-                service_type: this.recordData.service_type,
-                record_type: this.recordData.record_type,
-                given_at: this.recordData.given_at,
-                status: this.recordData.status,
+                service_type: this.records.service_type,
+                record_type: this.records.record_type,
+                given_at: this.records.given_at,
+                status: this.records.status,
 
                 chartsLib: null, 
 
                 regularGivingChart: [
 			        ["Type", "Amount"],
-			        ["Tithe", this.recordData.tithe_amount],
-			        ["Love", this.recordData.love_amount],
-			        ["Faith", this.recordData.faith_amount]
+			        ["Tithe", this.records.tithe_amount],
+			        ["Love", this.records.love_amount],
+			        ["Faith", this.records.faith_amount]
 			    ],
 
 			    specialOfferingChart: [],
@@ -279,16 +265,16 @@
 	    	arrangeSpecialOfferingData() {
         		var arrayA = [["Type", "Amount"]];
 
-        		this.specialOfferingsData.forEach(function (value, key) {
+        		this.specialOfferings.forEach(function (value, key) {
         			var newArray = [value.designation, value.designated_amount]
 				    arrayA.push(newArray);
 				});
 
 				this.specialOfferingChart = arrayA;
 
-        		console.log(this.specialOfferingChart)
-        		// console.log(this.specialOfferingsData[0]);
-        		// console.log(this.recordData)
+        		//console.log(this.specialOfferingChart)
+        		// console.log(this.specialOfferings[0]);
+        		// console.log(this.records)
         	
         	},
 

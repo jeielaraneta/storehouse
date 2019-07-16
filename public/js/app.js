@@ -12362,20 +12362,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /*	
 	DATETIME PICKER ICONS
@@ -12393,7 +12379,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.arrangeSpecialOfferingData();
   },
-  props: ['recordData', 'specialOfferingsData', 'givenAt', 'updateRecordRoute'],
+  props: ['records', 'specialOfferings', 'givenAt', 'updateRecordRoute'],
   data: function data() {
     return {
       options: {
@@ -12407,7 +12393,7 @@ __webpack_require__.r(__webpack_exports__);
           clear: 'far fa-trash-alt',
           close: 'far fa-times-circle'
         },
-        defaultDate: this.recordData.given_at
+        defaultDate: this.records.given_at
       },
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       alertMessage: "",
@@ -12418,12 +12404,12 @@ __webpack_require__.r(__webpack_exports__);
       toEditRecordType: true,
       toEditGivenAt: true,
       toEditStatus: true,
-      service_type: this.recordData.service_type,
-      record_type: this.recordData.record_type,
-      given_at: this.recordData.given_at,
-      status: this.recordData.status,
+      service_type: this.records.service_type,
+      record_type: this.records.record_type,
+      given_at: this.records.given_at,
+      status: this.records.status,
       chartsLib: null,
-      regularGivingChart: [["Type", "Amount"], ["Tithe", this.recordData.tithe_amount], ["Love", this.recordData.love_amount], ["Faith", this.recordData.faith_amount]],
+      regularGivingChart: [["Type", "Amount"], ["Tithe", this.records.tithe_amount], ["Love", this.records.love_amount], ["Faith", this.records.faith_amount]],
       specialOfferingChart: [],
       regularGivingChartOptions: {
         title: 'Regular Giving Summary',
@@ -12441,13 +12427,13 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     arrangeSpecialOfferingData: function arrangeSpecialOfferingData() {
       var arrayA = [["Type", "Amount"]];
-      this.specialOfferingsData.forEach(function (value, key) {
+      this.specialOfferings.forEach(function (value, key) {
         var newArray = [value.designation, value.designated_amount];
         arrayA.push(newArray);
       });
-      this.specialOfferingChart = arrayA;
-      console.log(this.specialOfferingChart); // console.log(this.specialOfferingsData[0]);
-      // console.log(this.recordData)
+      this.specialOfferingChart = arrayA; //console.log(this.specialOfferingChart)
+      // console.log(this.specialOfferings[0]);
+      // console.log(this.records)
     },
     updateServiceType: function updateServiceType() {},
     updateRecordType: function updateRecordType() {},
@@ -71418,14 +71404,14 @@ var render = function() {
           _c("div", { staticClass: "col-sm-6" }, [
             _c("h6", { staticClass: "card-title" }, [
               _vm._v("Identification: "),
-              _c("span", [_vm._v(_vm._s(this.recordData.agc))])
+              _c("span", [_vm._v(_vm._s(this.records.agc))])
             ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-sm-6" }, [
             _c("h6", { staticClass: "card-title" }, [
               _vm._v("Record ID: "),
-              _c("span", [_vm._v(_vm._s(this.recordData.id))])
+              _c("span", [_vm._v(_vm._s(this.records.id))])
             ])
           ])
         ]),
@@ -71943,13 +71929,39 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _vm._m(1),
-        _vm._v(" "),
-        _vm._v(
-          "\n\n\t\t    " +
-            _vm._s(this.specialOfferingsData) +
-            "\n\n        \t\n        "
-        )
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-sm-12 table-responsive" }, [
+            _c("table", { staticClass: "table table-sm" }, [
+              _c("caption", [_vm._v("List of Special Offerings")]),
+              _vm._v(" "),
+              _vm._m(1),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                _vm._l(_vm.specialOfferings, function(specialOffering, index) {
+                  return _c("tr", [
+                    _c("th", { attrs: { scope: "row" } }, [
+                      _vm._v(" " + _vm._s(index + 1) + " ")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(specialOffering.designation))]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(_vm._s(specialOffering.designated_for || "None"))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(_vm._s(specialOffering.designated_amount))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(specialOffering.created_at))])
+                  ])
+                }),
+                0
+              )
+            ])
+          ])
+        ])
       ])
     ])
   ])
@@ -71969,53 +71981,17 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-sm-12" }, [
-        _c("table", { staticClass: "table table-sm " }, [
-          _c("thead", { staticClass: "thead-dark" }, [
-            _c("tr", [
-              _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
-              _vm._v(" "),
-              _c("th", { attrs: { scope: "col" } }, [_vm._v("First")]),
-              _vm._v(" "),
-              _c("th", { attrs: { scope: "col" } }, [_vm._v("Last")]),
-              _vm._v(" "),
-              _c("th", { attrs: { scope: "col" } }, [_vm._v("Handle")])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("tbody", [
-            _c("tr", [
-              _c("th", { attrs: { scope: "row" } }, [_vm._v("1")]),
-              _vm._v(" "),
-              _c("td", [_vm._v("Mark")]),
-              _vm._v(" "),
-              _c("td", [_vm._v("Otto")]),
-              _vm._v(" "),
-              _c("td", [_vm._v("@mdo")])
-            ]),
-            _vm._v(" "),
-            _c("tr", [
-              _c("th", { attrs: { scope: "row" } }, [_vm._v("2")]),
-              _vm._v(" "),
-              _c("td", [_vm._v("Jacob")]),
-              _vm._v(" "),
-              _c("td", [_vm._v("Thornton")]),
-              _vm._v(" "),
-              _c("td", [_vm._v("@fat")])
-            ]),
-            _vm._v(" "),
-            _c("tr", [
-              _c("th", { attrs: { scope: "row" } }, [_vm._v("3")]),
-              _vm._v(" "),
-              _c("td", [_vm._v("Larry")]),
-              _vm._v(" "),
-              _c("td", [_vm._v("the Bird")]),
-              _vm._v(" "),
-              _c("td", [_vm._v("@twitter")])
-            ])
-          ])
-        ])
+    return _c("thead", { staticClass: "thead-dark" }, [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Designation")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Specifically For")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Amount")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Created At")])
       ])
     ])
   }
