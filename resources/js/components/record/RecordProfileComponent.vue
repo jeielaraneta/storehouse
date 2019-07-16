@@ -9,12 +9,16 @@
 	        <div class="card-body">
 
 	        	<div class="row mb-5">
-	        		<div class="col-sm-6">
+	        		<div class="col-sm-4">
 	        			<h6 class="card-title">Identification: <span>{{this.records.agc}}</span></h6>
 		        	</div>
 
-		        	<div class="col-sm-6">
+		        	<div class="col-sm-4">
 		        		<h6 class="card-title">Record ID: <span>{{this.records.id}}</span></h6>
+		        	</div>
+
+		        	<div class="col-sm-4">
+		        		<h6 class="card-title">Total Amount: <span>{{this.records.total_amount}}</span></h6>
 		        	</div>
 	        	</div>
 				

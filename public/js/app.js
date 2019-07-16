@@ -12362,6 +12362,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /*	
 	DATETIME PICKER ICONS
@@ -71401,17 +71405,24 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
         _c("div", { staticClass: "row mb-5" }, [
-          _c("div", { staticClass: "col-sm-6" }, [
+          _c("div", { staticClass: "col-sm-4" }, [
             _c("h6", { staticClass: "card-title" }, [
               _vm._v("Identification: "),
               _c("span", [_vm._v(_vm._s(this.records.agc))])
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "col-sm-6" }, [
+          _c("div", { staticClass: "col-sm-4" }, [
             _c("h6", { staticClass: "card-title" }, [
               _vm._v("Record ID: "),
               _c("span", [_vm._v(_vm._s(this.records.id))])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-4" }, [
+            _c("h6", { staticClass: "card-title" }, [
+              _vm._v("Total Amount: "),
+              _c("span", [_vm._v(_vm._s(this.records.total_amount))])
             ])
           ])
         ]),
