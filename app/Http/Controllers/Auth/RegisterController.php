@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
-use App\Models\CredentialsGenerator;
+use App\Traits\RandomTextGenerator;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -23,26 +23,26 @@ class RegisterController extends Controller
     | provide this functionality without requiring any additional code.
     |
     */
-
     use RegistersUsers;
+
+    use RandomTextGenerator;
 
     /**
      * Where to redirect users after registration.
      *
      * @var string
      */
-    protected $redirectTo = '/email/verify';
+    protected $redirectTo = '/dashboard';
 
-    protected $credGen;
+    protected $randTextGen;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(CredentialsGenerator $credGen)
+    public function __construct()
     {
-        $this->credGen = $credGen;
         $this->middleware('guest');
     }
 
@@ -52,14 +52,15 @@ class RegisterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function register(Request $request)
+    
+    /*public function register(Request $request)
     {
         $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->create($request->all())));
 
         return $this->registered($request, $user) ?: redirect($this->redirectPath());
-    }
+    }*/
 
     /**
      * Get a validator for an incoming registration request.
@@ -88,7 +89,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'username' => $this->credGen->generateUsername($data['first_name'], $data['middle_name'], $data['last_name']),
+            'username' => $this->generateUsername($data['first_name'], $data['middle_name'], $data['last_name']),
             'first_name' => $data['first_name'],
             'middle_name' => $data['middle_name'],
             'last_name' => $data['last_name'],

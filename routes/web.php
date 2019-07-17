@@ -12,9 +12,38 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+
+Route::prefix('/members')->group(function () {
+
+    Route::get('/', 'MemberController@index')->name('member.index');
+    Route::get('/create', 'MemberController@create')->name('member.create');
+    Route::post('/store', 'MemberController@store')->name('member.store');
+    Route::get('/show/{id}', 'MemberController@show')->name('member.show');
+    Route::put('/update/{id}', 'MemberController@update')->name('member.update');
+    Route::get('/search', 'MemberController@apiResource')->name('member.search');
+    Route::get('/api', 'MemberController@apiResource');
+
+});
+
+Route::prefix('/records')->group(function () {
+
+    Route::get('/', 'RecordController@index')->name('record.index');
+    Route::get('/create', 'RecordController@create')->name('record.create');
+    Route::post('/store', 'RecordController@store')->name('record.store');
+    Route::get('/show/{id}', 'RecordController@show')->name('record.show');
+    Route::put('/update/{id}', 'RecordController@update')->name('record.update');
+    Route::get('/api', 'RecordController@apiResource');
+
+});
+
+Route::prefix('/specialOffering')->group(function () {
+
+    Route::get('/show/{id}', 'SpecialOfferingController@show')->name('specialOffering.show');
+
+});
