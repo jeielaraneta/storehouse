@@ -16,7 +16,8 @@
 		    </div>
 		</div>
 		
-		<div class="card">		
+		<div class="card">
+			<span class="border-top"></span>	
 	        <div class="card-header bg-transparent border-primary">
 	        	<div class="row">
 		        	<div class="col-md-6">
@@ -378,7 +379,7 @@
   	export default {
 
       	mounted() {
-          	console.log(marital_status) 
+          	
       	},
 
       	props: ['memberData', 'birthday', 'updateMemberRoute'],

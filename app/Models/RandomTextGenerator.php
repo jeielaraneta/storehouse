@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class RandomTextGenerator extends Model
 {
-     /**
+    /**
      *
      * Generates username
      *
