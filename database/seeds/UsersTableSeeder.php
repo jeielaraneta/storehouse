@@ -4,16 +4,12 @@ use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
-use App\Models\RandomTextGenerator;
+use App\Traits\RandomTextGenerator;
 
 class UsersTableSeeder extends Seeder
 {
-
-	protected $credGen;
-
-	public function __construct(RandomTextGenerator $credGen) {
-        $this->credGen = $credGen;
-    }
+    use RandomTextGenerator;
+	
 
     /**
      * Run the database seeds.
@@ -23,7 +19,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'username' => $this->credGen->generateUsername('John Jeiel', 'Noblejas', 'Araneta'),
+            'username' => $this->generateUsername('John Jeiel', 'Noblejas', 'Araneta'),
             'first_name' => 'John Jeiel',
             'middle_name' => 'Noblejas',
             'last_name' => 'Araneta',

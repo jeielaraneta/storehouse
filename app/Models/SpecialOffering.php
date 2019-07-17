@@ -26,4 +26,40 @@ class SpecialOffering extends Model
         return $this->belongsTo('App\Models\Record');
     }
 
+    public function getDesignationAttribute($value) {
+
+        $designation = '';
+
+        switch ($value) {
+            case 'ce':
+                $designation = 'C.E.';
+                break;
+            case 'music':
+                $designation = ucfirst($value);
+                break;
+            case 'outreach':
+                $designation = ucfirst($value);
+                break;
+            case 'local_missions':
+                $designation = ucfirst(str_replace('_', ' ', $value));
+                break;
+            case 'intl_missions':
+                $designation = 'International Missions';
+                break;
+            case 'intl_missions':
+                $designation = 'International Missions';
+                break;
+            case 'others':
+                $designation = ucfirst($value);
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+        
+        return $designation;
+
+    }
+
 }

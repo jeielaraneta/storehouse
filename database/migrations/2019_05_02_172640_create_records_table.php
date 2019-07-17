@@ -15,17 +15,17 @@ class CreateRecordsTable extends Migration
     {
         Schema::create('records', function (Blueprint $table) {
             $table->bigIncrements('id');
-            //$table->integer('gic')->nullable();
+            $table->enum('giver_type', ['identified', 'anonymous', 'group']);
             $table->string('group_name', 75)->nullable();
             $table->string('agc', 75)->nullable(); //anonymous giver code
             $table->enum('service_type', ['ews', 'mmws', 'vws', 'ss', 'pm', 'na']);
             $table->enum('record_type', ['dd', 'ob']);
             $table->date('given_at');
             $table->integer('status'); // 0:unverified 1:verified 2:removed 3:edited
-            $table->integer('tithe_amount')->nullable();
-            $table->integer('love_amount')->nullable();
-            $table->integer('faith_amount')->nullable();
-            $table->integer('total_amount')->nullable();
+            $table->integer('tithe_amount')->default(0);
+            $table->integer('love_amount')->default(0);
+            $table->integer('faith_amount')->default(0);
+            $table->integer('total_amount')->default(0);
             $table->timestamps();
         });
 

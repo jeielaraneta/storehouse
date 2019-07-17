@@ -28,10 +28,38 @@ class Record extends Model
 
     /**
      * Get the special offerings for the record.
-     */
+    */
     public function specialOfferings()
     {
         return $this->hasMany('App\Models\SpecialOffering');
+    }
+
+    public function getGiverTypeAttribute($value) {
+        return ucfirst($value);
+    }
+
+    public function getAgcAttribute($value) {
+        $ident = '';
+
+        switch ($this->giver_type) {
+            case 'Identified':
+                $ident = $this->member->first_name . ' ' . $this->member->last_name;
+                break;
+
+            case 'Group':
+                $ident = $this->group_name;
+                break;
+            
+            default:
+                $ident = $value;
+                break;
+        }
+
+        return ucfirst($ident);
+    }
+
+    public function getStatusAttribute($value) {
+        return $value == 0 ?  'Unverified' : 'Verified';
     }
 
     public function setGivenAtAttribute($value)
