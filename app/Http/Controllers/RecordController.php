@@ -61,111 +61,156 @@ class RecordController extends Controller
     {
         $user = Auth::user();
 
-        switch ($request->giver_type) {
-            case 'identified':
+        if( $request->record_type == 'dd'){
 
-                $data = array(
-                    'member_id' => $request->gic,
-                    'service_type' => $request->service_type,
-                    'record_type' => $request->record_type,
-                    'giver_type' => $request->giver_type,
-                    'given_at' => date('Y-m-d', strtotime($request->given_at)),
-                    'status' => $request->status,
-                    'tithe_amount' => $request->tithe,
-                    'love_amount' => $request->love,
-                    'faith_amount' => $request->faith,
-                    'total_amount' => $request->total_amount,
-                    'created_by' => $user->id
-                );
+            $data = array(
+                'bank_ref' => $request->bank_ref,
+                'service_type' => $request->service_type,
+                'record_type' => $request->record_type,
+                'giver_type' => "bank_depositor",
+                'given_at' => date('Y-m-d', strtotime($request->given_at)),
+                'status' => $request->status,
+                'tithe_amount' => $request->tithe,
+                'love_amount' => $request->love,
+                'faith_amount' => $request->faith,
+                'total_amount' => $request->total_amount,
+                'created_by' => $user->id,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            );
 
-                $saveAndGetID = DB::table('records')->insertGetId($data);
+            $saveAndGetID = DB::table('records')->insertGetId($data);
 
-                $specOff = $request->special_offering;
+            $specOff = $request->special_offering;
 
-                foreach ($specOff as $key => $value) {
-                    $specOff[$key]['record_id'] = $saveAndGetID;
-                    $specOff[$key]['created_at'] = Carbon::now();
-                    $specOff[$key]['updated_at'] = Carbon::now();
-                }
+            foreach ($specOff as $key => $value) {
+                $specOff[$key]['record_id'] = $saveAndGetID;
+                $specOff[$key]['created_at'] = Carbon::now();
+                $specOff[$key]['updated_at'] = Carbon::now();
+            }
 
-                $saveSpecOff = SpecialOffering::insert($specOff);
+            $saveSpecOff = SpecialOffering::insert($specOff);
 
-                $result = ($saveAndGetID && $saveSpecOff) ? true : false;
+            $result = ($saveAndGetID && $saveSpecOff) ? true : false;
 
-                return response()->json([ 'success' => $result]);
+            return response()->json([ 'success' => $result]);
 
-                break;
+        } else {
 
-            case 'group':
+            switch ($request->giver_type) {
+                case 'identified':
 
-                $data = array(
-                    'group_name' => $request->group_name,
-                    'service_type' => $request->service_type,
-                    'record_type' => $request->record_type,
-                    'giver_type' => $request->giver_type,
-                    'given_at' => date('Y-m-d', strtotime($request->given_at)),
-                    'status' => $request->status,
-                    'tithe_amount' => $request->tithe,
-                    'love_amount' => $request->love,
-                    'faith_amount' => $request->faith,
-                    'total_amount' => $request->total_amount,
-                    'created_by' => $user->id
-                );
+                    $data = array(
+                        'member_id' => $request->gic,
+                        'service_type' => $request->service_type,
+                        'record_type' => $request->record_type,
+                        'giver_type' => $request->giver_type,
+                        'given_at' => date('Y-m-d', strtotime($request->given_at)),
+                        'status' => $request->status,
+                        'tithe_amount' => $request->tithe,
+                        'love_amount' => $request->love,
+                        'faith_amount' => $request->faith,
+                        'total_amount' => $request->total_amount,
+                        'created_by' => $user->id,
+                        'created_at' => Carbon::now(),
+                        'updated_at' => Carbon::now()
+                    );
 
-                $saveAndGetID = DB::table('records')->insertGetId($data);
+                    $saveAndGetID = DB::table('records')->insertGetId($data);
 
-                $specOff = $request->special_offering;
+                    $specOff = $request->special_offering;
 
-                foreach ($specOff as $key => $value) {
-                    $specOff[$key]['record_id'] = $saveAndGetID;
-                    $specOff[$key]['created_at'] = Carbon::now();
-                    $specOff[$key]['updated_at'] = Carbon::now();
-                }
+                    foreach ($specOff as $key => $value) {
+                        $specOff[$key]['record_id'] = $saveAndGetID;
+                        $specOff[$key]['created_at'] = Carbon::now();
+                        $specOff[$key]['updated_at'] = Carbon::now();
+                    }
 
-                $saveSpecOff = SpecialOffering::insert($specOff);
+                    $saveSpecOff = SpecialOffering::insert($specOff);
 
-                $result = ($saveAndGetID && $saveSpecOff) ? true : false;
+                    $result = ($saveAndGetID && $saveSpecOff) ? true : false;
 
-                return response()->json([ 'success' => $result]);
+                    return response()->json([ 'success' => $result]);
 
-                break;
-            
-            default:
+                    break;
 
-                $agc = $this->generateAnonymousGiverCode();
+                case 'group':
 
-                $data = array(
-                    'agc' => $agc,
-                    'service_type' => $request->service_type,
-                    'record_type' => $request->record_type,
-                    'giver_type' => $request->giver_type,
-                    'given_at' => date('Y-m-d', strtotime($request->given_at)),
-                    'status' => $request->status,
-                    'tithe_amount' => $request->tithe,
-                    'love_amount' => $request->love,
-                    'faith_amount' => $request->faith,
-                    'total_amount' => $request->total_amount,
-                    'created_by' => $user->id
-                );
+                    $data = array(
+                        'group_name' => $request->group_name,
+                        'service_type' => $request->service_type,
+                        'record_type' => $request->record_type,
+                        'giver_type' => $request->giver_type,
+                        'given_at' => date('Y-m-d', strtotime($request->given_at)),
+                        'status' => $request->status,
+                        'tithe_amount' => $request->tithe,
+                        'love_amount' => $request->love,
+                        'faith_amount' => $request->faith,
+                        'total_amount' => $request->total_amount,
+                        'created_by' => $user->id,
+                        'created_at' => Carbon::now(),
+                        'updated_at' => Carbon::now()
+                    );
 
-                $saveAndGetID = DB::table('records')->insertGetId($data);
+                    $saveAndGetID = DB::table('records')->insertGetId($data);
 
-                $specOff = $request->special_offering;
+                    $specOff = $request->special_offering;
 
-                foreach ($specOff as $key => $value) {
-                    $specOff[$key]['record_id'] = $saveAndGetID;
-                    $specOff[$key]['created_at'] = Carbon::now();
-                    $specOff[$key]['updated_at'] = Carbon::now();
-                }
+                    foreach ($specOff as $key => $value) {
+                        $specOff[$key]['record_id'] = $saveAndGetID;
+                        $specOff[$key]['created_at'] = Carbon::now();
+                        $specOff[$key]['updated_at'] = Carbon::now();
+                    }
 
-                $saveSpecOff = SpecialOffering::insert($specOff);
+                    $saveSpecOff = SpecialOffering::insert($specOff);
 
-                $result = ($saveAndGetID && $saveSpecOff) ? true : false;
+                    $result = ($saveAndGetID && $saveSpecOff) ? true : false;
 
-                return response()->json([ 'success' => $result]);
+                    return response()->json([ 'success' => $result]);
 
-                break;
+                    break;
+                
+                default:
+
+                    $agc = $this->generateAnonymousGiverCode();
+
+                    $data = array(
+                        'agc' => $agc,
+                        'service_type' => $request->service_type,
+                        'record_type' => $request->record_type,
+                        'giver_type' => $request->giver_type,
+                        'given_at' => date('Y-m-d', strtotime($request->given_at)),
+                        'status' => $request->status,
+                        'tithe_amount' => $request->tithe,
+                        'love_amount' => $request->love,
+                        'faith_amount' => $request->faith,
+                        'total_amount' => $request->total_amount,
+                        'created_by' => $user->id,
+                        'created_at' => Carbon::now(),
+                        'updated_at' => Carbon::now()
+                    );
+
+                    $saveAndGetID = DB::table('records')->insertGetId($data);
+
+                    $specOff = $request->special_offering;
+
+                    foreach ($specOff as $key => $value) {
+                        $specOff[$key]['record_id'] = $saveAndGetID;
+                        $specOff[$key]['created_at'] = Carbon::now();
+                        $specOff[$key]['updated_at'] = Carbon::now();
+                    }
+
+                    $saveSpecOff = SpecialOffering::insert($specOff);
+
+                    $result = ($saveAndGetID && $saveSpecOff) ? true : false;
+
+                    return response()->json([ 'success' => $result]);
+
+                    break;
+            }
         }
+
+        
     }
 
     /**
@@ -203,7 +248,11 @@ class RecordController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $record = $this->record->find($id);
+
+        $update = $record->update($request->all());
+
+        return response()->json([ 'success' => $update ? true : false]);
     }
 
     /**

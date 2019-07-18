@@ -11992,7 +11992,6 @@ __webpack_require__.r(__webpack_exports__);
     updateCode: function updateCode() {
       var _this12 = this;
 
-      var province = $('#code').val();
       window.axios.put(this.updateMemberRoute, {
         code: code._value
       }).then(function (response) {
@@ -12366,6 +12365,69 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /*	
 	DATETIME PICKER ICONS
@@ -12429,6 +12491,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {},
   methods: {
+    sumOfRegularGiving: function sumOfRegularGiving() {
+      var total = Number(this.records.tithe_amount) + Number(this.records.love_amount) + Number(this.records.faith_amount);
+      return total;
+    },
     arrangeSpecialOfferingData: function arrangeSpecialOfferingData() {
       var arrayA = [["Type", "Amount"]];
       this.specialOfferings.forEach(function (value, key) {
@@ -12439,9 +12505,49 @@ __webpack_require__.r(__webpack_exports__);
       // console.log(this.specialOfferings[0]);
       // console.log(this.records)
     },
-    updateServiceType: function updateServiceType() {},
+    updateServiceType: function updateServiceType() {
+      var _this = this;
+
+      var service_type = $('#service_type').val();
+      window.axios.put(this.updateRecordRoute, {
+        service_type: service_type
+      }).then(function (response) {
+        console.log(response.data.success);
+        _this.toEditServiceType = true;
+        _this.isSuccesful = true;
+        _this.isHidden = false;
+        _this.alertMessage = response.data.success ? "Record's service type has been updated sucessfully!" : "Error";
+      });
+    },
     updateRecordType: function updateRecordType() {},
-    updateStatus: function updateStatus() {}
+    updateStatus: function updateStatus() {
+      var _this2 = this;
+
+      var status = $('#status').val() == 'Unverified' ? 0 : 1;
+      window.axios.put(this.updateRecordRoute, {
+        status: status
+      }).then(function (response) {
+        console.log(response.data.success);
+        _this2.toEditStatus = true;
+        _this2.isSuccesful = true;
+        _this2.isHidden = false;
+        _this2.alertMessage = response.data.success ? "Record's status has been updated sucessfully!" : "Error";
+      });
+    },
+    updateGivenAt: function updateGivenAt() {
+      var _this3 = this;
+
+      var givenAt = $('#givenAt').val();
+      window.axios.put(this.updateRecordRoute, {
+        given_at: givenAt
+      }).then(function (response) {
+        console.log(response.data.success);
+        _this3.toEditGivenAt = true;
+        _this3.isSuccesful = true;
+        _this3.isHidden = false;
+        _this3.alertMessage = response.data.success ? "Record's given date has been updated sucessfully!" : "Error";
+      });
+    }
   }
 });
 
@@ -12620,6 +12726,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['givenAt', 'submitRecordRoute', 'memberSearch', 'memberSearchRoute'],
   data: function data() {
@@ -12627,6 +12745,7 @@ __webpack_require__.r(__webpack_exports__);
       alertMessage: "",
       isHidden: true,
       isSuccesful: true,
+      isDirectDeposit: false,
       gic: '',
       record_type: 'ob',
       service_type: '',
@@ -12637,6 +12756,7 @@ __webpack_require__.r(__webpack_exports__);
       tithe: 0,
       faith: 0,
       love: 0,
+      bank_ref: '',
       des_offerings: [{
         designation: 'select',
         designated_amount: 0,
@@ -12692,6 +12812,7 @@ __webpack_require__.r(__webpack_exports__);
       this.tithe = 0;
       this.love = 0;
       this.faith = 0;
+      this.bank_ref = '';
     },
     nameWithCode: function nameWithCode(_ref) {
       var name = _ref.name,
@@ -12714,6 +12835,7 @@ __webpack_require__.r(__webpack_exports__);
         gic: this.gic['id'],
         agc: this.agc,
         group_name: this.group_name,
+        bank_ref: this.bank_ref,
         service_type: this.service_type,
         given_at: this.given_at,
         status: this.status,
@@ -12731,6 +12853,7 @@ __webpack_require__.r(__webpack_exports__);
       window.axios.post(this.submitRecordRoute, this.record_data).then(function (response) {
         _this2.isSuccesful = true;
         _this2.isHidden = false;
+        _this2.isDirectDeposit = false;
         _this2.alertMessage = response.data.success ? "Record succesfully added!" : "Error";
         _this2.des_offerings = [{
           designated_amount: 0,
@@ -12738,6 +12861,7 @@ __webpack_require__.r(__webpack_exports__);
           designated_for: ''
         }];
         _this2.isAnonymous = false;
+        _this2.bank_ref = '';
         _this2.gic = "";
         _this2.tithe = 0;
         _this2.love = 0;
@@ -71398,10 +71522,56 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "col-md-12" }, [
+    !_vm.isHidden
+      ? _c("div", [
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.isSuccesful,
+                  expression: "isSuccesful"
+                }
+              ],
+              staticClass: "alert alert-success",
+              attrs: { role: "alert" }
+            },
+            [
+              _vm._v("\n\t\t\t" + _vm._s(_vm.alertMessage) + "\n\t        "),
+              _vm._m(0)
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: !_vm.isSuccesful,
+                  expression: "!isSuccesful"
+                }
+              ],
+              staticClass: "alert alert-danger",
+              attrs: { role: "alert" }
+            },
+            [
+              _vm._v("\n\t    \t" + _vm._s(_vm.alertMessage) + "\n\t        "),
+              _vm._m(1)
+            ]
+          )
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm._m(2),
+    _vm._v(" "),
     _c("div", { staticClass: "card" }, [
       _c("span", { staticClass: "border-top" }),
       _vm._v(" "),
-      _vm._m(0),
+      _vm._m(3),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
         _c("div", { staticClass: "row mb-5" }, [
@@ -71443,7 +71613,7 @@ var render = function() {
                     "label",
                     {
                       staticClass: "col-sm-2 col-form-label",
-                      attrs: { for: "marital_status" }
+                      attrs: { for: "service_type" }
                     },
                     [_vm._v("Service Type")]
                   ),
@@ -71940,12 +72110,40 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
+        _vm._m(4),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-sm-12 table-responsive" }, [
+            _c("table", { staticClass: "table table-sm" }, [
+              _c("caption", [_vm._v("List of Regular Giving")]),
+              _vm._v(" "),
+              _vm._m(5),
+              _vm._v(" "),
+              _c("tbody", [
+                _c("tr", [
+                  _c("td", [_vm._v(_vm._s(this.records.tithe_amount))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(this.records.love_amount))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(this.records.faith_amount))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(this.sumOfRegularGiving()))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(this.records.created_at))])
+                ])
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _vm._m(6),
+        _vm._v(" "),
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-sm-12 table-responsive" }, [
             _c("table", { staticClass: "table table-sm" }, [
               _c("caption", [_vm._v("List of Special Offerings")]),
               _vm._v(" "),
-              _vm._m(1),
+              _vm._m(7),
               _vm._v(" "),
               _c(
                 "tbody",
@@ -71955,7 +72153,9 @@ var render = function() {
                       _vm._v(" " + _vm._s(index + 1) + " ")
                     ]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(specialOffering.designation))]),
+                    _c("td", [
+                      _vm._v(_vm._s(specialOffering.designation || "None"))
+                    ]),
                     _vm._v(" "),
                     _c("td", [
                       _vm._v(_vm._s(specialOffering.designated_for || "None"))
@@ -71972,7 +72172,12 @@ var render = function() {
               )
             ])
           ])
-        ])
+        ]),
+        _vm._v(
+          "\n\n\t\t    \n        \t" +
+            _vm._s(this.records.status) +
+            "\n        \n        "
+        )
       ])
     ])
   ])
@@ -71983,10 +72188,96 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "alert",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "alert",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card text-white bg-info mb-3" }, [
+      _c("div", { staticClass: "card-body" }, [
+        _vm._v("\n\t\t    This is some text within a card body.\n\t\t")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
       "div",
       { staticClass: "card-header bg-transparent border-primary" },
       [_c("h5", [_vm._v("Record Profile")])]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-sm-12" }, [
+        _c("h6", { staticClass: "card-title" }, [
+          _vm._v("List of Regular Giving")
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-dark" }, [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Tithes")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Love")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Faith")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Total Amount")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Created At")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-sm-12" }, [
+        _c("h6", { staticClass: "card-title" }, [
+          _vm._v("List of Special Offerings")
+        ])
+      ])
+    ])
   },
   function() {
     var _vm = this
@@ -72127,7 +72418,10 @@ var render = function() {
                           _vm.record_type = "dd"
                         },
                         _vm.getValues
-                      ]
+                      ],
+                      click: function($event) {
+                        _vm.isDirectDeposit = true
+                      }
                     }
                   }),
                   _vm._v(" "),
@@ -72160,7 +72454,10 @@ var render = function() {
                           _vm.record_type = "ob"
                         },
                         _vm.getValues
-                      ]
+                      ],
+                      click: function($event) {
+                        _vm.isDirectDeposit = false
+                      }
                     }
                   }),
                   _vm._v(" "),
@@ -72188,7 +72485,7 @@ var render = function() {
                       }
                     ],
                     staticClass: "custom-select custom-select mb-3",
-                    attrs: { id: "giver_type" },
+                    attrs: { id: "giver_type", disabled: _vm.isDirectDeposit },
                     on: {
                       change: [
                         function($event) {
@@ -72234,8 +72531,9 @@ var render = function() {
                   {
                     name: "show",
                     rawName: "v-show",
-                    value: _vm.isSelected == "identified",
-                    expression: "isSelected == 'identified'"
+                    value:
+                      _vm.isSelected == "identified" && !_vm.isDirectDeposit,
+                    expression: "isSelected == 'identified'&&!isDirectDeposit"
                   }
                 ],
                 staticClass: "form-row"
@@ -72282,8 +72580,8 @@ var render = function() {
                   {
                     name: "show",
                     rawName: "v-show",
-                    value: _vm.isSelected == "group",
-                    expression: "isSelected == 'group'"
+                    value: _vm.isSelected == "group" && !_vm.isDirectDeposit,
+                    expression: "isSelected == 'group'&&!isDirectDeposit"
                   }
                 ],
                 staticClass: "form-row"
@@ -72311,6 +72609,51 @@ var render = function() {
                           return
                         }
                         _vm.group_name = $event.target.value
+                      }
+                    }
+                  })
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.record_type == "dd",
+                    expression: "record_type == 'dd'"
+                  }
+                ],
+                staticClass: "form-row"
+              },
+              [
+                _c("div", { staticClass: "form-group col-md-12" }, [
+                  _c("label", { attrs: { for: "" } }, [
+                    _vm._v("Bank Deposit Reference Number")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.bank_ref,
+                        expression: "bank_ref"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", autocomplete: "off" },
+                    domProps: { value: _vm.bank_ref },
+                    on: {
+                      change: _vm.getValues,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.bank_ref = $event.target.value
                       }
                     }
                   })
@@ -72472,14 +72815,13 @@ var render = function() {
                   directives: [
                     {
                       name: "model",
-                      rawName: "v-model.number",
+                      rawName: "v-model",
                       value: _vm.tithe,
-                      expression: "tithe",
-                      modifiers: { number: true }
+                      expression: "tithe"
                     }
                   ],
                   staticClass: "form-control",
-                  attrs: { type: "number", id: "tithe_amount" },
+                  attrs: { type: "text", id: "tithe_amount" },
                   domProps: { value: _vm.tithe },
                   on: {
                     input: [
@@ -72487,13 +72829,10 @@ var render = function() {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.tithe = _vm._n($event.target.value)
+                        _vm.tithe = $event.target.value
                       },
                       _vm.getValues
-                    ],
-                    blur: function($event) {
-                      return _vm.$forceUpdate()
-                    }
+                    ]
                   }
                 })
               ]),
@@ -72507,14 +72846,13 @@ var render = function() {
                   directives: [
                     {
                       name: "model",
-                      rawName: "v-model.number",
+                      rawName: "v-model",
                       value: _vm.love,
-                      expression: "love",
-                      modifiers: { number: true }
+                      expression: "love"
                     }
                   ],
                   staticClass: "form-control",
-                  attrs: { type: "number", id: "love_amount" },
+                  attrs: { type: "text", id: "love_amount" },
                   domProps: { value: _vm.love },
                   on: {
                     input: [
@@ -72522,13 +72860,10 @@ var render = function() {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.love = _vm._n($event.target.value)
+                        _vm.love = $event.target.value
                       },
                       _vm.getValues
-                    ],
-                    blur: function($event) {
-                      return _vm.$forceUpdate()
-                    }
+                    ]
                   }
                 })
               ]),
@@ -72542,14 +72877,13 @@ var render = function() {
                   directives: [
                     {
                       name: "model",
-                      rawName: "v-model.number",
+                      rawName: "v-model",
                       value: _vm.faith,
-                      expression: "faith",
-                      modifiers: { number: true }
+                      expression: "faith"
                     }
                   ],
                   staticClass: "form-control",
-                  attrs: { type: "number", id: "faith_amount" },
+                  attrs: { type: "text", id: "faith_amount" },
                   domProps: { value: _vm.faith },
                   on: {
                     input: [
@@ -72557,13 +72891,10 @@ var render = function() {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.faith = _vm._n($event.target.value)
+                        _vm.faith = $event.target.value
                       },
                       _vm.getValues
-                    ],
-                    blur: function($event) {
-                      return _vm.$forceUpdate()
-                    }
+                    ]
                   }
                 })
               ])
@@ -72637,6 +72968,18 @@ var render = function() {
                       _vm._v(" "),
                       _c("option", { attrs: { value: "intl_missions" } }, [
                         _vm._v("International Missions")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "dorcas" } }, [
+                        _vm._v("Dorcas")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "switch" } }, [
+                        _vm._v("SWITCh")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "gauis" } }, [
+                        _vm._v("Gauis")
                       ]),
                       _vm._v(" "),
                       _c("option", { attrs: { value: "others" } }, [

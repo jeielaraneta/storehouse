@@ -1,5 +1,27 @@
 <template>
 	<div class="col-md-12">
+
+		<div v-if="!isHidden">
+			<div class="alert alert-success" role="alert" v-show="isSuccesful">
+				{{alertMessage}}
+		        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		            <span aria-hidden="true">&times;</span>
+		        </button>
+		    </div>
+
+		    <div class="alert alert-danger" role="alert" v-show="!isSuccesful">
+		    	{{alertMessage}}
+		        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		            <span aria-hidden="true">&times;</span>
+		        </button>
+		    </div>
+		</div>
+
+		<div class="card text-white bg-info mb-3">
+			<div class="card-body">
+			    This is some text within a card body.
+			</div>
+		</div>
 		
 		<div class="card">
 			<span class="border-top"></span>
@@ -27,7 +49,7 @@
 		        		<form method="POST" enctype="multipart/form-data">
 			                <input type="hidden" name="_token" :value="csrf">
 			                <div class="form-group row">
-			                	<label for="marital_status" class="col-sm-2 col-form-label">Service Type</label>
+			                	<label for="service_type" class="col-sm-2 col-form-label">Service Type</label>
 							    <div class="col-sm-8">
 
 							    	<select id="service_type" class="custom-select custom-select mb-3" name="service_type" v-model:value="service_type" :disabled="toEditServiceType">
@@ -68,7 +90,7 @@
 							    </div>
 
 							    <div class="col-sm-2" v-if="toEditRecordType">
-							    	<button class="btn btn-secondary btn-sm float-right mx-3" type="button"  @click="toEditRecordType = false">Edit</button>
+							    	<button class="btn btn-secondary btn-sm float-right mx-3" type="button" @click="toEditRecordType = false">Edit</button>
 							    </div>
 							    
 							    <div class="col-sm-2" v-else>
@@ -146,6 +168,44 @@
 			    </div>
 
 			    <div class="row">
+	        		<div class="col-sm-12">
+	        			<h6 class="card-title">List of Regular Giving</h6>
+		        	</div>
+	        	</div>
+
+			    <div class="row">
+			    	<div class="col-sm-12 table-responsive">
+	        			<table class="table table-sm">
+	        				<caption>List of Regular Giving</caption>
+							<thead class="thead-dark">
+							    <tr>
+							      	<th scope="col">Tithes</th>
+							      	<th scope="col">Love</th>
+							      	<th scope="col">Faith</th>
+							      	<th scope="col">Total Amount</th>
+							      	<th scope="col">Created At</th>
+							    </tr>
+							</thead>
+							<tbody>
+							    <tr>
+							    	<td>{{this.records.tithe_amount}}</td>
+							    	<td>{{this.records.love_amount}}</td>
+							    	<td>{{this.records.faith_amount}}</td>
+							    	<td>{{this.sumOfRegularGiving()}}</td>
+							    	<td>{{this.records.created_at}}</td>
+							    </tr>
+							</tbody>
+						</table>
+			    	</div>
+			    </div>
+
+			    <div class="row">
+	        		<div class="col-sm-12">
+	        			<h6 class="card-title">List of Special Offerings</h6>
+		        	</div>
+	        	</div>
+
+			    <div class="row">
 			    	<div class="col-sm-12 table-responsive">
 	        			<table class="table table-sm">
 	        				<caption>List of Special Offerings</caption>
@@ -161,7 +221,7 @@
 							<tbody>
 							    <tr v-for="(specialOffering, index) in specialOfferings">
 							      	<th scope="row"> {{ index+1}} </th>
-							      	<td>{{specialOffering.designation}}</td>
+							      	<td>{{specialOffering.designation || 'None'}}</td>
 							      	<td>{{specialOffering.designated_for || 'None' }}</td>
 							      	<td>{{specialOffering.designated_amount}}</td>
 							      	<td>{{specialOffering.created_at}}</td>
@@ -170,7 +230,10 @@
 						</table>
 			    	</div>
 			    </div>
-	        	
+
+			    
+	        	{{this.records.status}}
+	        
 	        </div>
 		</div>
 
@@ -266,6 +329,12 @@
        
 	    methods: {
 
+	    	sumOfRegularGiving() {
+	    		var total = Number(this.records.tithe_amount)+Number(this.records.love_amount)+Number(this.records.faith_amount);
+
+	    		return total;
+	    	}, 
+
 	    	arrangeSpecialOfferingData() {
         		var arrayA = [["Type", "Amount"]];
 
@@ -284,6 +353,17 @@
 
 	    	updateServiceType() {
 
+	    		var service_type = $('#service_type').val();
+
+	      		window.axios.put(this.updateRecordRoute, {service_type: service_type})
+	      			.then( response => {
+			      		console.log(response.data.success)
+			      		this.toEditServiceType = true
+			      		this.isSuccesful = true
+			      		this.isHidden = false
+			      		this.alertMessage = response.data.success ? "Record's service type has been updated sucessfully!" : "Error"
+			    	});
+
 	    	},
 
 	    	updateRecordType() {
@@ -291,6 +371,32 @@
 	    	},
 
 	    	updateStatus() {
+
+	    		var status = $('#status').val() == 'Unverified' ? 0 : 1;
+
+	      		window.axios.put(this.updateRecordRoute, {status: status})
+	      			.then( response => {
+			      		console.log(response.data.success)
+			      		this.toEditStatus = true
+			      		this.isSuccesful = true
+			      		this.isHidden = false
+			      		this.alertMessage = response.data.success ? "Record's status has been updated sucessfully!" : "Error"
+			    	});
+
+	    	},
+
+	    	updateGivenAt() {
+
+	    		var givenAt = $('#givenAt').val();
+
+	      		window.axios.put(this.updateRecordRoute, {given_at: givenAt})
+	      			.then( response => {
+			      		console.log(response.data.success)
+			      		this.toEditGivenAt = true
+			      		this.isSuccesful = true
+			      		this.isHidden = false
+			      		this.alertMessage = response.data.success ? "Record's given date has been updated sucessfully!" : "Error"
+			    	});
 
 	    	}
 	    	
