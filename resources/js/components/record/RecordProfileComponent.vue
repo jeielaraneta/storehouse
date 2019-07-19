@@ -40,7 +40,7 @@
 		        	</div>
 
 		        	<div class="col-sm-4">
-		        		<h6 class="card-title">Total Amount: <span>{{this.records.total_amount}}</span></h6>
+		        		<h6 class="card-title">Total Amount: <span>&#8369;{{this.records.total_amount}}</span></h6>
 		        	</div>
 	        	</div>
 				
@@ -109,9 +109,7 @@
 								
 								<label for="givenAt" class="col-sm-2 col-form-label">Given At</label>
 							    <div class="col-sm-8">
-
 							    	<date-picker id="givenAt" name="givenAt" v-model:value="given_at" :config="options" autocomplete="off" :disabled="toEditGivenAt"></date-picker>
-
 							    </div>
 
 							    <div class="col-sm-2" v-if="toEditGivenAt">
@@ -119,11 +117,8 @@
 							    </div>
 							    
 							    <div class="col-sm-2" v-else>
-
 							    	<button class="btn btn-danger btn-sm float-right mx-1" type="button" @click="toEditGivenAt = true">Cancel</button>
-
 							    	<button class="btn btn-success btn-sm float-right mx-1" type="button" @click="updateGivenAt" v-on:click="isHidden = true">Save</button>
-
 							    </div>
 								
 							</div>
@@ -188,10 +183,10 @@
 							</thead>
 							<tbody>
 							    <tr>
-							    	<td>{{this.records.tithe_amount}}</td>
-							    	<td>{{this.records.love_amount}}</td>
-							    	<td>{{this.records.faith_amount}}</td>
-							    	<td>{{this.sumOfRegularGiving()}}</td>
+							    	<td>&#8369;{{this.records.tithe_amount}}</td>
+							    	<td>&#8369;{{this.records.love_amount}}</td>
+							    	<td>&#8369;{{this.records.faith_amount}}</td>
+							    	<td>&#8369;{{this.sumOfRegularGiving()}}</td>
 							    	<td>{{this.records.created_at}}</td>
 							    </tr>
 							</tbody>
@@ -223,16 +218,13 @@
 							      	<th scope="row"> {{ index+1}} </th>
 							      	<td>{{specialOffering.designation || 'None'}}</td>
 							      	<td>{{specialOffering.designated_for || 'None' }}</td>
-							      	<td>{{specialOffering.designated_amount}}</td>
+							      	<td>&#8369;{{specialOffering.designated_amount}}</td>
 							      	<td>{{specialOffering.created_at}}</td>
 							    </tr>
 							</tbody>
 						</table>
 			    	</div>
 			    </div>
-
-			    
-	        	{{this.records.status}}
 	        
 	        </div>
 		</div>
@@ -344,11 +336,6 @@
 				});
 
 				this.specialOfferingChart = arrayA;
-
-        		//console.log(this.specialOfferingChart)
-        		// console.log(this.specialOfferings[0]);
-        		// console.log(this.records)
-        	
         	},
 
 	    	updateServiceType() {
@@ -357,7 +344,6 @@
 
 	      		window.axios.put(this.updateRecordRoute, {service_type: service_type})
 	      			.then( response => {
-			      		console.log(response.data.success)
 			      		this.toEditServiceType = true
 			      		this.isSuccesful = true
 			      		this.isHidden = false
@@ -368,6 +354,16 @@
 
 	    	updateRecordType() {
 
+	    		var record_type = $('#record_type').val();
+
+	      		window.axios.put(this.updateRecordRoute, {record_type: record_type})
+	      			.then( response => {
+			      		this.toEditRecordType = true
+			      		this.isSuccesful = true
+			      		this.isHidden = false
+			      		this.alertMessage = response.data.success ? "Record's record type has been updated sucessfully!" : "Error"
+			    	});
+
 	    	},
 
 	    	updateStatus() {
@@ -376,7 +372,6 @@
 
 	      		window.axios.put(this.updateRecordRoute, {status: status})
 	      			.then( response => {
-			      		console.log(response.data.success)
 			      		this.toEditStatus = true
 			      		this.isSuccesful = true
 			      		this.isHidden = false
@@ -391,7 +386,6 @@
 
 	      		window.axios.put(this.updateRecordRoute, {given_at: givenAt})
 	      			.then( response => {
-			      		console.log(response.data.success)
 			      		this.toEditGivenAt = true
 			      		this.isSuccesful = true
 			      		this.isHidden = false

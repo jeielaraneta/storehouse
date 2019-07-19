@@ -100,19 +100,34 @@
                     </div>
 
                     <div class="form-row">
-                        <div class="form-group col-md-4">
+                        <div class="form-group  col-md-4">
                             <label for="tithe_amount">Tithe</label>
-                            <input type="text" class="form-control" id="tithe_amount" v-model="tithe" @input="getValues">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">&#8369;</div>
+                                </div>
+                                <input type="text" class="form-control" id="tithe_amount" v-model="tithe" @input="getValues">
+                            </div>
                         </div>
 
                         <div class="form-group col-md-4">
                             <label for="love_amount">Love</label>
-                            <input type="text" class="form-control" id="love_amount" v-model="love" @input="getValues">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">&#8369;</div>
+                                </div>
+                                <input type="text" class="form-control" id="love_amount" v-model="love" @input="getValues">
+                            </div>
                         </div>
 
                         <div class="form-group col-md-4">
                             <label for="faith_amount">Faith</label>
-                            <input type="text" class="form-control" id="faith_amount" v-model="faith" @input="getValues">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">&#8369;</div>
+                                </div>
+                                <input type="text" class="form-control" id="faith_amount" v-model="faith" @input="getValues">
+                            </div>
                         </div>
                     </div>
 
@@ -141,7 +156,12 @@
                         </div>
 
                         <div class="form-group col-md-2">
-                            <input type="number" id="designated_amount" class="form-control amount" v-model.number="input.designated_amount" placeholder="Enter amount" @input="getValues">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">&#8369;</div>
+                                </div>
+                                <input type="number" id="designated_amount" class="form-control amount" v-model.number="input.designated_amount" placeholder="Enter amount" @input="getValues">
+                            </div>
                         </div>
 
                         <div class="form-group col-md-2">
@@ -154,9 +174,13 @@
 
                     <div class="form-group row">
                         <label for="total_amount" class="col-sm-2 col-form-label">Total Amount</label>
-                        <div class="col-md-2">
+                        <div class="input-group col-md-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">&#8369;</div>
+                            </div>
                             <input type="text" id="total_amount" class="form-control" v-model:value="total_amount" disabled @change="getValues">
                         </div>
+                        
                     </div>
 
                     <!-- <pre class="language-json"><code>{{ value }}</code></pre> -->

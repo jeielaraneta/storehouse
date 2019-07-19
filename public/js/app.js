@@ -12420,14 +12420,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 /*	
 	DATETIME PICKER ICONS
@@ -12501,9 +12493,7 @@ __webpack_require__.r(__webpack_exports__);
         var newArray = [value.designation, value.designated_amount];
         arrayA.push(newArray);
       });
-      this.specialOfferingChart = arrayA; //console.log(this.specialOfferingChart)
-      // console.log(this.specialOfferings[0]);
-      // console.log(this.records)
+      this.specialOfferingChart = arrayA;
     },
     updateServiceType: function updateServiceType() {
       var _this = this;
@@ -12512,40 +12502,49 @@ __webpack_require__.r(__webpack_exports__);
       window.axios.put(this.updateRecordRoute, {
         service_type: service_type
       }).then(function (response) {
-        console.log(response.data.success);
         _this.toEditServiceType = true;
         _this.isSuccesful = true;
         _this.isHidden = false;
         _this.alertMessage = response.data.success ? "Record's service type has been updated sucessfully!" : "Error";
       });
     },
-    updateRecordType: function updateRecordType() {},
-    updateStatus: function updateStatus() {
+    updateRecordType: function updateRecordType() {
       var _this2 = this;
+
+      var record_type = $('#record_type').val();
+      window.axios.put(this.updateRecordRoute, {
+        record_type: record_type
+      }).then(function (response) {
+        _this2.toEditRecordType = true;
+        _this2.isSuccesful = true;
+        _this2.isHidden = false;
+        _this2.alertMessage = response.data.success ? "Record's record type has been updated sucessfully!" : "Error";
+      });
+    },
+    updateStatus: function updateStatus() {
+      var _this3 = this;
 
       var status = $('#status').val() == 'Unverified' ? 0 : 1;
       window.axios.put(this.updateRecordRoute, {
         status: status
       }).then(function (response) {
-        console.log(response.data.success);
-        _this2.toEditStatus = true;
-        _this2.isSuccesful = true;
-        _this2.isHidden = false;
-        _this2.alertMessage = response.data.success ? "Record's status has been updated sucessfully!" : "Error";
+        _this3.toEditStatus = true;
+        _this3.isSuccesful = true;
+        _this3.isHidden = false;
+        _this3.alertMessage = response.data.success ? "Record's status has been updated sucessfully!" : "Error";
       });
     },
     updateGivenAt: function updateGivenAt() {
-      var _this3 = this;
+      var _this4 = this;
 
       var givenAt = $('#givenAt').val();
       window.axios.put(this.updateRecordRoute, {
         given_at: givenAt
       }).then(function (response) {
-        console.log(response.data.success);
-        _this3.toEditGivenAt = true;
-        _this3.isSuccesful = true;
-        _this3.isHidden = false;
-        _this3.alertMessage = response.data.success ? "Record's given date has been updated sucessfully!" : "Error";
+        _this4.toEditGivenAt = true;
+        _this4.isSuccesful = true;
+        _this4.isHidden = false;
+        _this4.alertMessage = response.data.success ? "Record's given date has been updated sucessfully!" : "Error";
       });
     }
   }
@@ -12562,6 +12561,30 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -28102,7 +28125,7 @@ return jQuery;
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
  * @license
  * Lodash <https://lodash.com/>
- * Copyright JS Foundation and other contributors <https://js.foundation/>
+ * Copyright OpenJS Foundation and other contributors <https://openjsf.org/>
  * Released under MIT license <https://lodash.com/license>
  * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
  * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -28113,7 +28136,7 @@ return jQuery;
   var undefined;
 
   /** Used as the semantic version number. */
-  var VERSION = '4.17.11';
+  var VERSION = '4.17.15';
 
   /** Used as the size to enable large array optimizations. */
   var LARGE_ARRAY_SIZE = 200;
@@ -30772,16 +30795,10 @@ return jQuery;
         value.forEach(function(subValue) {
           result.add(baseClone(subValue, bitmask, customizer, subValue, value, stack));
         });
-
-        return result;
-      }
-
-      if (isMap(value)) {
+      } else if (isMap(value)) {
         value.forEach(function(subValue, key) {
           result.set(key, baseClone(subValue, bitmask, customizer, key, value, stack));
         });
-
-        return result;
       }
 
       var keysFunc = isFull
@@ -31705,8 +31722,8 @@ return jQuery;
         return;
       }
       baseFor(source, function(srcValue, key) {
+        stack || (stack = new Stack);
         if (isObject(srcValue)) {
-          stack || (stack = new Stack);
           baseMergeDeep(object, source, key, srcIndex, baseMerge, customizer, stack);
         }
         else {
@@ -33523,7 +33540,7 @@ return jQuery;
       return function(number, precision) {
         number = toNumber(number);
         precision = precision == null ? 0 : nativeMin(toInteger(precision), 292);
-        if (precision) {
+        if (precision && nativeIsFinite(number)) {
           // Shift with exponential notation to avoid floating-point issues.
           // See [MDN](https://mdn.io/round#Examples) for more details.
           var pair = (toString(number) + 'e').split('e'),
@@ -34706,7 +34723,7 @@ return jQuery;
     }
 
     /**
-     * Gets the value at `key`, unless `key` is "__proto__".
+     * Gets the value at `key`, unless `key` is "__proto__" or "constructor".
      *
      * @private
      * @param {Object} object The object to query.
@@ -34714,6 +34731,10 @@ return jQuery;
      * @returns {*} Returns the property value.
      */
     function safeGet(object, key) {
+      if (key === 'constructor' && typeof object[key] === 'function') {
+        return;
+      }
+
       if (key == '__proto__') {
         return;
       }
@@ -38514,6 +38535,7 @@ return jQuery;
           }
           if (maxing) {
             // Handle invocations in a tight loop.
+            clearTimeout(timerId);
             timerId = setTimeout(timerExpired, wait);
             return invokeFunc(lastCallTime);
           }
@@ -42900,9 +42922,12 @@ return jQuery;
       , 'g');
 
       // Use a sourceURL for easier debugging.
+      // The sourceURL gets injected into the source that's eval-ed, so be careful
+      // with lookup (in case of e.g. prototype pollution), and strip newlines if any.
+      // A newline wouldn't be a valid sourceURL anyway, and it'd enable code injection.
       var sourceURL = '//# sourceURL=' +
-        ('sourceURL' in options
-          ? options.sourceURL
+        (hasOwnProperty.call(options, 'sourceURL')
+          ? (options.sourceURL + '').replace(/[\r\n]/g, ' ')
           : ('lodash.templateSources[' + (++templateCounter) + ']')
         ) + '\n';
 
@@ -42935,7 +42960,9 @@ return jQuery;
 
       // If `variable` is not specified wrap a with-statement around the generated
       // code to add the data object to the top of the scope chain.
-      var variable = options.variable;
+      // Like with sourceURL, we take care to not check the option's prototype,
+      // as this configuration is a code injection vector.
+      var variable = hasOwnProperty.call(options, 'variable') && options.variable;
       if (!variable) {
         source = 'with (obj) {\n' + source + '\n}\n';
       }
@@ -45140,10 +45167,11 @@ return jQuery;
     baseForOwn(LazyWrapper.prototype, function(func, methodName) {
       var lodashFunc = lodash[methodName];
       if (lodashFunc) {
-        var key = (lodashFunc.name + ''),
-            names = realNames[key] || (realNames[key] = []);
-
-        names.push({ 'name': methodName, 'func': lodashFunc });
+        var key = lodashFunc.name + '';
+        if (!hasOwnProperty.call(realNames, key)) {
+          realNames[key] = [];
+        }
+        realNames[key].push({ 'name': methodName, 'func': lodashFunc });
       }
     });
 
@@ -71592,7 +71620,7 @@ var render = function() {
           _c("div", { staticClass: "col-sm-4" }, [
             _c("h6", { staticClass: "card-title" }, [
               _vm._v("Total Amount: "),
-              _c("span", [_vm._v(_vm._s(this.records.total_amount))])
+              _c("span", [_vm._v("₱" + _vm._s(this.records.total_amount))])
             ])
           ])
         ]),
@@ -72121,13 +72149,13 @@ var render = function() {
               _vm._v(" "),
               _c("tbody", [
                 _c("tr", [
-                  _c("td", [_vm._v(_vm._s(this.records.tithe_amount))]),
+                  _c("td", [_vm._v("₱" + _vm._s(this.records.tithe_amount))]),
                   _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(this.records.love_amount))]),
+                  _c("td", [_vm._v("₱" + _vm._s(this.records.love_amount))]),
                   _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(this.records.faith_amount))]),
+                  _c("td", [_vm._v("₱" + _vm._s(this.records.faith_amount))]),
                   _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(this.sumOfRegularGiving()))]),
+                  _c("td", [_vm._v("₱" + _vm._s(this.sumOfRegularGiving()))]),
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(this.records.created_at))])
                 ])
@@ -72162,7 +72190,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("td", [
-                      _vm._v(_vm._s(specialOffering.designated_amount))
+                      _vm._v("₱" + _vm._s(specialOffering.designated_amount))
                     ]),
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(specialOffering.created_at))])
@@ -72172,12 +72200,7 @@ var render = function() {
               )
             ])
           ])
-        ]),
-        _vm._v(
-          "\n\n\t\t    \n        \t" +
-            _vm._s(this.records.status) +
-            "\n        \n        "
-        )
+        ])
       ])
     ])
   ])
@@ -72806,35 +72829,39 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "form-row" }, [
-              _c("div", { staticClass: "form-group col-md-4" }, [
+              _c("div", { staticClass: "form-group  col-md-4" }, [
                 _c("label", { attrs: { for: "tithe_amount" } }, [
                   _vm._v("Tithe")
                 ]),
                 _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.tithe,
-                      expression: "tithe"
+                _c("div", { staticClass: "input-group" }, [
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.tithe,
+                        expression: "tithe"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", id: "tithe_amount" },
+                    domProps: { value: _vm.tithe },
+                    on: {
+                      input: [
+                        function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.tithe = $event.target.value
+                        },
+                        _vm.getValues
+                      ]
                     }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text", id: "tithe_amount" },
-                  domProps: { value: _vm.tithe },
-                  on: {
-                    input: [
-                      function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.tithe = $event.target.value
-                      },
-                      _vm.getValues
-                    ]
-                  }
-                })
+                  })
+                ])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group col-md-4" }, [
@@ -72842,30 +72869,34 @@ var render = function() {
                   _vm._v("Love")
                 ]),
                 _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.love,
-                      expression: "love"
+                _c("div", { staticClass: "input-group" }, [
+                  _vm._m(4),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.love,
+                        expression: "love"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", id: "love_amount" },
+                    domProps: { value: _vm.love },
+                    on: {
+                      input: [
+                        function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.love = $event.target.value
+                        },
+                        _vm.getValues
+                      ]
                     }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text", id: "love_amount" },
-                  domProps: { value: _vm.love },
-                  on: {
-                    input: [
-                      function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.love = $event.target.value
-                      },
-                      _vm.getValues
-                    ]
-                  }
-                })
+                  })
+                ])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group col-md-4" }, [
@@ -72873,34 +72904,38 @@ var render = function() {
                   _vm._v("Faith")
                 ]),
                 _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.faith,
-                      expression: "faith"
+                _c("div", { staticClass: "input-group" }, [
+                  _vm._m(5),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.faith,
+                        expression: "faith"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", id: "faith_amount" },
+                    domProps: { value: _vm.faith },
+                    on: {
+                      input: [
+                        function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.faith = $event.target.value
+                        },
+                        _vm.getValues
+                      ]
                     }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text", id: "faith_amount" },
-                  domProps: { value: _vm.faith },
-                  on: {
-                    input: [
-                      function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.faith = $event.target.value
-                      },
-                      _vm.getValues
-                    ]
-                  }
-                })
+                  })
+                ])
               ])
             ]),
             _vm._v(" "),
-            _vm._m(3),
+            _vm._m(6),
             _vm._v(" "),
             _vm._l(_vm.des_offerings, function(input, k) {
               return _c("div", { key: k, staticClass: "form-row" }, [
@@ -73027,42 +73062,46 @@ var render = function() {
                   : _vm._e(),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group col-md-2" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model.number",
-                        value: input.designated_amount,
-                        expression: "input.designated_amount",
-                        modifiers: { number: true }
-                      }
-                    ],
-                    staticClass: "form-control amount",
-                    attrs: {
-                      type: "number",
-                      id: "designated_amount",
-                      placeholder: "Enter amount"
-                    },
-                    domProps: { value: input.designated_amount },
-                    on: {
-                      input: [
-                        function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            input,
-                            "designated_amount",
-                            _vm._n($event.target.value)
-                          )
-                        },
-                        _vm.getValues
+                  _c("div", { staticClass: "input-group" }, [
+                    _vm._m(7, true),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model.number",
+                          value: input.designated_amount,
+                          expression: "input.designated_amount",
+                          modifiers: { number: true }
+                        }
                       ],
-                      blur: function($event) {
-                        return _vm.$forceUpdate()
+                      staticClass: "form-control amount",
+                      attrs: {
+                        type: "number",
+                        id: "designated_amount",
+                        placeholder: "Enter amount"
+                      },
+                      domProps: { value: input.designated_amount },
+                      on: {
+                        input: [
+                          function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              input,
+                              "designated_amount",
+                              _vm._n($event.target.value)
+                            )
+                          },
+                          _vm.getValues
+                        ],
+                        blur: function($event) {
+                          return _vm.$forceUpdate()
+                        }
                       }
-                    }
-                  })
+                    })
+                  ])
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group col-md-2" }, [
@@ -73115,7 +73154,9 @@ var render = function() {
                 [_vm._v("Total Amount")]
               ),
               _vm._v(" "),
-              _c("div", { staticClass: "col-md-2" }, [
+              _c("div", { staticClass: "input-group col-md-2" }, [
+                _vm._m(8),
+                _vm._v(" "),
                 _c("input", {
                   directives: [
                     {
@@ -73142,7 +73183,7 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _vm._m(4)
+            _vm._m(9)
           ],
           2
         )
@@ -73199,10 +73240,50 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("div", { staticClass: "input-group-text" }, [_vm._v("₱")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("div", { staticClass: "input-group-text" }, [_vm._v("₱")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("div", { staticClass: "input-group-text" }, [_vm._v("₱")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-row" }, [
       _c("label", { attrs: { for: "designation" } }, [
         _vm._v("Special Offering")
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("div", { staticClass: "input-group-text" }, [_vm._v("₱")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("div", { staticClass: "input-group-text" }, [_vm._v("₱")])
     ])
   },
   function() {
@@ -86109,8 +86190,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/jeielaraneta/storehouse/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/jeielaraneta/storehouse/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\jaraneta\storehouse\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\jaraneta\storehouse\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
