@@ -38,6 +38,10 @@ import { GChart } from 'vue-google-charts';
 Vue.use(GChart);
 Vue.component('GChart', GChart);
 
+import VeeValidate from 'vee-validate';
+
+Vue.use(VeeValidate);
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
