@@ -52,7 +52,7 @@
                     <div class="form-row" v-show="isSelected == 'identified'&&!isDirectDeposit">
                         <div class="form-group col-md-12">
                             <label for="gic">Member's Name or Giver Indentification Code (GIC) </label>
-                            <multiselect v-model="gic" :options="searchValues" :custom-label="nameWithCode" placeholder="Search for Member's name or GIC" label="name" track-by="name" id="gic"  @input="getValues"></multiselect>
+                            <multiselect v-model="gic" :options="searchValues" :custom-label="nameWithCode" placeholder="Search for Member's name or GIC" label="name" track-by="name" id="gic"  @input="getValues" v-validate="'required'"></multiselect>
                         </div>
                     </div>
                 
@@ -71,9 +71,9 @@
                     </div>
                     
                     <div class="form-row">
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-4 field" :class="{error: errors.has('service_type')}">
                             <label for="service_type">Service Type</label>
-                            <select id="service_type" class="custom-select custom-select mb-3" v-model="service_type" @change="getValues">
+                            <select id="service_type" name="service_type" class="custom-select custom-select mb-3" v-model="service_type" @change="getValues" v-validate="'required'">
                                 <option disabled selected>Select Service Type</option>
                                 <option value="ews">EWS</option>
                                 <option value="mmws">MMWS</option>
@@ -82,11 +82,13 @@
                                 <option value="pm">Prayer Meeting</option>
                                 <option value="na">Not Applicable</option>
                             </select>
+                            <span class="error text-danger" v-if="errors.has('service_type')">{{errors.first('service_type')}}</span>
                         </div>
 
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-4 field" :class="{error: errors.has('given_at')}">
                             <label for="givenAt">Given At</label>
-                            <date-picker id="givenAt" v-bind:value="givenAt" autocomplete="off" :config="options" v-model="given_at" @input="getValues"></date-picker>
+                            <date-picker id="givenAt" name="given_at" v-bind:value="givenAt" autocomplete="off" :config="options" v-model="given_at" @input="getValues" v-validate="'required'"></date-picker>
+                            <span class="error text-danger" v-if="errors.has('given_at')">{{errors.first('given_at')}}</span>
                         </div>
 
                          <div class="form-group col-md-4">
@@ -102,32 +104,35 @@
                     <div class="form-row">
                         <div class="form-group  col-md-4">
                             <label for="tithe_amount">Tithe</label>
-                            <div class="input-group">
+                            <div class="input-group field" :class="{error: errors.has('tithe')}">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">&#8369;</div>
                                 </div>
-                                <input type="text" class="form-control" id="tithe_amount" v-model="tithe" @input="getValues">
+                                <input type="text" name="tithe" class="form-control" id="tithe_amount" v-model="tithe" @input="getValues" v-validate="'required|decimal'">
                             </div>
+                            <span class="error text-danger" v-if="errors.has('tithe')">{{errors.first('tithe')}}</span>
                         </div>
 
                         <div class="form-group col-md-4">
                             <label for="love_amount">Love</label>
-                            <div class="input-group">
+                            <div class="input-group field" :class="{error: errors.has('love')}">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">&#8369;</div>
                                 </div>
-                                <input type="text" class="form-control" id="love_amount" v-model="love" @input="getValues">
+                                <input type="text" name="love" class="form-control" id="love_amount" v-model="love" @input="getValues" v-validate="'required|decimal'">
                             </div>
+                            <span class="error text-danger" v-if="errors.has('love')">{{errors.first('love')}}</span>
                         </div>
 
                         <div class="form-group col-md-4">
                             <label for="faith_amount">Faith</label>
-                            <div class="input-group">
+                            <div class="input-group field" :class="{error: errors.has('faith')}">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">&#8369;</div>
                                 </div>
-                                <input type="text" class="form-control" id="faith_amount" v-model="faith" @input="getValues">
+                                <input type="text" name="faith" class="form-control" id="faith_amount" v-model="faith" @input="getValues" v-validate="'required|decimal'">
                             </div>
+                            <span class="error text-danger" v-if="errors.has('faith')">{{errors.first('faith')}}</span>
                         </div>
                     </div>
 
@@ -156,11 +161,12 @@
                         </div>
 
                         <div class="form-group col-md-2">
-                            <div class="input-group">
+                            <div class="input-group field" :class="{error: errors.has('designated_amount')}">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">&#8369;</div>
                                 </div>
-                                <input type="number" id="designated_amount" class="form-control amount" v-model.number="input.designated_amount" placeholder="Enter amount" @input="getValues">
+                                <input type="text" name="designated_amount" id="designated_amount" class="form-control amount" v-model.number="input.designated_amount" placeholder="Enter amount" @input="getValues" v-validate="'required|decimal'">
+                                <span class="error text-danger" v-if="errors.has('designated_amount')">{{errors.first('designated_amount')}}</span>
                             </div>
                         </div>
 
@@ -324,36 +330,47 @@
             submitForm(e) {
                 e.preventDefault();
 
-                window.axios.post(this.submitRecordRoute, this.record_data)
-                    .then( response => {
-                        this.isSuccesful = true
-                        this.isHidden = false
-                        this.isDirectDeposit = false
-                        this.alertMessage = response.data.success ? "Record succesfully added!" : "Error"
+                this.$validator.validateAll()
 
-                        this.des_offerings = [
-                            {
-                                designated_amount: 0,
-                                designation: 'select',
-                                designated_for: ''
-                            }
-                        ];
-                        
-                        this.isAnonymous = false;
-                        this.bank_ref = '';
-                        this.gic = "";
-                        this.tithe = 0;
-                        this.love = 0;
-                        this.faith = 0;
-                        this.service_type = '';
-                        this.record_type = 'ob';
-                        this.given_at = '';
-                        this.status = 0;
-                        this.isSelected = 'anonymous';
+                if(this.errors.any()){
+                    this.isSuccesful = false
+                    this.isHidden = false
+                    this.alertMessage = "Unable to create a record due insufficient data."
+                }
+      
+                else{
+                    window.axios.post(this.submitRecordRoute, this.record_data)
+                        .then( response => {
+                            this.isSuccesful = true
+                            this.isHidden = false
+                            this.isDirectDeposit = false
+                            this.alertMessage = response.data.success ? "Record succesfully added!" : "Error"
 
-                        //return response.data.success ? "Record succesfully added!" : "Error"
+                            this.des_offerings = [
+                                {
+                                    designated_amount: 0,
+                                    designation: 'select',
+                                    designated_for: ''
+                                }
+                            ];
+                            
+                            this.isAnonymous = false;
+                            this.bank_ref = '';
+                            this.gic = "";
+                            this.tithe = 0;
+                            this.love = 0;
+                            this.faith = 0;
+                            this.service_type = '';
+                            this.record_type = 'ob';
+                            this.given_at = '';
+                            this.status = 0;
+                            this.isSelected = 'anonymous';
 
-                });
+                            //return response.data.success ? "Record succesfully added!" : "Error"
+
+                    });
+                }
+
                 //$("#recordForm")[0].reset()
             }
         },

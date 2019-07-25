@@ -12901,6 +12901,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['givenAt', 'submitRecordRoute', 'memberSearch', 'memberSearchRoute'],
   data: function data() {
@@ -13013,28 +13019,37 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       e.preventDefault();
-      window.axios.post(this.submitRecordRoute, this.record_data).then(function (response) {
-        _this2.isSuccesful = true;
-        _this2.isHidden = false;
-        _this2.isDirectDeposit = false;
-        _this2.alertMessage = response.data.success ? "Record succesfully added!" : "Error";
-        _this2.des_offerings = [{
-          designated_amount: 0,
-          designation: 'select',
-          designated_for: ''
-        }];
-        _this2.isAnonymous = false;
-        _this2.bank_ref = '';
-        _this2.gic = "";
-        _this2.tithe = 0;
-        _this2.love = 0;
-        _this2.faith = 0;
-        _this2.service_type = '';
-        _this2.record_type = 'ob';
-        _this2.given_at = '';
-        _this2.status = 0;
-        _this2.isSelected = 'anonymous'; //return response.data.success ? "Record succesfully added!" : "Error"
-      }); //$("#recordForm")[0].reset()
+      this.$validator.validateAll();
+
+      if (this.errors.any()) {
+        this.isSuccesful = false;
+        this.isHidden = false;
+        this.alertMessage = "Unable to create a record due insufficient data.";
+      } else {
+        window.axios.post(this.submitRecordRoute, this.record_data).then(function (response) {
+          _this2.isSuccesful = true;
+          _this2.isHidden = false;
+          _this2.isDirectDeposit = false;
+          _this2.alertMessage = response.data.success ? "Record succesfully added!" : "Error";
+          _this2.des_offerings = [{
+            designated_amount: 0,
+            designation: 'select',
+            designated_for: ''
+          }];
+          _this2.isAnonymous = false;
+          _this2.bank_ref = '';
+          _this2.gic = "";
+          _this2.tithe = 0;
+          _this2.love = 0;
+          _this2.faith = 0;
+          _this2.service_type = '';
+          _this2.record_type = 'ob';
+          _this2.given_at = '';
+          _this2.status = 0;
+          _this2.isSelected = 'anonymous'; //return response.data.success ? "Record succesfully added!" : "Error"
+        });
+      } //$("#recordForm")[0].reset()
+
     }
   },
   mounted: function mounted() {
@@ -83827,6 +83842,14 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("multiselect", {
+                      directives: [
+                        {
+                          name: "validate",
+                          rawName: "v-validate",
+                          value: "required",
+                          expression: "'required'"
+                        }
+                      ],
                       attrs: {
                         options: _vm.searchValues,
                         "custom-label": _vm.nameWithCode,
@@ -83939,82 +83962,117 @@ var render = function() {
             ),
             _vm._v(" "),
             _c("div", { staticClass: "form-row" }, [
-              _c("div", { staticClass: "form-group col-md-4" }, [
-                _c("label", { attrs: { for: "service_type" } }, [
-                  _vm._v("Service Type")
-                ]),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.service_type,
-                        expression: "service_type"
-                      }
-                    ],
-                    staticClass: "custom-select custom-select mb-3",
-                    attrs: { id: "service_type" },
-                    on: {
-                      change: [
-                        function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.service_type = $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
+              _c(
+                "div",
+                {
+                  staticClass: "form-group col-md-4 field",
+                  class: { error: _vm.errors.has("service_type") }
+                },
+                [
+                  _c("label", { attrs: { for: "service_type" } }, [
+                    _vm._v("Service Type")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.service_type,
+                          expression: "service_type"
                         },
-                        _vm.getValues
-                      ]
-                    }
-                  },
-                  [
-                    _c("option", { attrs: { disabled: "", selected: "" } }, [
-                      _vm._v("Select Service Type")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "ews" } }, [_vm._v("EWS")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "mmws" } }, [
-                      _vm._v("MMWS")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "vws" } }, [_vm._v("VWS")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "ss" } }, [
-                      _vm._v("Sunday School")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "pm" } }, [
-                      _vm._v("Prayer Meeting")
-                    ]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "na" } }, [
-                      _vm._v("Not Applicable")
-                    ])
-                  ]
-                )
-              ]),
+                        {
+                          name: "validate",
+                          rawName: "v-validate",
+                          value: "required",
+                          expression: "'required'"
+                        }
+                      ],
+                      staticClass: "custom-select custom-select mb-3",
+                      attrs: { id: "service_type", name: "service_type" },
+                      on: {
+                        change: [
+                          function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.service_type = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          },
+                          _vm.getValues
+                        ]
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { disabled: "", selected: "" } }, [
+                        _vm._v("Select Service Type")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "ews" } }, [
+                        _vm._v("EWS")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "mmws" } }, [
+                        _vm._v("MMWS")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "vws" } }, [
+                        _vm._v("VWS")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "ss" } }, [
+                        _vm._v("Sunday School")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "pm" } }, [
+                        _vm._v("Prayer Meeting")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "na" } }, [
+                        _vm._v("Not Applicable")
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm.errors.has("service_type")
+                    ? _c("span", { staticClass: "error text-danger" }, [
+                        _vm._v(_vm._s(_vm.errors.first("service_type")))
+                      ])
+                    : _vm._e()
+                ]
+              ),
               _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "form-group col-md-4" },
+                {
+                  staticClass: "form-group col-md-4 field",
+                  class: { error: _vm.errors.has("given_at") }
+                },
                 [
                   _c("label", { attrs: { for: "givenAt" } }, [
                     _vm._v("Given At")
                   ]),
                   _vm._v(" "),
                   _c("date-picker", {
+                    directives: [
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: "required",
+                        expression: "'required'"
+                      }
+                    ],
                     attrs: {
                       id: "givenAt",
+                      name: "given_at",
                       value: _vm.givenAt,
                       autocomplete: "off",
                       config: _vm.options
@@ -84027,7 +84085,13 @@ var render = function() {
                       },
                       expression: "given_at"
                     }
-                  })
+                  }),
+                  _vm._v(" "),
+                  _vm.errors.has("given_at")
+                    ? _c("span", { staticClass: "error text-danger" }, [
+                        _vm._v(_vm._s(_vm.errors.first("given_at")))
+                      ])
+                    : _vm._e()
                 ],
                 1
               ),
@@ -84088,34 +84152,57 @@ var render = function() {
                   _vm._v("Tithe")
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "input-group" }, [
-                  _vm._m(3),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.tithe,
-                        expression: "tithe"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "text", id: "tithe_amount" },
-                    domProps: { value: _vm.tithe },
-                    on: {
-                      input: [
-                        function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.tithe = $event.target.value
+                _c(
+                  "div",
+                  {
+                    staticClass: "input-group field",
+                    class: { error: _vm.errors.has("tithe") }
+                  },
+                  [
+                    _vm._m(3),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.tithe,
+                          expression: "tithe"
                         },
-                        _vm.getValues
-                      ]
-                    }
-                  })
-                ])
+                        {
+                          name: "validate",
+                          rawName: "v-validate",
+                          value: "required|decimal",
+                          expression: "'required|decimal'"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        name: "tithe",
+                        id: "tithe_amount"
+                      },
+                      domProps: { value: _vm.tithe },
+                      on: {
+                        input: [
+                          function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.tithe = $event.target.value
+                          },
+                          _vm.getValues
+                        ]
+                      }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _vm.errors.has("tithe")
+                  ? _c("span", { staticClass: "error text-danger" }, [
+                      _vm._v(_vm._s(_vm.errors.first("tithe")))
+                    ])
+                  : _vm._e()
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group col-md-4" }, [
@@ -84123,34 +84210,53 @@ var render = function() {
                   _vm._v("Love")
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "input-group" }, [
-                  _vm._m(4),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.love,
-                        expression: "love"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "text", id: "love_amount" },
-                    domProps: { value: _vm.love },
-                    on: {
-                      input: [
-                        function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.love = $event.target.value
+                _c(
+                  "div",
+                  {
+                    staticClass: "input-group field",
+                    class: { error: _vm.errors.has("love") }
+                  },
+                  [
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.love,
+                          expression: "love"
                         },
-                        _vm.getValues
-                      ]
-                    }
-                  })
-                ])
+                        {
+                          name: "validate",
+                          rawName: "v-validate",
+                          value: "required|decimal",
+                          expression: "'required|decimal'"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", name: "love", id: "love_amount" },
+                      domProps: { value: _vm.love },
+                      on: {
+                        input: [
+                          function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.love = $event.target.value
+                          },
+                          _vm.getValues
+                        ]
+                      }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _vm.errors.has("love")
+                  ? _c("span", { staticClass: "error text-danger" }, [
+                      _vm._v(_vm._s(_vm.errors.first("love")))
+                    ])
+                  : _vm._e()
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group col-md-4" }, [
@@ -84158,34 +84264,57 @@ var render = function() {
                   _vm._v("Faith")
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "input-group" }, [
-                  _vm._m(5),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.faith,
-                        expression: "faith"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "text", id: "faith_amount" },
-                    domProps: { value: _vm.faith },
-                    on: {
-                      input: [
-                        function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.faith = $event.target.value
+                _c(
+                  "div",
+                  {
+                    staticClass: "input-group field",
+                    class: { error: _vm.errors.has("faith") }
+                  },
+                  [
+                    _vm._m(5),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.faith,
+                          expression: "faith"
                         },
-                        _vm.getValues
-                      ]
-                    }
-                  })
-                ])
+                        {
+                          name: "validate",
+                          rawName: "v-validate",
+                          value: "required|decimal",
+                          expression: "'required|decimal'"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        name: "faith",
+                        id: "faith_amount"
+                      },
+                      domProps: { value: _vm.faith },
+                      on: {
+                        input: [
+                          function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.faith = $event.target.value
+                          },
+                          _vm.getValues
+                        ]
+                      }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _vm.errors.has("faith")
+                  ? _c("span", { staticClass: "error text-danger" }, [
+                      _vm._v(_vm._s(_vm.errors.first("faith")))
+                    ])
+                  : _vm._e()
               ])
             ]),
             _vm._v(" "),
@@ -84316,46 +84445,68 @@ var render = function() {
                   : _vm._e(),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group col-md-2" }, [
-                  _c("div", { staticClass: "input-group" }, [
-                    _vm._m(7, true),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model.number",
-                          value: input.designated_amount,
-                          expression: "input.designated_amount",
-                          modifiers: { number: true }
-                        }
-                      ],
-                      staticClass: "form-control amount",
-                      attrs: {
-                        type: "number",
-                        id: "designated_amount",
-                        placeholder: "Enter amount"
-                      },
-                      domProps: { value: input.designated_amount },
-                      on: {
-                        input: [
-                          function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              input,
-                              "designated_amount",
-                              _vm._n($event.target.value)
-                            )
+                  _c(
+                    "div",
+                    {
+                      staticClass: "input-group field",
+                      class: { error: _vm.errors.has("designated_amount") }
+                    },
+                    [
+                      _vm._m(7, true),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model.number",
+                            value: input.designated_amount,
+                            expression: "input.designated_amount",
+                            modifiers: { number: true }
                           },
-                          _vm.getValues
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: "required|decimal",
+                            expression: "'required|decimal'"
+                          }
                         ],
-                        blur: function($event) {
-                          return _vm.$forceUpdate()
+                        staticClass: "form-control amount",
+                        attrs: {
+                          type: "text",
+                          name: "designated_amount",
+                          id: "designated_amount",
+                          placeholder: "Enter amount"
+                        },
+                        domProps: { value: input.designated_amount },
+                        on: {
+                          input: [
+                            function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                input,
+                                "designated_amount",
+                                _vm._n($event.target.value)
+                              )
+                            },
+                            _vm.getValues
+                          ],
+                          blur: function($event) {
+                            return _vm.$forceUpdate()
+                          }
                         }
-                      }
-                    })
-                  ])
+                      }),
+                      _vm._v(" "),
+                      _vm.errors.has("designated_amount")
+                        ? _c("span", { staticClass: "error text-danger" }, [
+                            _vm._v(
+                              _vm._s(_vm.errors.first("designated_amount"))
+                            )
+                          ])
+                        : _vm._e()
+                    ]
+                  )
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group col-md-2" }, [
