@@ -57,9 +57,10 @@
                     </div>
                 
                     <div class="form-row" v-show="isSelected == 'group'&&!isDirectDeposit">
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-md-12 field" :class="{error: errors.has('group_name')}">
                             <label for="">Group's Name</label>
-                            <input type="text" class="form-control" v-model="group_name" @change="getValues" autocomplete="off" >
+                            <input type="text" class="form-control" name="group_name" v-model="group_name" @change="getValues" autocomplete="off" data-vv-rules="groupName" v-validate = "groupName">
+                            <span class="error text-danger" v-if="errors.has('group_name')">{{errors.first('group_name')}}</span>
                         </div>
                     </div>
 
@@ -71,9 +72,9 @@
                     </div>
                     
                     <div class="form-row">
-                        <div class="form-group col-md-4 field" :class="{error: errors.has('service_type')}">
-                            <label for="service_type">Service Type</label>
-                            <select id="service_type" name="service_type" class="custom-select custom-select mb-3" v-model="service_type" @change="getValues" v-validate="'required'">
+                        <div class="form-group col-md-4">
+                        <label for="service_type">Service Type</label>
+                            <select id="service_type" name="service_type" class="custom-select custom-select" v-model="service_type" @change="getValues" v-validate="'required'" :class="{'form-control': true, error: errors.has('service_type')}">
                                 <option disabled selected>Select Service Type</option>
                                 <option value="ews">EWS</option>
                                 <option value="mmws">MMWS</option>
@@ -85,9 +86,9 @@
                             <span class="error text-danger" v-if="errors.has('service_type')">{{errors.first('service_type')}}</span>
                         </div>
 
-                        <div class="form-group col-md-4 field" :class="{error: errors.has('given_at')}">
+                        <div class="form-group col-md-4" >
                             <label for="givenAt">Given At</label>
-                            <date-picker id="givenAt" name="given_at" v-bind:value="givenAt" autocomplete="off" :config="options" v-model="given_at" @input="getValues" v-validate="'required'"></date-picker>
+                            <date-picker id="givenAt" name="given_at" v-bind:value="givenAt" autocomplete="off" :config="options" v-model="given_at" @input="getValues" v-validate="'required'" :class="{'form-control': true, error: errors.has('given_at')}"></date-picker>
                             <span class="error text-danger" v-if="errors.has('given_at')">{{errors.first('given_at')}}</span>
                         </div>
 
@@ -102,35 +103,35 @@
                     </div>
 
                     <div class="form-row">
-                        <div class="form-group  col-md-4">
+                        <div class="form-group col-md-4">
                             <label for="tithe_amount">Tithe</label>
-                            <div class="input-group field" :class="{error: errors.has('tithe')}">
+                            <div class="input-group" >
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">&#8369;</div>
                                 </div>
-                                <input type="text" name="tithe" class="form-control" id="tithe_amount" v-model="tithe" @input="getValues" v-validate="'required|decimal'">
+                                <input type="text" name="tithe" class="form-control" id="tithe_amount" v-model="tithe" @input="getValues" v-validate="'required|decimal'" :class="{'form-control': true, error: errors.has('tithe')}">
                             </div>
                             <span class="error text-danger" v-if="errors.has('tithe')">{{errors.first('tithe')}}</span>
                         </div>
 
                         <div class="form-group col-md-4">
                             <label for="love_amount">Love</label>
-                            <div class="input-group field" :class="{error: errors.has('love')}">
+                            <div class="input-group">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">&#8369;</div>
                                 </div>
-                                <input type="text" name="love" class="form-control" id="love_amount" v-model="love" @input="getValues" v-validate="'required|decimal'">
+                                <input type="text" name="love" class="form-control" id="love_amount" v-model="love" @input="getValues" v-validate="'required|decimal'" :class="{'form-control': true, error: errors.has('love')}">
                             </div>
                             <span class="error text-danger" v-if="errors.has('love')">{{errors.first('love')}}</span>
                         </div>
 
                         <div class="form-group col-md-4">
                             <label for="faith_amount">Faith</label>
-                            <div class="input-group field" :class="{error: errors.has('faith')}">
+                            <div class="input-group">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">&#8369;</div>
                                 </div>
-                                <input type="text" name="faith" class="form-control" id="faith_amount" v-model="faith" @input="getValues" v-validate="'required|decimal'">
+                                <input type="text" name="faith" class="form-control" id="faith_amount" v-model="faith" @input="getValues" v-validate="'required|decimal'" :class="{'form-control': true, error: errors.has('faith')}">
                             </div>
                             <span class="error text-danger" v-if="errors.has('faith')">{{errors.first('faith')}}</span>
                         </div>
@@ -161,11 +162,11 @@
                         </div>
 
                         <div class="form-group col-md-2">
-                            <div class="input-group field" :class="{error: errors.has('designated_amount')}">
+                            <div class="input-group">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">&#8369;</div>
                                 </div>
-                                <input type="text" name="designated_amount" id="designated_amount" class="form-control amount" v-model.number="input.designated_amount" placeholder="Enter amount" @input="getValues" v-validate="'required|decimal'">
+                                <input type="text" name="designated_amount" id="designated_amount" class="form-control amount" v-model.number="input.designated_amount" placeholder="Enter amount" @input="getValues" v-validate="'required|decimal'" :class="{'form-control': true, error: errors.has('designated_amount')}">
                                 <span class="error text-danger" v-if="errors.has('designated_amount')">{{errors.first('designated_amount')}}</span>
                             </div>
                         </div>
@@ -204,7 +205,31 @@
     </div>
 </template>
 
+<style>
+    .form-control.error {
+        border-color: #E84444;
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(232,68,68,.6);
+    }
+</style>
+
 <script>
+
+    const myRule = {
+        // Custom validation message
+                getMessage: (field) => `The ${field} is `,
+
+                // Custom validation rule
+                validate: (value) => new Promise(resolve => {
+                    /*const validCoupons = ['SUMMER2017', 'WINTER2017', 'FALL2017'];
+                    resolve({
+                        valid: value && (validCoupons.indexOf(value.toUpperCase()) > -1)
+                    });*/
+
+                    resolve({
+                        valid: this.giver_type === 'group' ? (value.length > 0 ? true :false) : true
+                    });
+                })
+    };
     export default {
 
         props: ['givenAt', 'submitRecordRoute', 'memberSearch', 'memberSearchRoute'],
@@ -268,6 +293,26 @@
 
                 return Number(this.tithe) + Number(this.love) + Number(this.faith) + special_offering;
             }
+        },
+
+        created: function() {
+            this.$validator.extend('groupName', {
+
+                // Custom validation message
+                getMessage: (field) => `The ${field} is `,
+
+                // Custom validation rule
+                validate: (value) => new Promise(resolve => {
+                    /*const validCoupons = ['SUMMER2017', 'WINTER2017', 'FALL2017'];
+                    resolve({
+                        valid: value && (validCoupons.indexOf(value.toUpperCase()) > -1)
+                    });*/
+
+                    resolve({
+                        valid: this.giver_type === 'group' ? (value.length > 0 ? true :false) : true
+                    });
+                })
+            });
         },
 
         methods: {
@@ -335,42 +380,38 @@
                 if(this.errors.any()){
                     this.isSuccesful = false
                     this.isHidden = false
-                    this.alertMessage = "Unable to create a record due insufficient data."
+                    this.alertMessage = "Unable to create a record due to insufficient data."
                 }
       
-                else{
-                    window.axios.post(this.submitRecordRoute, this.record_data)
-                        .then( response => {
-                            this.isSuccesful = true
-                            this.isHidden = false
-                            this.isDirectDeposit = false
-                            this.alertMessage = response.data.success ? "Record succesfully added!" : "Error"
+                window.axios.post(this.submitRecordRoute, this.record_data)
+                    .then( response => {
+                        this.isSuccesful = true
+                        this.isHidden = false
+                        this.isDirectDeposit = false
+                        this.alertMessage = response.data.success ? "Record succesfully added!" : "Error"
 
-                            this.des_offerings = [
-                                {
-                                    designated_amount: 0,
-                                    designation: 'select',
-                                    designated_for: ''
-                                }
-                            ];
-                            
-                            this.isAnonymous = false;
-                            this.bank_ref = '';
-                            this.gic = "";
-                            this.tithe = 0;
-                            this.love = 0;
-                            this.faith = 0;
-                            this.service_type = '';
-                            this.record_type = 'ob';
-                            this.given_at = '';
-                            this.status = 0;
-                            this.isSelected = 'anonymous';
+                        this.des_offerings = [
+                            {
+                                designated_amount: 0,
+                                designation: 'select',
+                                designated_for: ''
+                            }
+                        ];
+                        
+                        this.isAnonymous = false;
+                        this.bank_ref = '';
+                        this.gic = "";
+                        this.tithe = 0;
+                        this.love = 0;
+                        this.faith = 0;
+                        this.service_type = '';
+                        this.record_type = 'ob';
+                        this.given_at = '';
+                        this.status = 0;
+                        this.isSelected = 'anonymous';
 
-                            //return response.data.success ? "Record succesfully added!" : "Error"
-
-                    });
-                }
-
+                        //return response.data.success ? "Record succesfully added!" : "Error"
+                });
                 //$("#recordForm")[0].reset()
             }
         },
