@@ -52,14 +52,14 @@
                     <div class="form-row" v-show="isSelected == 'identified'&&!isDirectDeposit">
                         <div class="form-group col-md-12">
                             <label for="gic">Member's Name or Giver Indentification Code (GIC) </label>
-                            <multiselect v-model="gic" :options="searchValues" :custom-label="nameWithCode" placeholder="Search for Member's name or GIC" label="name" track-by="name" id="gic"  @input="getValues" v-validate="'required'"></multiselect>
+                            <multiselect v-model="gic" :options="searchValues" :custom-label="nameWithCode" placeholder="Search for Member's name or GIC" label="name" track-by="name" id="gic"  @input="getValues"></multiselect>
                         </div>
                     </div>
                 
                     <div class="form-row" v-show="isSelected == 'group'&&!isDirectDeposit">
-                        <div class="form-group col-md-12 field" :class="{error: errors.has('group_name')}">
+                        <div class="form-group col-md-12 field">
                             <label for="">Group's Name</label>
-                            <input type="text" class="form-control" name="group_name" v-model="group_name" @change="getValues" autocomplete="off" data-vv-rules="groupName" v-validate = "groupName">
+                            <input type="text" class="form-control" v-model="group_name" @change="getValues" autocomplete="off" name="group_name" v-validate="'alpha_space'" :class="{'form-control': true, error: errors.has('group_name')}">
                             <span class="error text-danger" v-if="errors.has('group_name')">{{errors.first('group_name')}}</span>
                         </div>
                     </div>
@@ -212,24 +212,10 @@
     }
 </style>
 
-<script>
+<script>   
 
-    const myRule = {
-        // Custom validation message
-                getMessage: (field) => `The ${field} is `,
+import { Validator } from 'vee-validate'; 
 
-                // Custom validation rule
-                validate: (value) => new Promise(resolve => {
-                    /*const validCoupons = ['SUMMER2017', 'WINTER2017', 'FALL2017'];
-                    resolve({
-                        valid: value && (validCoupons.indexOf(value.toUpperCase()) > -1)
-                    });*/
-
-                    resolve({
-                        valid: this.giver_type === 'group' ? (value.length > 0 ? true :false) : true
-                    });
-                })
-    };
     export default {
 
         props: ['givenAt', 'submitRecordRoute', 'memberSearch', 'memberSearchRoute'],
@@ -295,24 +281,22 @@
             }
         },
 
-        created: function() {
-            this.$validator.extend('groupName', {
+        created() {
 
-                // Custom validation message
-                getMessage: (field) => `The ${field} is `,
-
-                // Custom validation rule
-                validate: (value) => new Promise(resolve => {
-                    /*const validCoupons = ['SUMMER2017', 'WINTER2017', 'FALL2017'];
-                    resolve({
-                        valid: value && (validCoupons.indexOf(value.toUpperCase()) > -1)
-                    });*/
-
-                    resolve({
-                        valid: this.giver_type === 'group' ? (value.length > 0 ? true :false) : true
-                    });
-                })
+            this.$validator.extend('truthy', {
+                getMessage: field => 'The ' + field + ' value is not truthy.',
+                validate: value => value === 'A'//this.giver_type === 'group' ? false : true
             });
+
+            let instance = new Validator({ trueField: 'truthy' });
+
+            // Also there is an instance 'extend' method for convenience.
+            /*instance.extend('falsy', (value) => ! value);
+
+            instance.attach({
+              name: 'falseField',
+              rules: 'falsy'
+            });*/
         },
 
         methods: {
@@ -375,43 +359,49 @@
             submitForm(e) {
                 e.preventDefault();
 
-                this.$validator.validateAll()
+                //this.$validator.validateAll()
 
-                if(this.errors.any()){
+                console.log(this.$validator.errors.any())
+
+                this.$validator.validateAll().then((result) => {
+                  if (result) {
+                    window.axios.post(this.submitRecordRoute, this.record_data)
+                        .then( response => {
+                            this.isSuccesful = true
+                            this.isHidden = false
+                            this.isDirectDeposit = false
+                            this.alertMessage = response.data.success ? "Record succesfully added!" : "Error"
+
+                            this.des_offerings = [
+                                {
+                                    designated_amount: 0,
+                                    designation: 'select',
+                                    designated_for: ''
+                                }
+                            ];
+                            
+                            this.isAnonymous = false;
+                            this.bank_ref = '';
+                            this.gic = "";
+                            this.tithe = 0;
+                            this.love = 0;
+                            this.faith = 0;
+                            this.service_type = '';
+                            this.record_type = 'ob';
+                            this.given_at = '';
+                            this.status = 0;
+                            this.isSelected = 'anonymous';
+                    });
+                  }
+
+                  if(!result){
                     this.isSuccesful = false
                     this.isHidden = false
-                    this.alertMessage = "Unable to create a record due to insufficient data."
-                }
-      
-                window.axios.post(this.submitRecordRoute, this.record_data)
-                    .then( response => {
-                        this.isSuccesful = true
-                        this.isHidden = false
-                        this.isDirectDeposit = false
-                        this.alertMessage = response.data.success ? "Record succesfully added!" : "Error"
+                    this.alertMessage = "Unable to create a record due to insufficient data."       
+                  }
 
-                        this.des_offerings = [
-                            {
-                                designated_amount: 0,
-                                designation: 'select',
-                                designated_for: ''
-                            }
-                        ];
-                        
-                        this.isAnonymous = false;
-                        this.bank_ref = '';
-                        this.gic = "";
-                        this.tithe = 0;
-                        this.love = 0;
-                        this.faith = 0;
-                        this.service_type = '';
-                        this.record_type = 'ob';
-                        this.given_at = '';
-                        this.status = 0;
-                        this.isSelected = 'anonymous';
-
-                        //return response.data.success ? "Record succesfully added!" : "Error"
                 });
+                
                 //$("#recordForm")[0].reset()
             }
         },

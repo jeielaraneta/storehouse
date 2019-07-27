@@ -12701,240 +12701,222 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var _this = undefined;
+/* harmony import */ var vee_validate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vee-validate */ "./node_modules/vee-validate/dist/vee-validate.esm.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var myRule = {
-  // Custom validation message
-  getMessage: function getMessage(field) {
-    return "The ".concat(field, " is ");
-  },
-  // Custom validation rule
-  validate: function validate(value) {
-    return new Promise(function (resolve) {
-      /*const validCoupons = ['SUMMER2017', 'WINTER2017', 'FALL2017'];
-      resolve({
-          valid: value && (validCoupons.indexOf(value.toUpperCase()) > -1)
-      });*/
-      resolve({
-        valid: _this.giver_type === 'group' ? value.length > 0 ? true : false : true
-      });
-    });
-  }
-};
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['givenAt', 'submitRecordRoute', 'memberSearch', 'memberSearchRoute'],
   data: function data() {
@@ -12988,26 +12970,24 @@ var myRule = {
     }
   },
   created: function created() {
-    var _this2 = this;
-
-    this.$validator.extend('groupName', {
-      // Custom validation message
+    this.$validator.extend('truthy', {
       getMessage: function getMessage(field) {
-        return "The ".concat(field, " is ");
+        return 'The ' + field + ' value is not truthy.';
       },
-      // Custom validation rule
       validate: function validate(value) {
-        return new Promise(function (resolve) {
-          /*const validCoupons = ['SUMMER2017', 'WINTER2017', 'FALL2017'];
-          resolve({
-              valid: value && (validCoupons.indexOf(value.toUpperCase()) > -1)
-          });*/
-          resolve({
-            valid: _this2.giver_type === 'group' ? value.length > 0 ? true : false : true
-          });
-        });
-      }
+        return value === 'A';
+      } //this.giver_type === 'group' ? false : true
+
     });
+    var instance = new vee_validate__WEBPACK_IMPORTED_MODULE_0__["Validator"]({
+      trueField: 'truthy'
+    }); // Also there is an instance 'extend' method for convenience.
+
+    /*instance.extend('falsy', (value) => ! value);
+     instance.attach({
+      name: 'falseField',
+      rules: 'falsy'
+    });*/
   },
   methods: {
     add: function add(index) {
@@ -13039,11 +13019,11 @@ var myRule = {
       return "".concat(name, " \u2014 ").concat(code);
     },
     searchMembers: function searchMembers() {
-      var _this3 = this;
+      var _this = this;
 
       window.axios.get(this.memberSearchRoute).then(function (response) {
-        _this3.searchValues = response.data.data;
-        _this3.gic = "";
+        _this.searchValues = response.data.data;
+        _this.gic = "";
       });
     },
     getValues: function getValues() {
@@ -13066,38 +13046,42 @@ var myRule = {
       };
     },
     submitForm: function submitForm(e) {
-      var _this4 = this;
+      var _this2 = this;
 
-      e.preventDefault();
-      this.$validator.validateAll();
+      e.preventDefault(); //this.$validator.validateAll()
 
-      if (this.errors.any()) {
-        this.isSuccesful = false;
-        this.isHidden = false;
-        this.alertMessage = "Unable to create a record due to insufficient data.";
-      }
+      console.log(this.$validator.errors.any());
+      this.$validator.validateAll().then(function (result) {
+        if (result) {
+          window.axios.post(_this2.submitRecordRoute, _this2.record_data).then(function (response) {
+            _this2.isSuccesful = true;
+            _this2.isHidden = false;
+            _this2.isDirectDeposit = false;
+            _this2.alertMessage = response.data.success ? "Record succesfully added!" : "Error";
+            _this2.des_offerings = [{
+              designated_amount: 0,
+              designation: 'select',
+              designated_for: ''
+            }];
+            _this2.isAnonymous = false;
+            _this2.bank_ref = '';
+            _this2.gic = "";
+            _this2.tithe = 0;
+            _this2.love = 0;
+            _this2.faith = 0;
+            _this2.service_type = '';
+            _this2.record_type = 'ob';
+            _this2.given_at = '';
+            _this2.status = 0;
+            _this2.isSelected = 'anonymous';
+          });
+        }
 
-      window.axios.post(this.submitRecordRoute, this.record_data).then(function (response) {
-        _this4.isSuccesful = true;
-        _this4.isHidden = false;
-        _this4.isDirectDeposit = false;
-        _this4.alertMessage = response.data.success ? "Record succesfully added!" : "Error";
-        _this4.des_offerings = [{
-          designated_amount: 0,
-          designation: 'select',
-          designated_for: ''
-        }];
-        _this4.isAnonymous = false;
-        _this4.bank_ref = '';
-        _this4.gic = "";
-        _this4.tithe = 0;
-        _this4.love = 0;
-        _this4.faith = 0;
-        _this4.service_type = '';
-        _this4.record_type = 'ob';
-        _this4.given_at = '';
-        _this4.status = 0;
-        _this4.isSelected = 'anonymous'; //return response.data.success ? "Record succesfully added!" : "Error"
+        if (!result) {
+          _this2.isSuccesful = false;
+          _this2.isHidden = false;
+          _this2.alertMessage = "Unable to create a record due to insufficient data.";
+        }
       }); //$("#recordForm")[0].reset()
     }
   },
@@ -83940,14 +83924,6 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("multiselect", {
-                      directives: [
-                        {
-                          name: "validate",
-                          rawName: "v-validate",
-                          value: "required",
-                          expression: "'required'"
-                        }
-                      ],
                       attrs: {
                         options: _vm.searchValues,
                         "custom-label": _vm.nameWithCode,
@@ -83985,58 +83961,52 @@ var render = function() {
                 staticClass: "form-row"
               },
               [
-                _c(
-                  "div",
-                  {
-                    staticClass: "form-group col-md-12 field",
-                    class: { error: _vm.errors.has("group_name") }
-                  },
-                  [
-                    _c("label", { attrs: { for: "" } }, [
-                      _vm._v("Group's Name")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.group_name,
-                          expression: "group_name"
-                        },
-                        {
-                          name: "validate",
-                          rawName: "v-validate",
-                          value: _vm.groupName,
-                          expression: "groupName"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "text",
-                        name: "group_name",
-                        autocomplete: "off",
-                        "data-vv-rules": "groupName"
+                _c("div", { staticClass: "form-group col-md-12 field" }, [
+                  _c("label", { attrs: { for: "" } }, [_vm._v("Group's Name")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.group_name,
+                        expression: "group_name"
                       },
-                      domProps: { value: _vm.group_name },
-                      on: {
-                        change: _vm.getValues,
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.group_name = $event.target.value
-                        }
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: "alpha_space",
+                        expression: "'alpha_space'"
                       }
-                    }),
-                    _vm._v(" "),
-                    _vm.errors.has("group_name")
-                      ? _c("span", { staticClass: "error text-danger" }, [
-                          _vm._v(_vm._s(_vm.errors.first("group_name")))
-                        ])
-                      : _vm._e()
-                  ]
-                )
+                    ],
+                    staticClass: "form-control",
+                    class: {
+                      "form-control": true,
+                      error: _vm.errors.has("group_name")
+                    },
+                    attrs: {
+                      type: "text",
+                      autocomplete: "off",
+                      name: "group_name"
+                    },
+                    domProps: { value: _vm.group_name },
+                    on: {
+                      change: _vm.getValues,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.group_name = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.errors.has("group_name")
+                    ? _c("span", { staticClass: "error text-danger" }, [
+                        _vm._v(_vm._s(_vm.errors.first("group_name")))
+                      ])
+                    : _vm._e()
+                ])
               ]
             ),
             _vm._v(" "),

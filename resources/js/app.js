@@ -40,6 +40,7 @@ Vue.component('GChart', GChart);
 
 import VeeValidate from 'vee-validate';
 
+
 Vue.use(VeeValidate);
 
 /**
