@@ -12916,6 +12916,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['givenAt', 'submitRecordRoute', 'memberSearch', 'memberSearchRoute'],
@@ -12970,21 +12975,62 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    this.$validator.extend('truthy', {
-      getMessage: function getMessage(field) {
-        return 'The ' + field + ' value is not truthy.';
-      },
-      validate: function validate(value) {
-        return value === 'A';
-      } //this.giver_type === 'group' ? false : true
+    var customMessages = {
+      custom: {
+        group_name: {
+          required: 'Group name should not be empty',
+          alpha_spaces: 'Group name should not contain special characters or numbers'
+        },
+        tithe: {
+          required: 'Tithe amount should not be empty',
+          decimal: 'Tithe amount should contain numbers only'
+        },
+        love: {
+          required: 'Love amount should not be empty',
+          decimal: 'Love amount should contain numbers only'
+        },
+        faith: {
+          required: 'Faith amount should not be empty',
+          decimal: 'Faith amount should contain numbers only'
+        },
+        service_type: {
+          required: 'Please select a service type'
+        },
+        given_at: {
+          required: 'Please select a date'
+        },
+        designated_amount: {
+          required: 'Designated amount should not be empty',
+          decimal: 'Designated amount should contain numbers only'
+        },
+        designation: {
+          required: 'Please select a designation'
+        },
+        designated_for: {
+          required: 'Specific designation should not be empty',
+          alpha_spaces: 'Specific designation should not contain special characters or numbers'
+        },
+        total_amount: {
+          min_value: 'Total amount must be more than 1'
+          /* name: {
+              required: () => 'Your name is empty'
+          }*/
 
+        }
+      }
+    };
+    vee_validate__WEBPACK_IMPORTED_MODULE_0__["Validator"].localize('en', customMessages);
+    /*this.$validator.extend('truthy', {
+        getMessage: field => 'The ' + field + ' value is not truthy.',
+        validate: value => value === 'A'
     });
-    var instance = new vee_validate__WEBPACK_IMPORTED_MODULE_0__["Validator"]({
-      trueField: 'truthy'
-    }); // Also there is an instance 'extend' method for convenience.
+      let instance = new Validator({ trueField: 'truthy' });*/
+    // or use the instance method
+    //this.$validator.localize('en', dict);
+    // Also there is an instance 'extend' method for convenience.
 
     /*instance.extend('falsy', (value) => ! value);
-     instance.attach({
+      instance.attach({
       name: 'falseField',
       rules: 'falsy'
     });*/
@@ -13046,41 +13092,45 @@ __webpack_require__.r(__webpack_exports__);
       };
     },
     submitForm: function submitForm(e) {
-      var _this2 = this;
-
       e.preventDefault(); //this.$validator.validateAll()
+      //console.log(this.$validator.errors.any())
 
-      console.log(this.$validator.errors.any());
       this.$validator.validateAll().then(function (result) {
         if (result) {
-          window.axios.post(_this2.submitRecordRoute, _this2.record_data).then(function (response) {
-            _this2.isSuccesful = true;
-            _this2.isHidden = false;
-            _this2.isDirectDeposit = false;
-            _this2.alertMessage = response.data.success ? "Record succesfully added!" : "Error";
-            _this2.des_offerings = [{
-              designated_amount: 0,
-              designation: 'select',
-              designated_for: ''
-            }];
-            _this2.isAnonymous = false;
-            _this2.bank_ref = '';
-            _this2.gic = "";
-            _this2.tithe = 0;
-            _this2.love = 0;
-            _this2.faith = 0;
-            _this2.service_type = '';
-            _this2.record_type = 'ob';
-            _this2.given_at = '';
-            _this2.status = 0;
-            _this2.isSelected = 'anonymous';
-          });
+          /*window.axios.post(this.submitRecordRoute, this.record_data)
+              .then( response => {
+                  this.isSuccesful = true
+                  this.isHidden = false
+                  this.isDirectDeposit = false
+                  this.alertMessage = response.data.success ? "Record succesfully added!" : "Error"
+                    this.des_offerings = [
+                      {
+                          designated_amount: 0,
+                          designation: 'select',
+                          designated_for: ''
+                      }
+                  ];
+                  
+                  this.isAnonymous = false;
+                  this.bank_ref = '';
+                  this.gic = "";
+                  this.tithe = 0;
+                  this.love = 0;
+                  this.faith = 0;
+                  this.service_type = '';
+                  this.record_type = 'ob';
+                  this.given_at = '';
+                  this.status = 0;
+                  this.isSelected = 'anonymous';
+          });*/
+          console.log('success');
         }
 
         if (!result) {
-          _this2.isSuccesful = false;
-          _this2.isHidden = false;
-          _this2.alertMessage = "Unable to create a record due to insufficient data.";
+          /*this.isSuccesful = false
+          this.isHidden = false
+          this.alertMessage = "Unable to create a record due to insufficient data."     */
+          console.log('missing');
         }
       }); //$("#recordForm")[0].reset()
     }
@@ -83924,7 +83974,21 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("multiselect", {
+                      directives: [
+                        {
+                          name: "validate",
+                          rawName: "v-validate",
+                          value:
+                            _vm.isSelected == "identified" &&
+                            !_vm.isDirectDeposit
+                              ? "required|alpha_spaces"
+                              : "",
+                          expression:
+                            "isSelected == 'identified'&&!isDirectDeposit ? 'required|alpha_spaces' : '' "
+                        }
+                      ],
                       attrs: {
+                        name: "gic",
                         options: _vm.searchValues,
                         "custom-label": _vm.nameWithCode,
                         placeholder: "Search for Member's name or GIC",
@@ -83940,7 +84004,13 @@ var render = function() {
                         },
                         expression: "gic"
                       }
-                    })
+                    }),
+                    _vm._v(" "),
+                    _vm.errors.has("gic")
+                      ? _c("span", { staticClass: "error text-danger" }, [
+                          _vm._v(_vm._s(_vm.errors.first("gic")))
+                        ])
+                      : _vm._e()
                   ],
                   1
                 )
@@ -83961,7 +84031,7 @@ var render = function() {
                 staticClass: "form-row"
               },
               [
-                _c("div", { staticClass: "form-group col-md-12 field" }, [
+                _c("div", { staticClass: "form-group col-md-12" }, [
                   _c("label", { attrs: { for: "" } }, [_vm._v("Group's Name")]),
                   _vm._v(" "),
                   _c("input", {
@@ -83975,8 +84045,12 @@ var render = function() {
                       {
                         name: "validate",
                         rawName: "v-validate",
-                        value: "alpha_space",
-                        expression: "'alpha_space'"
+                        value:
+                          _vm.isSelected == "group" && !_vm.isDirectDeposit
+                            ? "required|alpha_spaces"
+                            : "",
+                        expression:
+                          "isSelected == 'group'&&!isDirectDeposit ? 'required|alpha_spaces' : '' "
                       }
                     ],
                     staticClass: "form-control",
@@ -84403,10 +84477,21 @@ var render = function() {
                           rawName: "v-model",
                           value: input.designation,
                           expression: "input.designation"
+                        },
+                        {
+                          name: "validate",
+                          rawName: "v-validate",
+                          value: input.designated_for > 0 ? "required" : "",
+                          expression:
+                            "input.designated_for > 0 ? 'required' : ''"
                         }
                       ],
                       staticClass: "custom-select custom-select mb-3",
-                      attrs: { id: "designation" },
+                      class: {
+                        "form-control": true,
+                        error: _vm.errors.has("designation")
+                      },
+                      attrs: { id: "designation", name: "designation" },
                       on: {
                         change: [
                           function($event) {
@@ -84431,13 +84516,9 @@ var render = function() {
                       }
                     },
                     [
-                      _c(
-                        "option",
-                        {
-                          attrs: { disabled: "", selected: "", value: "select" }
-                        },
-                        [_vm._v("Select designation")]
-                      ),
+                      _c("option", { attrs: { disabled: "", selected: "" } }, [
+                        _vm._v("Select designation")
+                      ]),
                       _vm._v(" "),
                       _c("option", { attrs: { value: "ce" } }, [
                         _vm._v("C.E Ministry")
@@ -84475,7 +84556,13 @@ var render = function() {
                         _vm._v("Others")
                       ])
                     ]
-                  )
+                  ),
+                  _vm._v(" "),
+                  _vm.errors.has("designation")
+                    ? _c("span", { staticClass: "error text-danger" }, [
+                        _vm._v(_vm._s(_vm.errors.first("designation")))
+                      ])
+                    : _vm._e()
                 ]),
                 _vm._v(" "),
                 input.designation == "others"
@@ -84487,11 +84574,26 @@ var render = function() {
                             rawName: "v-model",
                             value: input.designated_for,
                             expression: "input.designated_for"
+                          },
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value:
+                              input.designation == "others"
+                                ? "required|alpha_spaces"
+                                : "",
+                            expression:
+                              "input.designation == 'others' ? 'required|alpha_spaces' : ''"
                           }
                         ],
                         staticClass: "form-control",
+                        class: {
+                          "form-control": true,
+                          error: _vm.errors.has("designated_for")
+                        },
                         attrs: {
                           type: "text",
+                          name: "designated_for",
                           id: "designated_for",
                           placeholder: "Designated for"
                         },
@@ -84511,7 +84613,13 @@ var render = function() {
                             _vm.getValues
                           ]
                         }
-                      })
+                      }),
+                      _vm._v(" "),
+                      _vm.errors.has("designated_for")
+                        ? _c("span", { staticClass: "error text-danger" }, [
+                            _vm._v(_vm._s(_vm.errors.first("designated_for")))
+                          ])
+                        : _vm._e()
                     ])
                   : _vm._e(),
                 _vm._v(" "),
@@ -84636,10 +84744,25 @@ var render = function() {
                       value: _vm.total_amount,
                       expression: "total_amount",
                       arg: "value"
+                    },
+                    {
+                      name: "validate",
+                      rawName: "v-validate",
+                      value: "min_value:1",
+                      expression: "'min_value:1'"
                     }
                   ],
                   staticClass: "form-control",
-                  attrs: { type: "text", id: "total_amount", disabled: "" },
+                  class: {
+                    "form-control": true,
+                    error: _vm.errors.has("total_amount")
+                  },
+                  attrs: {
+                    type: "text",
+                    name: "total_amount",
+                    id: "total_amount",
+                    readonly: ""
+                  },
                   domProps: { value: _vm.total_amount },
                   on: {
                     change: _vm.getValues,
@@ -84650,7 +84773,13 @@ var render = function() {
                       _vm.total_amount = $event.target.value
                     }
                   }
-                })
+                }),
+                _vm._v(" "),
+                _vm.errors.has("total_amount")
+                  ? _c("span", { staticClass: "error text-danger" }, [
+                      _vm._v(_vm._s(_vm.errors.first("total_amount")))
+                    ])
+                  : _vm._e()
               ])
             ]),
             _vm._v(" "),
@@ -97682,8 +97811,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/jeielaraneta/storehouse/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/jeielaraneta/storehouse/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\jaraneta\storehouse\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\jaraneta\storehouse\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

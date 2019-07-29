@@ -52,14 +52,16 @@
                     <div class="form-row" v-show="isSelected == 'identified'&&!isDirectDeposit">
                         <div class="form-group col-md-12">
                             <label for="gic">Member's Name or Giver Indentification Code (GIC) </label>
-                            <multiselect v-model="gic" :options="searchValues" :custom-label="nameWithCode" placeholder="Search for Member's name or GIC" label="name" track-by="name" id="gic"  @input="getValues"></multiselect>
+                            <multiselect v-model="gic" name="gic" :options="searchValues" :custom-label="nameWithCode" placeholder="Search for Member's name or GIC" label="name" track-by="name" id="gic"  @input="getValues"
+                            v-validate="isSelected == 'identified'&&!isDirectDeposit ? 'required|alpha_spaces' : '' " ></multiselect>
+                            <span class="error text-danger" v-if="errors.has('gic')">{{errors.first('gic')}}</span>
                         </div>
                     </div>
                 
                     <div class="form-row" v-show="isSelected == 'group'&&!isDirectDeposit">
-                        <div class="form-group col-md-12 field">
+                        <div class="form-group col-md-12">
                             <label for="">Group's Name</label>
-                            <input type="text" class="form-control" v-model="group_name" @change="getValues" autocomplete="off" name="group_name" v-validate="'alpha_space'" :class="{'form-control': true, error: errors.has('group_name')}">
+                            <input type="text" class="form-control" v-model="group_name" @change="getValues" autocomplete="off" name="group_name" v-validate="isSelected == 'group'&&!isDirectDeposit ? 'required|alpha_spaces' : '' " :class="{'form-control': true, error: errors.has('group_name')}">
                             <span class="error text-danger" v-if="errors.has('group_name')">{{errors.first('group_name')}}</span>
                         </div>
                     </div>
@@ -143,8 +145,8 @@
                     
                     <div class="form-row" v-for="(input,k) in des_offerings" :key="k">
                         <div class="form-group col-md-4">
-                            <select id="designation" class="custom-select custom-select mb-3" v-model="input.designation" @change="getValues">
-                                <option disabled selected value="select">Select designation</option>
+                            <select id="designation" name="designation" class="custom-select custom-select mb-3" v-model="input.designation" @change="getValues" v-validate="input.designated_for > 0 ? 'required' : ''" :class="{'form-control': true, error: errors.has('designation')}">
+                                <option disabled selected>Select designation</option>
                                 <option value="ce">C.E Ministry</option>
                                 <option value="music">Music Ministry</option>
                                 <option value="outreach">Community Outreach Ministry</option>
@@ -155,10 +157,12 @@
                                 <option value="gauis">Gauis</option>
                                 <option value="others">Others</option>
                             </select>
+                            <span class="error text-danger" v-if="errors.has('designation')">{{errors.first('designation')}}</span>
                         </div>
 
                         <div class="form-group col-md-4" v-if="input.designation == 'others'">
-                            <input type="text" id="designated_for" class="form-control" v-model="input.designated_for" placeholder="Designated for" @input="getValues">
+                            <input type="text" name="designated_for" id="designated_for" class="form-control" v-model="input.designated_for" placeholder="Designated for" @input="getValues" v-validate="input.designation == 'others' ? 'required|alpha_spaces' : ''" :class="{'form-control': true, error: errors.has('designated_for')}">
+                            <span class="error text-danger" v-if="errors.has('designated_for')">{{errors.first('designated_for')}}</span>
                         </div>
 
                         <div class="form-group col-md-2">
@@ -185,7 +189,8 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">&#8369;</div>
                             </div>
-                            <input type="text" id="total_amount" class="form-control" v-model:value="total_amount" disabled @change="getValues">
+                            <input type="text" name="total_amount" id="total_amount" class="form-control" v-model:value="total_amount" readonly @change="getValues" v-validate="'min_value:1'" :class="{'form-control': true, error: errors.has('total_amount')}">
+                            <span class="error text-danger" v-if="errors.has('total_amount')">{{errors.first('total_amount')}}</span>
                         </div>
                         
                     </div>
@@ -283,12 +288,72 @@ import { Validator } from 'vee-validate';
 
         created() {
 
-            this.$validator.extend('truthy', {
+            const customMessages = {
+                custom: {
+
+                    group_name: {
+                        required: 'Group name should not be empty',
+                        alpha_spaces: 'Group name should not contain special characters or numbers'
+                    },
+
+                    tithe: {
+                        required: 'Tithe amount should not be empty',
+                        decimal: 'Tithe amount should contain numbers only'
+                    },
+
+                    love: {
+                        required: 'Love amount should not be empty',
+                        decimal: 'Love amount should contain numbers only'
+                    },
+
+                    faith: {
+                        required: 'Faith amount should not be empty',
+                        decimal: 'Faith amount should contain numbers only'
+                    },
+
+                    service_type: {
+                        required: 'Please select a service type'
+                    },
+
+                    given_at: {
+                        required: 'Please select a date'
+                    },
+
+                    designated_amount: {
+                        required: 'Designated amount should not be empty',
+                        decimal: 'Designated amount should contain numbers only'
+                    }, 
+
+                    designation: {
+                        required: 'Please select a designation'
+                    },
+
+                    designated_for: {
+                        required: 'Specific designation should not be empty',
+                        alpha_spaces: 'Specific designation should not contain special characters or numbers'
+                    },
+
+                    total_amount: {
+                        min_value: 'Total amount must be more than 1'
+                    }
+
+                    /* name: {
+                        required: () => 'Your name is empty'
+                    }*/
+                }
+            };
+
+            Validator.localize('en', customMessages);
+
+            /*this.$validator.extend('truthy', {
                 getMessage: field => 'The ' + field + ' value is not truthy.',
-                validate: value => value === 'A'//this.giver_type === 'group' ? false : true
+                validate: value => value === 'A'
             });
 
-            let instance = new Validator({ trueField: 'truthy' });
+            let instance = new Validator({ trueField: 'truthy' });*/
+
+            // or use the instance method
+            //this.$validator.localize('en', dict);
 
             // Also there is an instance 'extend' method for convenience.
             /*instance.extend('falsy', (value) => ! value);
@@ -361,11 +426,11 @@ import { Validator } from 'vee-validate';
 
                 //this.$validator.validateAll()
 
-                console.log(this.$validator.errors.any())
+                //console.log(this.$validator.errors.any())
 
                 this.$validator.validateAll().then((result) => {
                   if (result) {
-                    window.axios.post(this.submitRecordRoute, this.record_data)
+                    /*window.axios.post(this.submitRecordRoute, this.record_data)
                         .then( response => {
                             this.isSuccesful = true
                             this.isHidden = false
@@ -391,13 +456,16 @@ import { Validator } from 'vee-validate';
                             this.given_at = '';
                             this.status = 0;
                             this.isSelected = 'anonymous';
-                    });
+                    });*/
+
+                    console.log('success')
                   }
 
                   if(!result){
-                    this.isSuccesful = false
+                    /*this.isSuccesful = false
                     this.isHidden = false
-                    this.alertMessage = "Unable to create a record due to insufficient data."       
+                    this.alertMessage = "Unable to create a record due to insufficient data."     */  
+                    console.log('missing')
                   }
 
                 });
