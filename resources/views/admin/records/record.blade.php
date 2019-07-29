@@ -13,7 +13,7 @@
         <div class="col-md-12">
             
             <div class="card">
-                <div class="card-header bg-transparent border-primary"><h5>Records</h5></div>
+                <div class="card-header bg-transparent border-primary"><h5>List of Records</h5></div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="recordsTable" class="table table-bordered table-striped display cell-border" style="width:100%">

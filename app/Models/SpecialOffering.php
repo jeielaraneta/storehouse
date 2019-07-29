@@ -46,8 +46,12 @@ class SpecialOffering extends Model
             case 'intl_missions':
                 $designation = 'International Missions';
                 break;
-            case 'intl_missions':
-                $designation = 'International Missions';
+            case 'dorcas':
+                $designation = ucfirst($value);
+            case 'switch':
+                $designation = ucfirst($value);
+            case 'gauis':
+                $designation = ucfirst($value);
                 break;
             case 'others':
                 $designation = ucfirst($value);
