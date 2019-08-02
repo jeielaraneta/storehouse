@@ -12548,6 +12548,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /*	
 	DATETIME PICKER ICONS
@@ -12604,7 +12608,7 @@ __webpack_require__.r(__webpack_exports__);
 
       },
       specialOfferingChartOptions: {
-        title: 'Special Offering Giving Summary',
+        title: 'Special Offering Summary',
         height: 400 //pieHole: 0.4,
 
       }
@@ -12650,7 +12654,8 @@ __webpack_require__.r(__webpack_exports__);
     updateStatus: function updateStatus() {
       var _this2 = this;
 
-      var status = $('#status').val() == 'Unverified' ? 0 : 1;
+      var status = $('#status').val(); // == 'Unverified' ? 0 : 1
+
       window.axios.put(this.updateRecordRoute, {
         status: status
       }).then(function (response) {
@@ -12698,13 +12703,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vee_validate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vee-validate */ "./node_modules/vee-validate/dist/vee-validate.esm.js");
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -83054,14 +83052,7 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
         _c("div", { staticClass: "row mb-5" }, [
-          _c("div", { staticClass: "col-sm-3" }, [
-            _c("h6", { staticClass: "card-title" }, [
-              _vm._v("Identification: "),
-              _c("span", [_vm._v(_vm._s(this.records.agc))])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-sm-3" }, [
+          _c("div", { staticClass: "col-sm-2" }, [
             _c("h6", { staticClass: "card-title" }, [
               _vm._v("Record ID: "),
               _c("span", [_vm._v(_vm._s(this.records.id))])
@@ -83069,6 +83060,13 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-sm-3" }, [
+            _c("h6", { staticClass: "card-title" }, [
+              _vm._v("Identification: "),
+              _c("span", [_vm._v(_vm._s(this.records.agc))])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-4" }, [
             _c("h6", { staticClass: "card-title" }, [
               _vm._v("Record Type: "),
               _c("span", [_vm._v(_vm._s(this.records.record_type))])
@@ -83399,6 +83397,18 @@ var render = function() {
                         _vm._v(" "),
                         _c("option", { attrs: { value: "Verified" } }, [
                           _vm._v("Verified")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "For Correction" } }, [
+                          _vm._v("For Correction")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "For Archive" } }, [
+                          _vm._v("For Archive")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "Archived" } }, [
+                          _vm._v("Archived")
                         ])
                       ]
                     )

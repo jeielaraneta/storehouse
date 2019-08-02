@@ -31,15 +31,16 @@
 	        <div class="card-body">
 
 	        	<div class="row mb-5">
+
+	        		<div class="col-sm-2">
+		        		<h6 class="card-title">Record ID: <span>{{this.records.id}}</span></h6>
+		        	</div>
+
 	        		<div class="col-sm-3">
 	        			<h6 class="card-title">Identification: <span>{{this.records.agc}}</span></h6>
 		        	</div>
 
-		        	<div class="col-sm-3">
-		        		<h6 class="card-title">Record ID: <span>{{this.records.id}}</span></h6>
-		        	</div>
-
-		        	<div class="col-sm-3">
+		        	<div class="col-sm-4">
 		        		<h6 class="card-title">Record Type: <span>{{this.records.record_type}}</span></h6>
 		        	</div>
 
@@ -113,6 +114,9 @@
 							    	<select id="status" class="custom-select custom-select mb-3" name="status" v-model:value="status" :disabled="toEditStatus">
 		                                <option value="Unverified">Unverified</option>
 		                                <option value="Verified">Verified</option>
+		                                <option value="For Correction">For Correction</option>
+		                                <option value="For Archive">For Archive</option>
+		                                <option value="Archived">Archived</option>
 			                        </select>
 
 							    </div>
@@ -297,7 +301,7 @@
 		        },
 
 		        specialOfferingChartOptions: {
-		          	title: 'Special Offering Giving Summary',
+		          	title: 'Special Offering Summary',
 		          	height: 400,
 		          	//pieHole: 0.4,
 		        },
@@ -357,7 +361,7 @@
 
 	    	updateStatus() {
 
-	    		var status = $('#status').val() == 'Unverified' ? 0 : 1;
+	    		var status = $('#status').val(); // == 'Unverified' ? 0 : 1
 
 	      		window.axios.put(this.updateRecordRoute, {status: status})
 	      			.then( response => {

@@ -34,14 +34,7 @@
                         </div>
 
                         <div class="form-group col-md-6">
-                            <!-- <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="anonymous" v-model="isAnonymous">
-                                <label class="form-check-label" for="anonymous">
-                                    Anonymous Giver
-                                </label>
-                            </div> -->
                             <select id="giver_type" class="custom-select custom-select mb-3" v-model="isSelected" @change="getValues" :disabled="isDirectDeposit">
-                                <!-- <option disabled selected value="">Select Giver Type</option> -->
                                 <option value="identified">Identified Giver</option>
                                 <option selected value="anonymous">Anonymous Giver</option>
                                 <option value="group">Group</option>
