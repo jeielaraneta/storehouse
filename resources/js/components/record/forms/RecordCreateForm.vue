@@ -53,7 +53,7 @@
                         <div class="form-group col-md-12">
                             <label for="gic">Member's Name or Giver Indentification Code (GIC) </label>
                             <multiselect v-model="gic" name="gic" :options="searchValues" :custom-label="nameWithCode" placeholder="Search for Member's name or GIC" label="name" track-by="name" id="gic"  @input="getValues"
-                            v-validate="isSelected == 'identified'&&!isDirectDeposit ? 'required|alpha_spaces' : '' " ></multiselect>
+                            v-validate="isSelected == 'identified'&&!isDirectDeposit ? 'required' : '' " ></multiselect>
                             <span class="error text-danger" v-if="errors.has('gic')">{{errors.first('gic')}}</span>
                         </div>
                     </div>
@@ -69,7 +69,8 @@
                     <div class="form-row" v-show="record_type == 'dd'">
                         <div class="form-group col-md-12">
                             <label for="">Bank Deposit Reference Number</label>
-                            <input type="text" class="form-control" v-model="bank_ref" @change="getValues" autocomplete="off" >
+                            <input type="text" class="form-control" name="bank_ref" v-model="bank_ref" @change="getValues" autocomplete="off" v-validate="isDirectDeposit ? 'required|alpha_num' : '' " :class="{'form-control': true, error: errors.has('bank_ref')}">
+                            <span class="error text-danger" v-if="errors.has('bank_ref')">{{errors.first('bank_ref')}}</span>
                         </div>
                     </div>
                     
@@ -145,23 +146,28 @@
                     
                     <div class="form-row" v-for="(input,k) in des_offerings" :key="k">
                         <div class="form-group col-md-4">
-                            <select id="designation" name="designation" class="custom-select custom-select mb-3" v-model="input.designation" @change="getValues" v-validate="input.designated_for > 0 ? 'required' : ''" :class="{'form-control': true, error: errors.has('designation')}">
+                            <select id="designation" name="designation" class="custom-select custom-select mb-3" v-model="input.designation" @change="getValues" v-validate="input.designated_amount > 0 ? 'required' : ''" :class="{'form-control': true, error: errors.has('designation')}">
                                 <option disabled selected>Select designation</option>
                                 <option value="ce">C.E Ministry</option>
                                 <option value="music">Music Ministry</option>
                                 <option value="outreach">Community Outreach Ministry</option>
                                 <option value="local_missions">Local Missions</option>
-                                <option value="intl_missions">International Missions</option>
+                                <option value="foreign_missions">Foreign Missions</option>
                                 <option value="dorcas">Dorcas</option>
                                 <option value="switch">SWITCh</option>
                                 <option value="gauis">Gauis</option>
+                                <option value="vop">VOP</option>
+                                <option value="rsg">RSG</option>
+                                <option value="youth_ministry">Youth Ministry</option>
+                                <option value="des_love_gift">Designated Love Gift</option>
+                                <option value="financial_assistance">Financial Assistance</option>
                                 <option value="others">Others</option>
                             </select>
                             <span class="error text-danger" v-if="errors.has('designation')">{{errors.first('designation')}}</span>
                         </div>
 
-                        <div class="form-group col-md-4" v-if="input.designation == 'others'">
-                            <input type="text" name="designated_for" id="designated_for" class="form-control" v-model="input.designated_for" placeholder="Designated for" @input="getValues" v-validate="input.designation == 'others' ? 'required|alpha_spaces' : ''" :class="{'form-control': true, error: errors.has('designated_for')}">
+                        <div class="form-group col-md-4" v-if="designationCondition(input.designation)">
+                            <input type="text" name="designated_for" id="designated_for" class="form-control" v-model="input.designated_for" placeholder="Designated for" @input="getValues" v-validate="designationCondition(input.designation) ? 'required|alpha_spaces' : ''" :class="{'form-control': true, error: errors.has('designated_for')}">
                             <span class="error text-danger" v-if="errors.has('designated_for')">{{errors.first('designated_for')}}</span>
                         </div>
 
@@ -283,7 +289,7 @@ import { Validator } from 'vee-validate';
                 }, 0);
 
                 return Number(this.tithe) + Number(this.love) + Number(this.faith) + special_offering;
-            }
+            },
         },
 
         created() {
@@ -291,10 +297,19 @@ import { Validator } from 'vee-validate';
             const customMessages = {
                 custom: {
 
+                    gic: {
+                        required: "Giver's identification should not be empty"
+                    },
+
                     group_name: {
                         required: 'Group name should not be empty',
                         alpha_spaces: 'Group name should not contain special characters or numbers'
                     },
+
+                    bank_ref: {
+                        required: 'Deposit reference should not be empty',
+                        alpha_num: 'Deposit reference should contain numbers and letters only'
+                    },  
 
                     tithe: {
                         required: 'Tithe amount should not be empty',
@@ -374,6 +389,7 @@ import { Validator } from 'vee-validate';
             },
 
             resetForm(e){
+                e.preventDefault();
                 this.des_offerings = [
                     {
                         designated_amount: 0,
@@ -381,12 +397,18 @@ import { Validator } from 'vee-validate';
                         designated_for: ''
                     }
                 ];
+                
                 this.isAnonymous = false;
+                this.bank_ref = '';
                 this.gic = "";
                 this.tithe = 0;
                 this.love = 0;
                 this.faith = 0;
-                this.bank_ref = '';
+                this.service_type = '';
+                this.record_type = 'ob';
+                this.given_at = '';
+                this.status = 0;
+                this.isSelected = 'anonymous';
             },
 
             nameWithCode ({ name, code }) {
@@ -424,53 +446,33 @@ import { Validator } from 'vee-validate';
             submitForm(e) {
                 e.preventDefault();
 
-                //this.$validator.validateAll()
-
-                //console.log(this.$validator.errors.any())
-
                 this.$validator.validateAll().then((result) => {
                   if (result) {
-                    /*window.axios.post(this.submitRecordRoute, this.record_data)
+                    window.axios.post(this.submitRecordRoute, this.record_data)
                         .then( response => {
                             this.isSuccesful = true
                             this.isHidden = false
                             this.isDirectDeposit = false
                             this.alertMessage = response.data.success ? "Record succesfully added!" : "Error"
 
-                            this.des_offerings = [
-                                {
-                                    designated_amount: 0,
-                                    designation: 'select',
-                                    designated_for: ''
-                                }
-                            ];
-                            
-                            this.isAnonymous = false;
-                            this.bank_ref = '';
-                            this.gic = "";
-                            this.tithe = 0;
-                            this.love = 0;
-                            this.faith = 0;
-                            this.service_type = '';
-                            this.record_type = 'ob';
-                            this.given_at = '';
-                            this.status = 0;
-                            this.isSelected = 'anonymous';
-                    });*/
-
-                    console.log('success')
+                        e.target.reset();
+                        this.$validator.reset();
+                    });
                   }
 
                   if(!result){
-                    /*this.isSuccesful = false
+                    this.isSuccesful = false
                     this.isHidden = false
-                    this.alertMessage = "Unable to create a record due to insufficient data."     */  
-                    console.log('missing')
+                    this.alertMessage = "Unable to create a record due to insufficient data."
                   }
 
                 });
-                
-                //$("#recordForm")[0].reset()
+            },
+
+            designationCondition(input) {
+                if(input == 'others' || input == 'des_love_gift' || input == 'financial_assistance'){
+                    return true;
+                }
             }
         },
 

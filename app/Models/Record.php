@@ -66,6 +66,26 @@ class Record extends Model
         return $value == 0 ?  'Unverified' : 'Verified';
     }
 
+    public function getRecordTypeAttribute($value) {
+        return $value == 'dd' ?  'Direct Depositor' : 'Offering Box';
+    }
+
+    public function getTotalAmountAttribute($value) {
+        return number_format($value, 2);
+    }
+
+    /*public function getTitheAmountAttribute($value) {
+        return number_format($value, 2);
+    }
+
+    public function getLoveAmountAttribute($value) {
+        return number_format($value, 2);
+    }
+
+    public function getFaithAmountAttribute($value) {
+        return number_format($value, 2);
+    }*/
+
     public function setGivenAtAttribute($value)
     {
         $this->attributes['given_at'] = date('Y-m-d', strtotime($value));

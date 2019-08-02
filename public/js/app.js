@@ -12325,19 +12325,7 @@ $(document).ready(function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var vee_validate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vee-validate */ "./node_modules/vee-validate/dist/vee-validate.esm.js");
 //
 //
 //
@@ -12573,6 +12561,7 @@ __webpack_require__.r(__webpack_exports__);
     clear: 'far fa-trash-alt',
     close: 'far fa-times-circle'
 */
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     this.arrangeSpecialOfferingData();
@@ -12622,6 +12611,16 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   computed: {},
+  created: function created() {
+    var customMessages = {
+      custom: {
+        givenAt: {
+          required: "Please select a date"
+        }
+      }
+    };
+    vee_validate__WEBPACK_IMPORTED_MODULE_0__["Validator"].localize('en', customMessages);
+  },
   methods: {
     sumOfRegularGiving: function sumOfRegularGiving() {
       var total = Number(this.records.tithe_amount) + Number(this.records.love_amount) + Number(this.records.faith_amount);
@@ -12648,43 +12647,40 @@ __webpack_require__.r(__webpack_exports__);
         _this.alertMessage = response.data.success ? "Record's service type has been updated sucessfully!" : "Error";
       });
     },
-    updateRecordType: function updateRecordType() {
-      var _this2 = this;
-
-      var record_type = $('#record_type').val();
-      window.axios.put(this.updateRecordRoute, {
-        record_type: record_type
-      }).then(function (response) {
-        _this2.toEditRecordType = true;
-        _this2.isSuccesful = true;
-        _this2.isHidden = false;
-        _this2.alertMessage = response.data.success ? "Record's record type has been updated sucessfully!" : "Error";
-      });
-    },
     updateStatus: function updateStatus() {
-      var _this3 = this;
+      var _this2 = this;
 
       var status = $('#status').val() == 'Unverified' ? 0 : 1;
       window.axios.put(this.updateRecordRoute, {
         status: status
       }).then(function (response) {
-        _this3.toEditStatus = true;
-        _this3.isSuccesful = true;
-        _this3.isHidden = false;
-        _this3.alertMessage = response.data.success ? "Record's status has been updated sucessfully!" : "Error";
+        _this2.toEditStatus = true;
+        _this2.isSuccesful = true;
+        _this2.isHidden = false;
+        _this2.alertMessage = response.data.success ? "Record's status has been updated sucessfully!" : "Error";
       });
     },
     updateGivenAt: function updateGivenAt() {
-      var _this4 = this;
+      var _this3 = this;
 
       var givenAt = $('#givenAt').val();
-      window.axios.put(this.updateRecordRoute, {
-        given_at: givenAt
-      }).then(function (response) {
-        _this4.toEditGivenAt = true;
-        _this4.isSuccesful = true;
-        _this4.isHidden = false;
-        _this4.alertMessage = response.data.success ? "Record's given date has been updated sucessfully!" : "Error";
+      this.$validator.validateAll().then(function (result) {
+        if (result) {
+          window.axios.put(_this3.updateRecordRoute, {
+            given_at: givenAt
+          }).then(function (response) {
+            _this3.toEditGivenAt = true;
+            _this3.isSuccesful = true;
+            _this3.isHidden = false;
+            _this3.alertMessage = response.data.success ? "Record's given date has been updated sucessfully!" : "Error";
+          });
+        }
+
+        if (!result) {
+          _this3.isSuccesful = false;
+          _this3.isHidden = false;
+          _this3.alertMessage = "Unable to update a record due to insufficient data.";
+        }
       });
     }
   }
@@ -12702,6 +12698,12 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vee_validate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vee-validate */ "./node_modules/vee-validate/dist/vee-validate.esm.js");
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -12977,9 +12979,16 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var customMessages = {
       custom: {
+        gic: {
+          required: "Giver's identification should not be empty"
+        },
         group_name: {
           required: 'Group name should not be empty',
           alpha_spaces: 'Group name should not contain special characters or numbers'
+        },
+        bank_ref: {
+          required: 'Deposit reference should not be empty',
+          alpha_num: 'Deposit reference should contain numbers and letters only'
         },
         tithe: {
           required: 'Tithe amount should not be empty',
@@ -13024,13 +13033,13 @@ __webpack_require__.r(__webpack_exports__);
         getMessage: field => 'The ' + field + ' value is not truthy.',
         validate: value => value === 'A'
     });
-      let instance = new Validator({ trueField: 'truthy' });*/
+     let instance = new Validator({ trueField: 'truthy' });*/
     // or use the instance method
     //this.$validator.localize('en', dict);
     // Also there is an instance 'extend' method for convenience.
 
     /*instance.extend('falsy', (value) => ! value);
-      instance.attach({
+     instance.attach({
       name: 'falseField',
       rules: 'falsy'
     });*/
@@ -13047,17 +13056,23 @@ __webpack_require__.r(__webpack_exports__);
       this.des_offerings.splice(index, 1);
     },
     resetForm: function resetForm(e) {
+      e.preventDefault();
       this.des_offerings = [{
         designated_amount: 0,
         designation: 'select',
         designated_for: ''
       }];
       this.isAnonymous = false;
+      this.bank_ref = '';
       this.gic = "";
       this.tithe = 0;
       this.love = 0;
       this.faith = 0;
-      this.bank_ref = '';
+      this.service_type = '';
+      this.record_type = 'ob';
+      this.given_at = '';
+      this.status = 0;
+      this.isSelected = 'anonymous';
     },
     nameWithCode: function nameWithCode(_ref) {
       var name = _ref.name,
@@ -13092,47 +13107,33 @@ __webpack_require__.r(__webpack_exports__);
       };
     },
     submitForm: function submitForm(e) {
-      e.preventDefault(); //this.$validator.validateAll()
-      //console.log(this.$validator.errors.any())
+      var _this2 = this;
 
+      e.preventDefault();
       this.$validator.validateAll().then(function (result) {
         if (result) {
-          /*window.axios.post(this.submitRecordRoute, this.record_data)
-              .then( response => {
-                  this.isSuccesful = true
-                  this.isHidden = false
-                  this.isDirectDeposit = false
-                  this.alertMessage = response.data.success ? "Record succesfully added!" : "Error"
-                    this.des_offerings = [
-                      {
-                          designated_amount: 0,
-                          designation: 'select',
-                          designated_for: ''
-                      }
-                  ];
-                  
-                  this.isAnonymous = false;
-                  this.bank_ref = '';
-                  this.gic = "";
-                  this.tithe = 0;
-                  this.love = 0;
-                  this.faith = 0;
-                  this.service_type = '';
-                  this.record_type = 'ob';
-                  this.given_at = '';
-                  this.status = 0;
-                  this.isSelected = 'anonymous';
-          });*/
-          console.log('success');
+          window.axios.post(_this2.submitRecordRoute, _this2.record_data).then(function (response) {
+            _this2.isSuccesful = true;
+            _this2.isHidden = false;
+            _this2.isDirectDeposit = false;
+            _this2.alertMessage = response.data.success ? "Record succesfully added!" : "Error";
+            e.target.reset();
+
+            _this2.$validator.reset();
+          });
         }
 
         if (!result) {
-          /*this.isSuccesful = false
-          this.isHidden = false
-          this.alertMessage = "Unable to create a record due to insufficient data."     */
-          console.log('missing');
+          _this2.isSuccesful = false;
+          _this2.isHidden = false;
+          _this2.alertMessage = "Unable to create a record due to insufficient data.";
         }
-      }); //$("#recordForm")[0].reset()
+      });
+    },
+    designationCondition: function designationCondition(input) {
+      if (input == 'others' || input == 'des_love_gift' || input == 'financial_assistance') {
+        return true;
+      }
     }
   },
   mounted: function mounted() {
@@ -17650,6 +17651,25 @@ exports = module.exports = __webpack_require__(/*! ../../../css-loader/lib/css-b
 
 // module
 exports.push([module.i, "/*!\n * Datetimepicker for Bootstrap 3\n * version : 4.17.47\n * https://github.com/Eonasdan/bootstrap-datetimepicker/\n */\n.bootstrap-datetimepicker-widget {\n  list-style: none;\n}\n.bootstrap-datetimepicker-widget.dropdown-menu {\n  display: block;\n  margin: 2px 0;\n  padding: 4px;\n  width: 19em;\n}\n@media (min-width: 576px) {\n  .bootstrap-datetimepicker-widget.dropdown-menu.timepicker-sbs {\n    width: 38em;\n  }\n}\n@media (min-width: 768px) {\n  .bootstrap-datetimepicker-widget.dropdown-menu.timepicker-sbs {\n    width: 38em;\n  }\n}\n@media (min-width: 992px) {\n  .bootstrap-datetimepicker-widget.dropdown-menu.timepicker-sbs {\n    width: 38em;\n  }\n}\n.bootstrap-datetimepicker-widget.dropdown-menu:before,\n.bootstrap-datetimepicker-widget.dropdown-menu:after {\n  content: '';\n  display: inline-block;\n  position: absolute;\n}\n.bootstrap-datetimepicker-widget.dropdown-menu.bottom:before {\n  border-left: 7px solid transparent;\n  border-right: 7px solid transparent;\n  border-bottom: 7px solid #ccc;\n  border-bottom-color: rgba(0, 0, 0, 0.2);\n  top: -7px;\n  left: 7px;\n}\n.bootstrap-datetimepicker-widget.dropdown-menu.bottom:after {\n  border-left: 6px solid transparent;\n  border-right: 6px solid transparent;\n  border-bottom: 6px solid white;\n  top: -6px;\n  left: 8px;\n}\n.bootstrap-datetimepicker-widget.dropdown-menu.top:before {\n  border-left: 7px solid transparent;\n  border-right: 7px solid transparent;\n  border-top: 7px solid #ccc;\n  border-top-color: rgba(0, 0, 0, 0.2);\n  bottom: -7px;\n  left: 6px;\n}\n.bootstrap-datetimepicker-widget.dropdown-menu.top:after {\n  border-left: 6px solid transparent;\n  border-right: 6px solid transparent;\n  border-top: 6px solid white;\n  bottom: -6px;\n  left: 7px;\n}\n.bootstrap-datetimepicker-widget.dropdown-menu.pull-right:before {\n  left: auto;\n  right: 6px;\n}\n.bootstrap-datetimepicker-widget.dropdown-menu.pull-right:after {\n  left: auto;\n  right: 7px;\n}\n.bootstrap-datetimepicker-widget .list-unstyled {\n  margin: 0;\n}\n.bootstrap-datetimepicker-widget a[data-action] {\n  padding: 6px 0;\n}\n.bootstrap-datetimepicker-widget a[data-action]:active {\n  box-shadow: none;\n}\n.bootstrap-datetimepicker-widget .timepicker-hour,\n.bootstrap-datetimepicker-widget .timepicker-minute,\n.bootstrap-datetimepicker-widget .timepicker-second {\n  width: 54px;\n  font-weight: bold;\n  font-size: 1.2em;\n  margin: 0;\n}\n.bootstrap-datetimepicker-widget button[data-action] {\n  padding: 6px;\n}\n.bootstrap-datetimepicker-widget .btn[data-action=\"incrementHours\"]::after {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  margin: -1px;\n  padding: 0;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n  content: \"Increment Hours\";\n}\n.bootstrap-datetimepicker-widget .btn[data-action=\"incrementMinutes\"]::after {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  margin: -1px;\n  padding: 0;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n  content: \"Increment Minutes\";\n}\n.bootstrap-datetimepicker-widget .btn[data-action=\"decrementHours\"]::after {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  margin: -1px;\n  padding: 0;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n  content: \"Decrement Hours\";\n}\n.bootstrap-datetimepicker-widget .btn[data-action=\"decrementMinutes\"]::after {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  margin: -1px;\n  padding: 0;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n  content: \"Decrement Minutes\";\n}\n.bootstrap-datetimepicker-widget .btn[data-action=\"showHours\"]::after {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  margin: -1px;\n  padding: 0;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n  content: \"Show Hours\";\n}\n.bootstrap-datetimepicker-widget .btn[data-action=\"showMinutes\"]::after {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  margin: -1px;\n  padding: 0;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n  content: \"Show Minutes\";\n}\n.bootstrap-datetimepicker-widget .btn[data-action=\"togglePeriod\"]::after {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  margin: -1px;\n  padding: 0;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n  content: \"Toggle AM/PM\";\n}\n.bootstrap-datetimepicker-widget .btn[data-action=\"clear\"]::after {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  margin: -1px;\n  padding: 0;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n  content: \"Clear the picker\";\n}\n.bootstrap-datetimepicker-widget .btn[data-action=\"today\"]::after {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  margin: -1px;\n  padding: 0;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n  content: \"Set the date to today\";\n}\n.bootstrap-datetimepicker-widget .picker-switch {\n  text-align: center;\n}\n.bootstrap-datetimepicker-widget .picker-switch::after {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  margin: -1px;\n  padding: 0;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n  content: \"Toggle Date and Time Screens\";\n}\n.bootstrap-datetimepicker-widget .picker-switch td {\n  padding: 0;\n  margin: 0;\n  height: auto;\n  width: auto;\n  line-height: inherit;\n}\n.bootstrap-datetimepicker-widget .picker-switch td span,\n.bootstrap-datetimepicker-widget .picker-switch td i {\n  line-height: 2.5;\n  height: 2.5em;\n  width: 100%;\n}\n.bootstrap-datetimepicker-widget table {\n  width: 100%;\n  margin: 0;\n}\n.bootstrap-datetimepicker-widget table td,\n.bootstrap-datetimepicker-widget table th {\n  text-align: center;\n  border-radius: 0.25rem;\n  padding: 0.5em;\n}\n.bootstrap-datetimepicker-widget table th {\n  height: 20px;\n  line-height: 20px;\n  width: 20px;\n}\n.bootstrap-datetimepicker-widget table th.picker-switch {\n  width: 145px;\n}\n.bootstrap-datetimepicker-widget table th.disabled,\n.bootstrap-datetimepicker-widget table th.disabled:hover {\n  background: none;\n  color: #dee2e6;\n  cursor: not-allowed;\n}\n.bootstrap-datetimepicker-widget table th.prev::after {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  margin: -1px;\n  padding: 0;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n  content: \"Previous Month\";\n}\n.bootstrap-datetimepicker-widget table th.next::after {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  margin: -1px;\n  padding: 0;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n  content: \"Next Month\";\n}\n.bootstrap-datetimepicker-widget table thead tr:first-child th {\n  cursor: pointer;\n}\n.bootstrap-datetimepicker-widget table thead tr:first-child th:hover {\n  background: #f8f9fa;\n}\n.bootstrap-datetimepicker-widget table td {\n  height: 54px;\n  line-height: 54px;\n  width: 54px;\n}\n.bootstrap-datetimepicker-widget table td.cw {\n  font-size: .8em;\n  height: 20px;\n  line-height: 20px;\n  color: #dee2e6;\n}\n.bootstrap-datetimepicker-widget table td.day {\n  height: 20px;\n  line-height: 20px;\n  width: 20px;\n}\n.bootstrap-datetimepicker-widget table td.day:hover,\n.bootstrap-datetimepicker-widget table td.hour:hover,\n.bootstrap-datetimepicker-widget table td.minute:hover,\n.bootstrap-datetimepicker-widget table td.second:hover {\n  background: #f8f9fa;\n  cursor: pointer;\n}\n.bootstrap-datetimepicker-widget table td.old,\n.bootstrap-datetimepicker-widget table td.new {\n  color: #dee2e6;\n}\n.bootstrap-datetimepicker-widget table td.today {\n  position: relative;\n}\n.bootstrap-datetimepicker-widget table td.today:before {\n  content: '';\n  display: inline-block;\n  border: solid transparent;\n  border-width: 0 0 7px 7px;\n  border-bottom-color: #dee2e6;\n  border-top-color: rgba(0, 0, 0, 0.2);\n  position: absolute;\n  bottom: 4px;\n  right: 4px;\n}\n.bootstrap-datetimepicker-widget table td.active,\n.bootstrap-datetimepicker-widget table td.active:hover {\n  background-color: #dee2e6;\n  color: #007bff;\n  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);\n}\n.bootstrap-datetimepicker-widget table td.active.today:before {\n  border-bottom-color: #fff;\n}\n.bootstrap-datetimepicker-widget table td.disabled,\n.bootstrap-datetimepicker-widget table td.disabled:hover {\n  background: none;\n  color: #dee2e6;\n  cursor: not-allowed;\n}\n.bootstrap-datetimepicker-widget table td span,\n.bootstrap-datetimepicker-widget table td i {\n  display: inline-block;\n  width: 54px;\n  height: 54px;\n  line-height: 54px;\n  margin: 2px 1.5px;\n  cursor: pointer;\n  border-radius: 0.25rem;\n}\n.bootstrap-datetimepicker-widget table td span:hover,\n.bootstrap-datetimepicker-widget table td i:hover {\n  background: #f8f9fa;\n}\n.bootstrap-datetimepicker-widget table td span.active,\n.bootstrap-datetimepicker-widget table td i.active {\n  background-color: #dee2e6;\n  color: #007bff;\n  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);\n}\n.bootstrap-datetimepicker-widget table td span.old,\n.bootstrap-datetimepicker-widget table td i.old {\n  color: #dee2e6;\n}\n.bootstrap-datetimepicker-widget table td span.disabled,\n.bootstrap-datetimepicker-widget table td i.disabled,\n.bootstrap-datetimepicker-widget table td span.disabled:hover,\n.bootstrap-datetimepicker-widget table td i.disabled:hover {\n  background: none;\n  color: #dee2e6;\n  cursor: not-allowed;\n}\n.bootstrap-datetimepicker-widget.usetwentyfour td.hour {\n  height: 27px;\n  line-height: 27px;\n}\n.bootstrap-datetimepicker-widget.wider {\n  width: 21em;\n}\n.bootstrap-datetimepicker-widget .datepicker-decades .decade {\n  line-height: 1.8em !important;\n}\n.input-group.date .input-group-addon {\n  cursor: pointer;\n}\n.sr-only {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  margin: -1px;\n  padding: 0;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/record/RecordProfileComponent.vue?vue&type=style&index=0&lang=css&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/record/RecordProfileComponent.vue?vue&type=style&index=0&lang=css& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.form-control.error {\n    border-color: #E84444;\n    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(232,68,68,.6);\n}\n", ""]);
 
 // exports
 
@@ -68773,6 +68793,36 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/record/RecordProfileComponent.vue?vue&type=style&index=0&lang=css&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/record/RecordProfileComponent.vue?vue&type=style&index=0&lang=css& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./RecordProfileComponent.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/record/RecordProfileComponent.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/record/forms/RecordCreateForm.vue?vue&type=style&index=0&lang=css&":
 /*!***************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/record/forms/RecordCreateForm.vue?vue&type=style&index=0&lang=css& ***!
@@ -83004,21 +83054,28 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
         _c("div", { staticClass: "row mb-5" }, [
-          _c("div", { staticClass: "col-sm-4" }, [
+          _c("div", { staticClass: "col-sm-3" }, [
             _c("h6", { staticClass: "card-title" }, [
               _vm._v("Identification: "),
               _c("span", [_vm._v(_vm._s(this.records.agc))])
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "col-sm-4" }, [
+          _c("div", { staticClass: "col-sm-3" }, [
             _c("h6", { staticClass: "card-title" }, [
               _vm._v("Record ID: "),
               _c("span", [_vm._v(_vm._s(this.records.id))])
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "col-sm-4" }, [
+          _c("div", { staticClass: "col-sm-3" }, [
+            _c("h6", { staticClass: "card-title" }, [
+              _vm._v("Record Type: "),
+              _c("span", [_vm._v(_vm._s(this.records.record_type))])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-3" }, [
             _c("h6", { staticClass: "card-title" }, [
               _vm._v("Total Amount: "),
               _c("span", [_vm._v("₱" + _vm._s(this.records.total_amount))])
@@ -83179,127 +83236,6 @@ var render = function() {
                     "label",
                     {
                       staticClass: "col-sm-2 col-form-label",
-                      attrs: { for: "record_type" }
-                    },
-                    [_vm._v("Record Type")]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-8" }, [
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model:value",
-                            value: _vm.record_type,
-                            expression: "record_type",
-                            arg: "value"
-                          }
-                        ],
-                        staticClass: "custom-select custom-select mb-3",
-                        attrs: {
-                          id: "record_type",
-                          name: "record_type",
-                          disabled: _vm.toEditRecordType
-                        },
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.record_type = $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          }
-                        }
-                      },
-                      [
-                        _c("option", { attrs: { value: "ob" } }, [
-                          _vm._v("Offering Box")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "dd" } }, [
-                          _vm._v("Bank Deposit")
-                        ])
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _vm.toEditRecordType
-                    ? _c("div", { staticClass: "col-sm-2" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass:
-                              "btn btn-secondary btn-sm float-right mx-3",
-                            attrs: { type: "button" },
-                            on: {
-                              click: function($event) {
-                                _vm.toEditRecordType = false
-                              }
-                            }
-                          },
-                          [_vm._v("Edit")]
-                        )
-                      ])
-                    : _c("div", { staticClass: "col-sm-2" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass:
-                              "btn btn-danger btn-sm float-right mx-1",
-                            attrs: { type: "button" },
-                            on: {
-                              click: function($event) {
-                                _vm.toEditRecordType = true
-                              }
-                            }
-                          },
-                          [_vm._v("Cancel")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass:
-                              "btn btn-success btn-sm float-right mx-1",
-                            attrs: { type: "button" },
-                            on: {
-                              click: [
-                                _vm.updateRecordType,
-                                function($event) {
-                                  _vm.isHidden = true
-                                }
-                              ]
-                            }
-                          },
-                          [_vm._v("Save")]
-                        )
-                      ])
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "form",
-              { attrs: { method: "POST", enctype: "multipart/form-data" } },
-              [
-                _c("input", {
-                  attrs: { type: "hidden", name: "_token" },
-                  domProps: { value: _vm.csrf }
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group row" }, [
-                  _c(
-                    "label",
-                    {
-                      staticClass: "col-sm-2 col-form-label",
                       attrs: { for: "givenAt" }
                     },
                     [_vm._v("Given At")]
@@ -83310,6 +83246,18 @@ var render = function() {
                     { staticClass: "col-sm-8" },
                     [
                       _c("date-picker", {
+                        directives: [
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: "required",
+                            expression: "'required'"
+                          }
+                        ],
+                        class: {
+                          "form-control": true,
+                          error: _vm.errors.has("givenAt")
+                        },
                         attrs: {
                           id: "givenAt",
                           name: "givenAt",
@@ -83324,7 +83272,13 @@ var render = function() {
                           },
                           expression: "given_at"
                         }
-                      })
+                      }),
+                      _vm._v(" "),
+                      _vm.errors.has("givenAt")
+                        ? _c("span", { staticClass: "error text-danger" }, [
+                            _vm._v(_vm._s(_vm.errors.first("givenAt")))
+                          ])
+                        : _vm._e()
                     ],
                     1
                   ),
@@ -83981,10 +83935,10 @@ var render = function() {
                           value:
                             _vm.isSelected == "identified" &&
                             !_vm.isDirectDeposit
-                              ? "required|alpha_spaces"
+                              ? "required"
                               : "",
                           expression:
-                            "isSelected == 'identified'&&!isDirectDeposit ? 'required|alpha_spaces' : '' "
+                            "isSelected == 'identified'&&!isDirectDeposit ? 'required' : '' "
                         }
                       ],
                       attrs: {
@@ -84110,10 +84064,25 @@ var render = function() {
                         rawName: "v-model",
                         value: _vm.bank_ref,
                         expression: "bank_ref"
+                      },
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value: _vm.isDirectDeposit ? "required|alpha_num" : "",
+                        expression:
+                          "isDirectDeposit ? 'required|alpha_num' : '' "
                       }
                     ],
                     staticClass: "form-control",
-                    attrs: { type: "text", autocomplete: "off" },
+                    class: {
+                      "form-control": true,
+                      error: _vm.errors.has("bank_ref")
+                    },
+                    attrs: {
+                      type: "text",
+                      name: "bank_ref",
+                      autocomplete: "off"
+                    },
                     domProps: { value: _vm.bank_ref },
                     on: {
                       change: _vm.getValues,
@@ -84124,7 +84093,13 @@ var render = function() {
                         _vm.bank_ref = $event.target.value
                       }
                     }
-                  })
+                  }),
+                  _vm._v(" "),
+                  _vm.errors.has("bank_ref")
+                    ? _c("span", { staticClass: "error text-danger" }, [
+                        _vm._v(_vm._s(_vm.errors.first("bank_ref")))
+                      ])
+                    : _vm._e()
                 ])
               ]
             ),
@@ -84481,9 +84456,9 @@ var render = function() {
                         {
                           name: "validate",
                           rawName: "v-validate",
-                          value: input.designated_for > 0 ? "required" : "",
+                          value: input.designated_amount > 0 ? "required" : "",
                           expression:
-                            "input.designated_for > 0 ? 'required' : ''"
+                            "input.designated_amount > 0 ? 'required' : ''"
                         }
                       ],
                       staticClass: "custom-select custom-select mb-3",
@@ -84536,8 +84511,8 @@ var render = function() {
                         _vm._v("Local Missions")
                       ]),
                       _vm._v(" "),
-                      _c("option", { attrs: { value: "intl_missions" } }, [
-                        _vm._v("International Missions")
+                      _c("option", { attrs: { value: "foreign_missions" } }, [
+                        _vm._v("Foreign Missions")
                       ]),
                       _vm._v(" "),
                       _c("option", { attrs: { value: "dorcas" } }, [
@@ -84552,6 +84527,28 @@ var render = function() {
                         _vm._v("Gauis")
                       ]),
                       _vm._v(" "),
+                      _c("option", { attrs: { value: "vop" } }, [
+                        _vm._v("VOP")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "rsg" } }, [
+                        _vm._v("RSG")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "youth_ministry" } }, [
+                        _vm._v("Youth Ministry")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "des_love_gift" } }, [
+                        _vm._v("Designated Love Gift")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "option",
+                        { attrs: { value: "financial_assistance" } },
+                        [_vm._v("Financial Assistance")]
+                      ),
+                      _vm._v(" "),
                       _c("option", { attrs: { value: "others" } }, [
                         _vm._v("Others")
                       ])
@@ -84565,7 +84562,7 @@ var render = function() {
                     : _vm._e()
                 ]),
                 _vm._v(" "),
-                input.designation == "others"
+                _vm.designationCondition(input.designation)
                   ? _c("div", { staticClass: "form-group col-md-4" }, [
                       _c("input", {
                         directives: [
@@ -84578,12 +84575,11 @@ var render = function() {
                           {
                             name: "validate",
                             rawName: "v-validate",
-                            value:
-                              input.designation == "others"
-                                ? "required|alpha_spaces"
-                                : "",
+                            value: _vm.designationCondition(input.designation)
+                              ? "required|alpha_spaces"
+                              : "",
                             expression:
-                              "input.designation == 'others' ? 'required|alpha_spaces' : ''"
+                              "designationCondition(input.designation) ? 'required|alpha_spaces' : ''"
                           }
                         ],
                         staticClass: "form-control",
@@ -97648,7 +97644,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _RecordProfileComponent_vue_vue_type_template_id_661bffa8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RecordProfileComponent.vue?vue&type=template&id=661bffa8& */ "./resources/js/components/record/RecordProfileComponent.vue?vue&type=template&id=661bffa8&");
 /* harmony import */ var _RecordProfileComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RecordProfileComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/record/RecordProfileComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _RecordProfileComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./RecordProfileComponent.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/record/RecordProfileComponent.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -97656,7 +97654,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _RecordProfileComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _RecordProfileComponent_vue_vue_type_template_id_661bffa8___WEBPACK_IMPORTED_MODULE_0__["render"],
   _RecordProfileComponent_vue_vue_type_template_id_661bffa8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -97685,6 +97683,22 @@ component.options.__file = "resources/js/components/record/RecordProfileComponen
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RecordProfileComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./RecordProfileComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/record/RecordProfileComponent.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RecordProfileComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/record/RecordProfileComponent.vue?vue&type=style&index=0&lang=css&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/components/record/RecordProfileComponent.vue?vue&type=style&index=0&lang=css& ***!
+  \****************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_RecordProfileComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./RecordProfileComponent.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/record/RecordProfileComponent.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_RecordProfileComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_RecordProfileComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_RecordProfileComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_RecordProfileComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_RecordProfileComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -97811,8 +97825,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\jaraneta\storehouse\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\jaraneta\storehouse\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/jeielaraneta/storehouse/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/jeielaraneta/storehouse/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

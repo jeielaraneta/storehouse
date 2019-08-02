@@ -31,17 +31,22 @@
 	        <div class="card-body">
 
 	        	<div class="row mb-5">
-	        		<div class="col-sm-4">
+	        		<div class="col-sm-3">
 	        			<h6 class="card-title">Identification: <span>{{this.records.agc}}</span></h6>
 		        	</div>
 
-		        	<div class="col-sm-4">
+		        	<div class="col-sm-3">
 		        		<h6 class="card-title">Record ID: <span>{{this.records.id}}</span></h6>
 		        	</div>
 
-		        	<div class="col-sm-4">
+		        	<div class="col-sm-3">
+		        		<h6 class="card-title">Record Type: <span>{{this.records.record_type}}</span></h6>
+		        	</div>
+
+		        	<div class="col-sm-3">
 		        		<h6 class="card-title">Total Amount: <span>&#8369;{{this.records.total_amount}}</span></h6>
 		        	</div>
+
 	        	</div>
 				
 				<div class="row">
@@ -78,38 +83,13 @@
 
 						<form method="POST" enctype="multipart/form-data">
 			                <input type="hidden" name="_token" :value="csrf">
-			                <div class="form-group row">
-			                	<label for="record_type" class="col-sm-2 col-form-label">Record Type</label>
-							    <div class="col-sm-8">
-
-							    	<select id="record_type" class="custom-select custom-select mb-3" name="record_type" v-model:value="record_type" :disabled="toEditRecordType">
-		                                <option value="ob">Offering Box</option>
-		                                <option value="dd">Bank Deposit</option>
-			                        </select>
-
-							    </div>
-
-							    <div class="col-sm-2" v-if="toEditRecordType">
-							    	<button class="btn btn-secondary btn-sm float-right mx-3" type="button" @click="toEditRecordType = false">Edit</button>
-							    </div>
-							    
-							    <div class="col-sm-2" v-else>
-
-							    	<button class="btn btn-danger btn-sm float-right mx-1" type="button" @click="toEditRecordType = true">Cancel</button>
-							    	<button class="btn btn-success btn-sm float-right mx-1" type="button" @click="updateRecordType" v-on:click="isHidden = true">Save</button>
-
-							    </div>
-							</div>
-						</form>
-
-						<form method="POST" enctype="multipart/form-data">
-			                <input type="hidden" name="_token" :value="csrf">
 
 							<div class="form-group row">
 								
 								<label for="givenAt" class="col-sm-2 col-form-label">Given At</label>
 							    <div class="col-sm-8">
-							    	<date-picker id="givenAt" name="givenAt" v-model:value="given_at" :config="options" autocomplete="off" :disabled="toEditGivenAt"></date-picker>
+							    	<date-picker id="givenAt" name="givenAt" v-model:value="given_at" :config="options" autocomplete="off" :disabled="toEditGivenAt" v-validate="'required'" :class="{'form-control': true, error: errors.has('givenAt')}"></date-picker>
+							    	<span class="error text-danger" v-if="errors.has('givenAt')">{{errors.first('givenAt')}}</span>
 							    </div>
 
 							    <div class="col-sm-2" v-if="toEditGivenAt">
@@ -233,6 +213,13 @@
 
 </template>
 
+<style>
+    .form-control.error {
+        border-color: #E84444;
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(232,68,68,.6);
+    }
+</style>
+
 <script>
 
 	/*	
@@ -248,6 +235,8 @@
 	    clear: 'far fa-trash-alt',
 	    close: 'far fa-times-circle'
 	*/
+
+	import { Validator } from 'vee-validate'; 
 
   	export default {
 
@@ -318,6 +307,20 @@
         computed: {
 
         },
+
+        created() {
+
+        	const customMessages = {
+                custom: {
+
+                    givenAt: {
+                        required: "Please select a date"
+                    }
+                }
+            };
+
+            Validator.localize('en', customMessages);
+        },
        
 	    methods: {
 
@@ -352,20 +355,6 @@
 
 	    	},
 
-	    	updateRecordType() {
-
-	    		var record_type = $('#record_type').val();
-
-	      		window.axios.put(this.updateRecordRoute, {record_type: record_type})
-	      			.then( response => {
-			      		this.toEditRecordType = true
-			      		this.isSuccesful = true
-			      		this.isHidden = false
-			      		this.alertMessage = response.data.success ? "Record's record type has been updated sucessfully!" : "Error"
-			    	});
-
-	    	},
-
 	    	updateStatus() {
 
 	    		var status = $('#status').val() == 'Unverified' ? 0 : 1;
@@ -384,13 +373,26 @@
 
 	    		var givenAt = $('#givenAt').val();
 
-	      		window.axios.put(this.updateRecordRoute, {given_at: givenAt})
+	    		this.$validator.validateAll().then((result) => {
+                  if (result) {
+                    window.axios.put(this.updateRecordRoute, {given_at: givenAt})
 	      			.then( response => {
 			      		this.toEditGivenAt = true
 			      		this.isSuccesful = true
 			      		this.isHidden = false
 			      		this.alertMessage = response.data.success ? "Record's given date has been updated sucessfully!" : "Error"
 			    	});
+                  }
+
+                  if(!result){
+                    this.isSuccesful = false
+                    this.isHidden = false
+                    this.alertMessage = "Unable to update a record due to insufficient data."
+                  }
+
+                });
+
+	      		
 
 	    	}
 	    	
