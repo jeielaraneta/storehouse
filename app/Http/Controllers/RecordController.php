@@ -185,7 +185,7 @@ class RecordController extends Controller
                         'love_amount' => $request->love,
                         'faith_amount' => $request->faith,
                         'total_amount' => $request->total_amount,
-                        'created_by' => $user->id,
+                        //'created_by' => $user->id,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now()
                     );

@@ -32,10 +32,12 @@ class CreateRecordsTable extends Migration
 
         Schema::table('records', function (Blueprint $table) {
             $table->unsignedBigInteger('member_id')->nullable();
-            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
 
             $table->foreign('member_id')->references('id')->on('members');
             $table->foreign('created_by')->references('id')->on('users');
+            $table->foreign('updated_by')->references('id')->on('users');
         });
     }
 
