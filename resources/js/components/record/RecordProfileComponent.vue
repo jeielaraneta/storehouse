@@ -283,8 +283,6 @@
                 given_at: this.records.given_at,
                 status: this.records.status,
 
-                chartsLib: null, 
-
                 regularGivingChart: [
 			        ["Type", "Amount"],
 			        ["Tithe", this.records.tithe_amount],
@@ -352,22 +350,24 @@
 	      		window.axios.put(this.updateRecordRoute, {service_type: service_type})
 	      			.then( response => {
 			      		this.toEditServiceType = true
-			      		this.isSuccesful = true
 			      		this.isHidden = false
+			      		this.isSuccesful = response.data.success ? true : false;
 			      		this.alertMessage = response.data.success ? "Record's service type has been updated sucessfully!" : "Error"
 			    	});
-
+ 
 	    	},
 
 	    	updateStatus() {
 
 	    		var status = $('#status').val(); // == 'Unverified' ? 0 : 1
 
+	    		console.log(status);
+
 	      		window.axios.put(this.updateRecordRoute, {status: status})
 	      			.then( response => {
 			      		this.toEditStatus = true
-			      		this.isSuccesful = true
 			      		this.isHidden = false
+			      		this.isSuccesful = response.data.success ? true : false;
 			      		this.alertMessage = response.data.success ? "Record's status has been updated sucessfully!" : "Error"
 			    	});
 

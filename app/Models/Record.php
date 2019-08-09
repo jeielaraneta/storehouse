@@ -113,7 +113,7 @@ class Record extends Model
                 $this->attributes['status'] = 1;
                 break;
 
-            case 'To be updated':
+            case 'For Correction':
                 $this->attributes['status'] = 2;
                 break;
 
@@ -121,7 +121,7 @@ class Record extends Model
                 $this->attributes['status'] = 3;
                 break;
 
-            case 'To archive':
+            case 'For Archive':
                 $this->attributes['status'] = 4;
                 break;
 

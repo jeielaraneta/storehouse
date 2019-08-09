@@ -95,7 +95,9 @@ class RecordController extends Controller
 
             return response()->json([ 'success' => $result]);
 
-        } else {
+        } 
+
+        else {
 
             switch ($request->giver_type) {
                 case 'identified':
@@ -185,12 +187,12 @@ class RecordController extends Controller
                         'love_amount' => $request->love,
                         'faith_amount' => $request->faith,
                         'total_amount' => $request->total_amount,
-                        //'created_by' => $user->id,
+                        'created_by' => $user->id,
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now()
                     );
 
-                    $saveAndGetID = DB::table('records')->insertGetId($data);
+                    $saveAndGetID = DB::table('records')->insertGetId($data); //Record::create
 
                     $specOff = $request->special_offering;
 
@@ -248,7 +250,12 @@ class RecordController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        //dd($request->all());
+
         $record = $this->record->find($id);
+
+        dd($request->all());
 
         $update = $record->update($request->all());
 

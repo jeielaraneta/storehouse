@@ -11485,9 +11485,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {
-    console.log('Add Button mounted.');
-  },
+  mounted: function mounted() {},
   props: ['route', 'btnText', 'btnIcon']
 });
 
@@ -11509,9 +11507,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {
-    console.log('Show Button mounted.');
-  },
+  mounted: function mounted() {},
   props: ['route', 'btnText']
 });
 
@@ -12599,7 +12595,6 @@ __webpack_require__.r(__webpack_exports__);
       record_type: this.records.record_type,
       given_at: this.records.given_at,
       status: this.records.status,
-      chartsLib: null,
       regularGivingChart: [["Type", "Amount"], ["Tithe", this.records.tithe_amount], ["Love", this.records.love_amount], ["Faith", this.records.faith_amount]],
       specialOfferingChart: [],
       regularGivingChartOptions: {
@@ -12646,8 +12641,8 @@ __webpack_require__.r(__webpack_exports__);
         service_type: service_type
       }).then(function (response) {
         _this.toEditServiceType = true;
-        _this.isSuccesful = true;
         _this.isHidden = false;
+        _this.isSuccesful = response.data.success ? true : false;
         _this.alertMessage = response.data.success ? "Record's service type has been updated sucessfully!" : "Error";
       });
     },
@@ -12656,12 +12651,13 @@ __webpack_require__.r(__webpack_exports__);
 
       var status = $('#status').val(); // == 'Unverified' ? 0 : 1
 
+      console.log(status);
       window.axios.put(this.updateRecordRoute, {
         status: status
       }).then(function (response) {
         _this2.toEditStatus = true;
-        _this2.isSuccesful = true;
         _this2.isHidden = false;
+        _this2.isSuccesful = response.data.success ? true : false;
         _this2.alertMessage = response.data.success ? "Record's status has been updated sucessfully!" : "Error";
       });
     },

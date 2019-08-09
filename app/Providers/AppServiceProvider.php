@@ -20,7 +20,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
         Record::observe(RecordObserver::class);
-        //\App\Models\Record::observe(\App\Observers\RecordObserver::class);
     }
 
     /**
