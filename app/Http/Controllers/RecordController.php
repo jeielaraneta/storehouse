@@ -251,11 +251,7 @@ class RecordController extends Controller
     public function update(Request $request, $id)
     {
 
-        //dd($request->all());
-
         $record = $this->record->find($id);
-
-        dd($request->all());
 
         $update = $record->update($request->all());
 

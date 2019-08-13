@@ -17,9 +17,39 @@
 		    </div>
 		</div>
 
-		<div class="card text-white bg-info mb-3">
+		<div class="card text-white bg-secondary mb-3" v-if="status === 'Unverified'">
 			<div class="card-body">
-			    This is some text within a card body.
+			    Unverified
+			</div>
+		</div>
+
+		<div class="card text-white bg-success mb-3" v-else-if="status === 'Verified'">
+			<div class="card-body">
+			    Verified
+			</div>
+		</div>
+
+		<div class="card text-white bg-danger mb-3" v-else-if="status === 'For Correction'">
+			<div class="card-body">
+			    For Correction
+			</div>
+		</div>
+		
+		<div class="card text-white bg-primary mb-3" v-else-if="status === 'Corrected'">
+			<div class="card-body">
+			    Corrected
+			</div>
+		</div>
+
+		<div class="card text-white bg-info mb-3" v-else-if="status === 'For Archive'">
+			<div class="card-body">
+			    For Archive
+			</div>
+		</div>
+
+		<div class="card text-white bg-dark mb-3" v-else-if="status === 'Archived'">
+			<div class="card-body">
+			    Archived
 			</div>
 		</div>
 		

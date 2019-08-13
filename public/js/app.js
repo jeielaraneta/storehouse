@@ -12548,6 +12548,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /*	
 	DATETIME PICKER ICONS
@@ -12932,7 +12962,7 @@ __webpack_require__.r(__webpack_exports__);
       group_name: '',
       agc: '',
       given_at: '',
-      status: 0,
+      status: 'Unverified',
       tithe: 0,
       faith: 0,
       love: 0,
@@ -13065,7 +13095,7 @@ __webpack_require__.r(__webpack_exports__);
       this.service_type = '';
       this.record_type = 'ob';
       this.given_at = '';
-      this.status = 0;
+      this.status = 'Unverified';
       this.isSelected = 'anonymous';
     },
     nameWithCode: function nameWithCode(_ref) {
@@ -83039,12 +83069,48 @@ var render = function() {
         ])
       : _vm._e(),
     _vm._v(" "),
-    _vm._m(2),
+    _vm.status === "Unverified"
+      ? _c("div", { staticClass: "card text-white bg-secondary mb-3" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _vm._v("\n\t\t    Unverified\n\t\t")
+          ])
+        ])
+      : _vm.status === "Verified"
+      ? _c("div", { staticClass: "card text-white bg-success mb-3" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _vm._v("\n\t\t    Verified\n\t\t")
+          ])
+        ])
+      : _vm.status === "For Correction"
+      ? _c("div", { staticClass: "card text-white bg-danger mb-3" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _vm._v("\n\t\t    For Correction\n\t\t")
+          ])
+        ])
+      : _vm.status === "Corrected"
+      ? _c("div", { staticClass: "card text-white bg-primary mb-3" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _vm._v("\n\t\t    Corrected\n\t\t")
+          ])
+        ])
+      : _vm.status === "For Archive"
+      ? _c("div", { staticClass: "card text-white bg-info mb-3" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _vm._v("\n\t\t    For Archive\n\t\t")
+          ])
+        ])
+      : _vm.status === "Archived"
+      ? _c("div", { staticClass: "card text-white bg-dark mb-3" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _vm._v("\n\t\t    Archived\n\t\t")
+          ])
+        ])
+      : _vm._e(),
     _vm._v(" "),
     _c("div", { staticClass: "card" }, [
       _c("span", { staticClass: "border-top" }),
       _vm._v(" "),
-      _vm._m(3),
+      _vm._m(2),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
         _c("div", { staticClass: "row mb-5" }, [
@@ -83499,14 +83565,14 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _vm._m(4),
+        _vm._m(3),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-sm-12 table-responsive" }, [
             _c("table", { staticClass: "table table-sm" }, [
               _c("caption", [_vm._v("List of Regular Giving")]),
               _vm._v(" "),
-              _vm._m(5),
+              _vm._m(4),
               _vm._v(" "),
               _c("tbody", [
                 _c("tr", [
@@ -83525,14 +83591,14 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(6),
+        _vm._m(5),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-sm-12 table-responsive" }, [
             _c("table", { staticClass: "table table-sm" }, [
               _c("caption", [_vm._v("List of Special Offerings")]),
               _vm._v(" "),
-              _vm._m(7),
+              _vm._m(6),
               _vm._v(" "),
               _c(
                 "tbody",
@@ -83600,16 +83666,6 @@ var staticRenderFns = [
       },
       [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card text-white bg-info mb-3" }, [
-      _c("div", { staticClass: "card-body" }, [
-        _vm._v("\n\t\t    This is some text within a card body.\n\t\t")
-      ])
-    ])
   },
   function() {
     var _vm = this
@@ -84277,11 +84333,11 @@ var render = function() {
                     }
                   },
                   [
-                    _c("option", { attrs: { value: "0" } }, [
+                    _c("option", { attrs: { value: "Unverified" } }, [
                       _vm._v("Unverified")
                     ]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "1" } }, [
+                    _c("option", { attrs: { value: "Verified" } }, [
                       _vm._v("Verified")
                     ])
                   ]

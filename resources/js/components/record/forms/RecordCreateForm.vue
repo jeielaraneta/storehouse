@@ -91,8 +91,8 @@
                          <div class="form-group col-md-4">
                             <label for="service_type">Status</label>
                             <select id="status" class="custom-select custom-select mb-3" v-model="status" @change="getValues">
-                                <option value="0">Unverified</option>
-                                <option value="1">Verified</option>
+                                <option value="Unverified">Unverified</option>
+                                <option value="Verified">Verified</option>
                             </select>
                         </div>
                         
@@ -237,7 +237,7 @@ import { Validator } from 'vee-validate';
                 group_name: '',
                 agc: '',
                 given_at: '',
-                status: 0,
+                status: 'Unverified',
                 tithe: 0,
                 faith: 0,
                 love: 0,
@@ -400,7 +400,7 @@ import { Validator } from 'vee-validate';
                 this.service_type = '';
                 this.record_type = 'ob';
                 this.given_at = '';
-                this.status = 0;
+                this.status = 'Unverified';
                 this.isSelected = 'anonymous';
             },
 

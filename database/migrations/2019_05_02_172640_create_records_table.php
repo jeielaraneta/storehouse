@@ -22,7 +22,7 @@ class CreateRecordsTable extends Migration
             $table->enum('service_type', ['ews', 'mmws', 'vws', 'ss', 'pm', 'na']);
             $table->enum('record_type', ['dd', 'ob']);
             $table->date('given_at');
-            $table->integer('status'); // 0:unverified 1:verified 2:removed 3:edited
+            $table->enum('status', ['Verified', 'For Correction', 'Corrected', 'For Archive', 'Archived', 'Unverified']);
             $table->integer('tithe_amount')->default(0);
             $table->integer('love_amount')->default(0);
             $table->integer('faith_amount')->default(0);

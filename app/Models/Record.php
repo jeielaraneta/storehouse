@@ -62,37 +62,6 @@ class Record extends Model
         return ucfirst($ident);
     }
 
-    public function getStatusAttribute($value) {
-
-        switch ($value) {
-            case 1:
-                return 'Verified';
-                break;
-
-            case 2:
-                return 'To be updated';
-                break;
-
-            case 3:
-                return 'Modified';
-                break;
-
-            case 4:
-                return 'To archive';
-                break;
-
-            case 5:
-                return 'Archived';
-                break;
-            
-            default:
-                return 'Unverified';
-                break;
-        }
-
-        //return $value == 0 ?  'Unverified' : 'Verified';
-    }
-
     public function getRecordTypeAttribute($value) {
         return $value == 'dd' ?  'Direct Depositor' : 'Offering Box';
     }
@@ -104,35 +73,6 @@ class Record extends Model
     public function setGivenAtAttribute($value)
     {
         $this->attributes['given_at'] = date('Y-m-d', strtotime($value));
-    }
-
-    public function setStatusAttribute($value) {
-
-        switch ($value) {
-            case 'Verified':
-                $this->attributes['status'] = 1;
-                break;
-
-            case 'For Correction':
-                $this->attributes['status'] = 2;
-                break;
-
-            case 'Modified':
-                $this->attributes['status'] = 3;
-                break;
-
-            case 'For Archive':
-                $this->attributes['status'] = 4;
-                break;
-
-            case 'Archived':
-                $this->attributes['status'] = 5;
-                break;
-            
-            default:
-                $this->attributes['status'] = 0;
-                break;
-        }
     }
 
     /*public function getTitheAmountAttribute($value) {
