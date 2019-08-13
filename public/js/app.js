@@ -12578,6 +12578,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /*	
 	DATETIME PICKER ICONS
@@ -83628,6 +83631,12 @@ var render = function() {
             ])
           ])
         ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-footer text-muted" }, [
+        _vm._v(
+          "\n\t\t    Last updated: 2019-08-16 by: aranej (Sample only) \n\t\t"
+        )
       ])
     ])
   ])

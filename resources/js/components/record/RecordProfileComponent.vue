@@ -241,6 +241,9 @@
 			    </div>
 	        
 	        </div>
+	        <div class="card-footer text-muted">
+			    Last updated: 2019-08-16 by: aranej (Sample only) 
+			</div>
 		</div>
 
 	</div>
