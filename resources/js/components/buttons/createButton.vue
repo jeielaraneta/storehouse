@@ -7,7 +7,7 @@
 <script>
     export default {
         mounted() {
-            console.log('Add Button mounted.')
+            
         },
         props: ['route', 'btnText', 'btnIcon']
     }

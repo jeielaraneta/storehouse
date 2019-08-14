@@ -50,7 +50,7 @@
                                 <a class="nav-link" href="{{ route('dashboard') }}"><i class="fas fa-chart-line"></i> {{ __('Dashboard') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('record.index') }}"> <i class="fas fa-ruble-sign"></i> {{ __('Records') }}</a>
+                                <a class="nav-link" href="{{ route('record.index') }}"> <i class="fas fa-donate"></i> {{ __('Records') }}</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('member.index') }}"><i class="fas fa-users"></i> {{ __('Members') }}</a>
