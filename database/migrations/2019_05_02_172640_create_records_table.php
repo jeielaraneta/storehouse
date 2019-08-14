@@ -27,17 +27,15 @@ class CreateRecordsTable extends Migration
             $table->integer('love_amount')->default(0);
             $table->integer('faith_amount')->default(0);
             $table->integer('total_amount')->default(0);
+            $table->string('created_by', 75);
+            $table->string('updated_by', 75)->nullable();
             $table->timestamps();
         });
 
         Schema::table('records', function (Blueprint $table) {
             $table->unsignedBigInteger('member_id')->nullable();
-            $table->unsignedBigInteger('created_by')->nullable();
-            $table->unsignedBigInteger('updated_by')->nullable();
 
             $table->foreign('member_id')->references('id')->on('members');
-            $table->foreign('created_by')->references('id')->on('users');
-            $table->foreign('updated_by')->references('id')->on('users');
         });
     }
 

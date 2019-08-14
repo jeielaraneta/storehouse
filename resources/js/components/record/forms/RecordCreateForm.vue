@@ -443,9 +443,9 @@ import { Validator } from 'vee-validate';
                   if (result) {
                     window.axios.post(this.submitRecordRoute, this.record_data)
                         .then( response => {
-                            this.isSuccesful = true
                             this.isHidden = false
                             this.isDirectDeposit = false
+                            this.isSuccesful = response.data.success ? true : false;
                             this.alertMessage = response.data.success ? "Record succesfully added!" : "Error"
 
                         e.target.reset();

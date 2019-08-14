@@ -15,7 +15,7 @@ class Record extends Model
      * @var array
      */
     protected $fillable = [
-        'group_name', 'agc', 'bank_ref', 'service_type', 'record_type', 'given_at', 'status', 'tithe_amount', 'love_amount', 'faith_amount', 'special_offering', 'designation', 'total_amount', 'member_id', 'created_by'
+        'group_name', 'agc', 'bank_ref', 'service_type', 'giver_type', 'record_type', 'given_at', 'status', 'tithe_amount', 'love_amount', 'faith_amount', 'special_offering', 'designation', 'total_amount', 'member_id', 'created_by'
     ];
 
     /**
@@ -70,8 +70,19 @@ class Record extends Model
         return number_format($value, 2);
     }
 
+    public function getCreatedAtAttribute($value) {
+        date_default_timezone_set("Asia/Manila");
+        return date('m-d-Y h:i A', strtotime($value));
+    }
+
+    public function getUpdatedAtAttribute($value) {
+        date_default_timezone_set("Asia/Manila");
+        return date('m-d-Y h:i A', strtotime($value));
+    }
+
     public function setGivenAtAttribute($value)
     {
+        date_default_timezone_set("Asia/Manila");
         $this->attributes['given_at'] = date('Y-m-d', strtotime($value));
     }
 

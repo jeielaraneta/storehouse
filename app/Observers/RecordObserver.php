@@ -15,8 +15,10 @@ class RecordObserver
      */
     public function updated(Record $record) {
 
+        $user = Auth::user();
+
     	$rec = $record->find($record->id);
-        $rec->updated_by = Auth::id();
+        $rec->updated_by = $user->username;
         //$rec->status = 'Modified';
         $rec->save();
     }

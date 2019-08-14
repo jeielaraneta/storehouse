@@ -8,7 +8,6 @@ use App\Traits\RandomTextGenerator;
 use App\Http\Resources\RecordResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
 use DB;
 
 class RecordController extends Controller
@@ -74,24 +73,18 @@ class RecordController extends Controller
                 'love_amount' => $request->love,
                 'faith_amount' => $request->faith,
                 'total_amount' => $request->total_amount,
-                'created_by' => $user->id,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
+                'created_by' => $user->username
             );
 
-            $saveAndGetID = DB::table('records')->insertGetId($data);
+            $createRecord = $this->record->create($data);
 
             $specOff = $request->special_offering;
 
-            foreach ($specOff as $key => $value) {
-                $specOff[$key]['record_id'] = $saveAndGetID;
-                $specOff[$key]['created_at'] = Carbon::now();
-                $specOff[$key]['updated_at'] = Carbon::now();
-            }
+            $getRecord = $this->record->find($createRecord->id);
 
-            $saveSpecOff = SpecialOffering::insert($specOff);
+            $saveSpecOff = $getRecord->specialOfferings()->createMany($specOff);
 
-            $result = ($saveAndGetID && $saveSpecOff) ? true : false;
+            $result = ($createRecord && $saveSpecOff) ? true : false;
 
             return response()->json([ 'success' => $result]);
 
@@ -113,24 +106,18 @@ class RecordController extends Controller
                         'love_amount' => $request->love,
                         'faith_amount' => $request->faith,
                         'total_amount' => $request->total_amount,
-                        'created_by' => $user->id,
-                        'created_at' => Carbon::now(),
-                        'updated_at' => Carbon::now()
+                        'created_by' => $user->username
                     );
 
-                    $saveAndGetID = DB::table('records')->insertGetId($data);
+                    $createRecord = $this->record->create($data);
 
                     $specOff = $request->special_offering;
 
-                    foreach ($specOff as $key => $value) {
-                        $specOff[$key]['record_id'] = $saveAndGetID;
-                        $specOff[$key]['created_at'] = Carbon::now();
-                        $specOff[$key]['updated_at'] = Carbon::now();
-                    }
+                    $getRecord = $this->record->find($createRecord->id);
 
-                    $saveSpecOff = SpecialOffering::insert($specOff);
+                    $saveSpecOff = $getRecord->specialOfferings()->createMany($specOff);
 
-                    $result = ($saveAndGetID && $saveSpecOff) ? true : false;
+                    $result = ($createRecord && $saveSpecOff) ? true : false;
 
                     return response()->json([ 'success' => $result]);
 
@@ -149,24 +136,18 @@ class RecordController extends Controller
                         'love_amount' => $request->love,
                         'faith_amount' => $request->faith,
                         'total_amount' => $request->total_amount,
-                        'created_by' => $user->id,
-                        'created_at' => Carbon::now(),
-                        'updated_at' => Carbon::now()
+                        'created_by' => $user->username
                     );
 
-                    $saveAndGetID = DB::table('records')->insertGetId($data);
+                    $createRecord = $this->record->create($data);
 
                     $specOff = $request->special_offering;
 
-                    foreach ($specOff as $key => $value) {
-                        $specOff[$key]['record_id'] = $saveAndGetID;
-                        $specOff[$key]['created_at'] = Carbon::now();
-                        $specOff[$key]['updated_at'] = Carbon::now();
-                    }
+                    $getRecord = $this->record->find($createRecord->id);
 
-                    $saveSpecOff = SpecialOffering::insert($specOff);
+                    $saveSpecOff = $getRecord->specialOfferings()->createMany($specOff);
 
-                    $result = ($saveAndGetID && $saveSpecOff) ? true : false;
+                    $result = ($createRecord && $saveSpecOff) ? true : false;
 
                     return response()->json([ 'success' => $result]);
 
@@ -187,32 +168,24 @@ class RecordController extends Controller
                         'love_amount' => $request->love,
                         'faith_amount' => $request->faith,
                         'total_amount' => $request->total_amount,
-                        'created_by' => $user->id,
-                        'created_at' => Carbon::now(),
-                        'updated_at' => Carbon::now()
+                        'created_by' => $user->username
                     );
 
-                    $saveAndGetID = DB::table('records')->insertGetId($data); //Record::create
+                    $createRecord = $this->record->create($data);
 
                     $specOff = $request->special_offering;
 
-                    foreach ($specOff as $key => $value) {
-                        $specOff[$key]['record_id'] = $saveAndGetID;
-                        $specOff[$key]['created_at'] = Carbon::now();
-                        $specOff[$key]['updated_at'] = Carbon::now();
-                    }
+                    $getRecord = $this->record->find($createRecord->id);
 
-                    $saveSpecOff = SpecialOffering::insert($specOff);
+                    $saveSpecOff = $getRecord->specialOfferings()->createMany($specOff);
 
-                    $result = ($saveAndGetID && $saveSpecOff) ? true : false;
+                    $result = ($createRecord && $saveSpecOff) ? true : false;
 
                     return response()->json([ 'success' => $result]);
 
                     break;
             }
         }
-
-        
     }
 
     /**

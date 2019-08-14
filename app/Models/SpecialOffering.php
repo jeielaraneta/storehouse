@@ -96,6 +96,10 @@ class SpecialOffering extends Model
 
     }
 
+    public function getCreatedAtAttribute($value) {
+        return date('m-d-Y h:i A', strtotime($value));
+    }
+
     /*public function getDesignatedAmountAttribute($value) {
         return number_format($value, 2);
     }*/

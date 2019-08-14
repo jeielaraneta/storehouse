@@ -12682,8 +12682,7 @@ __webpack_require__.r(__webpack_exports__);
     updateStatus: function updateStatus() {
       var _this2 = this;
 
-      var status = $('#status').val(); // == 'Unverified' ? 0 : 1
-
+      var status = $('#status').val();
       console.log(status);
       window.axios.put(this.updateRecordRoute, {
         status: status
@@ -13140,9 +13139,9 @@ __webpack_require__.r(__webpack_exports__);
       this.$validator.validateAll().then(function (result) {
         if (result) {
           window.axios.post(_this2.submitRecordRoute, _this2.record_data).then(function (response) {
-            _this2.isSuccesful = true;
             _this2.isHidden = false;
             _this2.isDirectDeposit = false;
+            _this2.isSuccesful = response.data.success ? true : false;
             _this2.alertMessage = response.data.success ? "Record succesfully added!" : "Error";
             e.target.reset();
 
@@ -83635,7 +83634,13 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "card-footer text-muted" }, [
         _vm._v(
-          "\n\t\t    Last updated: 2019-08-16 by: aranej (Sample only) \n\t\t"
+          "\n\t\t    Created by: " +
+            _vm._s(this.records.created_by) +
+            " Last updated: " +
+            _vm._s(this.records.updated_at) +
+            " Updated by: " +
+            _vm._s(this.records.updated_by) +
+            " \n\t\t"
         )
       ])
     ])

@@ -242,7 +242,7 @@
 	        
 	        </div>
 	        <div class="card-footer text-muted">
-			    Last updated: 2019-08-16 by: aranej (Sample only) 
+			    Created by: {{this.records.created_by}} Last updated: {{this.records.updated_at}} Updated by: {{this.records.updated_by}} 
 			</div>
 		</div>
 
@@ -392,8 +392,7 @@
 
 	    	updateStatus() {
 
-	    		var status = $('#status').val(); // == 'Unverified' ? 0 : 1
-
+	    		var status = $('#status').val();
 	    		console.log(status);
 
 	      		window.axios.put(this.updateRecordRoute, {status: status})
