@@ -17,9 +17,39 @@
 		    </div>
 		</div>
 
-		<div class="card text-white bg-info mb-3">
+		<div class="card text-white bg-secondary mb-3" v-if="status === 'Unverified'">
 			<div class="card-body">
-			    This is some text within a card body.
+			    Unverified
+			</div>
+		</div>
+
+		<div class="card text-white bg-success mb-3" v-else-if="status === 'Verified'">
+			<div class="card-body">
+			    Verified
+			</div>
+		</div>
+
+		<div class="card text-white bg-danger mb-3" v-else-if="status === 'For Correction'">
+			<div class="card-body">
+			    For Correction
+			</div>
+		</div>
+		
+		<div class="card text-white bg-primary mb-3" v-else-if="status === 'Corrected'">
+			<div class="card-body">
+			    Corrected
+			</div>
+		</div>
+
+		<div class="card text-white bg-info mb-3" v-else-if="status === 'For Archive'">
+			<div class="card-body">
+			    For Archive
+			</div>
+		</div>
+
+		<div class="card text-white bg-dark mb-3" v-else-if="status === 'Archived'">
+			<div class="card-body">
+			    Archived
 			</div>
 		</div>
 		
@@ -31,17 +61,23 @@
 	        <div class="card-body">
 
 	        	<div class="row mb-5">
-	        		<div class="col-sm-4">
+
+	        		<div class="col-sm-2">
+		        		<h6 class="card-title">Record ID: <span>{{this.records.id}}</span></h6>
+		        	</div>
+
+	        		<div class="col-sm-3">
 	        			<h6 class="card-title">Identification: <span>{{this.records.agc}}</span></h6>
 		        	</div>
 
 		        	<div class="col-sm-4">
-		        		<h6 class="card-title">Record ID: <span>{{this.records.id}}</span></h6>
+		        		<h6 class="card-title">Record Type: <span>{{this.records.record_type}}</span></h6>
 		        	</div>
 
-		        	<div class="col-sm-4">
+		        	<div class="col-sm-3">
 		        		<h6 class="card-title">Total Amount: <span>&#8369;{{this.records.total_amount}}</span></h6>
 		        	</div>
+
 	        	</div>
 				
 				<div class="row">
@@ -78,38 +114,13 @@
 
 						<form method="POST" enctype="multipart/form-data">
 			                <input type="hidden" name="_token" :value="csrf">
-			                <div class="form-group row">
-			                	<label for="record_type" class="col-sm-2 col-form-label">Record Type</label>
-							    <div class="col-sm-8">
-
-							    	<select id="record_type" class="custom-select custom-select mb-3" name="record_type" v-model:value="record_type" :disabled="toEditRecordType">
-		                                <option value="ob">Offering Box</option>
-		                                <option value="dd">Bank Deposit</option>
-			                        </select>
-
-							    </div>
-
-							    <div class="col-sm-2" v-if="toEditRecordType">
-							    	<button class="btn btn-secondary btn-sm float-right mx-3" type="button" @click="toEditRecordType = false">Edit</button>
-							    </div>
-							    
-							    <div class="col-sm-2" v-else>
-
-							    	<button class="btn btn-danger btn-sm float-right mx-1" type="button" @click="toEditRecordType = true">Cancel</button>
-							    	<button class="btn btn-success btn-sm float-right mx-1" type="button" @click="updateRecordType" v-on:click="isHidden = true">Save</button>
-
-							    </div>
-							</div>
-						</form>
-
-						<form method="POST" enctype="multipart/form-data">
-			                <input type="hidden" name="_token" :value="csrf">
 
 							<div class="form-group row">
 								
 								<label for="givenAt" class="col-sm-2 col-form-label">Given At</label>
 							    <div class="col-sm-8">
-							    	<date-picker id="givenAt" name="givenAt" v-model:value="given_at" :config="options" autocomplete="off" :disabled="toEditGivenAt"></date-picker>
+							    	<date-picker id="givenAt" name="givenAt" v-model:value="given_at" :config="options" autocomplete="off" :disabled="toEditGivenAt" v-validate="'required'" :class="{'form-control': true, error: errors.has('givenAt')}"></date-picker>
+							    	<span class="error text-danger" v-if="errors.has('givenAt')">{{errors.first('givenAt')}}</span>
 							    </div>
 
 							    <div class="col-sm-2" v-if="toEditGivenAt">
@@ -133,6 +144,9 @@
 							    	<select id="status" class="custom-select custom-select mb-3" name="status" v-model:value="status" :disabled="toEditStatus">
 		                                <option value="Unverified">Unverified</option>
 		                                <option value="Verified">Verified</option>
+		                                <option value="For Correction">For Correction</option>
+		                                <option value="For Archive">For Archive</option>
+		                                <option value="Archived">Archived</option>
 			                        </select>
 
 							    </div>
@@ -227,11 +241,21 @@
 			    </div>
 	        
 	        </div>
+	        <div class="card-footer text-muted">
+			    Created by: {{this.records.created_by}} Last updated: {{this.records.updated_at}} Updated by: {{this.records.updated_by}} 
+			</div>
 		</div>
 
 	</div>
 
 </template>
+
+<style>
+    .form-control.error {
+        border-color: #E84444;
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(232,68,68,.6);
+    }
+</style>
 
 <script>
 
@@ -248,6 +272,8 @@
 	    clear: 'far fa-trash-alt',
 	    close: 'far fa-times-circle'
 	*/
+
+	import { Validator } from 'vee-validate'; 
 
   	export default {
 
@@ -290,8 +316,6 @@
                 given_at: this.records.given_at,
                 status: this.records.status,
 
-                chartsLib: null, 
-
                 regularGivingChart: [
 			        ["Type", "Amount"],
 			        ["Tithe", this.records.tithe_amount],
@@ -308,7 +332,7 @@
 		        },
 
 		        specialOfferingChartOptions: {
-		          	title: 'Special Offering Giving Summary',
+		          	title: 'Special Offering Summary',
 		          	height: 400,
 		          	//pieHole: 0.4,
 		        },
@@ -317,6 +341,20 @@
 
         computed: {
 
+        },
+
+        created() {
+
+        	const customMessages = {
+                custom: {
+
+                    givenAt: {
+                        required: "Please select a date"
+                    }
+                }
+            };
+
+            Validator.localize('en', customMessages);
         },
        
 	    methods: {
@@ -345,36 +383,23 @@
 	      		window.axios.put(this.updateRecordRoute, {service_type: service_type})
 	      			.then( response => {
 			      		this.toEditServiceType = true
-			      		this.isSuccesful = true
 			      		this.isHidden = false
+			      		this.isSuccesful = response.data.success ? true : false;
 			      		this.alertMessage = response.data.success ? "Record's service type has been updated sucessfully!" : "Error"
 			    	});
-
-	    	},
-
-	    	updateRecordType() {
-
-	    		var record_type = $('#record_type').val();
-
-	      		window.axios.put(this.updateRecordRoute, {record_type: record_type})
-	      			.then( response => {
-			      		this.toEditRecordType = true
-			      		this.isSuccesful = true
-			      		this.isHidden = false
-			      		this.alertMessage = response.data.success ? "Record's record type has been updated sucessfully!" : "Error"
-			    	});
-
+ 
 	    	},
 
 	    	updateStatus() {
 
-	    		var status = $('#status').val() == 'Unverified' ? 0 : 1;
+	    		var status = $('#status').val();
+	    		console.log(status);
 
 	      		window.axios.put(this.updateRecordRoute, {status: status})
 	      			.then( response => {
 			      		this.toEditStatus = true
-			      		this.isSuccesful = true
 			      		this.isHidden = false
+			      		this.isSuccesful = response.data.success ? true : false;
 			      		this.alertMessage = response.data.success ? "Record's status has been updated sucessfully!" : "Error"
 			    	});
 
@@ -384,13 +409,26 @@
 
 	    		var givenAt = $('#givenAt').val();
 
-	      		window.axios.put(this.updateRecordRoute, {given_at: givenAt})
+	    		this.$validator.validateAll().then((result) => {
+                  if (result) {
+                    window.axios.put(this.updateRecordRoute, {given_at: givenAt})
 	      			.then( response => {
 			      		this.toEditGivenAt = true
 			      		this.isSuccesful = true
 			      		this.isHidden = false
 			      		this.alertMessage = response.data.success ? "Record's given date has been updated sucessfully!" : "Error"
 			    	});
+                  }
+
+                  if(!result){
+                    this.isSuccesful = false
+                    this.isHidden = false
+                    this.alertMessage = "Unable to update a record due to insufficient data."
+                  }
+
+                });
+
+	      		
 
 	    	}
 	    	

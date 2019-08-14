@@ -18,15 +18,17 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'username' => $this->generateUsername('John Jeiel', 'Noblejas', 'Araneta'),
-            'first_name' => 'John Jeiel',
-            'middle_name' => 'Noblejas',
-            'last_name' => 'Araneta',
-            'contact_number' => '09081858655',
-            'email' => 'jeielaraneta@gmail.com',
-            'password' => bcrypt('secret123'),
-        ]);
+        DB::table('users')->insert(
+            [
+                'username' => $this->generateUsername('John Jeiel', 'Noblejas', 'Araneta'),
+                'first_name' => 'John Jeiel',
+                'middle_name' => 'Noblejas',
+                'last_name' => 'Araneta',
+                'contact_number' => '09081858655',
+                'email' => 'jeielaraneta@gmail.com',
+                'password' => bcrypt('secret123'),
+            ]
+        );
 
     }
 }
