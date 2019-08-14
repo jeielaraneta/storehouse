@@ -71,18 +71,14 @@ class Record extends Model
     }
 
     public function getCreatedAtAttribute($value) {
-        date_default_timezone_set("Asia/Manila");
         return date('m-d-Y h:i A', strtotime($value));
     }
 
     public function getUpdatedAtAttribute($value) {
-        date_default_timezone_set("Asia/Manila");
         return date('m-d-Y h:i A', strtotime($value));
     }
 
-    public function setGivenAtAttribute($value)
-    {
-        date_default_timezone_set("Asia/Manila");
+    public function setGivenAtAttribute($value) {
         $this->attributes['given_at'] = date('Y-m-d', strtotime($value));
     }
 
