@@ -12168,6 +12168,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vee_validate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vee-validate */ "./node_modules/vee-validate/dist/vee-validate.esm.js");
 //
 //
 //
@@ -12263,8 +12264,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['birthday', 'submitMemberRoute'],
+  props: ['birth_day', 'submitMemberRoute'],
   data: function data() {
     return {
       options: {
@@ -12280,11 +12298,43 @@ __webpack_require__.r(__webpack_exports__);
           close: 'far fa-times-circle'
         }
       },
-      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      validations: {
+        date: {
+          required: true,
+          date_format: 'MM/DD/YYYY'
+        }
+      }
     };
   },
   mounted: function mounted() {
     console.log('Component mounted.');
+  },
+  created: function created() {},
+  methods: {
+    submitForm: function submitForm(e) {
+      var _this = this;
+
+      this.$validator.validateAll().then(function (result) {
+        if (result) {
+          _this.$refs.createMember.submit();
+
+          e.target.reset();
+
+          _this.$validator.reset();
+        }
+        /*if(!result){
+            this.isSuccesful = false
+            this.isHidden = false
+            this.alertMessage = "Unable to create a record due to insufficient data."
+        }*/
+
+      });
+    },
+    resetForm: function resetForm(e) {
+      e.createMember.reset();
+      this.$validator.reset();
+    }
   }
 });
 
@@ -12703,8 +12753,8 @@ __webpack_require__.r(__webpack_exports__);
             given_at: givenAt
           }).then(function (response) {
             _this3.toEditGivenAt = true;
-            _this3.isSuccesful = true;
             _this3.isHidden = false;
+            _this3.isSuccesful = response.data.success ? true : false;
             _this3.alertMessage = response.data.success ? "Record's given date has been updated sucessfully!" : "Error";
           });
         }
@@ -13099,6 +13149,8 @@ __webpack_require__.r(__webpack_exports__);
       this.given_at = '';
       this.status = 'Unverified';
       this.isSelected = 'anonymous';
+      e.target.reset();
+      this.$validator.reset();
     },
     nameWithCode: function nameWithCode(_ref) {
       var name = _ref.name,
@@ -17677,6 +17729,25 @@ exports = module.exports = __webpack_require__(/*! ../../../css-loader/lib/css-b
 
 // module
 exports.push([module.i, "/*!\n * Datetimepicker for Bootstrap 3\n * version : 4.17.47\n * https://github.com/Eonasdan/bootstrap-datetimepicker/\n */\n.bootstrap-datetimepicker-widget {\n  list-style: none;\n}\n.bootstrap-datetimepicker-widget.dropdown-menu {\n  display: block;\n  margin: 2px 0;\n  padding: 4px;\n  width: 19em;\n}\n@media (min-width: 576px) {\n  .bootstrap-datetimepicker-widget.dropdown-menu.timepicker-sbs {\n    width: 38em;\n  }\n}\n@media (min-width: 768px) {\n  .bootstrap-datetimepicker-widget.dropdown-menu.timepicker-sbs {\n    width: 38em;\n  }\n}\n@media (min-width: 992px) {\n  .bootstrap-datetimepicker-widget.dropdown-menu.timepicker-sbs {\n    width: 38em;\n  }\n}\n.bootstrap-datetimepicker-widget.dropdown-menu:before,\n.bootstrap-datetimepicker-widget.dropdown-menu:after {\n  content: '';\n  display: inline-block;\n  position: absolute;\n}\n.bootstrap-datetimepicker-widget.dropdown-menu.bottom:before {\n  border-left: 7px solid transparent;\n  border-right: 7px solid transparent;\n  border-bottom: 7px solid #ccc;\n  border-bottom-color: rgba(0, 0, 0, 0.2);\n  top: -7px;\n  left: 7px;\n}\n.bootstrap-datetimepicker-widget.dropdown-menu.bottom:after {\n  border-left: 6px solid transparent;\n  border-right: 6px solid transparent;\n  border-bottom: 6px solid white;\n  top: -6px;\n  left: 8px;\n}\n.bootstrap-datetimepicker-widget.dropdown-menu.top:before {\n  border-left: 7px solid transparent;\n  border-right: 7px solid transparent;\n  border-top: 7px solid #ccc;\n  border-top-color: rgba(0, 0, 0, 0.2);\n  bottom: -7px;\n  left: 6px;\n}\n.bootstrap-datetimepicker-widget.dropdown-menu.top:after {\n  border-left: 6px solid transparent;\n  border-right: 6px solid transparent;\n  border-top: 6px solid white;\n  bottom: -6px;\n  left: 7px;\n}\n.bootstrap-datetimepicker-widget.dropdown-menu.pull-right:before {\n  left: auto;\n  right: 6px;\n}\n.bootstrap-datetimepicker-widget.dropdown-menu.pull-right:after {\n  left: auto;\n  right: 7px;\n}\n.bootstrap-datetimepicker-widget .list-unstyled {\n  margin: 0;\n}\n.bootstrap-datetimepicker-widget a[data-action] {\n  padding: 6px 0;\n}\n.bootstrap-datetimepicker-widget a[data-action]:active {\n  box-shadow: none;\n}\n.bootstrap-datetimepicker-widget .timepicker-hour,\n.bootstrap-datetimepicker-widget .timepicker-minute,\n.bootstrap-datetimepicker-widget .timepicker-second {\n  width: 54px;\n  font-weight: bold;\n  font-size: 1.2em;\n  margin: 0;\n}\n.bootstrap-datetimepicker-widget button[data-action] {\n  padding: 6px;\n}\n.bootstrap-datetimepicker-widget .btn[data-action=\"incrementHours\"]::after {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  margin: -1px;\n  padding: 0;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n  content: \"Increment Hours\";\n}\n.bootstrap-datetimepicker-widget .btn[data-action=\"incrementMinutes\"]::after {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  margin: -1px;\n  padding: 0;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n  content: \"Increment Minutes\";\n}\n.bootstrap-datetimepicker-widget .btn[data-action=\"decrementHours\"]::after {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  margin: -1px;\n  padding: 0;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n  content: \"Decrement Hours\";\n}\n.bootstrap-datetimepicker-widget .btn[data-action=\"decrementMinutes\"]::after {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  margin: -1px;\n  padding: 0;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n  content: \"Decrement Minutes\";\n}\n.bootstrap-datetimepicker-widget .btn[data-action=\"showHours\"]::after {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  margin: -1px;\n  padding: 0;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n  content: \"Show Hours\";\n}\n.bootstrap-datetimepicker-widget .btn[data-action=\"showMinutes\"]::after {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  margin: -1px;\n  padding: 0;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n  content: \"Show Minutes\";\n}\n.bootstrap-datetimepicker-widget .btn[data-action=\"togglePeriod\"]::after {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  margin: -1px;\n  padding: 0;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n  content: \"Toggle AM/PM\";\n}\n.bootstrap-datetimepicker-widget .btn[data-action=\"clear\"]::after {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  margin: -1px;\n  padding: 0;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n  content: \"Clear the picker\";\n}\n.bootstrap-datetimepicker-widget .btn[data-action=\"today\"]::after {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  margin: -1px;\n  padding: 0;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n  content: \"Set the date to today\";\n}\n.bootstrap-datetimepicker-widget .picker-switch {\n  text-align: center;\n}\n.bootstrap-datetimepicker-widget .picker-switch::after {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  margin: -1px;\n  padding: 0;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n  content: \"Toggle Date and Time Screens\";\n}\n.bootstrap-datetimepicker-widget .picker-switch td {\n  padding: 0;\n  margin: 0;\n  height: auto;\n  width: auto;\n  line-height: inherit;\n}\n.bootstrap-datetimepicker-widget .picker-switch td span,\n.bootstrap-datetimepicker-widget .picker-switch td i {\n  line-height: 2.5;\n  height: 2.5em;\n  width: 100%;\n}\n.bootstrap-datetimepicker-widget table {\n  width: 100%;\n  margin: 0;\n}\n.bootstrap-datetimepicker-widget table td,\n.bootstrap-datetimepicker-widget table th {\n  text-align: center;\n  border-radius: 0.25rem;\n  padding: 0.5em;\n}\n.bootstrap-datetimepicker-widget table th {\n  height: 20px;\n  line-height: 20px;\n  width: 20px;\n}\n.bootstrap-datetimepicker-widget table th.picker-switch {\n  width: 145px;\n}\n.bootstrap-datetimepicker-widget table th.disabled,\n.bootstrap-datetimepicker-widget table th.disabled:hover {\n  background: none;\n  color: #dee2e6;\n  cursor: not-allowed;\n}\n.bootstrap-datetimepicker-widget table th.prev::after {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  margin: -1px;\n  padding: 0;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n  content: \"Previous Month\";\n}\n.bootstrap-datetimepicker-widget table th.next::after {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  margin: -1px;\n  padding: 0;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n  content: \"Next Month\";\n}\n.bootstrap-datetimepicker-widget table thead tr:first-child th {\n  cursor: pointer;\n}\n.bootstrap-datetimepicker-widget table thead tr:first-child th:hover {\n  background: #f8f9fa;\n}\n.bootstrap-datetimepicker-widget table td {\n  height: 54px;\n  line-height: 54px;\n  width: 54px;\n}\n.bootstrap-datetimepicker-widget table td.cw {\n  font-size: .8em;\n  height: 20px;\n  line-height: 20px;\n  color: #dee2e6;\n}\n.bootstrap-datetimepicker-widget table td.day {\n  height: 20px;\n  line-height: 20px;\n  width: 20px;\n}\n.bootstrap-datetimepicker-widget table td.day:hover,\n.bootstrap-datetimepicker-widget table td.hour:hover,\n.bootstrap-datetimepicker-widget table td.minute:hover,\n.bootstrap-datetimepicker-widget table td.second:hover {\n  background: #f8f9fa;\n  cursor: pointer;\n}\n.bootstrap-datetimepicker-widget table td.old,\n.bootstrap-datetimepicker-widget table td.new {\n  color: #dee2e6;\n}\n.bootstrap-datetimepicker-widget table td.today {\n  position: relative;\n}\n.bootstrap-datetimepicker-widget table td.today:before {\n  content: '';\n  display: inline-block;\n  border: solid transparent;\n  border-width: 0 0 7px 7px;\n  border-bottom-color: #dee2e6;\n  border-top-color: rgba(0, 0, 0, 0.2);\n  position: absolute;\n  bottom: 4px;\n  right: 4px;\n}\n.bootstrap-datetimepicker-widget table td.active,\n.bootstrap-datetimepicker-widget table td.active:hover {\n  background-color: #dee2e6;\n  color: #007bff;\n  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);\n}\n.bootstrap-datetimepicker-widget table td.active.today:before {\n  border-bottom-color: #fff;\n}\n.bootstrap-datetimepicker-widget table td.disabled,\n.bootstrap-datetimepicker-widget table td.disabled:hover {\n  background: none;\n  color: #dee2e6;\n  cursor: not-allowed;\n}\n.bootstrap-datetimepicker-widget table td span,\n.bootstrap-datetimepicker-widget table td i {\n  display: inline-block;\n  width: 54px;\n  height: 54px;\n  line-height: 54px;\n  margin: 2px 1.5px;\n  cursor: pointer;\n  border-radius: 0.25rem;\n}\n.bootstrap-datetimepicker-widget table td span:hover,\n.bootstrap-datetimepicker-widget table td i:hover {\n  background: #f8f9fa;\n}\n.bootstrap-datetimepicker-widget table td span.active,\n.bootstrap-datetimepicker-widget table td i.active {\n  background-color: #dee2e6;\n  color: #007bff;\n  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);\n}\n.bootstrap-datetimepicker-widget table td span.old,\n.bootstrap-datetimepicker-widget table td i.old {\n  color: #dee2e6;\n}\n.bootstrap-datetimepicker-widget table td span.disabled,\n.bootstrap-datetimepicker-widget table td i.disabled,\n.bootstrap-datetimepicker-widget table td span.disabled:hover,\n.bootstrap-datetimepicker-widget table td i.disabled:hover {\n  background: none;\n  color: #dee2e6;\n  cursor: not-allowed;\n}\n.bootstrap-datetimepicker-widget.usetwentyfour td.hour {\n  height: 27px;\n  line-height: 27px;\n}\n.bootstrap-datetimepicker-widget.wider {\n  width: 21em;\n}\n.bootstrap-datetimepicker-widget .datepicker-decades .decade {\n  line-height: 1.8em !important;\n}\n.input-group.date .input-group-addon {\n  cursor: pointer;\n}\n.sr-only {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  margin: -1px;\n  padding: 0;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n  border: 0;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/member/forms/MemberCreateForm.vue?vue&type=style&index=0&lang=css&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/member/forms/MemberCreateForm.vue?vue&type=style&index=0&lang=css& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.form-control.error {\n    border-color: #E84444;\n    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(232,68,68,.6);\n}\n", ""]);
 
 // exports
 
@@ -68819,6 +68890,36 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/member/forms/MemberCreateForm.vue?vue&type=style&index=0&lang=css&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/member/forms/MemberCreateForm.vue?vue&type=style&index=0&lang=css& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../node_modules/css-loader??ref--6-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./MemberCreateForm.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/member/forms/MemberCreateForm.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/record/RecordProfileComponent.vue?vue&type=style&index=0&lang=css&":
 /*!***************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/record/RecordProfileComponent.vue?vue&type=style&index=0&lang=css& ***!
@@ -82712,7 +82813,18 @@ var render = function() {
           attrs: {
             method: "POST",
             action: this.submitMemberRoute,
-            enctype: "multipart/form-data"
+            enctype: "multipart/form-data",
+            id: "createMember"
+          },
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.submitForm($event)
+            },
+            reset: function($event) {
+              $event.preventDefault()
+              return _vm.resetForm($event)
+            }
           }
         },
         [
@@ -82721,26 +82833,146 @@ var render = function() {
             domProps: { value: _vm.csrf }
           }),
           _vm._v(" "),
-          _vm._m(1),
+          _c("div", { staticClass: "form-row" }, [
+            _c("div", { staticClass: "form-group col-md-4" }, [
+              _c("label", { attrs: { for: "first_name" } }, [
+                _vm._v("First Name")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "validate",
+                    rawName: "v-validate",
+                    value: "required|alpha_spaces",
+                    expression: "'required|alpha_spaces'"
+                  }
+                ],
+                staticClass: "form-control",
+                class: {
+                  "form-control": true,
+                  error: _vm.errors.has("first_name")
+                },
+                attrs: {
+                  type: "text",
+                  id: "first_name",
+                  name: "first_name",
+                  "data-vv-as": "first name"
+                }
+              }),
+              _vm._v(" "),
+              _vm.errors.has("first_name")
+                ? _c("span", { staticClass: "error text-danger" }, [
+                    _vm._v(_vm._s(_vm.errors.first("first_name")))
+                  ])
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group col-md-4" }, [
+              _c("label", { attrs: { for: "middle_name" } }, [
+                _vm._v("Middle Name")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "validate",
+                    rawName: "v-validate",
+                    value: "required|alpha_spaces",
+                    expression: "'required|alpha_spaces'"
+                  }
+                ],
+                staticClass: "form-control",
+                class: {
+                  "form-control": true,
+                  error: _vm.errors.has("middle_name")
+                },
+                attrs: {
+                  type: "text",
+                  id: "middle_name",
+                  name: "middle_name",
+                  "data-vv-as": "middle name"
+                }
+              }),
+              _vm._v(" "),
+              _vm.errors.has("middle_name")
+                ? _c("span", { staticClass: "error text-danger" }, [
+                    _vm._v(_vm._s(_vm.errors.first("middle_name")))
+                  ])
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group col-md-4" }, [
+              _c("label", { attrs: { for: "last_name" } }, [
+                _vm._v("Last Name")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "validate",
+                    rawName: "v-validate",
+                    value: "required|alpha_spaces",
+                    expression: "'required|alpha_spaces'"
+                  }
+                ],
+                staticClass: "form-control",
+                class: {
+                  "form-control": true,
+                  error: _vm.errors.has("last_name")
+                },
+                attrs: {
+                  type: "text",
+                  id: "last_name",
+                  name: "last_name",
+                  "data-vv-as": "last name"
+                }
+              }),
+              _vm._v(" "),
+              _vm.errors.has("last_name")
+                ? _c("span", { staticClass: "error text-danger" }, [
+                    _vm._v(_vm._s(_vm.errors.first("last_name")))
+                  ])
+                : _vm._e()
+            ])
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-row" }, [
             _c(
               "div",
               { staticClass: "form-group col-md-4" },
               [
-                _c("label", { attrs: { for: "birthday" } }, [
+                _c("label", { attrs: { for: "birth_day" } }, [
                   _vm._v("Birthday")
                 ]),
                 _vm._v(" "),
                 _c("date-picker", {
+                  directives: [
+                    {
+                      name: "validate",
+                      rawName: "v-validate",
+                      value: "required",
+                      expression: "'required'"
+                    }
+                  ],
+                  class: {
+                    "form-control": true,
+                    error: _vm.errors.has("birthday")
+                  },
                   attrs: {
-                    id: "birthday",
+                    id: "birth_day",
                     name: "birthday",
                     autocomplete: "off",
-                    value: _vm.birthday,
+                    value: _vm.birth_day,
                     config: _vm.options
                   }
-                })
+                }),
+                _vm._v(" "),
+                _vm.errors.has("birthday")
+                  ? _c("span", { staticClass: "error text-danger" }, [
+                      _vm._v(_vm._s(_vm.errors.first("birthday")))
+                    ])
+                  : _vm._e()
               ],
               1
             ),
@@ -82750,6 +82982,73 @@ var render = function() {
               attrs: { type: "hidden", id: "age", name: "age" }
             }),
             _vm._v(" "),
+            _c("div", { staticClass: "form-group col-md-8" }, [
+              _c("label", { attrs: { for: "email" } }, [_vm._v("Email")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "validate",
+                    rawName: "v-validate",
+                    value: "email",
+                    expression: "'email'"
+                  }
+                ],
+                staticClass: "form-control",
+                class: { "form-control": true, error: _vm.errors.has("email") },
+                attrs: {
+                  type: "text",
+                  id: "email",
+                  name: "email",
+                  "data-vv-as": "email"
+                }
+              }),
+              _vm._v(" "),
+              _vm.errors.has("email")
+                ? _c("span", { staticClass: "error text-danger" }, [
+                    _vm._v(_vm._s(_vm.errors.first("email")))
+                  ])
+                : _vm._e()
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-row" }, [
+            _c("div", { staticClass: "form-group col-md-4" }, [
+              _c("label", { attrs: { for: "contact_number" } }, [
+                _vm._v("Contact Number")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "validate",
+                    rawName: "v-validate",
+                    value: "digits:11",
+                    expression: "'digits:11'"
+                  }
+                ],
+                staticClass: "form-control",
+                class: {
+                  "form-control": true,
+                  error: _vm.errors.has("contact_number")
+                },
+                attrs: {
+                  type: "text",
+                  id: "contact_number",
+                  name: "contact_number",
+                  "data-vv-as": "contact number"
+                }
+              }),
+              _vm._v(" "),
+              _vm.errors.has("contact_number")
+                ? _c("span", { staticClass: "error text-danger" }, [
+                    _vm._v(_vm._s(_vm.errors.first("contact_number")))
+                  ])
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _vm._m(1),
+            _vm._v(" "),
             _vm._m(2)
           ]),
           _vm._v(" "),
@@ -82757,9 +83056,7 @@ var render = function() {
           _vm._v(" "),
           _vm._m(4),
           _vm._v(" "),
-          _vm._m(5),
-          _vm._v(" "),
-          _vm._m(6)
+          _vm._m(5)
         ]
       )
     ])
@@ -82780,125 +83077,66 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-row" }, [
-      _c("div", { staticClass: "form-group col-md-4" }, [
-        _c("label", { attrs: { for: "first_name" } }, [_vm._v("First Name")]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: { type: "text", id: "first_name", name: "first_name" }
-        })
+    return _c("div", { staticClass: "form-group col-md-4" }, [
+      _c("label", { attrs: { for: "marital_status" } }, [
+        _vm._v("Marital Status")
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "form-group col-md-4" }, [
-        _c("label", { attrs: { for: "middle_name" } }, [_vm._v("Middle Name")]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: { type: "text", id: "middle_name", name: "middle_name" }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group col-md-4" }, [
-        _c("label", { attrs: { for: "last_name" } }, [_vm._v("Last Name")]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: { type: "text", id: "last_name", name: "last_name" }
-        })
-      ])
+      _c(
+        "select",
+        {
+          staticClass: "custom-select custom-select mb-3",
+          attrs: { id: "marital_status", name: "marital_status" }
+        },
+        [
+          _c("option", { attrs: { selected: "" } }, [
+            _vm._v("Select martital status")
+          ]),
+          _vm._v(" "),
+          _c("option", { attrs: { value: "married" } }, [_vm._v("Married")]),
+          _vm._v(" "),
+          _c("option", { attrs: { value: "widowed" } }, [_vm._v("Widowed")]),
+          _vm._v(" "),
+          _c("option", { attrs: { value: "separate" } }, [_vm._v("Separated")]),
+          _vm._v(" "),
+          _c("option", { attrs: { value: "divorced" } }, [_vm._v("Divorced")]),
+          _vm._v(" "),
+          _c("option", { attrs: { value: "single" } }, [_vm._v("Single")])
+        ]
+      )
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group col-md-8" }, [
-      _c("label", { attrs: { for: "email" } }, [_vm._v("Email")]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { type: "email", id: "email", name: "email" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-row" }, [
-      _c("div", { staticClass: "form-group col-md-4" }, [
-        _c("label", { attrs: { for: "contact_number" } }, [
-          _vm._v("Contact Number")
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "form-control",
-          attrs: { type: "text", id: "contact_number", name: "contact_number" }
-        })
+    return _c("div", { staticClass: "form-group col-md-4" }, [
+      _c("label", { attrs: { for: "membership_status" } }, [
+        _vm._v("Membership Status")
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "form-group col-md-4" }, [
-        _c("label", { attrs: { for: "marital_status" } }, [
-          _vm._v("Marital Status")
-        ]),
-        _vm._v(" "),
-        _c(
-          "select",
-          {
-            staticClass: "custom-select custom-select mb-3",
-            attrs: { id: "marital_status", name: "marital_status" }
-          },
-          [
-            _c("option", { attrs: { selected: "" } }, [
-              _vm._v("Select martital status")
-            ]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "married" } }, [_vm._v("Married")]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "widowed" } }, [_vm._v("Widowed")]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "separate" } }, [
-              _vm._v("Separated")
-            ]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "divorced" } }, [
-              _vm._v("Divorced")
-            ]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "single" } }, [_vm._v("Single")])
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group col-md-4" }, [
-        _c("label", { attrs: { for: "membership_status" } }, [
-          _vm._v("Membership Status")
-        ]),
-        _vm._v(" "),
-        _c(
-          "select",
-          {
-            staticClass: "custom-select custom-select mb-3",
-            attrs: { id: "membership_status", name: "membership_status" }
-          },
-          [
-            _c("option", { attrs: { selected: "" } }, [
-              _vm._v("Select membership status")
-            ]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "active" } }, [_vm._v("Active")]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "regular attendee" } }, [
-              _vm._v("Regular Attendee")
-            ]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "visitor" } }, [_vm._v("Visitor")]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "inactive" } }, [_vm._v("Inactive")])
-          ]
-        )
-      ])
+      _c(
+        "select",
+        {
+          staticClass: "custom-select custom-select mb-3",
+          attrs: { id: "membership_status", name: "membership_status" }
+        },
+        [
+          _c("option", { attrs: { selected: "" } }, [
+            _vm._v("Select membership status")
+          ]),
+          _vm._v(" "),
+          _c("option", { attrs: { value: "active" } }, [_vm._v("Active")]),
+          _vm._v(" "),
+          _c("option", { attrs: { value: "regular attendee" } }, [
+            _vm._v("Regular Attendee")
+          ]),
+          _vm._v(" "),
+          _c("option", { attrs: { value: "visitor" } }, [_vm._v("Visitor")]),
+          _vm._v(" "),
+          _c("option", { attrs: { value: "inactive" } }, [_vm._v("Inactive")])
+        ]
+      )
     ])
   },
   function() {
@@ -97582,7 +97820,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _MemberCreateForm_vue_vue_type_template_id_3b342d74___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MemberCreateForm.vue?vue&type=template&id=3b342d74& */ "./resources/js/components/member/forms/MemberCreateForm.vue?vue&type=template&id=3b342d74&");
 /* harmony import */ var _MemberCreateForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MemberCreateForm.vue?vue&type=script&lang=js& */ "./resources/js/components/member/forms/MemberCreateForm.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _MemberCreateForm_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MemberCreateForm.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/member/forms/MemberCreateForm.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -97590,7 +97830,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _MemberCreateForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _MemberCreateForm_vue_vue_type_template_id_3b342d74___WEBPACK_IMPORTED_MODULE_0__["render"],
   _MemberCreateForm_vue_vue_type_template_id_3b342d74___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -97619,6 +97859,22 @@ component.options.__file = "resources/js/components/member/forms/MemberCreateFor
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MemberCreateForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./MemberCreateForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/member/forms/MemberCreateForm.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MemberCreateForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/member/forms/MemberCreateForm.vue?vue&type=style&index=0&lang=css&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/components/member/forms/MemberCreateForm.vue?vue&type=style&index=0&lang=css& ***!
+  \****************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MemberCreateForm_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader??ref--6-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./MemberCreateForm.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/member/forms/MemberCreateForm.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MemberCreateForm_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MemberCreateForm_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MemberCreateForm_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MemberCreateForm_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_MemberCreateForm_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
