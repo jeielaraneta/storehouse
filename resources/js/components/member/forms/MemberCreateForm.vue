@@ -114,8 +114,6 @@
 
 <script>
 
-    import { Validator } from 'vee-validate';
-
     export default {
         props: ['birth_day', 'submitMemberRoute'],
 
