@@ -3,14 +3,19 @@
 <script>
 
 	$(document).ready(function() {
+
 	    $('#membersTable').DataTable({
+	          
+	    });
+
+	    $('#recordsTable').DataTable({
 	          
 	    });
 	});
 
 	export default {
 	    mounted() {
-	        console.log('Component mounted.')  
+	        console.log('Datatable Component mounted.')  
 	    }
 	}
 

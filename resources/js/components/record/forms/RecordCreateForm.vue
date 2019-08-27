@@ -402,6 +402,9 @@ import { Validator } from 'vee-validate';
                 this.given_at = '';
                 this.status = 'Unverified';
                 this.isSelected = 'anonymous';
+
+                e.target.reset();
+                this.$validator.reset();
             },
 
             nameWithCode ({ name, code }) {

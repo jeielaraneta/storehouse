@@ -414,8 +414,8 @@
                     window.axios.put(this.updateRecordRoute, {given_at: givenAt})
 	      			.then( response => {
 			      		this.toEditGivenAt = true
-			      		this.isSuccesful = true
 			      		this.isHidden = false
+			      		this.isSuccesful = response.data.success ? true : false;
 			      		this.alertMessage = response.data.success ? "Record's given date has been updated sucessfully!" : "Error"
 			    	});
                   }
