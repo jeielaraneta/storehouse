@@ -5,7 +5,7 @@
 
     <div class="row mb-2 text-left">
         <div class="col-md-12 ">
-            <create-button route="{{ route('record.create') }}" btn-text="Add New Record" btn-icon="plus"></create-button>
+            <create-button route="{{ route('record.create') }}" btn-text="Add New Record"></create-button>
         </div>        
     </div>
 
@@ -59,9 +59,6 @@
 
                 </div>
             </div>
-
-            <record-index-component></record-index-component>
-
         </div>
     </div>
 </div>

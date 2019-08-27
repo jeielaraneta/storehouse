@@ -28,7 +28,7 @@ class StoreNewMember extends FormRequest
             'middle_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'contact_number' => 'digits:11',
-            'email' => 'required|string|email|max:255|unique:members'
+            'email' => 'email|unique:members'
         ];
     }
 }

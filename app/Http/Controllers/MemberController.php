@@ -64,7 +64,7 @@ class MemberController extends Controller
      */
     public function store(StoreNewMember $request) {
 
-        $validated = $request->validated();
+        //$validated = $request->validated();
 
         $this->member->code = $this->generateMemberCode();
         $this->member->first_name = $request->first_name;
