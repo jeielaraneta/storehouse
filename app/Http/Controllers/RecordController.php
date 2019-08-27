@@ -8,7 +8,6 @@ use App\Traits\RandomTextGenerator;
 use App\Http\Resources\RecordResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
 use DB;
 
 class RecordController extends Controller
@@ -61,110 +60,131 @@ class RecordController extends Controller
     {
         $user = Auth::user();
 
-        switch ($request->giver_type) {
-            case 'identified':
+        if( $request->record_type == 'dd'){
 
-                $data = array(
-                    'member_id' => $request->gic,
-                    'service_type' => $request->service_type,
-                    'record_type' => $request->record_type,
-                    'giver_type' => $request->giver_type,
-                    'given_at' => date('Y-m-d', strtotime($request->given_at)),
-                    'status' => $request->status,
-                    'tithe_amount' => $request->tithe,
-                    'love_amount' => $request->love,
-                    'faith_amount' => $request->faith,
-                    'total_amount' => $request->total_amount,
-                    'created_by' => $user->id
-                );
+            $data = array(
+                'bank_ref' => $request->bank_ref,
+                'service_type' => $request->service_type,
+                'record_type' => $request->record_type,
+                'giver_type' => "bank_depositor",
+                'given_at' => date('Y-m-d', strtotime($request->given_at)),
+                'status' => $request->status,
+                'tithe_amount' => $request->tithe,
+                'love_amount' => $request->love,
+                'faith_amount' => $request->faith,
+                'total_amount' => $request->total_amount,
+                'created_by' => $user->username
+            );
 
-                $saveAndGetID = DB::table('records')->insertGetId($data);
+            $createRecord = $this->record->create($data);
 
-                $specOff = $request->special_offering;
+            $specOff = $request->special_offering;
 
-                foreach ($specOff as $key => $value) {
-                    $specOff[$key]['record_id'] = $saveAndGetID;
-                    $specOff[$key]['created_at'] = Carbon::now();
-                    $specOff[$key]['updated_at'] = Carbon::now();
-                }
+            $getRecord = $this->record->find($createRecord->id);
 
-                $saveSpecOff = SpecialOffering::insert($specOff);
+            $saveSpecOff = $getRecord->specialOfferings()->createMany($specOff);
 
-                $result = ($saveAndGetID && $saveSpecOff) ? true : false;
+            $result = ($createRecord && $saveSpecOff) ? true : false;
 
-                return response()->json([ 'success' => $result]);
+            return response()->json([ 'success' => $result]);
 
-                break;
+        } 
 
-            case 'group':
+        else {
 
-                $data = array(
-                    'group_name' => $request->group_name,
-                    'service_type' => $request->service_type,
-                    'record_type' => $request->record_type,
-                    'giver_type' => $request->giver_type,
-                    'given_at' => date('Y-m-d', strtotime($request->given_at)),
-                    'status' => $request->status,
-                    'tithe_amount' => $request->tithe,
-                    'love_amount' => $request->love,
-                    'faith_amount' => $request->faith,
-                    'total_amount' => $request->total_amount,
-                    'created_by' => $user->id
-                );
+            switch ($request->giver_type) {
+                case 'identified':
 
-                $saveAndGetID = DB::table('records')->insertGetId($data);
+                    $data = array(
+                        'member_id' => $request->gic,
+                        'service_type' => $request->service_type,
+                        'record_type' => $request->record_type,
+                        'giver_type' => $request->giver_type,
+                        'given_at' => date('Y-m-d', strtotime($request->given_at)),
+                        'status' => $request->status,
+                        'tithe_amount' => $request->tithe,
+                        'love_amount' => $request->love,
+                        'faith_amount' => $request->faith,
+                        'total_amount' => $request->total_amount,
+                        'created_by' => $user->username
+                    );
 
-                $specOff = $request->special_offering;
+                    $createRecord = $this->record->create($data);
 
-                foreach ($specOff as $key => $value) {
-                    $specOff[$key]['record_id'] = $saveAndGetID;
-                    $specOff[$key]['created_at'] = Carbon::now();
-                    $specOff[$key]['updated_at'] = Carbon::now();
-                }
+                    $specOff = $request->special_offering;
 
-                $saveSpecOff = SpecialOffering::insert($specOff);
+                    $getRecord = $this->record->find($createRecord->id);
 
-                $result = ($saveAndGetID && $saveSpecOff) ? true : false;
+                    $saveSpecOff = $getRecord->specialOfferings()->createMany($specOff);
 
-                return response()->json([ 'success' => $result]);
+                    $result = ($createRecord && $saveSpecOff) ? true : false;
 
-                break;
-            
-            default:
+                    return response()->json([ 'success' => $result]);
 
-                $agc = $this->generateAnonymousGiverCode();
+                    break;
 
-                $data = array(
-                    'agc' => $agc,
-                    'service_type' => $request->service_type,
-                    'record_type' => $request->record_type,
-                    'giver_type' => $request->giver_type,
-                    'given_at' => date('Y-m-d', strtotime($request->given_at)),
-                    'status' => $request->status,
-                    'tithe_amount' => $request->tithe,
-                    'love_amount' => $request->love,
-                    'faith_amount' => $request->faith,
-                    'total_amount' => $request->total_amount,
-                    'created_by' => $user->id
-                );
+                case 'group':
 
-                $saveAndGetID = DB::table('records')->insertGetId($data);
+                    $data = array(
+                        'group_name' => $request->group_name,
+                        'service_type' => $request->service_type,
+                        'record_type' => $request->record_type,
+                        'giver_type' => $request->giver_type,
+                        'given_at' => date('Y-m-d', strtotime($request->given_at)),
+                        'status' => $request->status,
+                        'tithe_amount' => $request->tithe,
+                        'love_amount' => $request->love,
+                        'faith_amount' => $request->faith,
+                        'total_amount' => $request->total_amount,
+                        'created_by' => $user->username
+                    );
 
-                $specOff = $request->special_offering;
+                    $createRecord = $this->record->create($data);
 
-                foreach ($specOff as $key => $value) {
-                    $specOff[$key]['record_id'] = $saveAndGetID;
-                    $specOff[$key]['created_at'] = Carbon::now();
-                    $specOff[$key]['updated_at'] = Carbon::now();
-                }
+                    $specOff = $request->special_offering;
 
-                $saveSpecOff = SpecialOffering::insert($specOff);
+                    $getRecord = $this->record->find($createRecord->id);
 
-                $result = ($saveAndGetID && $saveSpecOff) ? true : false;
+                    $saveSpecOff = $getRecord->specialOfferings()->createMany($specOff);
 
-                return response()->json([ 'success' => $result]);
+                    $result = ($createRecord && $saveSpecOff) ? true : false;
 
-                break;
+                    return response()->json([ 'success' => $result]);
+
+                    break;
+                
+                default:
+
+                    $agc = $this->generateAnonymousGiverCode();
+
+                    $data = array(
+                        'agc' => $agc,
+                        'service_type' => $request->service_type,
+                        'record_type' => $request->record_type,
+                        'giver_type' => $request->giver_type,
+                        'given_at' => date('Y-m-d', strtotime($request->given_at)),
+                        'status' => $request->status,
+                        'tithe_amount' => $request->tithe,
+                        'love_amount' => $request->love,
+                        'faith_amount' => $request->faith,
+                        'total_amount' => $request->total_amount,
+                        'created_by' => $user->username
+                    );
+
+                    $createRecord = $this->record->create($data);
+
+                    $specOff = $request->special_offering;
+
+                    $getRecord = $this->record->find($createRecord->id);
+
+                    $saveSpecOff = $getRecord->specialOfferings()->createMany($specOff);
+
+                    $result = ($createRecord && $saveSpecOff) ? true : false;
+
+                    return response()->json([ 'success' => $result]);
+
+                    break;
+            }
         }
     }
 
@@ -203,7 +223,12 @@ class RecordController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $record = $this->record->find($id);
+
+        $update = $record->update($request->all());
+
+        return response()->json([ 'success' => $update ? true : false]);
     }
 
     /**

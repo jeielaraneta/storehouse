@@ -5,7 +5,7 @@
 
     <div class="row mb-2 text-left">
         <div class="col-md-12 ">
-            <create-button route="{{ route('member.create') }}" btn-text="Add New Member" btn-icon="user-plus"></create-button>
+            <create-button route="{{ route('member.create') }}" btn-text="Add New Member"></create-button>
         </div>        
     </div>
 
@@ -77,8 +77,6 @@
                     </div>
                 </div>
             </div>
-
-            <member-index-component></member-index-component>
 
         </div>
     </div>

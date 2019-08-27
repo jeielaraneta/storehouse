@@ -592,8 +592,6 @@
 
 	      	updateCode() {
 
-	      		var province = $('#code').val();
-
 	      		window.axios.put(this.updateMemberRoute, {code: code._value})
 	      			.then( response => {
 			      		console.log(response.data.success)
