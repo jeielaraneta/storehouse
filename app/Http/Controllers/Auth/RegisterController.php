@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Models\User;
 use App\Traits\RandomTextGenerator;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -43,7 +43,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware(['auth','verified']);
     }
 
     /**
@@ -53,14 +53,14 @@ class RegisterController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-    /*public function register(Request $request)
+    public function register(Request $request)
     {
         $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->create($request->all())));
 
         return $this->registered($request, $user) ?: redirect($this->redirectPath());
-    }*/
+    }
 
     /**
      * Get a validator for an incoming registration request.

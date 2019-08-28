@@ -42,6 +42,13 @@ Route::prefix('/records')->group(function () {
 
 });
 
+Route::prefix('/users')->group(function () {
+
+    Route::get('/', 'UserController@index')->name('user.index');
+    Route::get('/create', 'UserController@create')->name('user.create');
+
+});
+
 Route::prefix('/specialOffering')->group(function () {
 
     Route::get('/show/{id}', 'SpecialOfferingController@show')->name('specialOffering.show');

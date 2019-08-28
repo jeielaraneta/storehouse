@@ -1868,7 +1868,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {},
-  props: ['route', 'btnText']
+  props: ['route', 'btnIcon', 'btnText']
 });
 
 /***/ }),
@@ -71531,10 +71531,7 @@ var render = function() {
       staticClass: "btn btn-primary float-right",
       attrs: { role: "button", href: this.route }
     },
-    [
-      _c("i", { staticClass: "fas fa-user-plus" }),
-      _vm._v(" " + _vm._s(this.btnText))
-    ]
+    [_c("i", { class: this.btnIcon }), _vm._v(" " + _vm._s(this.btnText))]
   )
 }
 var staticRenderFns = []
