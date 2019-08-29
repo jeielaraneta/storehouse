@@ -39,7 +39,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('auth/register');
+        return view('admin/users/forms/user-create-form');
+        //return view('auth/register');
     }
 
     /**

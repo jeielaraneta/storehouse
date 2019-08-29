@@ -2,70 +2,72 @@
     <div class="card">
         <div class="card-header bg-transparent border-primary"><h5>Create New User</h5></div>
         <div class="card-body">
-            <form ref="createMember" id="createMember" method="POST" :action="this.submitUserRoute" @submit.prevent="submitForm" @reset.prevent="resetForm" enctype="multipart/form-data" >
+            <form ref="createUser" id="createUser" method="POST" :action="this.submitUserRoute" @submit.prevent="submitForm" @reset.prevent="resetForm" enctype="multipart/form-data" >
                 <input type="hidden" name="_token" :value="csrf">
+
                 <div class="form-row">
-                    <div class="form-group col-md-4">
-                        <label for="first_name">First Name</label>
-                        <input type="text" class="form-control" id="first_name" name="first_name" v-model="first_name" v-validate="'required|alpha_spaces'" data-vv-as="first name" :class="{'form-control': true, error: errors.has('first_name')}">
+                    <label for="first_name" class="col-md-2 col-form-label text-md-left">First Name</label>
+                    <div class="form-group col-md-10">
+                        <input type="text" id="first_name" name="first_name" v-model="first_name" v-validate="'required|alpha_spaces'" data-vv-as="first name" :class="{'form-control': true, error: errors.has('first_name')}">
                         <span class="error text-danger" v-if="errors.has('first_name')">{{errors.first('first_name')}}</span>
                     </div>
-                    <div class="form-group col-md-4">
-                        <label for="middle_name">Middle Name</label>
-                        <input type="text" class="form-control" id="middle_name" name="middle_name" v-model="middle_name" v-validate="'required|alpha_spaces'" data-vv-as="middle name" :class="{'form-control': true, error: errors.has('middle_name')}">
-                        <span class="error text-danger" v-if="errors.has('middle_name')">{{errors.first('middle_name')}}</span>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="last_name">Last Name</label>
-                        <input type="text" class="form-control" id="last_name" name="last_name" v-model="last_name" v-validate="'required|alpha_spaces'" data-vv-as="last name" :class="{'form-control': true, error: errors.has('last_name')}">
-                        <span class="error text-danger" v-if="errors.has('last_name')">{{errors.first('last_name')}}</span>
-                    </div>
-                    
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group col-md-4">
-                        <label for="birth_day">Birthday</label>
+                    <label for="middle_name" class="col-md-2 col-form-label text-md-left">Middle Name</label>
+                    <div class="form-group col-md-10">
+                        <input type="text" id="middle_name" name="middle_name" v-model="middle_name" v-validate="'required|alpha_spaces'" data-vv-as="middle name" :class="{'form-control': true, error: errors.has('middle_name')}">
+                        <span class="error text-danger" v-if="errors.has('middle_name')">{{errors.first('middle_name')}}</span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <label for="last_name" class="col-md-2 col-form-label text-md-left">Last Name</label>
+                    <div class="form-group col-md-10">
+                        <input type="text" id="last_name" name="last_name" v-model="last_name" v-validate="'required|alpha_spaces'" data-vv-as="last name" :class="{'form-control': true, error: errors.has('last_name')}">
+                        <span class="error text-danger" v-if="errors.has('last_name')">{{errors.first('last_name')}}</span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <label for="birth_day" class="col-md-2 col-form-label text-md-left">Birthday</label>
+                    <div class="form-group col-md-10">
                         <date-picker id="birth_day" name="birthday" autocomplete="off" v-model="birthday" v-bind:value="birth_day" :config="options" v-validate="'required'" :class="{'form-control': true, error: errors.has('birthday')}"></date-picker>
                         <span class="error text-danger" v-if="errors.has('birthday')">{{errors.first('birthday')}}</span>
                     </div>
+                </div>
                     
-                    <input type="hidden" class="form-control" id="age" name="age">
+                <input type="hidden" class="form-control" id="age" name="age">
 
-                    <div class="form-group col-md-8">
-                        <label for="email">Email</label>
-                        <input type="text" class="form-control" id="email" name="email" v-model="email" v-validate="'email'" data-vv-as="email" :class="{'form-control': true, error: errors.has('email')}">
+                <div class="form-row">
+                    <label for="email" class="col-md-2 col-form-label text-md-left">Email</label>
+                    <div class="form-group col-md-10">
+                        <input type="text" id="email" name="email" v-model="email" v-validate="'required|email'" data-vv-as="email" :class="{'form-control': true, error: errors.has('email')}">
                         <span class="error text-danger" v-if="errors.has('email')">{{errors.first('email')}}</span>
                     </div>
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group col-md-4">
-                        <label for="contact_number">Contact Number</label>
-                        <input type="text" class="form-control" id="contact_number" name="contact_number" v-model="contact_number" v-validate="'digits:11'" data-vv-as="contact number" :class="{'form-control': true, error: errors.has('contact_number')}">
+                    <label for="contact_number" class="col-md-3 col-form-label text-md-left">Contact Number</label>
+                    <div class="form-group col-md-9">
+                        <input type="text" id="contact_number" name="contact_number" v-model="contact_number" v-validate="'required|digits:11'" data-vv-as="contact number" :class="{'form-control': true, error: errors.has('contact_number')}">
                         <span class="error text-danger" v-if="errors.has('contact_number')">{{errors.first('contact_number')}}</span>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="address_line_1">Address Line 1</label>
-                    <input type="text" class="form-control" id="address_line_1" name="address_line_1" v-model="address_line_1" placeholder="House Number, Street, Building Name">
-                </div>
-
-                <div class="form-row">
+                <!-- <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="barangay">Barangay</label>
-                        <input type="text" name="barangay" v-model="barangay" class="form-control" id="barangay">
+                        <label for="password">Password</label>
+                        <input v-validate="'required|min:8|verify_password'" name="password" type="password" v-model="password" :class="{'form-control': true, error: errors.has('password')}" placeholder="Password" ref="password">
+                        <span class="error text-danger" v-if="errors.has('password')">{{errors.first('password')}}</span>
+
                     </div>
-                    <div class="form-group col-md-4">
-                        <label for="city">City</label>
-                        <input type="text" name="city" v-model="city" class="form-control" id="city">
+                    <div class="form-group col-md-6">
+                        <label for="password-confirm">Confirm Password</label>
+                        <input v-validate="'required|confirmed:password'" name="password_confirmation" type="password" v-model="password_confirmation" :class="{'form-control': true, error: errors.has('password_confirmation')}"  placeholder="Password, Again" data-vv-as="password">
+                        <span class="error text-danger" v-if="errors.has('password_confirmation')">{{errors.first('password_confirmation')}}</span>
                     </div>
-                    <div class="form-group col-md-2">
-                        <label for="province">Province</label>
-                        <input type="text" name="province" v-model="province" class="form-control" id="province">
-                    </div>
-                </div>
+                </div> -->
 
                 <div class="form-group row">
                     <div class="col-md-12">
@@ -88,6 +90,8 @@
 
 <script>
 
+    import { Validator } from 'vee-validate'; 
+
     export default {
         props: ['birth_day', 'submitUserRoute'],
 
@@ -99,7 +103,6 @@
                 birthday: '',
                 email: '',
                 contact_number: '',
-                
 
                 options: {
                     format: 'MM/DD/YYYY',
@@ -131,7 +134,20 @@
         },
 
         created() {
+            /*this.$validator.extend('truthy', {
+                getMessage: field => 'The ' + field + ' value is not truthy.',
+                validate: value => value === 'A'
+            });
 
+            let instance = new Validator({ trueField: 'truthy' });*/
+
+            /*this.$validator.extend('verify_password', {
+                getMessage: field => `The password must contain at least: 1 uppercase letter, 1 lowercase letter, 1 number, and one special character (E.g. , . _ & ? etc)`,
+                validate: value => {
+                    var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+                    return strongRegex.test(value);
+                }
+            });*/
         },
 
         methods: {
@@ -139,7 +155,7 @@
                  
                 this.$validator.validateAll().then((result) => {
                     if (result) {
-                        this.$refs.createMember.submit();
+                        this.$refs.createUser.submit();
                     }
 
                     /*if(!result){
