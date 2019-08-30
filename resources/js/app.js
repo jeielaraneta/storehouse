@@ -54,6 +54,7 @@ Vue.component('record-profile-component', require('./components/record/RecordPro
 Vue.component('record-create-form', require('./components/record/forms/RecordCreateForm.vue').default);
 
 Vue.component('user-create-form', require('./components/user/forms/UserCreateForm.vue').default);
+Vue.component('user-password-form', require('./components/user/forms/UserSetPassword.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

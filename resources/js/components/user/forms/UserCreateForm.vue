@@ -29,7 +29,7 @@
                     </div>
                 </div>
 
-                <div class="form-row">
+               <!--  <div class="form-row">
                     <label for="birth_day" class="col-md-2 col-form-label text-md-left">Birthday</label>
                     <div class="form-group col-md-10">
                         <date-picker id="birth_day" name="birthday" autocomplete="off" v-model="birthday" v-bind:value="birth_day" :config="options" v-validate="'required'" :class="{'form-control': true, error: errors.has('birthday')}"></date-picker>
@@ -37,7 +37,7 @@
                     </div>
                 </div>
                     
-                <input type="hidden" class="form-control" id="age" name="age">
+                <input type="hidden" class="form-control" id="age" name="age"> -->
 
                 <div class="form-row">
                     <label for="email" class="col-md-2 col-form-label text-md-left">Email</label>

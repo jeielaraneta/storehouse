@@ -32,7 +32,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/dashboard';
+    protected $redirectTo = '/users';
 
     protected $randTextGen;
 
@@ -76,7 +76,7 @@ class RegisterController extends Controller
             'last_name' => ['required', 'string', 'max:255'],
             'contact_number' => ['digits:11'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            //'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
 
@@ -95,7 +95,7 @@ class RegisterController extends Controller
             'last_name' => $data['last_name'],
             'contact_number' => $data['contact_number'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => Hash::make($this->generatePassword()),
         ]);
     }
 }

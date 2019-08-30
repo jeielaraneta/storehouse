@@ -13,11 +13,15 @@
 
 Route::get('/', function () {
     return view('auth.login');
-});
+})->name('login');
 
 Auth::routes(['verify' => true]);
 
 Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+
+Route::get('/setPassword/{user}', 'Auth\SetUserPassword@index')->name('set.password');
+
+Route::get('/setPassword/update/{user}', 'Auth\SetUserPassword@update')->name('update.password');
 
 Route::prefix('/members')->group(function () {
 
