@@ -5,9 +5,26 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\SetNewUserPassword;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Http\RedirectResponse;
 
 class SetUserPassword extends Controller
 {
+
+    protected $user;
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct(User $users)
+    {
+        $this->user = $users;
+        $this->middleware('guest');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +36,10 @@ class SetUserPassword extends Controller
             abort(401);
         }
 
-        dd($request->user);
+        $user = $this->user->findOrFail($request->user);
+
+        return view('auth/passwords/set-password', ['user_id' => $request->user, 'user' => $user]);
+        //dd($request->user);
     }
 
     /**
@@ -29,8 +49,24 @@ class SetUserPassword extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request)
     {
-        //
+        //$validated = $request->validated();
+        
+        $newUser = $this->user->findOrFail($request->id);
+        
+        $newUser->password = Hash::make($request->password);
+
+        if($newUser && ($newUser->username === $request->username)) {
+            $newUser->save();
+            
+            return redirect('login')->with('status', 'Password succesfully updated!');
+        }
+
+        else{
+            return redirect()->back()->with('fail','Credentials are mismatched.');
+        }
+
     }
+    
 }

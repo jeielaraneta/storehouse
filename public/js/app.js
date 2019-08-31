@@ -3492,13 +3492,13 @@ __webpack_require__.r(__webpack_exports__);
         getMessage: field => 'The ' + field + ' value is not truthy.',
         validate: value => value === 'A'
     });
-      let instance = new Validator({ trueField: 'truthy' });*/
+     let instance = new Validator({ trueField: 'truthy' });*/
     // or use the instance method
     //this.$validator.localize('en', dict);
     // Also there is an instance 'extend' method for convenience.
 
     /*instance.extend('falsy', (value) => ! value);
-      instance.attach({
+     instance.attach({
       name: 'falseField',
       rules: 'falsy'
     });*/
@@ -3840,14 +3840,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['submitUserPasswordRoute'],
+  props: ['submitUserPasswordRoute', 'userId'],
   data: function data() {
     return {
       username: '',
-      password: '',
-      password_confirmation: '',
+      //password: '',
+      //password_confirmation: '',
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
     };
   },
@@ -76612,6 +76618,12 @@ var render = function() {
             domProps: { value: _vm.csrf }
           }),
           _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control",
+            attrs: { type: "hidden", id: "id", name: "id" },
+            domProps: { value: this.userId }
+          }),
+          _vm._v(" "),
           _c("div", { staticClass: "form-row" }, [
             _c(
               "label",
@@ -76663,9 +76675,16 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-row" }, [
-            _c("div", { staticClass: "form-group col-md-6" }, [
-              _c("label", { attrs: { for: "password" } }, [_vm._v("Password")]),
-              _vm._v(" "),
+            _c(
+              "label",
+              {
+                staticClass: "col-md-2 col-form-label text-md-left",
+                attrs: { for: "password" }
+              },
+              [_vm._v("Password")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group col-md-10" }, [
               _c("input", {
                 directives: [
                   {
@@ -76673,12 +76692,6 @@ var render = function() {
                     rawName: "v-validate",
                     value: "required|min:8|verify_password",
                     expression: "'required|min:8|verify_password'"
-                  },
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.password,
-                    expression: "password"
                   }
                 ],
                 ref: "password",
@@ -76690,15 +76703,6 @@ var render = function() {
                   name: "password",
                   type: "password",
                   placeholder: "Password"
-                },
-                domProps: { value: _vm.password },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.password = $event.target.value
-                  }
                 }
               }),
               _vm._v(" "),
@@ -76707,13 +76711,20 @@ var render = function() {
                     _vm._v(_vm._s(_vm.errors.first("password")))
                   ])
                 : _vm._e()
-            ]),
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-row" }, [
+            _c(
+              "label",
+              {
+                staticClass: "col-md-2 col-form-label text-md-left",
+                attrs: { for: "password-confirm" }
+              },
+              [_vm._v("Confirm Password")]
+            ),
             _vm._v(" "),
-            _c("div", { staticClass: "form-group col-md-6" }, [
-              _c("label", { attrs: { for: "password-confirm" } }, [
-                _vm._v("Confirm Password")
-              ]),
-              _vm._v(" "),
+            _c("div", { staticClass: "form-group col-md-10" }, [
               _c("input", {
                 directives: [
                   {
@@ -76721,12 +76732,6 @@ var render = function() {
                     rawName: "v-validate",
                     value: "required|confirmed:password",
                     expression: "'required|confirmed:password'"
-                  },
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.password_confirmation,
-                    expression: "password_confirmation"
                   }
                 ],
                 class: {
@@ -76738,15 +76743,6 @@ var render = function() {
                   type: "password",
                   placeholder: "Password, Again",
                   "data-vv-as": "password"
-                },
-                domProps: { value: _vm.password_confirmation },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.password_confirmation = $event.target.value
-                  }
                 }
               }),
               _vm._v(" "),
@@ -76772,7 +76768,7 @@ var staticRenderFns = [
     return _c(
       "div",
       { staticClass: "card-header bg-transparent border-primary" },
-      [_c("h5", [_vm._v("Create New User")])]
+      [_c("h5", [_vm._v("User Account Setup")])]
     )
   },
   function() {
@@ -89829,8 +89825,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\jaraneta\storehouse\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\jaraneta\storehouse\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/jeielaraneta/storehouse/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/jeielaraneta/storehouse/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

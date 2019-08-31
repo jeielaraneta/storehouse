@@ -19,9 +19,9 @@ Auth::routes(['verify' => true]);
 
 Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 
-Route::get('/setPassword/{user}', 'Auth\SetUserPassword@index')->name('set.password');
+Route::get('/setPassword/{user}', 'Auth\SetUserPassword@index')->name('set.password')->middleware('signed');
 
-Route::get('/setPassword/update/{user}', 'Auth\SetUserPassword@update')->name('update.password');
+Route::post('/setPassword/update/{user}', 'Auth\SetUserPassword@update')->name('update.password');
 
 Route::prefix('/members')->group(function () {
 

@@ -1,9 +1,12 @@
 <template>
     <div class="card">
-        <div class="card-header bg-transparent border-primary"><h5>Create New User</h5></div>
+        <div class="card-header bg-transparent border-primary"><h5>User Account Setup</h5></div>
         <div class="card-body">
+
             <form ref="createUser" id="createUser" method="POST" :action="this.submitUserPasswordRoute" @submit.prevent="submitForm" @reset.prevent="resetForm" enctype="multipart/form-data" >
                 <input type="hidden" name="_token" :value="csrf">
+
+                <input type="hidden" class="form-control" id="id" name="id" :value="this.userId">
 
                 <div class="form-row">
                     <label for="username" class="col-md-2 col-form-label text-md-left">Username</label>
@@ -14,15 +17,18 @@
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="password">Password</label>
-                        <input v-validate="'required|min:8|verify_password'" name="password" type="password" v-model="password" :class="{'form-control': true, error: errors.has('password')}" placeholder="Password" ref="password">
+                    <label for="password" class="col-md-2 col-form-label text-md-left">Password</label>
+                    <div class="form-group col-md-10">
+                        <input v-validate="'required|min:8|verify_password'" name="password" type="password" :class="{'form-control': true, error: errors.has('password')}" placeholder="Password" ref="password">
                         <span class="error text-danger" v-if="errors.has('password')">{{errors.first('password')}}</span>
 
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="password-confirm">Confirm Password</label>
-                        <input v-validate="'required|confirmed:password'" name="password_confirmation" type="password" v-model="password_confirmation" :class="{'form-control': true, error: errors.has('password_confirmation')}"  placeholder="Password, Again" data-vv-as="password">
+                </div>
+
+                <div class="form-row">
+                    <label for="password-confirm" class="col-md-2 col-form-label text-md-left">Confirm Password</label>
+                    <div class="form-group col-md-10">
+                        <input v-validate="'required|confirmed:password'" name="password_confirmation" type="password" :class="{'form-control': true, error: errors.has('password_confirmation')}"  placeholder="Password, Again" data-vv-as="password">
                         <span class="error text-danger" v-if="errors.has('password_confirmation')">{{errors.first('password_confirmation')}}</span>
                     </div>
                 </div>
@@ -51,13 +57,13 @@
     import { Validator } from 'vee-validate'; 
 
     export default {
-        props: ['submitUserPasswordRoute'],
+        props: ['submitUserPasswordRoute', 'userId'],
 
         data() {
             return {
                 username: '',
-                password: '',
-                password_confirmation: '',
+                //password: '',
+                //password_confirmation: '',
 
                 csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
             }

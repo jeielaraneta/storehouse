@@ -37,7 +37,7 @@ class UserCreatedMail extends Mailable
                     ->with([
                         'username' => $this->user->username,
                         'first_name' => $this->user->first_name,
-                        'url' => $this->verificationUrl()
+                        'url' => $this->setPasswordUrl()
                     ]);
 
     }
@@ -48,10 +48,12 @@ class UserCreatedMail extends Mailable
      * @param  mixed  $notifiable
      * @return string
      */
-    public function verificationUrl()
+    public function setPasswordUrl()
     {
         return URL::temporarySignedRoute(
             'set.password', now()->addMinutes(30), ['user' => $this->user->id]
         );
+
+        //return URL::signedRoute('set.password', ['user' => $this->user->id]);
     }
 }
