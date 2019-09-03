@@ -46,4 +46,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $this->notify(new Notifications\VerifyUser);
     }*/
+
+    public function getCreatedAtAttribute($value) {
+        return date('m-d-Y h:i A', strtotime($value));
+    }
+
+    public function getEmailVerifiedAtAttribute($value) {
+        return date('m-d-Y h:i A', strtotime($value));
+    }
 }
