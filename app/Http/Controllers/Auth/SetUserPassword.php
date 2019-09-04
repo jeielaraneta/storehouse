@@ -10,6 +10,7 @@ use App\Http\Requests\SetNewUserPassword;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Carbon;
 
 class SetUserPassword extends Controller
 {
