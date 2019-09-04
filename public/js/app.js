@@ -1909,6 +1909,7 @@ __webpack_require__.r(__webpack_exports__);
 $(document).ready(function () {
   $('#membersTable').DataTable({});
   $('#recordsTable').DataTable({});
+  $('#usersTable').DataTable({});
 });
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
@@ -3492,13 +3493,13 @@ __webpack_require__.r(__webpack_exports__);
         getMessage: field => 'The ' + field + ' value is not truthy.',
         validate: value => value === 'A'
     });
-     let instance = new Validator({ trueField: 'truthy' });*/
+      let instance = new Validator({ trueField: 'truthy' });*/
     // or use the instance method
     //this.$validator.localize('en', dict);
     // Also there is an instance 'extend' method for convenience.
 
     /*instance.extend('falsy', (value) => ! value);
-     instance.attach({
+      instance.attach({
       name: 'falseField',
       rules: 'falsy'
     });*/
@@ -89825,8 +89826,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/jeielaraneta/storehouse/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/jeielaraneta/storehouse/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\jaraneta\storehouse\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\jaraneta\storehouse\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

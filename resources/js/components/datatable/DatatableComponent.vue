@@ -11,6 +11,10 @@
 	    $('#recordsTable').DataTable({
 	          
 	    });
+
+	    $('#usersTable').DataTable({
+	          
+	    });
 	});
 
 	export default {
