@@ -38,8 +38,11 @@ class SetUserPassword extends Controller
 
         $user = $this->user->findOrFail($request->user);
 
+        if($user->password_reset_at != null) {
+            abort(401);
+        }
+
         return view('auth/passwords/set-password', ['user_id' => $request->user, 'user' => $user]);
-        //dd($request->user);
     }
 
     /**
@@ -56,10 +59,11 @@ class SetUserPassword extends Controller
         $newUser = $this->user->findOrFail($request->id);
         
         $newUser->password = Hash::make($request->password);
+        $newUser->password_reset_at = Carbon::now();
 
         if($newUser && ($newUser->username === $request->username)) {
+
             $newUser->save();
-            
             return redirect('login')->with('status', 'Password succesfully updated!');
         }
 
