@@ -10,6 +10,7 @@ use App\Http\Requests\SetNewUserPassword;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Carbon;
 
 class SetUserPassword extends Controller
 {
@@ -32,11 +33,15 @@ class SetUserPassword extends Controller
      */
     public function index(Request $request)
     {
-        if (! $request->hasValidSignature()) {
+        if (!$request->hasValidSignature()) {
             abort(401);
         }
 
         $user = $this->user->findOrFail($request->user);
+
+        if($user->password_reset_at != null) {
+            abort(401);
+        }
 
         return view('auth/passwords/set-password', ['user_id' => $request->user, 'user' => $user]);
         //dd($request->user);
@@ -56,10 +61,11 @@ class SetUserPassword extends Controller
         $newUser = $this->user->findOrFail($request->id);
         
         $newUser->password = Hash::make($request->password);
+        $newUser->password_reset_at = Carbon::now();
 
         if($newUser && ($newUser->username === $request->username)) {
-            $newUser->save();
             
+            $newUser->save();
             return redirect('login')->with('status', 'Password succesfully updated!');
         }
 
