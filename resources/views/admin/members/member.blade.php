@@ -5,7 +5,7 @@
 
     <div class="row mb-2 text-left">
         <div class="col-md-12 ">
-            <create-button route="{{ route('member.create') }}" btn-text="Add New Member"></create-button>
+            <create-button route="{{ route('member.create') }}" btn-icon="fas fa-user-plus" btn-text="Add New Member"></create-button>
         </div>        
     </div>
 
