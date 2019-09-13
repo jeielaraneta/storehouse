@@ -18,10 +18,10 @@ class CreateRecordsTable extends Migration
             $table->enum('giver_type', ['identified', 'anonymous', 'group', 'bank_depositor']);
             $table->string('group_name', 75)->nullable();
             $table->string('agc', 75)->nullable(); //anonymous giver code
-            $table->string('deposit_reference', 75)->nullable();
             $table->enum('service_type', ['ews', 'mmws', 'vws', 'ss', 'pm', 'na']);
             $table->enum('record_type', ['nob', 'ob']);
             $table->enum('offer_method', ['cash', 'check', 'direct_deposit']);
+            $table->string('deposit_reference', 75)->nullable();
             $table->string('check_reference', 75)->nullable();
             $table->string('bank_name', 75)->nullable();
             $table->string('currency', 75);

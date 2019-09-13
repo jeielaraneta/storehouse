@@ -60,12 +60,18 @@ class RecordController extends Controller
     {
         $user = Auth::user();
 
-        if( $request->record_type == 'dd'){
+        if( $request->record_type == 'nob'){
 
+            //non-offering box
             $data = array(
-                'bank_ref' => $request->bank_ref,
+                'deposit_reference' => $request->deposit_reference,
                 'service_type' => $request->service_type,
                 'record_type' => $request->record_type,
+                'offer_method' => $request->offer_method,
+                'check_reference' => $request->check_reference,
+                'bank_name' => $request->bank_name,
+                'currency' => $request->currency,
+                'convert_to_peso' => $request->convert_to_peso,
                 'giver_type' => "bank_depositor",
                 'given_at' => date('Y-m-d', strtotime($request->given_at)),
                 'status' => $request->status,
@@ -99,6 +105,11 @@ class RecordController extends Controller
                         'member_id' => $request->gic,
                         'service_type' => $request->service_type,
                         'record_type' => $request->record_type,
+                        'offer_method' => $request->offer_method,
+                        'check_reference' => $request->check_reference,
+                        'bank_name' => $request->bank_name,
+                        'currency' => $request->currency,
+                        'convert_to_peso' => $request->convert_to_peso,
                         'giver_type' => $request->giver_type,
                         'given_at' => date('Y-m-d', strtotime($request->given_at)),
                         'status' => $request->status,
@@ -129,6 +140,11 @@ class RecordController extends Controller
                         'group_name' => $request->group_name,
                         'service_type' => $request->service_type,
                         'record_type' => $request->record_type,
+                        'offer_method' => $request->offer_method,
+                        'check_reference' => $request->check_reference,
+                        'bank_name' => $request->bank_name,
+                        'currency' => $request->currency,
+                        'convert_to_peso' => $request->convert_to_peso,
                         'giver_type' => $request->giver_type,
                         'given_at' => date('Y-m-d', strtotime($request->given_at)),
                         'status' => $request->status,
@@ -161,6 +177,11 @@ class RecordController extends Controller
                         'agc' => $agc,
                         'service_type' => $request->service_type,
                         'record_type' => $request->record_type,
+                        'offer_method' => $request->offer_method,
+                        'check_reference' => $request->check_reference,
+                        'bank_name' => $request->bank_name,
+                        'currency' => $request->currency,
+                        'convert_to_peso' => $request->convert_to_peso,
                         'giver_type' => $request->giver_type,
                         'given_at' => date('Y-m-d', strtotime($request->given_at)),
                         'status' => $request->status,

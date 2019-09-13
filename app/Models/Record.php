@@ -38,6 +38,10 @@ class Record extends Model
         return ucwords(str_replace('_', ' ', $value));
     }
 
+    public function getOfferMethodAttribute($value) {
+        return ucwords(str_replace('_', ' ', $value));
+    }
+
     public function getAgcAttribute($value) {
         $ident = '';
 
