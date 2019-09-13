@@ -3382,6 +3382,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['givenAt', 'submitRecordRoute', 'memberSearch', 'memberSearchRoute'],
@@ -3390,7 +3403,7 @@ __webpack_require__.r(__webpack_exports__);
       alertMessage: "",
       isHidden: true,
       isSuccesful: true,
-      isDirectDeposit: false,
+      isNob: false,
       gic: '',
       record_type: 'ob',
       service_type: '',
@@ -3422,9 +3435,11 @@ __webpack_require__.r(__webpack_exports__);
       },
       searchValues: [],
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-      isSelected: 'anonymous',
+      giver_type: 'anonymous',
+      offer_method: 'cash',
       record_data: [],
-      submit_record: []
+      submit_record: [],
+      currency: 'EUR'
     };
   },
   computed: {
@@ -3531,7 +3546,8 @@ __webpack_require__.r(__webpack_exports__);
       this.record_type = 'ob';
       this.given_at = '';
       this.status = 'Unverified';
-      this.isSelected = 'anonymous';
+      this.giver_type = 'anonymous';
+      this.offer_method = 'cash';
       e.target.reset();
       this.$validator.reset();
     },
@@ -3552,7 +3568,8 @@ __webpack_require__.r(__webpack_exports__);
       return this.record_data = {
         _token: this.csrf,
         record_type: this.record_type,
-        giver_type: this.isSelected,
+        giver_type: this.giver_type,
+        offer_method: this.offer_method,
         gic: this.gic['id'],
         agc: this.agc,
         group_name: this.group_name,
@@ -3575,7 +3592,7 @@ __webpack_require__.r(__webpack_exports__);
         if (result) {
           window.axios.post(_this2.submitRecordRoute, _this2.record_data).then(function (response) {
             _this2.isHidden = false;
-            _this2.isDirectDeposit = false;
+            _this2.isNob = false;
             _this2.isSuccesful = response.data.success ? true : false;
             _this2.alertMessage = response.data.success ? "Record succesfully added!" : "Error";
             e.target.reset();
@@ -71873,6 +71890,544 @@ src_component.install = src_Plugin;
 
 /***/ }),
 
+/***/ "./node_modules/vue-currency-input/dist/vue-currency-input.esm.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/vue-currency-input/dist/vue-currency-input.esm.js ***!
+  \************************************************************************/
+/*! exports provided: default, CurrencyDirective, CurrencyInput */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CurrencyDirective", function() { return directive; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CurrencyInput", function() { return component; });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/**
+ * Vue Currency Input 1.8.4
+ * (c) 2019 Matthias Stiller
+ * @license MIT
+ */
+
+
+var defaultOptions = {
+  locale: undefined,
+  currency: 'EUR',
+  distractionFree: true,
+  decimalLength: undefined,
+  min: null,
+  max: null,
+  validateOnInput: false
+};
+
+var onlyDigits = function (str) { return str.replace(/\D+/g, ''); };
+var count = function (str, search) { return (str.match(new RegExp(("\\" + search), 'g')) || []).length; };
+var endsWith = function (str, search) {
+  return str.substring(str.length - search.length, str.length) === search
+};
+var startsWith = function (str, search) {
+  return str.substring(0, search.length) === search
+};
+var removePrefix = function (str, prefix) {
+  if (prefix && startsWith(str, prefix)) {
+    return str.substr(prefix.length)
+  }
+  return str
+};
+var removeSuffix = function (str, suffix) {
+  if (suffix && endsWith(str, suffix)) {
+    return str.slice(0, suffix.length * -1)
+  }
+  return str
+};
+var stripCurrencySymbolAndMinusSign = function (str, currencyFormat) {
+  var prefix = currencyFormat.prefix;
+  var suffix = currencyFormat.suffix;
+  var value = str.replace(prefix, '').replace(suffix, '');
+  return {
+    value: removePrefix(value, '-'),
+    negative: startsWith(value, '-')
+  }
+};
+var isNumber = function (str) { return str.match(/^-?\d+(\.\d+)?$/); };
+var parse = function (str, ref) {
+  if ( ref === void 0 ) ref = {};
+  var prefix = ref.prefix;
+  var suffix = ref.suffix;
+  var groupingSymbol = ref.groupingSymbol;
+  var decimalSymbol = ref.decimalSymbol;
+  if (typeof str === 'number') {
+    return str
+  } else if (str && typeof str === 'string') {
+    if (isNumber(str)) {
+      return Number(str)
+    }
+    var ref$1 = stripCurrencySymbolAndMinusSign(str, { prefix: prefix, suffix: suffix });
+    var value = ref$1.value;
+    var negative = ref$1.negative;
+    var numberParts = value.split(decimalSymbol);
+    if (numberParts.length > 2) {
+      return null
+    }
+    var integer = numberParts[0].replace(new RegExp(("\\" + groupingSymbol), 'g'), '');
+    if (integer.length && !integer.match(/^\d+$/g)) {
+      return null
+    }
+    var number = integer;
+    if (numberParts.length === 2) {
+      var fraction = numberParts[1];
+      if (fraction.length && !fraction.match(/^\d+$/g)) {
+        return null
+      }
+      number += "." + fraction;
+    }
+    if (number) {
+      if (negative) {
+        number = "-" + number;
+      }
+      return Number(number)
+    }
+  }
+  return null
+};
+
+var setCaretPosition = function (el, position) { return el.setSelectionRange(position, position); };
+var getCaretPositionAfterFormat = function (el, inputtedValue, caretPosition) {
+  var ref = el.$ci.currencyFormat;
+  var prefix = ref.prefix;
+  var suffix = ref.suffix;
+  var decimalSymbol = ref.decimalSymbol;
+  var decimalLength = ref.decimalLength;
+  var groupingSymbol = ref.groupingSymbol;
+  var newValue = el.value;
+  var decimalSymbolPosition = inputtedValue.indexOf(decimalSymbol) + 1;
+  var caretPositionFromLeft = inputtedValue.length - caretPosition;
+  if (Math.abs(newValue.length - inputtedValue.length) > 1 && caretPosition <= decimalSymbolPosition) {
+    return newValue.indexOf(decimalSymbol) + 1
+  } else if (newValue.substr(caretPosition, 1) === groupingSymbol && count(newValue, groupingSymbol) === count(inputtedValue, groupingSymbol) + 1) {
+    return newValue.length - caretPositionFromLeft - 1
+  } else {
+    if (decimalSymbolPosition !== 0 && caretPosition > decimalSymbolPosition) {
+      if (onlyDigits(removeSuffix(inputtedValue.substr(decimalSymbolPosition), suffix)).length - 1 === decimalLength) {
+        caretPositionFromLeft -= 1;
+      }
+    }
+    return el.$ci.options.hideCurrencySymbol
+      ? newValue.length - caretPositionFromLeft
+      : Math.max(newValue.length - Math.max(caretPositionFromLeft, suffix.length), prefix.length === 0 ? 0 : prefix.length + 1)
+  }
+};
+var getCaretPositionAfterApplyingDistractionFreeFormat = function (ref, ref$1, value, caretPosition) {
+  var prefix = ref.prefix;
+  var groupingSymbol = ref.groupingSymbol;
+  var hideCurrencySymbol = ref$1.hideCurrencySymbol;
+  var hideGroupingSymbol = ref$1.hideGroupingSymbol;
+  var result = caretPosition;
+  if (hideCurrencySymbol) {
+    result -= prefix.length;
+  }
+  if (hideGroupingSymbol) {
+    result -= count(value.substring(0, caretPosition), groupingSymbol);
+  }
+  return Math.max(0, result)
+};
+
+var isValidInteger = function (integer, groupingSymbol) { return integer.match(new RegExp(("^-?(0|[1-9]\\d{0,2}(\\" + groupingSymbol + "?\\d{3})*)$"))); };
+var isFractionIncomplete = function (value, ref) {
+  var decimalSymbol = ref.decimalSymbol;
+  var groupingSymbol = ref.groupingSymbol;
+  var numberParts = value.split(decimalSymbol);
+  return endsWith(value, decimalSymbol) && numberParts.length === 2 && isValidInteger(numberParts[0], groupingSymbol)
+};
+var checkIncompleteValue = function (value, negative, previousConformedValue, currencyFormat) {
+  var prefix = currencyFormat.prefix;
+  var negativePrefix = currencyFormat.negativePrefix;
+  var suffix = currencyFormat.suffix;
+  var decimalSymbol = currencyFormat.decimalSymbol;
+  var decimalLength = currencyFormat.decimalLength;
+  if (value === '' && negative && previousConformedValue !== negativePrefix) {
+    return ("" + negativePrefix + suffix)
+  } else if (decimalLength > 0) {
+    if (isFractionIncomplete(value, currencyFormat)) {
+      return ("" + (negative ? negativePrefix : prefix) + value + suffix)
+    } else if (startsWith(value, decimalSymbol)) {
+      return ((negative ? negativePrefix : prefix) + "0" + decimalSymbol + ((onlyDigits(value.substr(1)).substr(0, decimalLength))) + suffix)
+    }
+  }
+  return null
+};
+var isFractionInvalid = function (fraction, numberOfFractionDigits) { return fraction.length > 0 && numberOfFractionDigits === 0; };
+var checkNumberValue = function (value, currencyFormat) {
+  if (isNumber(value)) {
+    var ref = value.split('.');
+    var integer = ref[0];
+    var fraction = ref[1];
+    if (fraction) {
+      fraction = fraction.substr(0, currencyFormat.decimalLength);
+    }
+    return {
+      conformedValue: Number((integer + "." + (fraction || ''))),
+      fractionDigits: fraction || ''
+    }
+  }
+  return null
+};
+function conformToMask (str, currencyFormat, previousConformedValue) {
+  if ( previousConformedValue === void 0 ) previousConformedValue = '';
+  if (typeof str === 'string') {
+    str = str.trim();
+    var numberValue = checkNumberValue(str, currencyFormat);
+    if (numberValue != null) {
+      return numberValue
+    }
+    var ref = stripCurrencySymbolAndMinusSign(str, currencyFormat);
+    var value = ref.value;
+    var negative = ref.negative;
+    var incompleteValue = checkIncompleteValue(value, negative, previousConformedValue, currencyFormat);
+    if (incompleteValue != null) {
+      return { conformedValue: incompleteValue }
+    }
+    var ref$1 = value.split(currencyFormat.decimalSymbol);
+    var integer = ref$1[0];
+    var fraction = ref$1.slice(1);
+    var integerDigits = onlyDigits(integer).replace(/^0+(0$|[^0])/, '$1');
+    var fractionDigits = onlyDigits(fraction.join('')).substr(0, currencyFormat.decimalLength);
+    if (isFractionInvalid(fraction, fractionDigits.length)) {
+      return { conformedValue: previousConformedValue }
+    }
+    var number = integerDigits;
+    if (negative) {
+      number = "-" + number;
+    }
+    if (fractionDigits.length > 0) {
+      number += "." + fractionDigits;
+    }
+    if (isNumber(number)) {
+      return {
+        conformedValue: Number(number),
+        fractionDigits: fractionDigits
+      }
+    } else if (number === '-' && previousConformedValue !== currencyFormat.negativePrefix) {
+      return { conformedValue: previousConformedValue }
+    } else {
+      return { conformedValue: '' }
+    }
+  }
+  return { conformedValue: previousConformedValue }
+}
+
+function createCurrencyFormat (ref) {
+  var locale = ref.locale;
+  var currency = ref.currency;
+  var numberFormat = new Intl.NumberFormat(locale, { style: 'currency', currency: currency });
+  var str = numberFormat.format(123456);
+  var decimalLength = (str.match(/0/g) || []).length;
+  var decimalSymbol = decimalLength > 0 ? str.substr(str.indexOf('6') + 1, 1) : null;
+  var prefix = str.substring(0, str.indexOf('1'));
+  var negativePrefix = numberFormat.format(-1).substring(0, str.indexOf('1') + 1);
+  var suffix = str.substring(str.lastIndexOf(decimalLength > 0 ? '0' : '6') + 1);
+  var groupingSymbol = str.substr(str.indexOf('3') + 1, 1);
+  return {
+    prefix: prefix,
+    negativePrefix: negativePrefix,
+    suffix: suffix,
+    groupingSymbol: groupingSymbol,
+    decimalSymbol: decimalSymbol,
+    decimalLength: decimalLength
+  }
+}
+
+function dispatchEvent (el, eventName, data) {
+  var event = document.createEvent('CustomEvent');
+  event.initCustomEvent(eventName, true, true, data);
+  el.dispatchEvent(event);
+}
+
+var directive = {
+  bind: function bind (el, ref, ref$1) {
+    var options = ref.value;
+    var context = ref$1.context;
+    var inputElement = init(el, options, context.$CI_DEFAULT_OPTIONS || defaultOptions);
+    vue__WEBPACK_IMPORTED_MODULE_0___default.a.nextTick(function () {
+      if (inputElement.value) {
+        applyFixedFractionFormat(inputElement);
+      }
+    });
+    inputElement.addEventListener('input', function () {
+      if (inputElement.$ci.focus) {
+        var value = inputElement.value;
+        var selectionStart = inputElement.selectionStart;
+        format(inputElement);
+        setCaretPosition(inputElement, getCaretPositionAfterFormat(inputElement, value, selectionStart));
+      } else {
+        format(inputElement);
+      }
+    }, { capture: true });
+    inputElement.addEventListener('format', function (ref) {
+      var detail = ref.detail;
+      if (!inputElement.$ci.focus) {
+        applyFixedFractionFormat(inputElement, detail.value);
+      }
+    });
+    inputElement.addEventListener('focus', function () {
+      inputElement.$ci.focus = true;
+      var ref = inputElement.$ci;
+      var currencyFormat = ref.currencyFormat;
+      var options = ref.options;
+      var distractionFree = options.distractionFree;
+      var hideCurrencySymbol = options.hideCurrencySymbol;
+      var hideGroupingSymbol = options.hideGroupingSymbol;
+      var hideNegligibleDecimalDigits = options.hideNegligibleDecimalDigits;
+      if (distractionFree === true || hideCurrencySymbol || hideGroupingSymbol || hideNegligibleDecimalDigits) {
+        setTimeout(function () {
+          var value = inputElement.value;
+          var selectionStart = inputElement.selectionStart;
+          var selectionEnd = inputElement.selectionEnd;
+          applyDistractionFreeFormat(inputElement);
+          if (Math.abs(selectionStart - selectionEnd) > 0) {
+            inputElement.setSelectionRange(0, inputElement.value.length);
+          } else {
+            setCaretPosition(inputElement, getCaretPositionAfterApplyingDistractionFreeFormat(currencyFormat, options, value, selectionStart));
+          }
+        });
+      }
+    });
+    inputElement.addEventListener('blur', function () {
+      inputElement.$ci.focus = false;
+      applyFixedFractionFormat(inputElement);
+    });
+  },
+  componentUpdated: function componentUpdated (el, ref, ref$1) {
+    var value = ref.value;
+    var oldValue = ref.oldValue;
+    var context = ref$1.context;
+    if (!!value && optionsChanged(oldValue, value)) {
+      var inputElement = init(el, value, context.$CI_DEFAULT_OPTIONS || defaultOptions);
+      applyFixedFractionFormat(inputElement, inputElement.$ci.numberValue);
+    }
+  }
+};
+var optionsChanged = function (oldOptions, newOptions) {
+  return Object.keys(defaultOptions).some(function (key) { return oldOptions[key] !== newOptions[key]; })
+};
+var init = function (el, optionsFromBinding, defaultOptions) {
+  var inputElement = el.tagName.toLowerCase() === 'input' ? el : el.querySelector('input');
+  if (!inputElement) {
+    throw new Error('The directive must be applied on an element consists of an input element')
+  }
+  var options = Object.assign({}, defaultOptions, optionsFromBinding);
+  options.hideCurrencySymbol = options.distractionFree === true || options.distractionFree.hideCurrencySymbol;
+  options.hideNegligibleDecimalDigits = options.distractionFree === true || options.distractionFree.hideNegligibleDecimalDigits;
+  options.hideGroupingSymbol = options.distractionFree === true || options.distractionFree.hideGroupingSymbol;
+  var min = options.min;
+  var max = options.max;
+  var decimalLength = options.decimalLength;
+  if (min != null && max != null && min > max) {
+    throw new Error('Invalid number range')
+  }
+  if (decimalLength < 0 || decimalLength > 20) {
+    throw new Error('Decimal length must be between 0 and 20')
+  }
+  var currencyFormat = createCurrencyFormat(options);
+  if (currencyFormat.decimalLength > 0 && options.decimalLength !== undefined) {
+    currencyFormat.decimalLength = options.decimalLength;
+  }
+  inputElement.$ci = Object.assign({}, inputElement.$ci || {},
+    {options: options,
+    currencyFormat: currencyFormat});
+  return inputElement
+};
+var applyFixedFractionFormat = function (el, value) {
+  if ( value === void 0 ) value = parse(el.value, el.$ci.currencyFormat);
+  var ref = el.$ci;
+  var ref_options = ref.options;
+  var min = ref_options.min;
+  var max = ref_options.max;
+  var decimalLength = ref.currencyFormat.decimalLength;
+  if (value != null) {
+    if (min != null && value < min) {
+      value = min;
+    }
+    if (max != null && value > max) {
+      value = max;
+    }
+    value = value.toFixed(decimalLength);
+  }
+  format(el, value);
+  dispatchEvent(el, 'input');
+};
+var applyDistractionFreeFormat = function (el) {
+  var ref = el.$ci;
+  var options = ref.options;
+  var currencyFormat = ref.currencyFormat;
+  var ref$1 = conformToMask(el.value, currencyFormat);
+  var conformedValue = ref$1.conformedValue;
+  var fractionDigits = ref$1.fractionDigits;
+  if (typeof conformedValue === 'number') {
+    el.value = new Intl.NumberFormat(options.locale, {
+      style: options.hideCurrencySymbol ? 'decimal' : 'currency',
+      useGrouping: !options.hideGroupingSymbol,
+      currency: options.currency,
+      minimumFractionDigits: options.hideNegligibleDecimalDigits ? fractionDigits.replace(/0+$/, '').length : fractionDigits.length
+    }).format(conformedValue);
+  }
+  el.$ci.previousConformedValue = el.value;
+};
+var format = function (el, value) {
+  if ( value === void 0 ) value = el.value;
+  var ref = el.$ci;
+  var options = ref.options;
+  var currencyFormat = ref.currencyFormat;
+  var focus = ref.focus;
+  var previousConformedValue = ref.previousConformedValue;
+  if (value != null) {
+    var hideCurrencySymbol = focus && options.hideCurrencySymbol;
+    var ref$1 = conformToMask(value, Object.assign({}, currencyFormat,
+      {prefix: hideCurrencySymbol ? '' : currencyFormat.prefix,
+      negativePrefix: hideCurrencySymbol ? '-' : currencyFormat.negativePrefix,
+      suffix: hideCurrencySymbol ? '' : currencyFormat.suffix}), previousConformedValue);
+    var conformedValue = ref$1.conformedValue;
+    var fractionDigits = ref$1.fractionDigits;
+    if (typeof conformedValue === 'number') {
+      var min = options.min;
+      var max = options.max;
+      if (options.validateOnInput && ((min != null && conformedValue < min) || (max != null && conformedValue > max))) {
+        el.value = previousConformedValue || null;
+      } else {
+        el.value = new Intl.NumberFormat(options.locale, {
+          style: hideCurrencySymbol ? 'decimal' : 'currency',
+          useGrouping: !(focus && options.hideGroupingSymbol),
+          currency: options.currency,
+          minimumFractionDigits: fractionDigits.length
+        }).format(conformedValue);
+      }
+    } else {
+      el.value = conformedValue;
+    }
+  } else {
+    el.value = null;
+  }
+  el.$ci.previousConformedValue = el.value;
+  var numberValue = parse(el.value, currencyFormat);
+  el.$ci.numberValue = numberValue;
+  dispatchEvent(el, 'format-complete', { numberValue: numberValue });
+};
+
+function objectWithoutProperties (obj, exclude) { var target = {}; for (var k in obj) if (Object.prototype.hasOwnProperty.call(obj, k) && exclude.indexOf(k) === -1) target[k] = obj[k]; return target; }
+var component = {
+  render: function render (h) {
+    return h('input', {
+      domProps: {
+        value: this.formattedValue
+      },
+      directives: [{
+        name: 'currency',
+        value: this.options
+      }],
+      on: this.listeners()
+    })
+  },
+  directives: {
+    currency: directive
+  },
+  name: 'CurrencyInput',
+  props: {
+    value: {
+      type: Number,
+      default: null
+    },
+    locale: {
+      type: String,
+      default: undefined
+    },
+    currency: {
+      type: String,
+      default: undefined
+    },
+    distractionFree: {
+      type: [Boolean, Object],
+      default: undefined
+    },
+    decimalLength: {
+      type: Number,
+      default: undefined
+    },
+    min: {
+      type: Number,
+      default: undefined
+    },
+    max: {
+      type: Number,
+      default: undefined
+    },
+    validateOnInput: {
+      type: Boolean,
+      default: undefined
+    }
+  },
+  data: function data () {
+    return {
+      formattedValue: this.value
+    }
+  },
+  computed: {
+    options: function options () {
+      var this$1 = this;
+      var options = Object.assign({}, this.$CI_DEFAULT_OPTIONS || defaultOptions);
+      Object.keys(defaultOptions).forEach(function (key) {
+        if (this$1[key] !== undefined) {
+          options[key] = this$1[key];
+        }
+      });
+      return options
+    }
+  },
+  watch: {
+    value: function value (value$1) {
+      dispatchEvent(this.$el, 'format', { value: value$1 });
+    }
+  },
+  methods: {
+    listeners: function listeners () {
+      var this$1 = this;
+      var ref = this.$listeners;
+      var input = ref.input;
+      var rest = objectWithoutProperties( ref, ["input"] );
+      var listeners = rest;
+      return Object.assign({}, listeners,
+        {'format-complete': function (ref) {
+          var detail = ref.detail;
+          this$1.$emit('input', detail.numberValue);
+          this$1.formattedValue = this$1.$el.value;
+        }})
+    }
+  }
+};
+
+var plugin = {
+  install: function install (Vue, ref) {
+    if ( ref === void 0 ) ref = {};
+    var componentName = ref.componentName; if ( componentName === void 0 ) componentName = component.name;
+    var directiveName = ref.directiveName; if ( directiveName === void 0 ) directiveName = 'currency';
+    var globalOptions = ref.globalOptions; if ( globalOptions === void 0 ) globalOptions = {};
+    var options = Object.assign({}, defaultOptions, globalOptions);
+    Vue.prototype.$CI_DEFAULT_OPTIONS = options;
+    Vue.component(componentName, component);
+    Vue.directive(directiveName, directive);
+    Vue.prototype.$parseCurrency = function (str, locale, currency) {
+      if ( locale === void 0 ) locale = options.locale;
+      if ( currency === void 0 ) currency = options.currency;
+      return parse(str, createCurrencyFormat(Object.assign({}, options, {locale: locale, currency: currency})))
+    };
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (plugin);
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-google-charts/dist/vue-google-charts.common.js":
 /*!*************************************************************************!*\
   !*** ./node_modules/vue-google-charts/dist/vue-google-charts.common.js ***!
@@ -75065,7 +75620,7 @@ var render = function() {
             }),
             _vm._v(" "),
             _c("div", { staticClass: "form-row" }, [
-              _c("div", { staticClass: "form-group col-md-6" }, [
+              _c("div", { staticClass: "form-group col-md-4" }, [
                 _c("div", { staticClass: "form-check form-check-inline" }, [
                   _c("input", {
                     directives: [
@@ -75087,7 +75642,7 @@ var render = function() {
                         _vm.getValues
                       ],
                       click: function($event) {
-                        _vm.isDirectDeposit = true
+                        _vm.isNob = true
                       }
                     }
                   }),
@@ -75098,7 +75653,7 @@ var render = function() {
                       staticClass: "form-check-label",
                       attrs: { for: "record_type1" }
                     },
-                    [_vm._v("Bank Deposit")]
+                    [_vm._v("Non Offering Box")]
                   )
                 ]),
                 _vm._v(" "),
@@ -75123,7 +75678,7 @@ var render = function() {
                         _vm.getValues
                       ],
                       click: function($event) {
-                        _vm.isDirectDeposit = false
+                        _vm.isNob = false
                       }
                     }
                   }),
@@ -75139,7 +75694,11 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "form-group col-md-6" }, [
+              _c("div", { staticClass: "form-group col-md-3" }, [
+                _c("label", { attrs: { for: "giver_type" } }, [
+                  _vm._v("Giver Type")
+                ]),
+                _vm._v(" "),
                 _c(
                   "select",
                   {
@@ -75147,12 +75706,12 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.isSelected,
-                        expression: "isSelected"
+                        value: _vm.giver_type,
+                        expression: "giver_type"
                       }
                     ],
                     staticClass: "custom-select custom-select mb-3",
-                    attrs: { id: "giver_type", disabled: _vm.isDirectDeposit },
+                    attrs: { id: "giver_type", disabled: _vm.isNob },
                     on: {
                       change: [
                         function($event) {
@@ -75164,7 +75723,7 @@ var render = function() {
                               var val = "_value" in o ? o._value : o.value
                               return val
                             })
-                          _vm.isSelected = $event.target.multiple
+                          _vm.giver_type = $event.target.multiple
                             ? $$selectedVal
                             : $$selectedVal[0]
                         },
@@ -75188,6 +75747,114 @@ var render = function() {
                     ])
                   ]
                 )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-md-3" }, [
+                _c("label", { attrs: { for: "offer_method" } }, [
+                  _vm._v("Offer Method")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.offer_method,
+                        expression: "offer_method"
+                      }
+                    ],
+                    staticClass: "custom-select custom-select mb-3",
+                    attrs: { id: "offer_method", disabled: _vm.isNob },
+                    on: {
+                      change: [
+                        function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.offer_method = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        },
+                        _vm.getValues
+                      ]
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { selected: "", value: "cash" } }, [
+                      _vm._v("Cash")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "check" } }, [
+                      _vm._v("Check")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "direct_deposit" } }, [
+                      _vm._v("Direct Deposit")
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-md-2" }, [
+                _c("label", { attrs: { for: "offer_method" } }, [
+                  _vm._v("Currency")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.currency,
+                        expression: "currency"
+                      }
+                    ],
+                    staticClass: "custom-select custom-select mb-3",
+                    attrs: { id: "currency", disabled: _vm.isNob },
+                    on: {
+                      change: [
+                        function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.currency = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        },
+                        _vm.getValues
+                      ]
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "EUR" } }, [_vm._v("EUR")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "USD" } }, [_vm._v("USD")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "JPY" } }, [_vm._v("JPY")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "GBP" } }, [_vm._v("GBP")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "BRL" } }, [_vm._v("BRL")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "INR" } }, [_vm._v("INR")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "CNY" } }, [_vm._v("CNY")])
+                  ]
+                )
               ])
             ]),
             _vm._v(" "),
@@ -75198,9 +75865,8 @@ var render = function() {
                   {
                     name: "show",
                     rawName: "v-show",
-                    value:
-                      _vm.isSelected == "identified" && !_vm.isDirectDeposit,
-                    expression: "isSelected == 'identified'&&!isDirectDeposit"
+                    value: _vm.giver_type == "identified" && !_vm.isNob,
+                    expression: "giver_type == 'identified'&&!isNob"
                   }
                 ],
                 staticClass: "form-row"
@@ -75222,12 +75888,11 @@ var render = function() {
                           name: "validate",
                           rawName: "v-validate",
                           value:
-                            _vm.isSelected == "identified" &&
-                            !_vm.isDirectDeposit
+                            _vm.giver_type == "identified" && !_vm.isNob
                               ? "required"
                               : "",
                           expression:
-                            "isSelected == 'identified'&&!isDirectDeposit ? 'required' : '' "
+                            "giver_type == 'identified'&&!isNob ? 'required' : '' "
                         }
                       ],
                       attrs: {
@@ -75267,8 +75932,8 @@ var render = function() {
                   {
                     name: "show",
                     rawName: "v-show",
-                    value: _vm.isSelected == "group" && !_vm.isDirectDeposit,
-                    expression: "isSelected == 'group'&&!isDirectDeposit"
+                    value: _vm.giver_type == "group" && !_vm.isNob,
+                    expression: "giver_type == 'group'&&!isNob"
                   }
                 ],
                 staticClass: "form-row"
@@ -75289,11 +75954,11 @@ var render = function() {
                         name: "validate",
                         rawName: "v-validate",
                         value:
-                          _vm.isSelected == "group" && !_vm.isDirectDeposit
+                          _vm.giver_type == "group" && !_vm.isNob
                             ? "required|alpha_spaces"
                             : "",
                         expression:
-                          "isSelected == 'group'&&!isDirectDeposit ? 'required|alpha_spaces' : '' "
+                          "giver_type == 'group'&&!isNob ? 'required|alpha_spaces' : '' "
                       }
                     ],
                     staticClass: "form-control",
@@ -75357,9 +76022,8 @@ var render = function() {
                       {
                         name: "validate",
                         rawName: "v-validate",
-                        value: _vm.isDirectDeposit ? "required|alpha_num" : "",
-                        expression:
-                          "isDirectDeposit ? 'required|alpha_num' : '' "
+                        value: _vm.isNob ? "required|alpha_num" : "",
+                        expression: "isNob ? 'required|alpha_num' : '' "
                       }
                     ],
                     staticClass: "form-control",
@@ -75578,44 +76242,42 @@ var render = function() {
                   _vm._v("Tithe")
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "input-group" }, [
-                  _vm._m(3),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.tithe,
-                        expression: "tithe"
+                _c(
+                  "div",
+                  { staticClass: "input-group" },
+                  [
+                    _c("CurrencyInput", {
+                      directives: [
+                        {
+                          name: "validate",
+                          rawName: "v-validate",
+                          value: "required|decimal",
+                          expression: "'required|decimal'"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      class: {
+                        "form-control": true,
+                        error: _vm.errors.has("tithe")
                       },
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: "required|decimal",
-                        expression: "'required|decimal'"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    class: {
-                      "form-control": true,
-                      error: _vm.errors.has("tithe")
-                    },
-                    attrs: { type: "text", name: "tithe", id: "tithe_amount" },
-                    domProps: { value: _vm.tithe },
-                    on: {
-                      input: [
-                        function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.tithe = $event.target.value
+                      attrs: {
+                        type: "text",
+                        name: "tithe",
+                        id: "tithe_amount",
+                        currency: _vm.currency
+                      },
+                      on: { input: _vm.getValues },
+                      model: {
+                        value: _vm.tithe,
+                        callback: function($$v) {
+                          _vm.tithe = $$v
                         },
-                        _vm.getValues
-                      ]
-                    }
-                  })
-                ]),
+                        expression: "tithe"
+                      }
+                    })
+                  ],
+                  1
+                ),
                 _vm._v(" "),
                 _vm.errors.has("tithe")
                   ? _c("span", { staticClass: "error text-danger" }, [
@@ -75629,44 +76291,42 @@ var render = function() {
                   _vm._v("Love")
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "input-group" }, [
-                  _vm._m(4),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.love,
-                        expression: "love"
+                _c(
+                  "div",
+                  { staticClass: "input-group" },
+                  [
+                    _c("CurrencyInput", {
+                      directives: [
+                        {
+                          name: "validate",
+                          rawName: "v-validate",
+                          value: "required|decimal",
+                          expression: "'required|decimal'"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      class: {
+                        "form-control": true,
+                        error: _vm.errors.has("love")
                       },
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: "required|decimal",
-                        expression: "'required|decimal'"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    class: {
-                      "form-control": true,
-                      error: _vm.errors.has("love")
-                    },
-                    attrs: { type: "text", name: "love", id: "love_amount" },
-                    domProps: { value: _vm.love },
-                    on: {
-                      input: [
-                        function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.love = $event.target.value
+                      attrs: {
+                        type: "text",
+                        name: "love",
+                        id: "love_amount",
+                        currency: _vm.currency
+                      },
+                      on: { input: _vm.getValues },
+                      model: {
+                        value: _vm.love,
+                        callback: function($$v) {
+                          _vm.love = $$v
                         },
-                        _vm.getValues
-                      ]
-                    }
-                  })
-                ]),
+                        expression: "love"
+                      }
+                    })
+                  ],
+                  1
+                ),
                 _vm._v(" "),
                 _vm.errors.has("love")
                   ? _c("span", { staticClass: "error text-danger" }, [
@@ -75680,44 +76340,42 @@ var render = function() {
                   _vm._v("Faith")
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "input-group" }, [
-                  _vm._m(5),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.faith,
-                        expression: "faith"
+                _c(
+                  "div",
+                  { staticClass: "input-group" },
+                  [
+                    _c("CurrencyInput", {
+                      directives: [
+                        {
+                          name: "validate",
+                          rawName: "v-validate",
+                          value: "required|decimal",
+                          expression: "'required|decimal'"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      class: {
+                        "form-control": true,
+                        error: _vm.errors.has("faith")
                       },
-                      {
-                        name: "validate",
-                        rawName: "v-validate",
-                        value: "required|decimal",
-                        expression: "'required|decimal'"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    class: {
-                      "form-control": true,
-                      error: _vm.errors.has("faith")
-                    },
-                    attrs: { type: "text", name: "faith", id: "faith_amount" },
-                    domProps: { value: _vm.faith },
-                    on: {
-                      input: [
-                        function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.faith = $event.target.value
+                      attrs: {
+                        type: "text",
+                        name: "faith",
+                        id: "faith_amount",
+                        currency: _vm.currency
+                      },
+                      on: { input: _vm.getValues },
+                      model: {
+                        value: _vm.faith,
+                        callback: function($$v) {
+                          _vm.faith = $$v
                         },
-                        _vm.getValues
-                      ]
-                    }
-                  })
-                ]),
+                        expression: "faith"
+                      }
+                    })
+                  ],
+                  1
+                ),
                 _vm._v(" "),
                 _vm.errors.has("faith")
                   ? _c("span", { staticClass: "error text-danger" }, [
@@ -75727,7 +76385,7 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _vm._m(6),
+            _vm._m(3),
             _vm._v(" "),
             _vm._l(_vm.des_offerings, function(input, k) {
               return _c("div", { key: k, staticClass: "form-row" }, [
@@ -75871,7 +76529,6 @@ var render = function() {
                               "designationCondition(input.designation) ? 'required|alpha_spaces' : ''"
                           }
                         ],
-                        staticClass: "form-control",
                         class: {
                           "form-control": true,
                           error: _vm.errors.has("designated_for")
@@ -75909,63 +76566,50 @@ var render = function() {
                   : _vm._e(),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group col-md-2" }, [
-                  _c("div", { staticClass: "input-group" }, [
-                    _vm._m(7, true),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model.number",
-                          value: input.designated_amount,
-                          expression: "input.designated_amount",
-                          modifiers: { number: true }
-                        },
-                        {
-                          name: "validate",
-                          rawName: "v-validate",
-                          value: "required|decimal",
-                          expression: "'required|decimal'"
-                        }
-                      ],
-                      staticClass: "form-control amount",
-                      class: {
-                        "form-control": true,
-                        error: _vm.errors.has("designated_amount")
-                      },
-                      attrs: {
-                        type: "text",
-                        name: "designated_amount",
-                        id: "designated_amount",
-                        placeholder: "Enter amount"
-                      },
-                      domProps: { value: input.designated_amount },
-                      on: {
-                        input: [
-                          function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              input,
-                              "designated_amount",
-                              _vm._n($event.target.value)
-                            )
-                          },
-                          _vm.getValues
+                  _c(
+                    "div",
+                    { staticClass: "input-group" },
+                    [
+                      _c("CurrencyInput", {
+                        directives: [
+                          {
+                            name: "validate",
+                            rawName: "v-validate",
+                            value: "required|decimal",
+                            expression: "'required|decimal'"
+                          }
                         ],
-                        blur: function($event) {
-                          return _vm.$forceUpdate()
+                        class: {
+                          "form-control": true,
+                          error: _vm.errors.has("designated_amount")
+                        },
+                        attrs: {
+                          type: "text",
+                          name: "designated_amount",
+                          id: "designated_amount",
+                          placeholder: "Enter amount",
+                          currency: _vm.currency
+                        },
+                        on: { input: _vm.getValues },
+                        model: {
+                          value: input.designated_amount,
+                          callback: function($$v) {
+                            _vm.$set(input, "designated_amount", _vm._n($$v))
+                          },
+                          expression: "input.designated_amount"
                         }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm.errors.has("designated_amount")
-                      ? _c("span", { staticClass: "error text-danger" }, [
-                          _vm._v(_vm._s(_vm.errors.first("designated_amount")))
-                        ])
-                      : _vm._e()
-                  ])
+                      }),
+                      _vm._v(" "),
+                      _vm.errors.has("designated_amount")
+                        ? _c("span", { staticClass: "error text-danger" }, [
+                            _vm._v(
+                              _vm._s(_vm.errors.first("designated_amount"))
+                            )
+                          ])
+                        : _vm._e()
+                    ],
+                    1
+                  )
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group col-md-2" }, [
@@ -76019,8 +76663,6 @@ var render = function() {
               ),
               _vm._v(" "),
               _c("div", { staticClass: "input-group col-md-2" }, [
-                _vm._m(8),
-                _vm._v(" "),
                 _c("input", {
                   directives: [
                     {
@@ -76037,7 +76679,6 @@ var render = function() {
                       expression: "'min_value:1'"
                     }
                   ],
-                  staticClass: "form-control",
                   class: {
                     "form-control": true,
                     error: _vm.errors.has("total_amount")
@@ -76046,7 +76687,8 @@ var render = function() {
                     type: "text",
                     name: "total_amount",
                     id: "total_amount",
-                    readonly: ""
+                    readonly: "",
+                    currency: _vm.currency
                   },
                   domProps: { value: _vm.total_amount },
                   on: {
@@ -76068,7 +76710,7 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _vm._m(9)
+            _vm._m(4)
           ],
           2
         )
@@ -76125,50 +76767,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-prepend" }, [
-      _c("div", { staticClass: "input-group-text" }, [_vm._v("₱")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-prepend" }, [
-      _c("div", { staticClass: "input-group-text" }, [_vm._v("₱")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-prepend" }, [
-      _c("div", { staticClass: "input-group-text" }, [_vm._v("₱")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-row" }, [
       _c("label", { attrs: { for: "designation" } }, [
         _vm._v("Special Offering")
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-prepend" }, [
-      _c("div", { staticClass: "input-group-text" }, [_vm._v("₱")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-prepend" }, [
-      _c("div", { staticClass: "input-group-text" }, [_vm._v("₱")])
     ])
   },
   function() {
@@ -88970,6 +89572,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var vue_google_charts__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-google-charts */ "./node_modules/vue-google-charts/index.js");
 /* harmony import */ var vee_validate__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vee-validate */ "./node_modules/vee-validate/dist/vee-validate.esm.js");
+/* harmony import */ var vue_currency_input__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-currency-input */ "./node_modules/vue-currency-input/dist/vue-currency-input.esm.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -88993,6 +89596,8 @@ Vue.component('GChart', vue_google_charts__WEBPACK_IMPORTED_MODULE_4__["GChart"]
 
 
 Vue.use(vee_validate__WEBPACK_IMPORTED_MODULE_5__["default"]);
+
+Vue.use(vue_currency_input__WEBPACK_IMPORTED_MODULE_6__["default"]);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
