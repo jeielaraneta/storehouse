@@ -24,7 +24,7 @@
 
                         <div class="form-group col-md-4">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" id="record_type1" value="dd" v-model="record_type" @change="getValues" @click="isNob = true">
+                                <input class="form-check-input" type="radio" id="record_type1" value="nob" v-model="record_type" @change="getValues" @click="isNob = true">
                                 <label class="form-check-label" for="record_type1">Non Offering Box</label>
                             </div>
                             <div class="form-check form-check-inline">
@@ -35,38 +35,39 @@
 
                         <div class="form-group col-md-3">
                             <label for="giver_type">Giver Type</label>
-                            <select id="giver_type" class="custom-select custom-select mb-3" v-model="giver_type" @change="getValues" :disabled="isNob">
+                            <select id="giver_type" class="custom-select custom-select mb-3" v-model="giver_type" @change="getValues">
                                 <option value="identified">Identified Giver</option>
                                 <option selected value="anonymous">Anonymous Giver</option>
                                 <option value="group">Group</option>
                             </select>
                         </div>
 
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-2">
                             <label for="offer_method">Offer Method</label>
-                            <select id="offer_method" class="custom-select custom-select mb-3" v-model="offer_method" @change="getValues" :disabled="isNob">
+                            <select id="offer_method" class="custom-select custom-select mb-3" v-model="offer_method" @change="getValues">
                                 <option selected value="cash">Cash</option>
-                                <option value="check">Check</option>
-                                <option value="direct_deposit">Direct Deposit</option>
+                                <option :disabled="record_type == 'ob'" value="check">Check</option>
+                                <option :disabled="record_type == 'ob'" value="direct_deposit">Direct Deposit</option>
                             </select>
                         </div>
 
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-md-3">
                             <label for="offer_method">Currency</label>
-                            <select id="currency" class="custom-select custom-select mb-3" v-model="currency" @change="getValues" :disabled="isNob">
-                                <option value="EUR">EUR</option>
-                                <option value="USD">USD</option>
-                                <option value="JPY">JPY</option>
-                                <option value="GBP">GBP</option>
-                                <option value="BRL">BRL</option>
-                                <option value="INR">INR</option>
-                                <option value="CNY">CNY</option>
+                            <select id="currency" class="custom-select custom-select mb-3" v-model="currency" @change="getValues">
+                                <option value="PHP">Philippine Peso (PHP)</option>
+                                <option value="EUR">European Euro (EUR)</option>
+                                <option value="USD">US Dollars (USD)</option>
+                                <option value="JPY">Japanese Yen (JPY)</option>
+                                <option value="GBP">British Pound (GBP)</option>
+                                <option value="CAD">Canadian Dollar (CAD)</option>
+                                <option value="NZD">New Zealand Dollar (NZD)</option>
+                                <option value="AUD">Australian Dollar (AUD)</option>
                             </select>
                         </div>
 
                     </div>
                     
-                    <div class="form-row" v-show="giver_type == 'identified'&&!isNob">
+                    <div class="form-row" v-show="giver_type == 'identified'">
                         <div class="form-group col-md-12">
                             <label for="gic">Member's Name or Giver Indentification Code (GIC) </label>
                             <multiselect v-model="gic" name="gic" :options="searchValues" :custom-label="nameWithCode" placeholder="Search for Member's name or GIC" label="name" track-by="name" id="gic"  @input="getValues"
@@ -75,7 +76,7 @@
                         </div>
                     </div>
                 
-                    <div class="form-row" v-show="giver_type == 'group'&&!isNob">
+                    <div class="form-row" v-show="giver_type == 'group'">
                         <div class="form-group col-md-12">
                             <label for="">Group's Name</label>
                             <input type="text" class="form-control" v-model="group_name" @change="getValues" autocomplete="off" name="group_name" v-validate="giver_type == 'group'&&!isNob ? 'required|alpha_spaces' : '' " :class="{'form-control': true, error: errors.has('group_name')}">
@@ -83,18 +84,30 @@
                         </div>
                     </div>
 
-                    <div class="form-row" v-show="record_type == 'dd'">
+                    <div class="form-row" v-show="offer_method == 'direct_deposit'">
                         <div class="form-group col-md-12">
-                            <label for="">Bank Deposit Reference Number</label>
-                            <input type="text" class="form-control" name="bank_ref" v-model="bank_ref" @change="getValues" autocomplete="off" v-validate="isNob ? 'required|alpha_num' : '' " :class="{'form-control': true, error: errors.has('bank_ref')}">
-                            <span class="error text-danger" v-if="errors.has('bank_ref')">{{errors.first('bank_ref')}}</span>
+                            <label for="">Deposit Reference Number</label>
+                            <input type="text" class="form-control" name="deposit_reference" v-model="deposit_reference" @change="getValues" autocomplete="off" v-validate="offer_method == 'direct_deposit' ? 'required|alpha_num' : '' " :class="{'form-control': true, error: errors.has('deposit_reference')}">
+                            <span class="error text-danger" v-if="errors.has('deposit_reference')">{{errors.first('deposit_reference')}}</span>
                         </div>
                     </div>
 
-                    <!-- <CurrencyInput
-                        :currency="currency"
-                        /> -->
-                    
+                    <div class="form-row" v-show="offer_method == 'check'">
+                        <div class="form-group col-md-12">
+                            <label for="">Check Reference Number</label>
+                            <input type="text" class="form-control" name="check_reference" v-model="check_reference" @change="getValues" autocomplete="off" v-validate="offer_method == 'check' ? 'required|alpha_num' : '' " :class="{'form-control': true, error: errors.has('check_reference')}">
+                            <span class="error text-danger" v-if="errors.has('check_reference')">{{errors.first('check_reference')}}</span>
+                        </div>
+                    </div>
+
+                    <div class="form-row" v-show="offer_method == 'direct_deposit'">
+                        <div class="form-group col-md-12">
+                            <label for="">Bank Name</label>
+                            <input type="text" class="form-control" name="bank_name" v-model="bank_name" @change="getValues" autocomplete="off" v-validate="offer_method == 'direct_deposit' ? 'required|alpha_num' : '' " :class="{'form-control': true, error: errors.has('bank_name')}">
+                            <span class="error text-danger" v-if="errors.has('bank_name')">{{errors.first('bank_name')}}</span>
+                        </div>
+                    </div>
+
                     <div class="form-row">
                         <div class="form-group col-md-4">
                         <label for="service_type">Service Type</label>
@@ -130,7 +143,7 @@
                         <div class="form-group col-md-4">
                             <label for="tithe_amount">Tithe</label>
                             <div class="input-group" >
-                                <CurrencyInput type="text" name="tithe" class="form-control" id="tithe_amount" v-model="tithe" @input="getValues" v-validate="'required|decimal'" :currency="currency" :class="{'form-control': true, error: errors.has('tithe')}"/>
+                                <input type="text" name="tithe" class="form-control" id="tithe_amount" v-model="tithe" @input="getValues" v-validate="'required|decimal'" :class="{'form-control': true, error: errors.has('tithe')}">
                             </div>
                             <span class="error text-danger" v-if="errors.has('tithe')">{{errors.first('tithe')}}</span>
                         </div>
@@ -138,7 +151,7 @@
                         <div class="form-group col-md-4">
                             <label for="love_amount">Love</label>
                             <div class="input-group">
-                                <CurrencyInput type="text" name="love" class="form-control" id="love_amount" v-model="love" @input="getValues" v-validate="'required|decimal'" :currency="currency" :class="{'form-control': true, error: errors.has('love')}"/>
+                                <input type="text" name="love" class="form-control" id="love_amount" v-model="love" @input="getValues" v-validate="'required|decimal'" :class="{'form-control': true, error: errors.has('love')}">
                             </div>
                             <span class="error text-danger" v-if="errors.has('love')">{{errors.first('love')}}</span>
                         </div>
@@ -146,7 +159,7 @@
                         <div class="form-group col-md-4">
                             <label for="faith_amount">Faith</label>
                             <div class="input-group">
-                                <CurrencyInput type="text" name="faith" class="form-control" id="faith_amount" v-model="faith" @input="getValues" v-validate="'required|decimal'" :currency="currency" :class="{'form-control': true, error: errors.has('faith')}"/>
+                                <input type="text" name="faith" class="form-control" id="faith_amount" v-model="faith" @input="getValues" v-validate="'required|decimal'" :class="{'form-control': true, error: errors.has('faith')}">
                             </div>
                             <span class="error text-danger" v-if="errors.has('faith')">{{errors.first('faith')}}</span>
                         </div>
@@ -185,7 +198,7 @@
 
                         <div class="form-group col-md-2">
                             <div class="input-group">
-                                <CurrencyInput type="text" name="designated_amount" id="designated_amount" v-model.number="input.designated_amount" placeholder="Enter amount" @input="getValues" :currency="currency" v-validate="'required|decimal'" :class="{'form-control': true, error: errors.has('designated_amount')}"/>
+                                <input type="text" name="designated_amount" id="designated_amount" v-model.number="input.designated_amount" placeholder="Enter amount" @input="getValues" v-validate="'required|decimal'" :class="{'form-control': true, error: errors.has('designated_amount')}">
                                 <span class="error text-danger" v-if="errors.has('designated_amount')">{{errors.first('designated_amount')}}</span>
                             </div>
                         </div>
@@ -201,10 +214,14 @@
                     <div class="form-group row">
                         <label for="total_amount" class="col-sm-2 col-form-label">Total Amount</label>
                         <div class="input-group col-md-2">
-                            <input type="text" name="total_amount" id="total_amount" v-model:value="total_amount" readonly @change="getValues" v-validate="'min_value:1'" :currency="currency" :class="{'form-control': true, error: errors.has('total_amount')}">
+                            <input type="text" name="total_amount" id="total_amount" v-model:value="total_amount" readonly @change="getValues" v-validate="'min_value:1'" :class="{'form-control': true, error: errors.has('total_amount')}">
                             <span class="error text-danger" v-if="errors.has('total_amount')">{{errors.first('total_amount')}}</span>
                         </div>
-                        
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="convert_to_peso" v-model:value="convert_to_peso" :disabled="currency == 'PHP'">
+                            <label class="form-check-label" for="convert_to_peso">Convert to PHP</label>
+                        </div>
                     </div>
 
                     <!-- <pre class="language-json"><code>{{ value }}</code></pre> -->
@@ -254,7 +271,11 @@ import { Validator } from 'vee-validate';
                 tithe: 0,
                 faith: 0,
                 love: 0,
-                bank_ref: '',
+                deposit_reference: '',
+                check_reference: '',
+                bank_name: '',
+                currency: 'PHP',
+                convert_to_peso: false,
 
                 des_offerings: [
                     {
@@ -286,8 +307,6 @@ import { Validator } from 'vee-validate';
 
                 record_data: [],
                 submit_record: [],
-
-                currency: 'EUR',
             }
         },
 
@@ -315,10 +334,20 @@ import { Validator } from 'vee-validate';
                         alpha_spaces: 'Group name should not contain special characters or numbers'
                     },
 
-                    bank_ref: {
+                    deposit_reference: {
                         required: 'Deposit reference should not be empty',
                         alpha_num: 'Deposit reference should contain numbers and letters only'
                     },  
+
+                    check_reference: {
+                        required: 'Check reference should not be empty',
+                        alpha_num: 'Check reference should contain numbers and letters only'
+                    },
+
+                    bank_name: {
+                        required: 'Bank name should not be empty',
+                        alpha_spaces: 'Bank name should contain letters and spaces only'
+                    },
 
                     tithe: {
                         required: 'Tithe amount should not be empty',
@@ -408,7 +437,9 @@ import { Validator } from 'vee-validate';
                 ];
                 
                 this.isAnonymous = false;
-                this.bank_ref = '';
+                this.deposit_reference = '';
+                this.check_reference = '';
+                this.bank_name = '';
                 this.gic = "";
                 this.tithe = 0;
                 this.love = 0;
@@ -419,6 +450,8 @@ import { Validator } from 'vee-validate';
                 this.status = 'Unverified';
                 this.giver_type = 'anonymous';
                 this.offer_method = 'cash';
+                this.convert_to_peso = false;
+                this.currency = 'PHP';
 
                 e.target.reset();
                 this.$validator.reset();
@@ -445,7 +478,9 @@ import { Validator } from 'vee-validate';
                     gic: this.gic['id'],
                     agc: this.agc,
                     group_name: this.group_name,
-                    bank_ref: this.bank_ref,
+                    deposit_reference: this.deposit_reference,
+                    check_reference: this.check_reference,
+                    bank_name: this.bank_name,
                     service_type: this.service_type,
                     given_at: this.given_at,
                     status: this.status,
@@ -453,7 +488,9 @@ import { Validator } from 'vee-validate';
                     love: this.love,
                     faith: this.faith,
                     total_amount: this.total_amount,
-                    special_offering: this.des_offerings
+                    special_offering: this.des_offerings,
+                    convert_to_peso: this.convert_to_peso,
+                    currency: this.currency,
                 }
             },
 

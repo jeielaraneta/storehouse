@@ -31,10 +31,6 @@ import { Validator } from 'vee-validate';
 
 Vue.use(VeeValidate);
 
-import VueCurrencyInput from 'vue-currency-input';
-
-Vue.use(VueCurrencyInput);
-
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
