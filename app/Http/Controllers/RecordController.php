@@ -60,153 +60,61 @@ class RecordController extends Controller
     {
         $user = Auth::user();
 
-        if( $request->record_type == 'nob'){
+        $identifier = array();
 
-            //non-offering box
-            $data = array(
-                'deposit_reference' => $request->deposit_reference,
-                'service_type' => $request->service_type,
-                'record_type' => $request->record_type,
-                'offer_method' => $request->offer_method,
-                'check_reference' => $request->check_reference,
-                'bank_name' => $request->bank_name,
-                'currency' => $request->currency,
-                'convert_to_peso' => $request->convert_to_peso,
-                'giver_type' => "bank_depositor",
-                'given_at' => date('Y-m-d', strtotime($request->given_at)),
-                'status' => $request->status,
-                'tithe_amount' => $request->tithe,
-                'love_amount' => $request->love,
-                'faith_amount' => $request->faith,
-                'total_amount' => $request->total_amount,
-                'created_by' => $user->username
-            );
+        switch ($request->giver_type) {
+            case 'identified':
 
-            $createRecord = $this->record->create($data);
+                $identifier = array('member_id' => $request->gic);
 
-            $specOff = $request->special_offering;
+                break;
 
-            $getRecord = $this->record->find($createRecord->id);
+            case 'group':
 
-            $saveSpecOff = $getRecord->specialOfferings()->createMany($specOff);
+                $identifier = array('group_name' => $request->group_name);
 
-            $result = ($createRecord && $saveSpecOff) ? true : false;
+                break;
+            
+            default:
 
-            return response()->json([ 'success' => $result]);
+                $agc = $this->generateAnonymousGiverCode();
 
-        } 
+                $identifier = array('agc' => $agc);
 
-        else {
-
-            switch ($request->giver_type) {
-                case 'identified':
-
-                    $data = array(
-                        'member_id' => $request->gic,
-                        'service_type' => $request->service_type,
-                        'record_type' => $request->record_type,
-                        'offer_method' => $request->offer_method,
-                        'check_reference' => $request->check_reference,
-                        'bank_name' => $request->bank_name,
-                        'currency' => $request->currency,
-                        'convert_to_peso' => $request->convert_to_peso,
-                        'giver_type' => $request->giver_type,
-                        'given_at' => date('Y-m-d', strtotime($request->given_at)),
-                        'status' => $request->status,
-                        'tithe_amount' => $request->tithe,
-                        'love_amount' => $request->love,
-                        'faith_amount' => $request->faith,
-                        'total_amount' => $request->total_amount,
-                        'created_by' => $user->username
-                    );
-
-                    $createRecord = $this->record->create($data);
-
-                    $specOff = $request->special_offering;
-
-                    $getRecord = $this->record->find($createRecord->id);
-
-                    $saveSpecOff = $getRecord->specialOfferings()->createMany($specOff);
-
-                    $result = ($createRecord && $saveSpecOff) ? true : false;
-
-                    return response()->json([ 'success' => $result]);
-
-                    break;
-
-                case 'group':
-
-                    $data = array(
-                        'group_name' => $request->group_name,
-                        'service_type' => $request->service_type,
-                        'record_type' => $request->record_type,
-                        'offer_method' => $request->offer_method,
-                        'check_reference' => $request->check_reference,
-                        'bank_name' => $request->bank_name,
-                        'currency' => $request->currency,
-                        'convert_to_peso' => $request->convert_to_peso,
-                        'giver_type' => $request->giver_type,
-                        'given_at' => date('Y-m-d', strtotime($request->given_at)),
-                        'status' => $request->status,
-                        'tithe_amount' => $request->tithe,
-                        'love_amount' => $request->love,
-                        'faith_amount' => $request->faith,
-                        'total_amount' => $request->total_amount,
-                        'created_by' => $user->username
-                    );
-
-                    $createRecord = $this->record->create($data);
-
-                    $specOff = $request->special_offering;
-
-                    $getRecord = $this->record->find($createRecord->id);
-
-                    $saveSpecOff = $getRecord->specialOfferings()->createMany($specOff);
-
-                    $result = ($createRecord && $saveSpecOff) ? true : false;
-
-                    return response()->json([ 'success' => $result]);
-
-                    break;
-                
-                default:
-
-                    $agc = $this->generateAnonymousGiverCode();
-
-                    $data = array(
-                        'agc' => $agc,
-                        'service_type' => $request->service_type,
-                        'record_type' => $request->record_type,
-                        'offer_method' => $request->offer_method,
-                        'check_reference' => $request->check_reference,
-                        'bank_name' => $request->bank_name,
-                        'currency' => $request->currency,
-                        'convert_to_peso' => $request->convert_to_peso,
-                        'giver_type' => $request->giver_type,
-                        'given_at' => date('Y-m-d', strtotime($request->given_at)),
-                        'status' => $request->status,
-                        'tithe_amount' => $request->tithe,
-                        'love_amount' => $request->love,
-                        'faith_amount' => $request->faith,
-                        'total_amount' => $request->total_amount,
-                        'created_by' => $user->username
-                    );
-
-                    $createRecord = $this->record->create($data);
-
-                    $specOff = $request->special_offering;
-
-                    $getRecord = $this->record->find($createRecord->id);
-
-                    $saveSpecOff = $getRecord->specialOfferings()->createMany($specOff);
-
-                    $result = ($createRecord && $saveSpecOff) ? true : false;
-
-                    return response()->json([ 'success' => $result]);
-
-                    break;
-            }
+                break;
         }
+
+        $data = array(
+            'service_type' => $request->service_type,
+            'record_type' => $request->record_type,
+            'offer_method' => $request->offer_method,
+            'check_reference' => $request->check_reference,
+            'bank_name' => $request->bank_name,
+            'currency' => $request->currency,
+            'convert_to_peso' => $request->convert_to_peso,
+            'giver_type' => $request->giver_type,
+            'given_at' => date('Y-m-d', strtotime($request->given_at)),
+            'status' => $request->status,
+            'tithe_amount' => $request->tithe,
+            'love_amount' => $request->love,
+            'faith_amount' => $request->faith,
+            'total_amount' => $request->total_amount,
+            'created_by' => $user->username
+        );
+
+        $recordData = array_merge($data, $identifier);
+
+        $createRecord = $this->record->create($recordData);
+
+        $specOff = $request->special_offering;
+
+        $getRecord = $this->record->find($createRecord->id);
+
+        $saveSpecOff = $getRecord->specialOfferings()->createMany($specOff);
+
+        $result = ($createRecord && $saveSpecOff) ? true : false;
+
+        return response()->json([ 'success' => $result]);
     }
 
     /**

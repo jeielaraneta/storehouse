@@ -103,7 +103,7 @@
                     <div class="form-row" v-show="offer_method == 'direct_deposit' && record_type != 'ob'">
                         <div class="form-group col-md-12">
                             <label for="">Bank Name</label>
-                            <input type="text" class="form-control" name="bank_name" v-model="bank_name" @change="getValues" autocomplete="off" v-validate="offer_method == 'direct_deposit' ? 'required|alpha_num' : '' " :class="{'form-control': true, error: errors.has('bank_name')}">
+                            <input type="text" class="form-control" name="bank_name" v-model="bank_name" @change="getValues" autocomplete="off" v-validate="offer_method == 'direct_deposit' ? 'required|alpha_spaces' : '' " :class="{'form-control': true, error: errors.has('bank_name')}">
                             <span class="error text-danger" v-if="errors.has('bank_name')">{{errors.first('bank_name')}}</span>
                         </div>
                     </div>
@@ -130,7 +130,7 @@
                         </div>
 
                          <div class="form-group col-md-4">
-                            <label for="service_type">Status</label>
+                            <label for="status">Status</label>
                             <select id="status" class="custom-select custom-select mb-3" v-model="status" @change="getValues">
                                 <option value="Unverified">Unverified</option>
                                 <option value="Verified">Verified</option>
@@ -219,7 +219,7 @@
                         </div>
 
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="convert_to_peso" v-model:value="convert_to_peso" :disabled="currency == 'PHP'">
+                            <input class="form-check-input" type="checkbox" v-model="convert_to_peso" @change="getValues" unchecked-value="no" :disabled="currency == 'PHP'" id="convert_to_peso" name="convert_to_peso">
                             <label class="form-check-label" for="convert_to_peso">Convert to PHP</label>
                         </div>
                     </div>
@@ -276,6 +276,8 @@ import { Validator } from 'vee-validate';
                 bank_name: '',
                 currency: 'PHP',
                 convert_to_peso: false,
+                giver_type: 'anonymous',
+                offer_method: 'cash',
 
                 des_offerings: [
                     {
@@ -302,8 +304,6 @@ import { Validator } from 'vee-validate';
                 searchValues: [],
 
                 csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                giver_type: 'anonymous',
-                offer_method: 'cash',
 
                 record_data: [],
                 submit_record: [],
@@ -490,7 +490,7 @@ import { Validator } from 'vee-validate';
                     total_amount: this.total_amount,
                     special_offering: this.des_offerings,
                     convert_to_peso: this.convert_to_peso,
-                    currency: this.currency,
+                    currency: this.currency
                 }
             },
 

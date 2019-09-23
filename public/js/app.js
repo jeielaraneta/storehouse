@@ -3436,6 +3436,8 @@ __webpack_require__.r(__webpack_exports__);
       bank_name: '',
       currency: 'PHP',
       convert_to_peso: false,
+      giver_type: 'anonymous',
+      offer_method: 'cash',
       des_offerings: [{
         designation: 'select',
         designated_amount: 0,
@@ -3456,8 +3458,6 @@ __webpack_require__.r(__webpack_exports__);
       },
       searchValues: [],
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-      giver_type: 'anonymous',
-      offer_method: 'cash',
       record_data: [],
       submit_record: []
     };
@@ -3535,13 +3535,13 @@ __webpack_require__.r(__webpack_exports__);
         getMessage: field => 'The ' + field + ' value is not truthy.',
         validate: value => value === 'A'
     });
-     let instance = new Validator({ trueField: 'truthy' });*/
+      let instance = new Validator({ trueField: 'truthy' });*/
     // or use the instance method
     //this.$validator.localize('en', dict);
     // Also there is an instance 'extend' method for convenience.
 
     /*instance.extend('falsy', (value) => ! value);
-     instance.attach({
+      instance.attach({
       name: 'falseField',
       rules: 'falsy'
     });*/
@@ -75697,10 +75697,10 @@ var render = function() {
                         rawName: "v-validate",
                         value:
                           _vm.offer_method == "direct_deposit"
-                            ? "required|alpha_num"
+                            ? "required|alpha_spaces"
                             : "",
                         expression:
-                          "offer_method == 'direct_deposit' ? 'required|alpha_num' : '' "
+                          "offer_method == 'direct_deposit' ? 'required|alpha_spaces' : '' "
                       }
                     ],
                     staticClass: "form-control",
@@ -75864,9 +75864,7 @@ var render = function() {
               ),
               _vm._v(" "),
               _c("div", { staticClass: "form-group col-md-4" }, [
-                _c("label", { attrs: { for: "service_type" } }, [
-                  _vm._v("Status")
-                ]),
+                _c("label", { attrs: { for: "status" } }, [_vm._v("Status")]),
                 _vm._v(" "),
                 _c(
                   "select",
@@ -76400,17 +76398,18 @@ var render = function() {
                   directives: [
                     {
                       name: "model",
-                      rawName: "v-model:value",
+                      rawName: "v-model",
                       value: _vm.convert_to_peso,
-                      expression: "convert_to_peso",
-                      arg: "value"
+                      expression: "convert_to_peso"
                     }
                   ],
                   staticClass: "form-check-input",
                   attrs: {
                     type: "checkbox",
+                    "unchecked-value": "no",
+                    disabled: _vm.currency == "PHP",
                     id: "convert_to_peso",
-                    disabled: _vm.currency == "PHP"
+                    name: "convert_to_peso"
                   },
                   domProps: {
                     checked: Array.isArray(_vm.convert_to_peso)
@@ -76418,25 +76417,28 @@ var render = function() {
                       : _vm.convert_to_peso
                   },
                   on: {
-                    change: function($event) {
-                      var $$a = _vm.convert_to_peso,
-                        $$el = $event.target,
-                        $$c = $$el.checked ? true : false
-                      if (Array.isArray($$a)) {
-                        var $$v = null,
-                          $$i = _vm._i($$a, $$v)
-                        if ($$el.checked) {
-                          $$i < 0 && (_vm.convert_to_peso = $$a.concat([$$v]))
+                    change: [
+                      function($event) {
+                        var $$a = _vm.convert_to_peso,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 && (_vm.convert_to_peso = $$a.concat([$$v]))
+                          } else {
+                            $$i > -1 &&
+                              (_vm.convert_to_peso = $$a
+                                .slice(0, $$i)
+                                .concat($$a.slice($$i + 1)))
+                          }
                         } else {
-                          $$i > -1 &&
-                            (_vm.convert_to_peso = $$a
-                              .slice(0, $$i)
-                              .concat($$a.slice($$i + 1)))
+                          _vm.convert_to_peso = $$c
                         }
-                      } else {
-                        _vm.convert_to_peso = $$c
-                      }
-                    }
+                      },
+                      _vm.getValues
+                    ]
                   }
                 }),
                 _vm._v(" "),
@@ -90168,8 +90170,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/jeielaraneta/storehouse/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/jeielaraneta/storehouse/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\jaraneta\storehouse\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\jaraneta\storehouse\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
