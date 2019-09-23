@@ -3535,13 +3535,13 @@ __webpack_require__.r(__webpack_exports__);
         getMessage: field => 'The ' + field + ' value is not truthy.',
         validate: value => value === 'A'
     });
-      let instance = new Validator({ trueField: 'truthy' });*/
+     let instance = new Validator({ trueField: 'truthy' });*/
     // or use the instance method
     //this.$validator.localize('en', dict);
     // Also there is an instance 'extend' method for convenience.
 
     /*instance.extend('falsy', (value) => ! value);
-      instance.attach({
+     instance.attach({
       name: 'falseField',
       rules: 'falsy'
     });*/
@@ -75285,7 +75285,7 @@ var render = function() {
                     }
                   },
                   [
-                    _c("option", { attrs: { selected: "", value: "cash" } }, [
+                    _c("option", { attrs: { value: "cash" } }, [
                       _vm._v("Cash")
                     ]),
                     _vm._v(" "),
@@ -75529,8 +75529,11 @@ var render = function() {
                   {
                     name: "show",
                     rawName: "v-show",
-                    value: _vm.offer_method == "direct_deposit",
-                    expression: "offer_method == 'direct_deposit'"
+                    value:
+                      _vm.offer_method == "direct_deposit" &&
+                      _vm.record_type != "ob",
+                    expression:
+                      "offer_method == 'direct_deposit' && record_type != 'ob'"
                   }
                 ],
                 staticClass: "form-row"
@@ -75598,8 +75601,9 @@ var render = function() {
                   {
                     name: "show",
                     rawName: "v-show",
-                    value: _vm.offer_method == "check",
-                    expression: "offer_method == 'check'"
+                    value:
+                      _vm.offer_method == "check" && _vm.record_type != "ob",
+                    expression: "offer_method == 'check' && record_type != 'ob'"
                   }
                 ],
                 staticClass: "form-row"
@@ -75667,8 +75671,11 @@ var render = function() {
                   {
                     name: "show",
                     rawName: "v-show",
-                    value: _vm.offer_method == "direct_deposit",
-                    expression: "offer_method == 'direct_deposit'"
+                    value:
+                      _vm.offer_method == "direct_deposit" &&
+                      _vm.record_type != "ob",
+                    expression:
+                      "offer_method == 'direct_deposit' && record_type != 'ob'"
                   }
                 ],
                 staticClass: "form-row"
@@ -90161,8 +90168,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\jaraneta\storehouse\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\jaraneta\storehouse\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/jeielaraneta/storehouse/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/jeielaraneta/storehouse/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

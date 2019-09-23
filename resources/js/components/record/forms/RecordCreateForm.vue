@@ -45,7 +45,7 @@
                         <div class="form-group col-md-2">
                             <label for="offer_method">Offer Method</label>
                             <select id="offer_method" class="custom-select custom-select mb-3" v-model="offer_method" @change="getValues">
-                                <option selected value="cash">Cash</option>
+                                <option value="cash">Cash</option>
                                 <option :disabled="record_type == 'ob'" value="check">Check</option>
                                 <option :disabled="record_type == 'ob'" value="direct_deposit">Direct Deposit</option>
                             </select>
@@ -84,7 +84,7 @@
                         </div>
                     </div>
 
-                    <div class="form-row" v-show="offer_method == 'direct_deposit'">
+                    <div class="form-row" v-show="offer_method == 'direct_deposit' && record_type != 'ob'">
                         <div class="form-group col-md-12">
                             <label for="">Deposit Reference Number</label>
                             <input type="text" class="form-control" name="deposit_reference" v-model="deposit_reference" @change="getValues" autocomplete="off" v-validate="offer_method == 'direct_deposit' ? 'required|alpha_num' : '' " :class="{'form-control': true, error: errors.has('deposit_reference')}">
@@ -92,7 +92,7 @@
                         </div>
                     </div>
 
-                    <div class="form-row" v-show="offer_method == 'check'">
+                    <div class="form-row" v-show="offer_method == 'check' && record_type != 'ob'">
                         <div class="form-group col-md-12">
                             <label for="">Check Reference Number</label>
                             <input type="text" class="form-control" name="check_reference" v-model="check_reference" @change="getValues" autocomplete="off" v-validate="offer_method == 'check' ? 'required|alpha_num' : '' " :class="{'form-control': true, error: errors.has('check_reference')}">
@@ -100,7 +100,7 @@
                         </div>
                     </div>
 
-                    <div class="form-row" v-show="offer_method == 'direct_deposit'">
+                    <div class="form-row" v-show="offer_method == 'direct_deposit' && record_type != 'ob'">
                         <div class="form-group col-md-12">
                             <label for="">Bank Name</label>
                             <input type="text" class="form-control" name="bank_name" v-model="bank_name" @change="getValues" autocomplete="off" v-validate="offer_method == 'direct_deposit' ? 'required|alpha_num' : '' " :class="{'form-control': true, error: errors.has('bank_name')}">
