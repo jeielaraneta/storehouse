@@ -53,7 +53,16 @@
                                 <a class="nav-link" href="{{ route('record.index') }}"> <i class="fas fa-donate"></i> {{ __('Records') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('member.index') }}"><i class="fas fa-users"></i> {{ __('Members') }}</a>
+                                <a class="nav-link" href="{{ route('member.index') }}"><i class="fas fa-address-card"></i> {{ __('Members') }}</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-users"></i> Users </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#">Roles</a>
+                                    <a class="dropdown-item" href="#">Permisions</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{{ route('user.index') }}">View Users</a>
+                                </div>
                             </li>
                         @endauth
                     </ul>
@@ -65,16 +74,15 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
-                        @guest
+                        @auth
                             <!-- <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li> -->
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
+
+                            <!-- <li class="nav-item">
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            </li> -->
+
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->first_name }} <span class="caret"></span>
@@ -92,7 +100,7 @@
                                     </form>
                                 </div>
                             </li>
-                        @endguest
+                        @endauth
                     </ul>
                 </div>
             </div>

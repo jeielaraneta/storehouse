@@ -23,4 +23,8 @@ class RecordObserver
         $rec->save();
     }
 
+    public function creating(Record $record) {
+        
+    }
+
 }

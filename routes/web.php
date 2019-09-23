@@ -13,11 +13,15 @@
 
 Route::get('/', function () {
     return view('auth.login');
-});
+})->name('login');
 
 Auth::routes(['verify' => true]);
 
 Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+
+Route::get('/setPassword/{user}', 'Auth\SetUserPassword@index')->name('set.password')->middleware('signed');
+
+Route::post('/setPassword/update/{user}', 'Auth\SetUserPassword@update')->name('update.password');
 
 Route::prefix('/members')->group(function () {
 
@@ -39,6 +43,13 @@ Route::prefix('/records')->group(function () {
     Route::get('/show/{id}', 'RecordController@show')->name('record.show');
     Route::put('/update/{id}', 'RecordController@update')->name('record.update');
     Route::get('/api', 'RecordController@apiResource');
+
+});
+
+Route::prefix('/users')->group(function () {
+
+    Route::get('/', 'UserController@index')->name('user.index');
+    Route::get('/create', 'UserController@create')->name('user.create');
 
 });
 
