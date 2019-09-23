@@ -1,6 +1,6 @@
 <template>
 
-    <a role="button" :href="this.route" class="btn btn-primary float-right"> <i class="fas fa-user-plus"></i> {{ this.btnText }}</a>
+    <a role="button" :href="this.route" class="btn btn-primary float-right"> <i :class="this.btnIcon"></i> {{ this.btnText }}</a> <!-- fas fa-user-plus -->
 
 </template>
 
@@ -9,6 +9,6 @@
         mounted() {
             
         },
-        props: ['route', 'btnText']
+        props: ['route', 'btnIcon', 'btnText']
     }
 </script>
