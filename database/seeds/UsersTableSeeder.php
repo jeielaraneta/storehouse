@@ -18,7 +18,8 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert(
+
+        $data = array(
             [
                 'username' => $this->generateUsername('John Jeiel', 'Noblejas', 'Araneta'),
                 'first_name' => 'John Jeiel',
@@ -27,8 +28,19 @@ class UsersTableSeeder extends Seeder
                 'contact_number' => '09081858655',
                 'email' => 'jeielaraneta@gmail.com',
                 'password' => bcrypt('secret123'),
+            ],
+            [
+                'username' => $this->generateUsername('Service', 'Check', 'Account'),
+                'first_name' => 'Service',
+                'middle_name' => 'Check',
+                'last_name' => 'Account',
+                'contact_number' => '09081858655',
+                'email' => 'service_account@gmail.com',
+                'password' => bcrypt('service123'),
             ]
         );
+
+        DB::table('users')->insert($data);
 
     }
 }
