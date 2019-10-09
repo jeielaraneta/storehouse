@@ -46,4 +46,8 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $this->notify(new Notifications\VerifyUser);
     }*/
+
+    public function getStatusAttribute($value){
+        return $value ? 'Enabled' : 'Disabled';
+    }
 }
