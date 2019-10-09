@@ -1895,6 +1895,197 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard/dashboard.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/dashboard/dashboard.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mounted: function mounted() {},
+  data: function data() {
+    return {
+      weeklyChartData: [['Week', 'Tithes', 'Love', 'Faith', 'Special Offerings'], ['Week 1', 1000, 400, 200, 900], ['Week 2', 1170, 460, 250, 502], ['Week 3', 660, 1120, 300, 309], ['Week 4', 1030, 540, 350, 890]],
+      weeklyChartOptions: {
+        chart: {
+          title: 'Offering',
+          subtitle: 'Tithes, Love, Faith and Special Offerings: 2014-2017'
+        }
+      },
+      monthlyChartData: [['Month', 'Tithes', 'Love', 'Faith', 'Special Offerings'], ['Januray', 1000, 400, 200, 900], ['Febuary', 1170, 460, 250, 502], ['March', 660, 1120, 300, 309], ['April', 1030, 540, 350, 890], ['May', 1030, 540, 350, 890], ['June', 1030, 540, 350, 890], ['July', 1030, 540, 350, 890], ['April', 1030, 540, 350, 890], ['April', 1030, 540, 350, 890], ['April', 1030, 540, 350, 890]],
+      monthlyChartOptions: {
+        chart: {
+          title: 'Offering',
+          subtitle: 'Tithes, Love, Faith and Special Offerings: 2014-2017'
+        }
+      },
+      giverTypePercentage: [['Giver Type', 'Population'], ['Anonymous', 11000], ['Identified', 6500], ['Group', 3256]],
+      giverTypePercentageOptions: {
+        title: 'Giver Types Population',
+        chartArea: {
+          left: 5,
+          top: 0,
+          width: '100%',
+          height: '100%'
+        }
+      },
+      serviceTypePercentage: [['Service Type', 'Population'], ['EWS', 3200], ['MMWS', 6500], ['VWS', 258], ['Prayer Meeting', 95], ['Sunday School', 2547], ['Not Applicable', 1698]],
+      serviceTypePercentageOptions: {
+        title: 'Service Types Population',
+        chartArea: {
+          left: 5,
+          top: 0,
+          width: '100%',
+          height: '100%'
+        }
+      }
+    };
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/datatable/DatatableComponent.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/datatable/DatatableComponent.vue?vue&type=script&lang=js& ***!
@@ -72022,6 +72213,344 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard/dashboard.vue?vue&type=template&id=96ac3b44&":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/dashboard/dashboard.vue?vue&type=template&id=96ac3b44& ***!
+  \**********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "card-body" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-sm-6" }, [
+        _c("div", { staticClass: "card" }, [
+          _vm._m(1),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body overflow-auto" }, [
+            _c("div", { staticClass: "row" }, [
+              _c(
+                "div",
+                { staticClass: "col-sm-6" },
+                [
+                  _c("GChart", {
+                    staticStyle: { width: "400px", height: "400px" },
+                    attrs: {
+                      type: "PieChart",
+                      data: _vm.giverTypePercentage,
+                      options: _vm.giverTypePercentageOptions,
+                      resizeDebounce: 500
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "col-sm-6" },
+                [
+                  _c("GChart", {
+                    staticStyle: { width: "400px", height: "400px" },
+                    attrs: {
+                      type: "PieChart",
+                      data: _vm.serviceTypePercentage,
+                      options: _vm.serviceTypePercentageOptions,
+                      resizeDebounce: 500
+                    }
+                  })
+                ],
+                1
+              )
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-6" }, [
+        _c("div", { staticClass: "card" }, [
+          _vm._m(2),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "card-body overflow-auto" },
+            [
+              _c("GChart", {
+                staticStyle: { width: "800px", height: "400px" },
+                attrs: {
+                  type: "ColumnChart",
+                  data: _vm.weeklyChartData,
+                  options: _vm.weeklyChartOptions,
+                  resizeDebounce: 500
+                }
+              })
+            ],
+            1
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row mb-5" }, [
+      _c("div", { staticClass: "col-sm-3" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c("h5", { staticClass: "card-title" }, [
+              _c("i", { staticClass: "fas fa-file-invoice-dollar fa-lg" }),
+              _vm._v(" Total Amount Recorded")
+            ]),
+            _vm._v(" "),
+            _c(
+              "h1",
+              { staticClass: "card-text font-weight-bold text-primary" },
+              [_vm._v("158,900")]
+            ),
+            _vm._v(" "),
+            _c("a", { staticClass: "card-link", attrs: { href: "#" } }, [
+              _vm._v("See all records")
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-3" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c("h5", { staticClass: "card-title" }, [
+              _c("i", { staticClass: "fas fa-receipt fa-lg" }),
+              _vm._v(" Verified Records")
+            ]),
+            _vm._v(" "),
+            _c(
+              "h1",
+              { staticClass: "card-text font-weight-bold text-success" },
+              [_vm._v("326")]
+            ),
+            _vm._v(" "),
+            _c("a", { staticClass: "card-link", attrs: { href: "#" } }, [
+              _vm._v("See verified rcords")
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-3" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c("h5", { staticClass: "card-title" }, [
+              _c("i", { staticClass: "fas fa-coins fa-lg" }),
+              _vm._v(" Unverified Records")
+            ]),
+            _vm._v(" "),
+            _c(
+              "h1",
+              { staticClass: "card-text font-weight-bold text-danger" },
+              [_vm._v("156")]
+            ),
+            _vm._v(" "),
+            _c("a", { staticClass: "card-link", attrs: { href: "#" } }, [
+              _vm._v("See unverified records")
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-3" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c("h5", { staticClass: "card-title" }, [
+              _c("i", { staticClass: "far fa-edit fa-lg" }),
+              _vm._v("For Correction")
+            ]),
+            _vm._v(" "),
+            _c(
+              "h1",
+              { staticClass: "card-text font-weight-bold text-warning" },
+              [_vm._v("130")]
+            ),
+            _vm._v(" "),
+            _c("a", { staticClass: "card-link", attrs: { href: "#" } }, [
+              _vm._v("See records for corrections")
+            ])
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-6" }, [
+          _vm._v(
+            "\n\t\t\t\t        \t\tPopulation of Giver Types and Service Types\n\t\t\t\t        \t"
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-6" }, [
+          _c("form", { staticClass: "float-right" }, [
+            _c("div", { staticClass: "form-row align-items-right" }, [
+              _c("div", { staticClass: "col-auto" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "mr-sm-2 sr-only",
+                    attrs: { for: "inlineFormCustomSelect" }
+                  },
+                  [_vm._v("Preference")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    staticClass: "custom-select mr-sm-2",
+                    attrs: { id: "inlineFormCustomSelect" }
+                  },
+                  [
+                    _c("option", { attrs: { selected: "" } }, [
+                      _vm._v("October")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "1" } }, [
+                      _vm._v("Januray")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "2" } }, [
+                      _vm._v("Febuary")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("March")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("April")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("May")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("June")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("July")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("August")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [
+                      _vm._v("September")
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-auto" }, [
+                _c(
+                  "button",
+                  { staticClass: "btn btn-primary", attrs: { type: "button" } },
+                  [_vm._v("Generate Report")]
+                )
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-6" }, [
+          _vm._v(
+            "\n\t\t\t\t        \t\tOctober Tithes and Offerings Record\n\t\t\t\t        \t"
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-6" }, [
+          _c("form", { staticClass: "float-right" }, [
+            _c("div", { staticClass: "form-row align-items-right" }, [
+              _c("div", { staticClass: "col-auto" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "mr-sm-2 sr-only",
+                    attrs: { for: "inlineFormCustomSelect" }
+                  },
+                  [_vm._v("Preference")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    staticClass: "custom-select mr-sm-2",
+                    attrs: { id: "inlineFormCustomSelect" }
+                  },
+                  [
+                    _c("option", { attrs: { selected: "" } }, [
+                      _vm._v("October")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "1" } }, [
+                      _vm._v("Januray")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "2" } }, [
+                      _vm._v("Febuary")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("March")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("April")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("May")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("June")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("July")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("August")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [
+                      _vm._v("September")
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-auto" }, [
+                _c(
+                  "button",
+                  { staticClass: "btn btn-primary", attrs: { type: "button" } },
+                  [_vm._v("Generate Report")]
+                )
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/datatable/DatatableComponent.vue?vue&type=template&id=48bb7722&":
 /*!*******************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/datatable/DatatableComponent.vue?vue&type=template&id=48bb7722& ***!
@@ -74406,7 +74935,7 @@ var render = function() {
           _c("div", { staticClass: "col-sm-3" }, [
             _c("h6", { staticClass: "card-title" }, [
               _vm._v("Total Amount: "),
-              _c("span", [_vm._v("₱" + _vm._s(this.records.total_amount))])
+              _c("span", [_vm._v(_vm._s(this.records.total_amount))])
             ])
           ])
         ]),
@@ -74844,13 +75373,13 @@ var render = function() {
               _vm._v(" "),
               _c("tbody", [
                 _c("tr", [
-                  _c("td", [_vm._v("₱" + _vm._s(this.records.tithe_amount))]),
+                  _c("td", [_vm._v(_vm._s(this.records.tithe_amount))]),
                   _vm._v(" "),
-                  _c("td", [_vm._v("₱" + _vm._s(this.records.love_amount))]),
+                  _c("td", [_vm._v(_vm._s(this.records.love_amount))]),
                   _vm._v(" "),
-                  _c("td", [_vm._v("₱" + _vm._s(this.records.faith_amount))]),
+                  _c("td", [_vm._v(_vm._s(this.records.faith_amount))]),
                   _vm._v(" "),
-                  _c("td", [_vm._v("₱" + _vm._s(this.sumOfRegularGiving()))]),
+                  _c("td", [_vm._v(_vm._s(this.sumOfRegularGiving()))]),
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(this.records.created_at))])
                 ])
@@ -74885,7 +75414,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("td", [
-                      _vm._v("₱" + _vm._s(specialOffering.designated_amount))
+                      _vm._v(_vm._s(specialOffering.designated_amount))
                     ]),
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(specialOffering.created_at))])
@@ -89357,6 +89886,7 @@ Vue.component('record-profile-component', __webpack_require__(/*! ./components/r
 Vue.component('record-create-form', __webpack_require__(/*! ./components/record/forms/RecordCreateForm.vue */ "./resources/js/components/record/forms/RecordCreateForm.vue")["default"]);
 Vue.component('user-create-form', __webpack_require__(/*! ./components/user/forms/UserCreateForm.vue */ "./resources/js/components/user/forms/UserCreateForm.vue")["default"]);
 Vue.component('user-password-form', __webpack_require__(/*! ./components/user/forms/UserSetPassword.vue */ "./resources/js/components/user/forms/UserSetPassword.vue")["default"]);
+Vue.component('dashboard', __webpack_require__(/*! ./components/dashboard/dashboard.vue */ "./resources/js/components/dashboard/dashboard.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -89574,6 +90104,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_showButton_vue_vue_type_template_id_1831ea30___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_showButton_vue_vue_type_template_id_1831ea30___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/dashboard/dashboard.vue":
+/*!*********************************************************!*\
+  !*** ./resources/js/components/dashboard/dashboard.vue ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _dashboard_vue_vue_type_template_id_96ac3b44___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dashboard.vue?vue&type=template&id=96ac3b44& */ "./resources/js/components/dashboard/dashboard.vue?vue&type=template&id=96ac3b44&");
+/* harmony import */ var _dashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dashboard.vue?vue&type=script&lang=js& */ "./resources/js/components/dashboard/dashboard.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _dashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _dashboard_vue_vue_type_template_id_96ac3b44___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _dashboard_vue_vue_type_template_id_96ac3b44___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/dashboard/dashboard.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/dashboard/dashboard.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/dashboard/dashboard.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_dashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./dashboard.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard/dashboard.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_dashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/dashboard/dashboard.vue?vue&type=template&id=96ac3b44&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/dashboard/dashboard.vue?vue&type=template&id=96ac3b44& ***!
+  \****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_dashboard_vue_vue_type_template_id_96ac3b44___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./dashboard.vue?vue&type=template&id=96ac3b44& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard/dashboard.vue?vue&type=template&id=96ac3b44&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_dashboard_vue_vue_type_template_id_96ac3b44___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_dashboard_vue_vue_type_template_id_96ac3b44___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
