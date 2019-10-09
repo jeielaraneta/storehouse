@@ -34,7 +34,7 @@
                                         <tr>
                                             <td>{{$record->agc}}</td>
                                             <td>{{$record->giver_type}}</td>
-                                            <td>&#8369;{{$record->total_amount}}</td>
+                                            <td>{{$record->total_amount}}</td> <!-- &#8369; -->
                                             <td>{{$record->given_at}}</td>
                                             <td>{{$record->created_at}}</td>
                                             <td>{{$record->status}}</td>

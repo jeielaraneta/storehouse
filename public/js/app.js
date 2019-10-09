@@ -1895,6 +1895,197 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard/dashboard.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/dashboard/dashboard.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mounted: function mounted() {},
+  data: function data() {
+    return {
+      weeklyChartData: [['Week', 'Tithes', 'Love', 'Faith', 'Special Offerings'], ['Week 1', 1000, 400, 200, 900], ['Week 2', 1170, 460, 250, 502], ['Week 3', 660, 1120, 300, 309], ['Week 4', 1030, 540, 350, 890]],
+      weeklyChartOptions: {
+        chart: {
+          title: 'Offering',
+          subtitle: 'Tithes, Love, Faith and Special Offerings: 2014-2017'
+        }
+      },
+      monthlyChartData: [['Month', 'Tithes', 'Love', 'Faith', 'Special Offerings'], ['Januray', 1000, 400, 200, 900], ['Febuary', 1170, 460, 250, 502], ['March', 660, 1120, 300, 309], ['April', 1030, 540, 350, 890], ['May', 1030, 540, 350, 890], ['June', 1030, 540, 350, 890], ['July', 1030, 540, 350, 890], ['April', 1030, 540, 350, 890], ['April', 1030, 540, 350, 890], ['April', 1030, 540, 350, 890]],
+      monthlyChartOptions: {
+        chart: {
+          title: 'Offering',
+          subtitle: 'Tithes, Love, Faith and Special Offerings: 2014-2017'
+        }
+      },
+      giverTypePercentage: [['Giver Type', 'Population'], ['Anonymous', 11000], ['Identified', 6500], ['Group', 3256]],
+      giverTypePercentageOptions: {
+        title: 'Giver Types Population',
+        chartArea: {
+          left: 5,
+          top: 0,
+          width: '100%',
+          height: '100%'
+        }
+      },
+      serviceTypePercentage: [['Service Type', 'Population'], ['EWS', 3200], ['MMWS', 6500], ['VWS', 258], ['Prayer Meeting', 95], ['Sunday School', 2547], ['Not Applicable', 1698]],
+      serviceTypePercentageOptions: {
+        title: 'Service Types Population',
+        chartArea: {
+          left: 5,
+          top: 0,
+          width: '100%',
+          height: '100%'
+        }
+      }
+    };
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/datatable/DatatableComponent.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/datatable/DatatableComponent.vue?vue&type=script&lang=js& ***!
@@ -3382,6 +3573,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['givenAt', 'submitRecordRoute', 'memberSearch', 'memberSearchRoute'],
@@ -3390,7 +3611,7 @@ __webpack_require__.r(__webpack_exports__);
       alertMessage: "",
       isHidden: true,
       isSuccesful: true,
-      isDirectDeposit: false,
+      isNob: false,
       gic: '',
       record_type: 'ob',
       service_type: '',
@@ -3401,7 +3622,13 @@ __webpack_require__.r(__webpack_exports__);
       tithe: 0,
       faith: 0,
       love: 0,
-      bank_ref: '',
+      deposit_reference: '',
+      check_reference: '',
+      bank_name: '',
+      currency: 'PHP',
+      convert_to_peso: false,
+      giver_type: 'anonymous',
+      offer_method: 'cash',
       des_offerings: [{
         designation: 'select',
         designated_amount: 0,
@@ -3422,7 +3649,6 @@ __webpack_require__.r(__webpack_exports__);
       },
       searchValues: [],
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-      isSelected: 'anonymous',
       record_data: [],
       submit_record: []
     };
@@ -3445,9 +3671,17 @@ __webpack_require__.r(__webpack_exports__);
           required: 'Group name should not be empty',
           alpha_spaces: 'Group name should not contain special characters or numbers'
         },
-        bank_ref: {
+        deposit_reference: {
           required: 'Deposit reference should not be empty',
           alpha_num: 'Deposit reference should contain numbers and letters only'
+        },
+        check_reference: {
+          required: 'Check reference should not be empty',
+          alpha_num: 'Check reference should contain numbers and letters only'
+        },
+        bank_name: {
+          required: 'Bank name should not be empty',
+          alpha_spaces: 'Bank name should contain letters and spaces only'
         },
         tithe: {
           required: 'Tithe amount should not be empty',
@@ -3492,13 +3726,13 @@ __webpack_require__.r(__webpack_exports__);
         getMessage: field => 'The ' + field + ' value is not truthy.',
         validate: value => value === 'A'
     });
-     let instance = new Validator({ trueField: 'truthy' });*/
+      let instance = new Validator({ trueField: 'truthy' });*/
     // or use the instance method
     //this.$validator.localize('en', dict);
     // Also there is an instance 'extend' method for convenience.
 
     /*instance.extend('falsy', (value) => ! value);
-     instance.attach({
+      instance.attach({
       name: 'falseField',
       rules: 'falsy'
     });*/
@@ -3522,7 +3756,9 @@ __webpack_require__.r(__webpack_exports__);
         designated_for: ''
       }];
       this.isAnonymous = false;
-      this.bank_ref = '';
+      this.deposit_reference = '';
+      this.check_reference = '';
+      this.bank_name = '';
       this.gic = "";
       this.tithe = 0;
       this.love = 0;
@@ -3531,7 +3767,10 @@ __webpack_require__.r(__webpack_exports__);
       this.record_type = 'ob';
       this.given_at = '';
       this.status = 'Unverified';
-      this.isSelected = 'anonymous';
+      this.giver_type = 'anonymous';
+      this.offer_method = 'cash';
+      this.convert_to_peso = false;
+      this.currency = 'PHP';
       e.target.reset();
       this.$validator.reset();
     },
@@ -3552,11 +3791,14 @@ __webpack_require__.r(__webpack_exports__);
       return this.record_data = {
         _token: this.csrf,
         record_type: this.record_type,
-        giver_type: this.isSelected,
+        giver_type: this.giver_type,
+        offer_method: this.offer_method,
         gic: this.gic['id'],
         agc: this.agc,
         group_name: this.group_name,
-        bank_ref: this.bank_ref,
+        deposit_reference: this.deposit_reference,
+        check_reference: this.check_reference,
+        bank_name: this.bank_name,
         service_type: this.service_type,
         given_at: this.given_at,
         status: this.status,
@@ -3564,7 +3806,9 @@ __webpack_require__.r(__webpack_exports__);
         love: this.love,
         faith: this.faith,
         total_amount: this.total_amount,
-        special_offering: this.des_offerings
+        special_offering: this.des_offerings,
+        convert_to_peso: this.convert_to_peso,
+        currency: this.currency
       };
     },
     submitForm: function submitForm(e) {
@@ -3575,7 +3819,7 @@ __webpack_require__.r(__webpack_exports__);
         if (result) {
           window.axios.post(_this2.submitRecordRoute, _this2.record_data).then(function (response) {
             _this2.isHidden = false;
-            _this2.isDirectDeposit = false;
+            _this2.isNob = false;
             _this2.isSuccesful = response.data.success ? true : false;
             _this2.alertMessage = response.data.success ? "Record succesfully added!" : "Error";
             e.target.reset();
@@ -71969,6 +72213,344 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard/dashboard.vue?vue&type=template&id=96ac3b44&":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/dashboard/dashboard.vue?vue&type=template&id=96ac3b44& ***!
+  \**********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "card-body" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-sm-6" }, [
+        _c("div", { staticClass: "card" }, [
+          _vm._m(1),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body overflow-auto" }, [
+            _c("div", { staticClass: "row" }, [
+              _c(
+                "div",
+                { staticClass: "col-sm-6" },
+                [
+                  _c("GChart", {
+                    staticStyle: { width: "400px", height: "400px" },
+                    attrs: {
+                      type: "PieChart",
+                      data: _vm.giverTypePercentage,
+                      options: _vm.giverTypePercentageOptions,
+                      resizeDebounce: 500
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "col-sm-6" },
+                [
+                  _c("GChart", {
+                    staticStyle: { width: "400px", height: "400px" },
+                    attrs: {
+                      type: "PieChart",
+                      data: _vm.serviceTypePercentage,
+                      options: _vm.serviceTypePercentageOptions,
+                      resizeDebounce: 500
+                    }
+                  })
+                ],
+                1
+              )
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-6" }, [
+        _c("div", { staticClass: "card" }, [
+          _vm._m(2),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "card-body overflow-auto" },
+            [
+              _c("GChart", {
+                staticStyle: { width: "800px", height: "400px" },
+                attrs: {
+                  type: "ColumnChart",
+                  data: _vm.weeklyChartData,
+                  options: _vm.weeklyChartOptions,
+                  resizeDebounce: 500
+                }
+              })
+            ],
+            1
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row mb-5" }, [
+      _c("div", { staticClass: "col-sm-3" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c("h5", { staticClass: "card-title" }, [
+              _c("i", { staticClass: "fas fa-file-invoice-dollar fa-lg" }),
+              _vm._v(" Total Amount Recorded")
+            ]),
+            _vm._v(" "),
+            _c(
+              "h1",
+              { staticClass: "card-text font-weight-bold text-primary" },
+              [_vm._v("158,900")]
+            ),
+            _vm._v(" "),
+            _c("a", { staticClass: "card-link", attrs: { href: "#" } }, [
+              _vm._v("See all records")
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-3" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c("h5", { staticClass: "card-title" }, [
+              _c("i", { staticClass: "fas fa-receipt fa-lg" }),
+              _vm._v(" Verified Records")
+            ]),
+            _vm._v(" "),
+            _c(
+              "h1",
+              { staticClass: "card-text font-weight-bold text-success" },
+              [_vm._v("326")]
+            ),
+            _vm._v(" "),
+            _c("a", { staticClass: "card-link", attrs: { href: "#" } }, [
+              _vm._v("See verified rcords")
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-3" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c("h5", { staticClass: "card-title" }, [
+              _c("i", { staticClass: "fas fa-coins fa-lg" }),
+              _vm._v(" Unverified Records")
+            ]),
+            _vm._v(" "),
+            _c(
+              "h1",
+              { staticClass: "card-text font-weight-bold text-danger" },
+              [_vm._v("156")]
+            ),
+            _vm._v(" "),
+            _c("a", { staticClass: "card-link", attrs: { href: "#" } }, [
+              _vm._v("See unverified records")
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-3" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c("h5", { staticClass: "card-title" }, [
+              _c("i", { staticClass: "far fa-edit fa-lg" }),
+              _vm._v("For Correction")
+            ]),
+            _vm._v(" "),
+            _c(
+              "h1",
+              { staticClass: "card-text font-weight-bold text-warning" },
+              [_vm._v("130")]
+            ),
+            _vm._v(" "),
+            _c("a", { staticClass: "card-link", attrs: { href: "#" } }, [
+              _vm._v("See records for corrections")
+            ])
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-6" }, [
+          _vm._v(
+            "\n\t\t\t\t        \t\tPopulation of Giver Types and Service Types\n\t\t\t\t        \t"
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-6" }, [
+          _c("form", { staticClass: "float-right" }, [
+            _c("div", { staticClass: "form-row align-items-right" }, [
+              _c("div", { staticClass: "col-auto" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "mr-sm-2 sr-only",
+                    attrs: { for: "inlineFormCustomSelect" }
+                  },
+                  [_vm._v("Preference")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    staticClass: "custom-select mr-sm-2",
+                    attrs: { id: "inlineFormCustomSelect" }
+                  },
+                  [
+                    _c("option", { attrs: { selected: "" } }, [
+                      _vm._v("October")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "1" } }, [
+                      _vm._v("Januray")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "2" } }, [
+                      _vm._v("Febuary")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("March")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("April")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("May")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("June")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("July")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("August")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [
+                      _vm._v("September")
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-auto" }, [
+                _c(
+                  "button",
+                  { staticClass: "btn btn-primary", attrs: { type: "button" } },
+                  [_vm._v("Generate Report")]
+                )
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-6" }, [
+          _vm._v(
+            "\n\t\t\t\t        \t\tOctober Tithes and Offerings Record\n\t\t\t\t        \t"
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-6" }, [
+          _c("form", { staticClass: "float-right" }, [
+            _c("div", { staticClass: "form-row align-items-right" }, [
+              _c("div", { staticClass: "col-auto" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "mr-sm-2 sr-only",
+                    attrs: { for: "inlineFormCustomSelect" }
+                  },
+                  [_vm._v("Preference")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    staticClass: "custom-select mr-sm-2",
+                    attrs: { id: "inlineFormCustomSelect" }
+                  },
+                  [
+                    _c("option", { attrs: { selected: "" } }, [
+                      _vm._v("October")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "1" } }, [
+                      _vm._v("Januray")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "2" } }, [
+                      _vm._v("Febuary")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("March")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("April")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("May")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("June")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("July")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("August")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [
+                      _vm._v("September")
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-auto" }, [
+                _c(
+                  "button",
+                  { staticClass: "btn btn-primary", attrs: { type: "button" } },
+                  [_vm._v("Generate Report")]
+                )
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/datatable/DatatableComponent.vue?vue&type=template&id=48bb7722&":
 /*!*******************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/datatable/DatatableComponent.vue?vue&type=template&id=48bb7722& ***!
@@ -74353,7 +74935,7 @@ var render = function() {
           _c("div", { staticClass: "col-sm-3" }, [
             _c("h6", { staticClass: "card-title" }, [
               _vm._v("Total Amount: "),
-              _c("span", [_vm._v("₱" + _vm._s(this.records.total_amount))])
+              _c("span", [_vm._v(_vm._s(this.records.total_amount))])
             ])
           ])
         ]),
@@ -74791,13 +75373,13 @@ var render = function() {
               _vm._v(" "),
               _c("tbody", [
                 _c("tr", [
-                  _c("td", [_vm._v("₱" + _vm._s(this.records.tithe_amount))]),
+                  _c("td", [_vm._v(_vm._s(this.records.tithe_amount))]),
                   _vm._v(" "),
-                  _c("td", [_vm._v("₱" + _vm._s(this.records.love_amount))]),
+                  _c("td", [_vm._v(_vm._s(this.records.love_amount))]),
                   _vm._v(" "),
-                  _c("td", [_vm._v("₱" + _vm._s(this.records.faith_amount))]),
+                  _c("td", [_vm._v(_vm._s(this.records.faith_amount))]),
                   _vm._v(" "),
-                  _c("td", [_vm._v("₱" + _vm._s(this.sumOfRegularGiving()))]),
+                  _c("td", [_vm._v(_vm._s(this.sumOfRegularGiving()))]),
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(this.records.created_at))])
                 ])
@@ -74832,7 +75414,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("td", [
-                      _vm._v("₱" + _vm._s(specialOffering.designated_amount))
+                      _vm._v(_vm._s(specialOffering.designated_amount))
                     ]),
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(specialOffering.created_at))])
@@ -75065,7 +75647,7 @@ var render = function() {
             }),
             _vm._v(" "),
             _c("div", { staticClass: "form-row" }, [
-              _c("div", { staticClass: "form-group col-md-6" }, [
+              _c("div", { staticClass: "form-group col-md-4" }, [
                 _c("div", { staticClass: "form-check form-check-inline" }, [
                   _c("input", {
                     directives: [
@@ -75077,17 +75659,17 @@ var render = function() {
                       }
                     ],
                     staticClass: "form-check-input",
-                    attrs: { type: "radio", id: "record_type1", value: "dd" },
-                    domProps: { checked: _vm._q(_vm.record_type, "dd") },
+                    attrs: { type: "radio", id: "record_type1", value: "nob" },
+                    domProps: { checked: _vm._q(_vm.record_type, "nob") },
                     on: {
                       change: [
                         function($event) {
-                          _vm.record_type = "dd"
+                          _vm.record_type = "nob"
                         },
                         _vm.getValues
                       ],
                       click: function($event) {
-                        _vm.isDirectDeposit = true
+                        _vm.isNob = true
                       }
                     }
                   }),
@@ -75098,7 +75680,7 @@ var render = function() {
                       staticClass: "form-check-label",
                       attrs: { for: "record_type1" }
                     },
-                    [_vm._v("Bank Deposit")]
+                    [_vm._v("Non Offering Box")]
                   )
                 ]),
                 _vm._v(" "),
@@ -75123,7 +75705,7 @@ var render = function() {
                         _vm.getValues
                       ],
                       click: function($event) {
-                        _vm.isDirectDeposit = false
+                        _vm.isNob = false
                       }
                     }
                   }),
@@ -75139,7 +75721,11 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "form-group col-md-6" }, [
+              _c("div", { staticClass: "form-group col-md-3" }, [
+                _c("label", { attrs: { for: "giver_type" } }, [
+                  _vm._v("Giver Type")
+                ]),
+                _vm._v(" "),
                 _c(
                   "select",
                   {
@@ -75147,12 +75733,12 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.isSelected,
-                        expression: "isSelected"
+                        value: _vm.giver_type,
+                        expression: "giver_type"
                       }
                     ],
                     staticClass: "custom-select custom-select mb-3",
-                    attrs: { id: "giver_type", disabled: _vm.isDirectDeposit },
+                    attrs: { id: "giver_type" },
                     on: {
                       change: [
                         function($event) {
@@ -75164,7 +75750,7 @@ var render = function() {
                               var val = "_value" in o ? o._value : o.value
                               return val
                             })
-                          _vm.isSelected = $event.target.multiple
+                          _vm.giver_type = $event.target.multiple
                             ? $$selectedVal
                             : $$selectedVal[0]
                         },
@@ -75188,6 +75774,146 @@ var render = function() {
                     ])
                   ]
                 )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-md-2" }, [
+                _c("label", { attrs: { for: "offer_method" } }, [
+                  _vm._v("Offer Method")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.offer_method,
+                        expression: "offer_method"
+                      }
+                    ],
+                    staticClass: "custom-select custom-select mb-3",
+                    attrs: { id: "offer_method" },
+                    on: {
+                      change: [
+                        function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.offer_method = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        },
+                        _vm.getValues
+                      ]
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "cash" } }, [
+                      _vm._v("Cash")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "option",
+                      {
+                        attrs: {
+                          disabled: _vm.record_type == "ob",
+                          value: "check"
+                        }
+                      },
+                      [_vm._v("Check")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "option",
+                      {
+                        attrs: {
+                          disabled: _vm.record_type == "ob",
+                          value: "direct_deposit"
+                        }
+                      },
+                      [_vm._v("Direct Deposit")]
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-md-3" }, [
+                _c("label", { attrs: { for: "offer_method" } }, [
+                  _vm._v("Currency")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.currency,
+                        expression: "currency"
+                      }
+                    ],
+                    staticClass: "custom-select custom-select mb-3",
+                    attrs: { id: "currency" },
+                    on: {
+                      change: [
+                        function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.currency = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        },
+                        _vm.getValues
+                      ]
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "PHP" } }, [
+                      _vm._v("Philippine Peso (PHP)")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "EUR" } }, [
+                      _vm._v("European Euro (EUR)")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "USD" } }, [
+                      _vm._v("US Dollars (USD)")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "JPY" } }, [
+                      _vm._v("Japanese Yen (JPY)")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "GBP" } }, [
+                      _vm._v("British Pound (GBP)")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "CAD" } }, [
+                      _vm._v("Canadian Dollar (CAD)")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "NZD" } }, [
+                      _vm._v("New Zealand Dollar (NZD)")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "AUD" } }, [
+                      _vm._v("Australian Dollar (AUD)")
+                    ])
+                  ]
+                )
               ])
             ]),
             _vm._v(" "),
@@ -75198,9 +75924,8 @@ var render = function() {
                   {
                     name: "show",
                     rawName: "v-show",
-                    value:
-                      _vm.isSelected == "identified" && !_vm.isDirectDeposit,
-                    expression: "isSelected == 'identified'&&!isDirectDeposit"
+                    value: _vm.giver_type == "identified",
+                    expression: "giver_type == 'identified'"
                   }
                 ],
                 staticClass: "form-row"
@@ -75222,12 +75947,11 @@ var render = function() {
                           name: "validate",
                           rawName: "v-validate",
                           value:
-                            _vm.isSelected == "identified" &&
-                            !_vm.isDirectDeposit
+                            _vm.giver_type == "identified" && !_vm.isNob
                               ? "required"
                               : "",
                           expression:
-                            "isSelected == 'identified'&&!isDirectDeposit ? 'required' : '' "
+                            "giver_type == 'identified'&&!isNob ? 'required' : '' "
                         }
                       ],
                       attrs: {
@@ -75267,8 +75991,8 @@ var render = function() {
                   {
                     name: "show",
                     rawName: "v-show",
-                    value: _vm.isSelected == "group" && !_vm.isDirectDeposit,
-                    expression: "isSelected == 'group'&&!isDirectDeposit"
+                    value: _vm.giver_type == "group",
+                    expression: "giver_type == 'group'"
                   }
                 ],
                 staticClass: "form-row"
@@ -75289,11 +76013,11 @@ var render = function() {
                         name: "validate",
                         rawName: "v-validate",
                         value:
-                          _vm.isSelected == "group" && !_vm.isDirectDeposit
+                          _vm.giver_type == "group" && !_vm.isNob
                             ? "required|alpha_spaces"
                             : "",
                         expression:
-                          "isSelected == 'group'&&!isDirectDeposit ? 'required|alpha_spaces' : '' "
+                          "giver_type == 'group'&&!isNob ? 'required|alpha_spaces' : '' "
                       }
                     ],
                     staticClass: "form-control",
@@ -75334,8 +76058,11 @@ var render = function() {
                   {
                     name: "show",
                     rawName: "v-show",
-                    value: _vm.record_type == "dd",
-                    expression: "record_type == 'dd'"
+                    value:
+                      _vm.offer_method == "direct_deposit" &&
+                      _vm.record_type != "ob",
+                    expression:
+                      "offer_method == 'direct_deposit' && record_type != 'ob'"
                   }
                 ],
                 staticClass: "form-row"
@@ -75343,7 +76070,7 @@ var render = function() {
               [
                 _c("div", { staticClass: "form-group col-md-12" }, [
                   _c("label", { attrs: { for: "" } }, [
-                    _vm._v("Bank Deposit Reference Number")
+                    _vm._v("Deposit Reference Number")
                   ]),
                   _vm._v(" "),
                   _c("input", {
@@ -75351,42 +76078,185 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.bank_ref,
-                        expression: "bank_ref"
+                        value: _vm.deposit_reference,
+                        expression: "deposit_reference"
                       },
                       {
                         name: "validate",
                         rawName: "v-validate",
-                        value: _vm.isDirectDeposit ? "required|alpha_num" : "",
+                        value:
+                          _vm.offer_method == "direct_deposit"
+                            ? "required|alpha_num"
+                            : "",
                         expression:
-                          "isDirectDeposit ? 'required|alpha_num' : '' "
+                          "offer_method == 'direct_deposit' ? 'required|alpha_num' : '' "
                       }
                     ],
                     staticClass: "form-control",
                     class: {
                       "form-control": true,
-                      error: _vm.errors.has("bank_ref")
+                      error: _vm.errors.has("deposit_reference")
                     },
                     attrs: {
                       type: "text",
-                      name: "bank_ref",
+                      name: "deposit_reference",
                       autocomplete: "off"
                     },
-                    domProps: { value: _vm.bank_ref },
+                    domProps: { value: _vm.deposit_reference },
                     on: {
                       change: _vm.getValues,
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.bank_ref = $event.target.value
+                        _vm.deposit_reference = $event.target.value
                       }
                     }
                   }),
                   _vm._v(" "),
-                  _vm.errors.has("bank_ref")
+                  _vm.errors.has("deposit_reference")
                     ? _c("span", { staticClass: "error text-danger" }, [
-                        _vm._v(_vm._s(_vm.errors.first("bank_ref")))
+                        _vm._v(_vm._s(_vm.errors.first("deposit_reference")))
+                      ])
+                    : _vm._e()
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value:
+                      _vm.offer_method == "check" && _vm.record_type != "ob",
+                    expression: "offer_method == 'check' && record_type != 'ob'"
+                  }
+                ],
+                staticClass: "form-row"
+              },
+              [
+                _c("div", { staticClass: "form-group col-md-12" }, [
+                  _c("label", { attrs: { for: "" } }, [
+                    _vm._v("Check Reference Number")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.check_reference,
+                        expression: "check_reference"
+                      },
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value:
+                          _vm.offer_method == "check"
+                            ? "required|alpha_num"
+                            : "",
+                        expression:
+                          "offer_method == 'check' ? 'required|alpha_num' : '' "
+                      }
+                    ],
+                    staticClass: "form-control",
+                    class: {
+                      "form-control": true,
+                      error: _vm.errors.has("check_reference")
+                    },
+                    attrs: {
+                      type: "text",
+                      name: "check_reference",
+                      autocomplete: "off"
+                    },
+                    domProps: { value: _vm.check_reference },
+                    on: {
+                      change: _vm.getValues,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.check_reference = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.errors.has("check_reference")
+                    ? _c("span", { staticClass: "error text-danger" }, [
+                        _vm._v(_vm._s(_vm.errors.first("check_reference")))
+                      ])
+                    : _vm._e()
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value:
+                      _vm.offer_method == "direct_deposit" &&
+                      _vm.record_type != "ob",
+                    expression:
+                      "offer_method == 'direct_deposit' && record_type != 'ob'"
+                  }
+                ],
+                staticClass: "form-row"
+              },
+              [
+                _c("div", { staticClass: "form-group col-md-12" }, [
+                  _c("label", { attrs: { for: "" } }, [_vm._v("Bank Name")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.bank_name,
+                        expression: "bank_name"
+                      },
+                      {
+                        name: "validate",
+                        rawName: "v-validate",
+                        value:
+                          _vm.offer_method == "direct_deposit"
+                            ? "required|alpha_spaces"
+                            : "",
+                        expression:
+                          "offer_method == 'direct_deposit' ? 'required|alpha_spaces' : '' "
+                      }
+                    ],
+                    staticClass: "form-control",
+                    class: {
+                      "form-control": true,
+                      error: _vm.errors.has("bank_name")
+                    },
+                    attrs: {
+                      type: "text",
+                      name: "bank_name",
+                      autocomplete: "off"
+                    },
+                    domProps: { value: _vm.bank_name },
+                    on: {
+                      change: _vm.getValues,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.bank_name = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.errors.has("bank_name")
+                    ? _c("span", { staticClass: "error text-danger" }, [
+                        _vm._v(_vm._s(_vm.errors.first("bank_name")))
                       ])
                     : _vm._e()
                 ])
@@ -75523,9 +76393,7 @@ var render = function() {
               ),
               _vm._v(" "),
               _c("div", { staticClass: "form-group col-md-4" }, [
-                _c("label", { attrs: { for: "service_type" } }, [
-                  _vm._v("Status")
-                ]),
+                _c("label", { attrs: { for: "status" } }, [_vm._v("Status")]),
                 _vm._v(" "),
                 _c(
                   "select",
@@ -75579,8 +76447,6 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "input-group" }, [
-                  _vm._m(3),
-                  _vm._v(" "),
                   _c("input", {
                     directives: [
                       {
@@ -75630,8 +76496,6 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "input-group" }, [
-                  _vm._m(4),
-                  _vm._v(" "),
                   _c("input", {
                     directives: [
                       {
@@ -75681,8 +76545,6 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "input-group" }, [
-                  _vm._m(5),
-                  _vm._v(" "),
                   _c("input", {
                     directives: [
                       {
@@ -75727,7 +76589,7 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _vm._m(6),
+            _vm._m(3),
             _vm._v(" "),
             _vm._l(_vm.des_offerings, function(input, k) {
               return _c("div", { key: k, staticClass: "form-row" }, [
@@ -75871,7 +76733,6 @@ var render = function() {
                               "designationCondition(input.designation) ? 'required|alpha_spaces' : ''"
                           }
                         ],
-                        staticClass: "form-control",
                         class: {
                           "form-control": true,
                           error: _vm.errors.has("designated_for")
@@ -75910,8 +76771,6 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group col-md-2" }, [
                   _c("div", { staticClass: "input-group" }, [
-                    _vm._m(7, true),
-                    _vm._v(" "),
                     _c("input", {
                       directives: [
                         {
@@ -75928,7 +76787,6 @@ var render = function() {
                           expression: "'required|decimal'"
                         }
                       ],
-                      staticClass: "form-control amount",
                       class: {
                         "form-control": true,
                         error: _vm.errors.has("designated_amount")
@@ -76019,8 +76877,6 @@ var render = function() {
               ),
               _vm._v(" "),
               _c("div", { staticClass: "input-group col-md-2" }, [
-                _vm._m(8),
-                _vm._v(" "),
                 _c("input", {
                   directives: [
                     {
@@ -76037,7 +76893,6 @@ var render = function() {
                       expression: "'min_value:1'"
                     }
                   ],
-                  staticClass: "form-control",
                   class: {
                     "form-control": true,
                     error: _vm.errors.has("total_amount")
@@ -76065,10 +76920,69 @@ var render = function() {
                       _vm._v(_vm._s(_vm.errors.first("total_amount")))
                     ])
                   : _vm._e()
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-check form-check-inline" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.convert_to_peso,
+                      expression: "convert_to_peso"
+                    }
+                  ],
+                  staticClass: "form-check-input",
+                  attrs: {
+                    type: "checkbox",
+                    "unchecked-value": "no",
+                    disabled: _vm.currency == "PHP",
+                    id: "convert_to_peso",
+                    name: "convert_to_peso"
+                  },
+                  domProps: {
+                    checked: Array.isArray(_vm.convert_to_peso)
+                      ? _vm._i(_vm.convert_to_peso, null) > -1
+                      : _vm.convert_to_peso
+                  },
+                  on: {
+                    change: [
+                      function($event) {
+                        var $$a = _vm.convert_to_peso,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 && (_vm.convert_to_peso = $$a.concat([$$v]))
+                          } else {
+                            $$i > -1 &&
+                              (_vm.convert_to_peso = $$a
+                                .slice(0, $$i)
+                                .concat($$a.slice($$i + 1)))
+                          }
+                        } else {
+                          _vm.convert_to_peso = $$c
+                        }
+                      },
+                      _vm.getValues
+                    ]
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  {
+                    staticClass: "form-check-label",
+                    attrs: { for: "convert_to_peso" }
+                  },
+                  [_vm._v("Convert to PHP")]
+                )
               ])
             ]),
             _vm._v(" "),
-            _vm._m(9)
+            _vm._m(4)
           ],
           2
         )
@@ -76125,50 +77039,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-prepend" }, [
-      _c("div", { staticClass: "input-group-text" }, [_vm._v("₱")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-prepend" }, [
-      _c("div", { staticClass: "input-group-text" }, [_vm._v("₱")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-prepend" }, [
-      _c("div", { staticClass: "input-group-text" }, [_vm._v("₱")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-row" }, [
       _c("label", { attrs: { for: "designation" } }, [
         _vm._v("Special Offering")
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-prepend" }, [
-      _c("div", { staticClass: "input-group-text" }, [_vm._v("₱")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-prepend" }, [
-      _c("div", { staticClass: "input-group-text" }, [_vm._v("₱")])
     ])
   },
   function() {
@@ -89012,6 +89886,7 @@ Vue.component('record-profile-component', __webpack_require__(/*! ./components/r
 Vue.component('record-create-form', __webpack_require__(/*! ./components/record/forms/RecordCreateForm.vue */ "./resources/js/components/record/forms/RecordCreateForm.vue")["default"]);
 Vue.component('user-create-form', __webpack_require__(/*! ./components/user/forms/UserCreateForm.vue */ "./resources/js/components/user/forms/UserCreateForm.vue")["default"]);
 Vue.component('user-password-form', __webpack_require__(/*! ./components/user/forms/UserSetPassword.vue */ "./resources/js/components/user/forms/UserSetPassword.vue")["default"]);
+Vue.component('dashboard', __webpack_require__(/*! ./components/dashboard/dashboard.vue */ "./resources/js/components/dashboard/dashboard.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -89229,6 +90104,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_showButton_vue_vue_type_template_id_1831ea30___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_showButton_vue_vue_type_template_id_1831ea30___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/dashboard/dashboard.vue":
+/*!*********************************************************!*\
+  !*** ./resources/js/components/dashboard/dashboard.vue ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _dashboard_vue_vue_type_template_id_96ac3b44___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dashboard.vue?vue&type=template&id=96ac3b44& */ "./resources/js/components/dashboard/dashboard.vue?vue&type=template&id=96ac3b44&");
+/* harmony import */ var _dashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dashboard.vue?vue&type=script&lang=js& */ "./resources/js/components/dashboard/dashboard.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _dashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _dashboard_vue_vue_type_template_id_96ac3b44___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _dashboard_vue_vue_type_template_id_96ac3b44___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/dashboard/dashboard.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/dashboard/dashboard.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/dashboard/dashboard.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_dashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./dashboard.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard/dashboard.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_dashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/dashboard/dashboard.vue?vue&type=template&id=96ac3b44&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/dashboard/dashboard.vue?vue&type=template&id=96ac3b44& ***!
+  \****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_dashboard_vue_vue_type_template_id_96ac3b44___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./dashboard.vue?vue&type=template&id=96ac3b44& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard/dashboard.vue?vue&type=template&id=96ac3b44&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_dashboard_vue_vue_type_template_id_96ac3b44___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_dashboard_vue_vue_type_template_id_96ac3b44___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -89825,8 +90769,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/jeielaraneta/storehouse/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/jeielaraneta/storehouse/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\jaraneta\storehouse\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\jaraneta\storehouse\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
