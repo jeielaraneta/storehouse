@@ -75,7 +75,7 @@
 		        	</div>
 
 		        	<div class="col-sm-3">
-		        		<h6 class="card-title">Total Amount: <span>&#8369;{{this.records.total_amount}}</span></h6>
+		        		<h6 class="card-title">Total Amount: <span>{{this.records.total_amount}}</span></h6> <!-- &#8369; -->
 		        	</div>
 
 	        	</div>
@@ -197,10 +197,10 @@
 							</thead>
 							<tbody>
 							    <tr>
-							    	<td>&#8369;{{this.records.tithe_amount}}</td>
-							    	<td>&#8369;{{this.records.love_amount}}</td>
-							    	<td>&#8369;{{this.records.faith_amount}}</td>
-							    	<td>&#8369;{{this.sumOfRegularGiving()}}</td>
+							    	<td>{{this.records.tithe_amount}}</td>
+							    	<td>{{this.records.love_amount}}</td>
+							    	<td>{{this.records.faith_amount}}</td>
+							    	<td>{{this.sumOfRegularGiving()}}</td>
 							    	<td>{{this.records.created_at}}</td>
 							    </tr>
 							</tbody>
@@ -232,7 +232,7 @@
 							      	<th scope="row"> {{ index+1}} </th>
 							      	<td>{{specialOffering.designation || 'None'}}</td>
 							      	<td>{{specialOffering.designated_for || 'None' }}</td>
-							      	<td>&#8369;{{specialOffering.designated_amount}}</td>
+							      	<td>{{specialOffering.designated_amount}}</td>
 							      	<td>{{specialOffering.created_at}}</td>
 							    </tr>
 							</tbody>
