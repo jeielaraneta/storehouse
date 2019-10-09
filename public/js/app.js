@@ -1987,6 +1987,61 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {},
   data: function data() {
@@ -1998,11 +2053,31 @@ __webpack_require__.r(__webpack_exports__);
           subtitle: 'Tithes, Love, Faith and Special Offerings: 2014-2017'
         }
       },
-      monthlyChartData: [['Month', 'Tithes', 'Love', 'Faith', 'Special Offerings'], ['Januray', 1000, 400, 200, 900], ['Febuary', 1170, 460, 250, 502], ['March', 660, 1120, 300, 309], ['April', 1030, 540, 350, 890]],
+      monthlyChartData: [['Month', 'Tithes', 'Love', 'Faith', 'Special Offerings'], ['Januray', 1000, 400, 200, 900], ['Febuary', 1170, 460, 250, 502], ['March', 660, 1120, 300, 309], ['April', 1030, 540, 350, 890], ['May', 1030, 540, 350, 890], ['June', 1030, 540, 350, 890], ['July', 1030, 540, 350, 890], ['April', 1030, 540, 350, 890], ['April', 1030, 540, 350, 890], ['April', 1030, 540, 350, 890]],
       monthlyChartOptions: {
         chart: {
           title: 'Offering',
           subtitle: 'Tithes, Love, Faith and Special Offerings: 2014-2017'
+        }
+      },
+      giverTypePercentage: [['Giver Type', 'Population'], ['Anonymous', 11000], ['Identified', 6500], ['Group', 3256]],
+      giverTypePercentageOptions: {
+        title: 'Giver Types Population',
+        chartArea: {
+          left: 5,
+          top: 0,
+          width: '100%',
+          height: '100%'
+        }
+      },
+      serviceTypePercentage: [['Service Type', 'Population'], ['EWS', 3200], ['MMWS', 6500], ['VWS', 258], ['Prayer Meeting', 95], ['Sunday School', 2547], ['Not Applicable', 1698]],
+      serviceTypePercentageOptions: {
+        title: 'Service Types Population',
+        chartArea: {
+          left: 5,
+          top: 0,
+          width: '100%',
+          height: '100%'
         }
       }
     };
@@ -72159,42 +72234,55 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-sm-6" }, [
         _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header" }, [
-            _vm._v(
-              "\n\t\t\t\t\t   Year 2019 Tithes and Offerings Record\n\t\t\t\t\t "
-            )
-          ]),
+          _vm._m(1),
           _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "card-body" },
-            [
-              _c("GChart", {
-                staticStyle: { width: "800px", height: "400px" },
-                attrs: {
-                  type: "ColumnChart",
-                  data: _vm.monthlyChartData,
-                  options: _vm.monthlyChartOptions,
-                  resizeDebounce: 500
-                }
-              })
-            ],
-            1
-          )
+          _c("div", { staticClass: "card-body overflow-auto" }, [
+            _c("div", { staticClass: "row" }, [
+              _c(
+                "div",
+                { staticClass: "col-sm-6" },
+                [
+                  _c("GChart", {
+                    staticStyle: { width: "400px", height: "400px" },
+                    attrs: {
+                      type: "PieChart",
+                      data: _vm.giverTypePercentage,
+                      options: _vm.giverTypePercentageOptions,
+                      resizeDebounce: 500
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "col-sm-6" },
+                [
+                  _c("GChart", {
+                    staticStyle: { width: "400px", height: "400px" },
+                    attrs: {
+                      type: "PieChart",
+                      data: _vm.serviceTypePercentage,
+                      options: _vm.serviceTypePercentageOptions,
+                      resizeDebounce: 500
+                    }
+                  })
+                ],
+                1
+              )
+            ])
+          ])
         ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-sm-6" }, [
         _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header" }, [
-            _vm._v(
-              "\n\t\t\t\t\t    October Tithes and Offerings Record\n\t\t\t\t\t "
-            )
-          ]),
+          _vm._m(2),
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "card-body" },
+            { staticClass: "card-body overflow-auto" },
             [
               _c("GChart", {
                 staticStyle: { width: "800px", height: "400px" },
@@ -72223,25 +72311,18 @@ var staticRenderFns = [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-body" }, [
             _c("h5", { staticClass: "card-title" }, [
-              _vm._v("Total Amount Recorded")
+              _c("i", { staticClass: "fas fa-file-invoice-dollar fa-lg" }),
+              _vm._v(" Total Amount Recorded")
             ]),
             _vm._v(" "),
-            _c("h6", { staticClass: "card-subtitle mb-2 text-muted" }, [
-              _vm._v("Card subtitle")
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "card-text" }, [
-              _vm._v(
-                "Some quick example text to build on the card title and make up the bulk of the card's content."
-              )
-            ]),
+            _c(
+              "h1",
+              { staticClass: "card-text font-weight-bold text-primary" },
+              [_vm._v("158,900")]
+            ),
             _vm._v(" "),
             _c("a", { staticClass: "card-link", attrs: { href: "#" } }, [
-              _vm._v("Card link")
-            ]),
-            _vm._v(" "),
-            _c("a", { staticClass: "card-link", attrs: { href: "#" } }, [
-              _vm._v("Another link")
+              _vm._v("See all records")
             ])
           ])
         ])
@@ -72251,25 +72332,18 @@ var staticRenderFns = [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-body" }, [
             _c("h5", { staticClass: "card-title" }, [
-              _vm._v("Verified Records")
+              _c("i", { staticClass: "fas fa-receipt fa-lg" }),
+              _vm._v(" Verified Records")
             ]),
             _vm._v(" "),
-            _c("h6", { staticClass: "card-subtitle mb-2 text-muted" }, [
-              _vm._v("Card subtitle")
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "card-text" }, [
-              _vm._v(
-                "Some quick example text to build on the card title and make up the bulk of the card's content."
-              )
-            ]),
+            _c(
+              "h1",
+              { staticClass: "card-text font-weight-bold text-success" },
+              [_vm._v("326")]
+            ),
             _vm._v(" "),
             _c("a", { staticClass: "card-link", attrs: { href: "#" } }, [
-              _vm._v("Card link")
-            ]),
-            _vm._v(" "),
-            _c("a", { staticClass: "card-link", attrs: { href: "#" } }, [
-              _vm._v("Another link")
+              _vm._v("See verified rcords")
             ])
           ])
         ])
@@ -72279,25 +72353,18 @@ var staticRenderFns = [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-body" }, [
             _c("h5", { staticClass: "card-title" }, [
-              _vm._v("Unverified Records")
+              _c("i", { staticClass: "fas fa-coins fa-lg" }),
+              _vm._v(" Unverified Records")
             ]),
             _vm._v(" "),
-            _c("h6", { staticClass: "card-subtitle mb-2 text-muted" }, [
-              _vm._v("Card subtitle")
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "card-text" }, [
-              _vm._v(
-                "Some quick example text to build on the card title and make up the bulk of the card's content."
-              )
-            ]),
+            _c(
+              "h1",
+              { staticClass: "card-text font-weight-bold text-danger" },
+              [_vm._v("156")]
+            ),
             _vm._v(" "),
             _c("a", { staticClass: "card-link", attrs: { href: "#" } }, [
-              _vm._v("Card link")
-            ]),
-            _vm._v(" "),
-            _c("a", { staticClass: "card-link", attrs: { href: "#" } }, [
-              _vm._v("Another link")
+              _vm._v("See unverified records")
             ])
           ])
         ])
@@ -72306,24 +72373,171 @@ var staticRenderFns = [
       _c("div", { staticClass: "col-sm-3" }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-body" }, [
-            _c("h5", { staticClass: "card-title" }, [_vm._v("For Correction")]),
-            _vm._v(" "),
-            _c("h6", { staticClass: "card-subtitle mb-2 text-muted" }, [
-              _vm._v("Card subtitle")
+            _c("h5", { staticClass: "card-title" }, [
+              _c("i", { staticClass: "far fa-edit fa-lg" }),
+              _vm._v("For Correction")
             ]),
             _vm._v(" "),
-            _c("p", { staticClass: "card-text" }, [
-              _vm._v(
-                "Some quick example text to build on the card title and make up the bulk of the card's content."
-              )
-            ]),
+            _c(
+              "h1",
+              { staticClass: "card-text font-weight-bold text-warning" },
+              [_vm._v("130")]
+            ),
             _vm._v(" "),
             _c("a", { staticClass: "card-link", attrs: { href: "#" } }, [
-              _vm._v("Card link")
-            ]),
-            _vm._v(" "),
-            _c("a", { staticClass: "card-link", attrs: { href: "#" } }, [
-              _vm._v("Another link")
+              _vm._v("See records for corrections")
+            ])
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-6" }, [
+          _vm._v(
+            "\n\t\t\t\t        \t\tPopulation of Giver Types and Service Types\n\t\t\t\t        \t"
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-6" }, [
+          _c("form", { staticClass: "float-right" }, [
+            _c("div", { staticClass: "form-row align-items-right" }, [
+              _c("div", { staticClass: "col-auto" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "mr-sm-2 sr-only",
+                    attrs: { for: "inlineFormCustomSelect" }
+                  },
+                  [_vm._v("Preference")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    staticClass: "custom-select mr-sm-2",
+                    attrs: { id: "inlineFormCustomSelect" }
+                  },
+                  [
+                    _c("option", { attrs: { selected: "" } }, [
+                      _vm._v("October")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "1" } }, [
+                      _vm._v("Januray")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "2" } }, [
+                      _vm._v("Febuary")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("March")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("April")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("May")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("June")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("July")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("August")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [
+                      _vm._v("September")
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-auto" }, [
+                _c(
+                  "button",
+                  { staticClass: "btn btn-primary", attrs: { type: "button" } },
+                  [_vm._v("Generate Report")]
+                )
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-6" }, [
+          _vm._v(
+            "\n\t\t\t\t        \t\tOctober Tithes and Offerings Record\n\t\t\t\t        \t"
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-6" }, [
+          _c("form", { staticClass: "float-right" }, [
+            _c("div", { staticClass: "form-row align-items-right" }, [
+              _c("div", { staticClass: "col-auto" }, [
+                _c(
+                  "label",
+                  {
+                    staticClass: "mr-sm-2 sr-only",
+                    attrs: { for: "inlineFormCustomSelect" }
+                  },
+                  [_vm._v("Preference")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    staticClass: "custom-select mr-sm-2",
+                    attrs: { id: "inlineFormCustomSelect" }
+                  },
+                  [
+                    _c("option", { attrs: { selected: "" } }, [
+                      _vm._v("October")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "1" } }, [
+                      _vm._v("Januray")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "2" } }, [
+                      _vm._v("Febuary")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("March")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("April")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("May")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("June")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("July")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("August")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [
+                      _vm._v("September")
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-auto" }, [
+                _c(
+                  "button",
+                  { staticClass: "btn btn-primary", attrs: { type: "button" } },
+                  [_vm._v("Generate Report")]
+                )
+              ])
             ])
           ])
         ])
