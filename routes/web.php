@@ -50,6 +50,7 @@ Route::prefix('/users')->group(function () {
 
     Route::get('/', 'UserController@index')->name('user.index');
     Route::get('/create', 'UserController@create')->name('user.create');
+    Route::get('/show/{id}', 'UserController@show')->name('user.show');
 
 });
 
