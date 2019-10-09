@@ -56,6 +56,8 @@ Vue.component('record-create-form', require('./components/record/forms/RecordCre
 Vue.component('user-create-form', require('./components/user/forms/UserCreateForm.vue').default);
 Vue.component('user-password-form', require('./components/user/forms/UserSetPassword.vue').default);
 
+Vue.component('dashboard', require('./components/dashboard/dashboard.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
