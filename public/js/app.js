@@ -2480,6 +2480,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /*	
 	DATETIME PICKER ICONS
@@ -2541,7 +2542,8 @@ __webpack_require__.r(__webpack_exports__);
       city: this.memberData.city,
       province: this.memberData.province,
       code: this.memberData.code,
-      membership_status: this.memberData.membership_status
+      membership_status: this.memberData.membership_status,
+      member_account_status: this.memberData.member_account_status
     };
   },
   methods: {
@@ -2724,6 +2726,20 @@ __webpack_require__.r(__webpack_exports__);
         _this13.isSuccesful = true;
         _this13.isHidden = false;
         _this13.alertMessage = response.data.success ? "Member's profile updated sucessfully!" : "Error";
+      });
+    },
+    updateMemberAccountStatus: function updateMemberAccountStatus() {
+      var _this14 = this;
+
+      var membership_status = $('#membership_status').val();
+      window.axios.put(this.updateMemberRoute, {
+        membership_status: membership_status
+      }).then(function (response) {
+        console.log(response.data.success);
+        _this14.toEditMembershipStatus = true;
+        _this14.isSuccesful = true;
+        _this14.isHidden = false;
+        _this14.alertMessage = response.data.success ? "Member's profile updated sucessfully!" : "Error";
       });
     },
     del: function del(id) {// To do
@@ -74101,7 +74117,15 @@ var staticRenderFns = [
               _c("div", { staticClass: "dropdown-menu" }, [
                 _c(
                   "button",
-                  { staticClass: "dropdown-item", attrs: { type: "button" } },
+                  {
+                    staticClass: "dropdown-item",
+                    attrs: {
+                      type: "button",
+                      "data-toggle": "tooltip",
+                      "data-placement": "top",
+                      title: "Account is active"
+                    }
+                  },
                   [_vm._v("Deactivate")]
                 ),
                 _vm._v(" "),

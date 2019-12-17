@@ -21,15 +21,16 @@
 	        <div class="card-header bg-transparent border-primary">
 	        	<div class="row">
 		        	<div class="col-md-6">
-		        		<h5>Personal Profile</h5>
+		        		<h5>Personal Profile</h5> 
 		        	</div>
+
 		        	<div class="col-md-6">
 		        		<div class=" btn-group float-right">
 					  		<button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						    	Actions
 						  	</button>
 						  	<div class="dropdown-menu">
-						  		<button class="dropdown-item" type="button">Deactivate</button>
+						  		<button class="dropdown-item" type="button" data-toggle="tooltip" data-placement="top" title="Account is active">Deactivate</button>
 							    <a class="dropdown-item" href="#">Delete</a>
 						  	</div>
 						</div> 
@@ -430,7 +431,8 @@
                 city: this.memberData.city,
                 province: this.memberData.province,
                 code: this.memberData.code,
-                membership_status: this.memberData.membership_status
+                membership_status: this.memberData.membership_status,
+                member_account_status: this.memberData.member_account_status
 
             }
         },
@@ -615,6 +617,21 @@
 			      		this.alertMessage = response.data.success ? "Member's profile updated sucessfully!" : "Error"
 			    	});
 	      	},
+
+	      	updateMemberAccountStatus() {
+
+	      		var membership_status = $('#membership_status').val();
+
+	      		window.axios.put(this.updateMemberRoute, {membership_status: membership_status})
+	      			.then( response => {
+			      		console.log(response.data.success)
+			      		this.toEditMembershipStatus = true
+			      		this.isSuccesful = true
+			      		this.isHidden = false
+			      		this.alertMessage = response.data.success ? "Member's profile updated sucessfully!" : "Error"
+			    	});
+	      	},
+
 
 	      	del(id) {
 	        // To do

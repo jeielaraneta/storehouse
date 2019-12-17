@@ -50,6 +50,14 @@ class Member extends Model
         $this->attributes['age'] = $this->computeAge($this->attributes['birthday']);
     }
 
+    public function getCreatedAtAttribute($value) {
+        return date('m-d-Y h:i A', strtotime($value));
+    }
+
+    public function getMemberAccountStatusAttribute($value){
+        return $value ? 'Enabled' : 'Disabled';
+    }
+
     public function computeAge($birthday){
 
     	$memberBday = date('Y-m', strtotime($birthday)); // Your date of birth
