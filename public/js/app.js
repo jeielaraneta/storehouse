@@ -2481,6 +2481,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /*	
 	DATETIME PICKER ICONS
@@ -2543,7 +2551,7 @@ __webpack_require__.r(__webpack_exports__);
       province: this.memberData.province,
       code: this.memberData.code,
       membership_status: this.memberData.membership_status,
-      member_account_status: this.memberData.member_account_status
+      member_account_status: this.memberData.member_account_status === 'Enabled' ? 'Deactivate' : 'Activate'
     };
   },
   methods: {
@@ -2731,13 +2739,13 @@ __webpack_require__.r(__webpack_exports__);
     updateMemberAccountStatus: function updateMemberAccountStatus() {
       var _this14 = this;
 
-      var membership_status = $('#membership_status').val();
+      var account_status = $('#account_status').val() == 'Deactivate' ? '0' : 1;
+      console.log(account_status);
       window.axios.put(this.updateMemberRoute, {
-        membership_status: membership_status
+        member_account_status: account_status
       }).then(function (response) {
         console.log(response.data.success);
-        _this14.toEditMembershipStatus = true;
-        _this14.isSuccesful = true;
+        _this14.isSuccesful = response.data.success;
         _this14.isHidden = false;
         _this14.alertMessage = response.data.success ? "Member's profile updated sucessfully!" : "Error";
       });
@@ -72654,7 +72662,84 @@ var render = function() {
     _c("div", { staticClass: "card" }, [
       _c("span", { staticClass: "border-top" }),
       _vm._v(" "),
-      _vm._m(2),
+      _c("div", { staticClass: "card-header bg-transparent border-primary" }, [
+        _c("div", { staticClass: "row" }, [
+          _vm._m(2),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-6" }, [
+            _c("div", { staticClass: " btn-group float-right" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary btn-sm dropdown-toggle",
+                  attrs: {
+                    type: "button",
+                    "data-toggle": "dropdown",
+                    "aria-haspopup": "true",
+                    "aria-expanded": "false"
+                  }
+                },
+                [_vm._v("\n\t\t\t\t\t    \tActions\n\t\t\t\t\t  \t")]
+              ),
+              _vm._v(" "),
+              _c(
+                "form",
+                { attrs: { method: "POST", enctype: "multipart/form-data" } },
+                [
+                  _c("input", {
+                    attrs: { type: "hidden", name: "_token" },
+                    domProps: { value: _vm.csrf }
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "dropdown-menu" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model:value",
+                          value: _vm.member_account_status,
+                          expression: "member_account_status",
+                          arg: "value"
+                        }
+                      ],
+                      attrs: {
+                        type: "hidden",
+                        id: "account_status",
+                        name: "member_account_status"
+                      },
+                      domProps: { value: _vm.member_account_status },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.member_account_status = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "dropdown-item",
+                        attrs: { type: "button" },
+                        on: { click: _vm.updateMemberAccountStatus }
+                      },
+                      [_vm._v(" " + _vm._s(_vm.member_account_status))]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      { staticClass: "dropdown-item", attrs: { href: "#" } },
+                      [_vm._v("Delete")]
+                    )
+                  ])
+                ]
+              )
+            ])
+          ])
+        ])
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
         _c(
@@ -74089,57 +74174,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "card-header bg-transparent border-primary" },
-      [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-6" }, [
-            _c("h5", [_vm._v("Personal Profile")])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-6" }, [
-            _c("div", { staticClass: " btn-group float-right" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary btn-sm dropdown-toggle",
-                  attrs: {
-                    type: "button",
-                    "data-toggle": "dropdown",
-                    "aria-haspopup": "true",
-                    "aria-expanded": "false"
-                  }
-                },
-                [_vm._v("\n\t\t\t\t\t    \tActions\n\t\t\t\t\t  \t")]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "dropdown-menu" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "dropdown-item",
-                    attrs: {
-                      type: "button",
-                      "data-toggle": "tooltip",
-                      "data-placement": "top",
-                      title: "Account is active"
-                    }
-                  },
-                  [_vm._v("Deactivate")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  { staticClass: "dropdown-item", attrs: { href: "#" } },
-                  [_vm._v("Delete")]
-                )
-              ])
-            ])
-          ])
-        ])
-      ]
-    )
+    return _c("div", { staticClass: "col-md-6" }, [
+      _c("h5", [_vm._v("Personal Profile")])
+    ])
   },
   function() {
     var _vm = this

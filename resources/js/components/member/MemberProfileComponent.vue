@@ -29,10 +29,18 @@
 					  		<button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						    	Actions
 						  	</button>
-						  	<div class="dropdown-menu">
-						  		<button class="dropdown-item" type="button" data-toggle="tooltip" data-placement="top" title="Account is active">Deactivate</button>
-							    <a class="dropdown-item" href="#">Delete</a>
-						  	</div>
+
+						  	
+							<form method="POST" enctype="multipart/form-data">
+							 	<input type="hidden" name="_token" :value="csrf">
+							  	<div class="dropdown-menu">
+							  		<input type="hidden" id="account_status" name="member_account_status" v-model:value="member_account_status">
+							  		<button class="dropdown-item" type="button" @click="updateMemberAccountStatus"> {{member_account_status}}</button>
+								    <a class="dropdown-item" href="#">Delete</a>
+							  	</div>
+						 	</form>
+
+
 						</div> 
 
 		        	</div>
@@ -432,7 +440,7 @@
                 province: this.memberData.province,
                 code: this.memberData.code,
                 membership_status: this.memberData.membership_status,
-                member_account_status: this.memberData.member_account_status
+                member_account_status: this.memberData.member_account_status === 'Enabled' ? 'Deactivate' : 'Activate'
 
             }
         },
@@ -620,13 +628,13 @@
 
 	      	updateMemberAccountStatus() {
 
-	      		var membership_status = $('#membership_status').val();
+	      		var account_status = $('#account_status').val() == 'Deactivate' ? '0' : 1
+	      		console.log(account_status)
 
-	      		window.axios.put(this.updateMemberRoute, {membership_status: membership_status})
+	      		window.axios.put(this.updateMemberRoute, {member_account_status: account_status})
 	      			.then( response => {
 			      		console.log(response.data.success)
-			      		this.toEditMembershipStatus = true
-			      		this.isSuccesful = true
+			      		this.isSuccesful = response.data.success
 			      		this.isHidden = false
 			      		this.alertMessage = response.data.success ? "Member's profile updated sucessfully!" : "Error"
 			    	});

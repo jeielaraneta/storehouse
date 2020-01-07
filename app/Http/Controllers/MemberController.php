@@ -109,7 +109,15 @@ class MemberController extends Controller
 
         $memberProfile = $this->member->find($id);
 
+        //dd($request->all());
+
+       /* $test = array(
+                  'member_account_status' => 0
+                );*/
+
         $update = $memberProfile->update($request->all());
+
+        //dd($update);
 
         return response()->json([ 'success' => $update ? true : false]);
     }
