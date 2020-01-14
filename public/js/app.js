@@ -2484,14 +2484,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 /*	
 	DATETIME PICKER ICONS
@@ -2507,7 +2499,7 @@ __webpack_require__.r(__webpack_exports__);
 */
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {},
-  props: ['memberData', 'birthday', 'updateMemberRoute'],
+  props: ['memberData', 'birthday', 'updateMemberRoute', 'deleteMemberRoute', 'indexMemberRoute'],
   data: function data() {
     return {
       options: {
@@ -2541,6 +2533,7 @@ __webpack_require__.r(__webpack_exports__);
       toEditProvince: true,
       toEditCode: true,
       toEditMembershipStatus: true,
+      id: this.memberData.id,
       first_name: this.memberData.first_name,
       middle_name: this.memberData.middle_name,
       last_name: this.memberData.last_name,
@@ -2553,9 +2546,7 @@ __webpack_require__.r(__webpack_exports__);
       city: this.memberData.city,
       province: this.memberData.province,
       code: this.memberData.code,
-      membership_status: this.memberData.membership_status,
-      member_account_status: this.memberData.member_account_status,
-      account_status: ''
+      membership_status: this.memberData.membership_status
     };
   },
   methods: {
@@ -2740,21 +2731,13 @@ __webpack_require__.r(__webpack_exports__);
         _this13.alertMessage = response.data.success ? "Member's profile updated sucessfully!" : "Error";
       });
     },
-    updateMemberAccountStatus: function updateMemberAccountStatus() {
-      var _this14 = this;
-
-      var status = $('#account_status').val();
-      window.axios.put(this.updateMemberRoute, {
-        member_account_status: status
-      }).then(function (response) {
-        console.log(response.data.success);
-        _this14.isSuccesful = response.data.success;
-        _this14.isHidden = false;
-        _this14.account_status = status;
-        _this14.alertMessage = response.data.success ? "Member's profile updated sucessfully!" : "Error";
-      });
-    },
-    del: function del(id) {// To do
+    del: function del() {
+      var _id = this.id;
+      this.$refs.deleteMember.submit();
+      /*window.axios.delete(this.deleteMemberRoute, {id: _id})
+      .then( response => {
+      	window.location.href=this.indexMemberRoute
+      });*/
     }
   }
 });
@@ -72688,62 +72671,37 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "form",
-                { attrs: { method: "POST", enctype: "multipart/form-data" } },
+                {
+                  ref: "deleteMember",
+                  attrs: {
+                    id: "deleteMember",
+                    method: "POST",
+                    enctype: "multipart/form-data",
+                    action: this.deleteMemberRoute
+                  },
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.del($event)
+                    }
+                  }
+                },
                 [
                   _c("input", {
                     attrs: { type: "hidden", name: "_token" },
                     domProps: { value: _vm.csrf }
                   }),
                   _vm._v(" "),
-                  _c("div", { staticClass: "dropdown-menu" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model:value",
-                          value: _vm.member_account_status,
-                          expression: "member_account_status",
-                          arg: "value"
-                        }
-                      ],
-                      attrs: {
-                        type: "hidden",
-                        id: "account_status",
-                        name: "member_account_status"
-                      },
-                      domProps: { value: _vm.member_account_status },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.member_account_status = $event.target.value
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "dropdown-item",
-                        attrs: { type: "button" },
-                        on: { click: _vm.updateMemberAccountStatus }
-                      },
-                      [
-                        _vm._v(
-                          "\n\t\t\t\t\t\t  \t\t\t" +
-                            _vm._s(_vm.account_status) +
-                            "\n\t\t\t\t\t\t  \t\t"
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      { staticClass: "dropdown-item", attrs: { href: "#" } },
-                      [_vm._v("Delete")]
-                    )
-                  ])
+                  _c("input", {
+                    attrs: { type: "hidden", name: "_method", value: "DELETE" }
+                  }),
+                  _vm._v(" "),
+                  _c("input", {
+                    attrs: { type: "hidden", name: "id" },
+                    domProps: { value: _vm.id }
+                  }),
+                  _vm._v(" "),
+                  _vm._m(3)
                 ]
               )
             ])
@@ -73290,7 +73248,7 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _vm._m(3),
+      _vm._m(4),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
         _c(
@@ -73906,7 +73864,7 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _vm._m(4),
+      _vm._m(5),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
         _c(
@@ -74186,6 +74144,18 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-6" }, [
       _c("h5", [_vm._v("Personal Profile")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "dropdown-menu" }, [
+      _c(
+        "button",
+        { staticClass: "dropdown-item", attrs: { type: "submit" } },
+        [_vm._v("Delete")]
+      )
     ])
   },
   function() {

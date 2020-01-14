@@ -21,7 +21,7 @@
 	        <div class="card-header bg-transparent border-primary">
 	        	<div class="row">
 		        	<div class="col-md-6">
-		        		<h5>Personal Profile</h5> 
+		        		<h5>Personal Profile</h5>
 		        	</div>
 
 		        	<div class="col-md-6">
@@ -29,23 +29,15 @@
 					  		<button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						    	Actions
 						  	</button>
-
-						  	
-							<form method="POST" enctype="multipart/form-data">
-							 	<input type="hidden" name="_token" :value="csrf">
-							  	<div class="dropdown-menu">
-							  		<input type="hidden" id="account_status" name="member_account_status" v-model:value="member_account_status">
-							  		<button class="dropdown-item" type="button" @click="updateMemberAccountStatus">
-							  			{{account_status}}
-							  		</button>
-							  		<!-- <button class="dropdown-item" type="button" v-else @click="updateMemberAccountStatus">Activate</button> -->
-								    <a class="dropdown-item" href="#">Delete</a>
+						  	<form id="deleteMember" ref="deleteMember" method="POST" enctype="multipart/form-data" :action="this.deleteMemberRoute" @submit.prevent="del">
+						  		<input type="hidden" name="_token" :value="csrf">
+						  		<input type="hidden" name="_method" value="DELETE">
+						  		<input type="hidden" name="id" :value="id">
+								<div class="dropdown-menu">
+							  		<button class="dropdown-item" type="submit">Delete</button>
 							  	</div>
-						 	</form>
-
-
-						</div> 
-
+						  	</form>
+						</div>
 		        	</div>
 				</div>
 	        </div>
@@ -394,7 +386,7 @@
           	
       	},
 
-      	props: ['memberData', 'birthday', 'updateMemberRoute'],
+      	props: ['memberData', 'birthday', 'updateMemberRoute', 'deleteMemberRoute', 'indexMemberRoute'],
 
       	data() {
             return {
@@ -430,6 +422,7 @@
                 toEditCode: true,
                 toEditMembershipStatus: true,
                 
+                id: this.memberData.id,
                 first_name: this.memberData.first_name,
                 middle_name: this.memberData.middle_name,
                 last_name: this.memberData.last_name,
@@ -442,10 +435,7 @@
                 city: this.memberData.city,
                 province: this.memberData.province,
                 code: this.memberData.code,
-                membership_status: this.memberData.membership_status,
-                member_account_status: this.memberData.member_account_status,
-                account_status: ''
-
+                membership_status: this.memberData.membership_status
             }
         },
 	    methods: {
@@ -630,23 +620,16 @@
 			    	});
 	      	},
 
-	      	updateMemberAccountStatus() {
+	      	del() {
 
-	      		var status = $('#account_status').val()
+	      		var _id = this.id;
 
-	      		window.axios.put(this.updateMemberRoute, {member_account_status: status})
+	      		this.$refs.deleteMember.submit();
+
+	        	/*window.axios.delete(this.deleteMemberRoute, {id: _id})
 	      			.then( response => {
-			      		console.log(response.data.success)
-			      		this.isSuccesful = response.data.success
-			      		this.isHidden = false
-			      		this.account_status = status
-			      		this.alertMessage = response.data.success ? "Member's profile updated sucessfully!" : "Error"
-			    	});
-	      	},
-
-
-	      	del(id) {
-	        	// To do
+			      		window.location.href=this.indexMemberRoute
+			    	});*/
 	      	}
 	    }
   	}

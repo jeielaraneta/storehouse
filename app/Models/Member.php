@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Member extends Model
 {
 
-	use Notifiable; //HasApiTokens
+	use Notifiable, SoftDeletes; //HasApiTokens
     /**
      * The attributes that are mass assignable.
      *
@@ -17,6 +18,8 @@ class Member extends Model
     protected $fillable = [
         'code', 'first_name', 'middle_name', 'last_name', 'birthday', 'age', 'email', 'contact_number', 'marital_status', 'membership_status', 'member_account_status', 'address_line_1', 'barangay', 'city', 'province', 'created_at'
     ];
+
+    protected $dates = ['deleted_at'];
 
     /**
      * Get the record for the member.
@@ -48,12 +51,6 @@ class Member extends Model
 
     public function setAgeAttribute($value) {
         $this->attributes['age'] = $this->computeAge($this->attributes['birthday']);
-    }
-
-    public function setMemberAccountStatusAttribute($value)
-    {
-        $status = ($value == 'Active') ? 0 : 1;
-        $this->attributes['member_account_status'] = $status;
     }
 
     public function getCreatedAtAttribute($value) {

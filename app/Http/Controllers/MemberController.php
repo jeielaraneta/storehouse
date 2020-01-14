@@ -122,7 +122,9 @@ class MemberController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $deleted = $this->member->destroy($id);
+        
+        return redirect('members')->with('status', 'Member succesfully deleted!');
     }
 
     /**
