@@ -2489,6 +2489,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /*	
 	DATETIME PICKER ICONS
@@ -2551,7 +2554,8 @@ __webpack_require__.r(__webpack_exports__);
       province: this.memberData.province,
       code: this.memberData.code,
       membership_status: this.memberData.membership_status,
-      member_account_status: this.memberData.member_account_status === 'Enabled' ? 'Deactivate' : 'Activate'
+      member_account_status: this.memberData.member_account_status,
+      account_status: ''
     };
   },
   methods: {
@@ -2739,14 +2743,14 @@ __webpack_require__.r(__webpack_exports__);
     updateMemberAccountStatus: function updateMemberAccountStatus() {
       var _this14 = this;
 
-      var account_status = $('#account_status').val() == 'Deactivate' ? '0' : 1;
-      console.log(account_status);
+      var status = $('#account_status').val();
       window.axios.put(this.updateMemberRoute, {
-        member_account_status: account_status
+        member_account_status: status
       }).then(function (response) {
         console.log(response.data.success);
         _this14.isSuccesful = response.data.success;
         _this14.isHidden = false;
+        _this14.account_status = status;
         _this14.alertMessage = response.data.success ? "Member's profile updated sucessfully!" : "Error";
       });
     },
@@ -72725,7 +72729,13 @@ var render = function() {
                         attrs: { type: "button" },
                         on: { click: _vm.updateMemberAccountStatus }
                       },
-                      [_vm._v(" " + _vm._s(_vm.member_account_status))]
+                      [
+                        _vm._v(
+                          "\n\t\t\t\t\t\t  \t\t\t" +
+                            _vm._s(_vm.account_status) +
+                            "\n\t\t\t\t\t\t  \t\t"
+                        )
+                      ]
                     ),
                     _vm._v(" "),
                     _c(

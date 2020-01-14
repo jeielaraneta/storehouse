@@ -50,19 +50,18 @@ class Member extends Model
         $this->attributes['age'] = $this->computeAge($this->attributes['birthday']);
     }
 
-    /*public function setMemberAccountStatusAttribute($value)
+    public function setMemberAccountStatusAttribute($value)
     {
-        dd($value);
-        $this->attributes['member_account_status'] = $value;
-        //dd($value);
-    }*/
+        $status = ($value == 'Active') ? 0 : 1;
+        $this->attributes['member_account_status'] = $status;
+    }
 
     public function getCreatedAtAttribute($value) {
         return date('m-d-Y h:i A', strtotime($value));
     }
 
     public function getMemberAccountStatusAttribute($value){
-        return $value ? 'Enabled' : 'Disabled';
+        return $value ? 'Active' : 'Inactive';
     }
 
     public function computeAge($birthday){

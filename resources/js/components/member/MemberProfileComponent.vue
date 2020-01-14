@@ -35,7 +35,10 @@
 							 	<input type="hidden" name="_token" :value="csrf">
 							  	<div class="dropdown-menu">
 							  		<input type="hidden" id="account_status" name="member_account_status" v-model:value="member_account_status">
-							  		<button class="dropdown-item" type="button" @click="updateMemberAccountStatus"> {{member_account_status}}</button>
+							  		<button class="dropdown-item" type="button" @click="updateMemberAccountStatus">
+							  			{{account_status}}
+							  		</button>
+							  		<!-- <button class="dropdown-item" type="button" v-else @click="updateMemberAccountStatus">Activate</button> -->
 								    <a class="dropdown-item" href="#">Delete</a>
 							  	</div>
 						 	</form>
@@ -440,7 +443,8 @@
                 province: this.memberData.province,
                 code: this.memberData.code,
                 membership_status: this.memberData.membership_status,
-                member_account_status: this.memberData.member_account_status === 'Enabled' ? 'Deactivate' : 'Activate'
+                member_account_status: this.memberData.member_account_status,
+                account_status: ''
 
             }
         },
@@ -628,21 +632,21 @@
 
 	      	updateMemberAccountStatus() {
 
-	      		var account_status = $('#account_status').val() == 'Deactivate' ? '0' : 1
-	      		console.log(account_status)
+	      		var status = $('#account_status').val()
 
-	      		window.axios.put(this.updateMemberRoute, {member_account_status: account_status})
+	      		window.axios.put(this.updateMemberRoute, {member_account_status: status})
 	      			.then( response => {
 			      		console.log(response.data.success)
 			      		this.isSuccesful = response.data.success
 			      		this.isHidden = false
+			      		this.account_status = status
 			      		this.alertMessage = response.data.success ? "Member's profile updated sucessfully!" : "Error"
 			    	});
 	      	},
 
 
 	      	del(id) {
-	        // To do
+	        	// To do
 	      	}
 	    }
   	}
