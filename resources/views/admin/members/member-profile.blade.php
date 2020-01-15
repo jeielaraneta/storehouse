@@ -30,7 +30,7 @@
 
             <!-- {{$memberData}} -->
 
-            <member-profile-component :member-data="{{ json_encode($memberData) }}" update-member-route="{{ route('member.update', $memberData->id) }}"></member-profile-component>
+            <member-profile-component :member-data="{{ json_encode($memberData) }}" index-member-route="{{ route('member.index') }}" update-member-route="{{ route('member.update', $memberData->id) }}" delete-member-route="{{ route('member.delete', $memberData->id)}}"></member-profile-component>
 
      
     </div>

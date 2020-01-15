@@ -23,17 +23,21 @@
 		        	<div class="col-md-6">
 		        		<h5>Personal Profile</h5>
 		        	</div>
+
 		        	<div class="col-md-6">
 		        		<div class=" btn-group float-right">
 					  		<button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						    	Actions
 						  	</button>
-						  	<div class="dropdown-menu">
-						  		<button class="dropdown-item" type="button">Deactivate</button>
-							    <a class="dropdown-item" href="#">Delete</a>
-						  	</div>
-						</div> 
-
+						  	<form id="deleteMember" ref="deleteMember" method="POST" enctype="multipart/form-data" :action="this.deleteMemberRoute" @submit.prevent="del">
+						  		<input type="hidden" name="_token" :value="csrf">
+						  		<input type="hidden" name="_method" value="DELETE">
+						  		<input type="hidden" name="id" :value="id">
+								<div class="dropdown-menu">
+							  		<button class="dropdown-item" type="submit">Delete</button>
+							  	</div>
+						  	</form>
+						</div>
 		        	</div>
 				</div>
 	        </div>
@@ -382,7 +386,7 @@
           	
       	},
 
-      	props: ['memberData', 'birthday', 'updateMemberRoute'],
+      	props: ['memberData', 'birthday', 'updateMemberRoute', 'deleteMemberRoute', 'indexMemberRoute'],
 
       	data() {
             return {
@@ -418,6 +422,7 @@
                 toEditCode: true,
                 toEditMembershipStatus: true,
                 
+                id: this.memberData.id,
                 first_name: this.memberData.first_name,
                 middle_name: this.memberData.middle_name,
                 last_name: this.memberData.last_name,
@@ -431,7 +436,6 @@
                 province: this.memberData.province,
                 code: this.memberData.code,
                 membership_status: this.memberData.membership_status
-
             }
         },
 	    methods: {
@@ -616,8 +620,16 @@
 			    	});
 	      	},
 
-	      	del(id) {
-	        // To do
+	      	del() {
+
+	      		var _id = this.id;
+
+	      		this.$refs.deleteMember.submit();
+
+	        	/*window.axios.delete(this.deleteMemberRoute, {id: _id})
+	      			.then( response => {
+			      		window.location.href=this.indexMemberRoute
+			    	});*/
 	      	}
 	    }
   	}

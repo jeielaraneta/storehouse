@@ -30,6 +30,7 @@ class CreateMembersTable extends Migration
             $table->string('city', 30)->nullable();
             $table->string('province', 30)->nullable();
             $table->timestamps();
+            $table->softDeletesTz();
         });
     }
 
