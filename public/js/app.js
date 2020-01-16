@@ -2733,11 +2733,20 @@ __webpack_require__.r(__webpack_exports__);
     },
     del: function del() {
       var _id = this.id;
-      this.$refs.deleteMember.submit();
+      console.log(this.memberData.membership_status);
+
+      if (this.memberData.membership_status == 'Inactive') {
+        this.$refs.deleteMember.submit();
+      } else {
+        this.isSuccesful = false;
+        this.isHidden = false;
+        this.alertMessage = "Member is currently active. Set member to inactive to proceed.";
+      }
       /*window.axios.delete(this.deleteMemberRoute, {id: _id})
       .then( response => {
       	window.location.href=this.indexMemberRoute
       });*/
+
     }
   }
 });
@@ -72213,7 +72222,10 @@ var render = function() {
         staticClass: "btn btn-info btn-sm",
         attrs: { role: "button", href: this.route }
       },
-      [_vm._v(_vm._s(this.btnText))]
+      [
+        _c("i", { staticClass: "fas fa-eye" }),
+        _vm._v(" " + _vm._s(this.btnText))
+      ]
     )
   ])
 }
@@ -74028,19 +74040,19 @@ var render = function() {
                       _vm._v("Select membership status")
                     ]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "active" } }, [
+                    _c("option", { attrs: { value: "Active" } }, [
                       _vm._v("Active")
                     ]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "regular attendee" } }, [
+                    _c("option", { attrs: { value: "Regular attendee" } }, [
                       _vm._v("Regular Attendee")
                     ]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "visitor" } }, [
+                    _c("option", { attrs: { value: "Visitor" } }, [
                       _vm._v("Visitor")
                     ]),
                     _vm._v(" "),
-                    _c("option", { attrs: { value: "inactive" } }, [
+                    _c("option", { attrs: { value: "Inactive" } }, [
                       _vm._v("Inactive")
                     ])
                   ]

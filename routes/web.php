@@ -31,6 +31,7 @@ Route::prefix('/members')->group(function () {
     Route::get('/show/{id}', 'MemberController@show')->name('member.show');
     Route::put('/update/{id}', 'MemberController@update')->name('member.update');
     Route::delete('/delete/{id}', 'MemberController@destroy')->name('member.delete');
+    Route::put('/restore/{id}', 'MemberController@restore')->name('member.restore');
     Route::get('/search', 'MemberController@apiResource')->name('member.search');
     Route::get('/api', 'MemberController@apiResource');
 

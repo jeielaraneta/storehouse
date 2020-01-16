@@ -57,8 +57,8 @@ class Member extends Model
         return date('m-d-Y h:i A', strtotime($value));
     }
 
-    public function getMemberAccountStatusAttribute($value){
-        return $value ? 'Active' : 'Inactive';
+    public function getMembershipStatusAttribute($value){
+        return ucfirst($value); //$value ? 'Active' : 'Inactive';
     }
 
     public function computeAge($birthday){

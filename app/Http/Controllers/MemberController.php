@@ -42,7 +42,7 @@ class MemberController extends Controller
      */
     public function index()
     {
-        $member = $this->member->all();
+        $member = $this->member->withTrashed()->get();
         return view('admin/members/member', ['members' => $member]);
     }
 
@@ -125,6 +125,19 @@ class MemberController extends Controller
         $deleted = $this->member->destroy($id);
         
         return redirect('members')->with('status', 'Member succesfully deleted!');
+    }
+
+    /**
+     * Restore the specified resource after soft delete.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function restore($id)
+    {
+        $restored = $this->member->withTrashed()->find($id)->restore();
+        
+        return redirect('members')->with('status', 'A member has been restored!');
     }
 
     /**

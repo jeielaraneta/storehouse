@@ -337,10 +337,10 @@
 
 					    	<select id="membership_status" class="custom-select custom-select mb-3" name="membership_status" v-model:value="membership_status" :disabled="toEditMembershipStatus">
 	                            <option disabled selected>Select membership status</option>
-	                            <option value="active">Active</option>
-	                            <option value="regular attendee">Regular Attendee</option>
-	                            <option value="visitor">Visitor</option>
-	                            <option value="inactive">Inactive</option>
+	                            <option value="Active">Active</option>
+	                            <option value="Regular attendee">Regular Attendee</option>
+	                            <option value="Visitor">Visitor</option>
+	                            <option value="Inactive">Inactive</option>
 	                        </select>
 
 					    </div>
@@ -624,7 +624,17 @@
 
 	      		var _id = this.id;
 
-	      		this.$refs.deleteMember.submit();
+	      		console.log(this.memberData.membership_status)
+
+	      		if (this.memberData.membership_status == 'Inactive'){
+	      			this.$refs.deleteMember.submit();
+	      		}
+
+	      		else {
+	      			this.isSuccesful = false
+	      			this.isHidden = false
+	      			this.alertMessage = "Member is currently active. Set member to inactive to proceed."
+	      		}
 
 	        	/*window.axios.delete(this.deleteMemberRoute, {id: _id})
 	      			.then( response => {
