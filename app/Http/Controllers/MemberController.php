@@ -135,7 +135,13 @@ class MemberController extends Controller
      */
     public function restore($id)
     {
-        $restored = $this->member->withTrashed()->find($id)->restore();
+
+        $member = $this->member->withTrashed()->find($id);
+
+        $restored = $member->restore();
+
+        $member->membership_status = 'Active';
+        $member->save();
         
         return redirect('members')->with('status', 'A member has been restored!');
     }

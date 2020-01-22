@@ -43,7 +43,7 @@
 	        </div>
 	        <div class="card-body">
 
-	        	<form method="POST" enctype="multipart/form-data">
+	        	<form enctype="multipart/form-data">
 	                <input type="hidden" name="_token" :value="csrf">
 	                <div class="form-group row">
 	                	<label for="first_name" class="col-sm-2 col-form-label">First Name</label>
@@ -65,7 +65,7 @@
 					</div>
 				</form>
 
-				<form method="POST" enctype="multipart/form-data">
+				<form enctype="multipart/form-data">
 	                <input type="hidden" name="_token" :value="csrf">
 					<div class="form-group row">
 						<label for="middle_name" class="col-sm-2 col-form-label">Middle Name</label>
@@ -87,7 +87,7 @@
 					</div>
 				</form>
 
-				<form method="POST" enctype="multipart/form-data">
+				<form enctype="multipart/form-data">
 	                <input type="hidden" name="_token" :value="csrf">
 
 					<div class="form-group row">
@@ -110,7 +110,7 @@
 					</div>
 				</form>
 
-				<form method="POST" enctype="multipart/form-data">
+				<form enctype="multipart/form-data">
 	                <input type="hidden" name="_token" :value="csrf">
 
 					<div class="form-group row">
@@ -137,7 +137,7 @@
 					</div>
 				</form>
 
-				<form method="POST" enctype="multipart/form-data">
+				<form enctype="multipart/form-data">
 	                <input type="hidden" name="_token" :value="csrf">
 					<div class="form-group row">
 
@@ -172,7 +172,7 @@
 
 	        <div class="card-header bg-transparent border-primary"> <h5>Contact Information</h5> </div>
 	        <div class="card-body">
-	        	<form method="POST" enctype="multipart/form-data">
+	        	<form enctype="multipart/form-data">
 	                <input type="hidden" name="_token" :value="csrf">
 	                <div class="form-group row">
 	                	<label for="email" class="col-sm-2 col-form-label">Email</label>
@@ -194,7 +194,7 @@
 					</div>
 				</form>
 
-				<form method="POST" enctype="multipart/form-data">
+				<form enctype="multipart/form-data">
 	                <input type="hidden" name="_token" :value="csrf">
 	                <div class="form-group row">
 	                	<label for="contact_number" class="col-sm-2 col-form-label">Contact Number</label>
@@ -216,7 +216,7 @@
 					</div>
 				</form>
 
-				<form method="POST" enctype="multipart/form-data">
+				<form enctype="multipart/form-data">
 	                <input type="hidden" name="_token" :value="csrf">
 	                <div class="form-group row">
 	                	<label for="address_line_1" class="col-sm-2 col-form-label">Address Line 1</label>
@@ -238,7 +238,7 @@
 					</div>
 				</form>
 
-				<form method="POST" enctype="multipart/form-data">
+				<form enctype="multipart/form-data">
 	                <input type="hidden" name="_token" :value="csrf">
 	                <div class="form-group row">
 	                	<label for="barangay" class="col-sm-2 col-form-label">Barangay</label>
@@ -260,7 +260,7 @@
 					</div>
 				</form>
 
-				<form method="POST" enctype="multipart/form-data">
+				<form enctype="multipart/form-data">
 	                <input type="hidden" name="_token" :value="csrf">
 	                <div class="form-group row">
 	                	<label for="city" class="col-sm-2 col-form-label">City</label>
@@ -282,7 +282,7 @@
 					</div>
 				</form>
 
-				<form method="POST" enctype="multipart/form-data">
+				<form enctype="multipart/form-data">
 	                <input type="hidden" name="_token" :value="csrf">
 	                <div class="form-group row">
 	                	<label for="province" class="col-sm-2 col-form-label">Province</label>
@@ -307,7 +307,7 @@
 
 	        <div class="card-header bg-transparent border-primary"><h5>Membership Profile</h5></div>
 	        <div class="card-body">
-	        	<form method="POST" enctype="multipart/form-data">
+	        	<form enctype="multipart/form-data">
 	                <input type="hidden" name="_token" :value="csrf">
 	                <div class="form-group row">
 	                	<label for="code" class="col-sm-2 col-form-label">Code</label>
@@ -329,7 +329,7 @@
 					</div>
 				</form>
 
-				<form method="POST" enctype="multipart/form-data">
+				<form enctype="multipart/form-data">
 	                <input type="hidden" name="_token" :value="csrf">
 	                <div class="form-group row">
 	                	<label for="membership_status" class="col-sm-2 col-form-label">Membership Status</label>
@@ -623,8 +623,6 @@
 	      	del() {
 
 	      		var _id = this.id;
-
-	      		console.log(this.memberData.membership_status)
 
 	      		if (this.memberData.membership_status == 'Inactive'){
 	      			this.$refs.deleteMember.submit();
