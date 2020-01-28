@@ -633,11 +633,6 @@
 	      			this.isHidden = false
 	      			this.alertMessage = "Member is currently active. Set member to inactive to proceed."
 	      		}
-
-	        	/*window.axios.delete(this.deleteMemberRoute, {id: _id})
-	      			.then( response => {
-			      		window.location.href=this.indexMemberRoute
-			    	});*/
 	      	}
 	    }
   	}

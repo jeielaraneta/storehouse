@@ -3,7 +3,7 @@
   		<input type="hidden" name="_token" :value="csrf">
   		<input type="hidden" name="_method" value="PUT">
 		<div class="text-center">
-  			<button class="btn btn-info btn-sm" type="submit"><i class="fas fa-eye"></i> {{this.btnText}}</button>
+  			<button class="btn btn-warning btn-sm" type="submit"><i class="fas fa-trash-restore"></i> {{this.btnText}}</button>
   		</div>
   	</form>
 </template>

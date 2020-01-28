@@ -2777,11 +2777,6 @@ __webpack_require__.r(__webpack_exports__);
         this.isHidden = false;
         this.alertMessage = "Member is currently active. Set member to inactive to proceed.";
       }
-      /*window.axios.delete(this.deleteMemberRoute, {id: _id})
-      .then( response => {
-      	window.location.href=this.indexMemberRoute
-      });*/
-
     }
   }
 });
@@ -72277,9 +72272,9 @@ var render = function() {
       _c("div", { staticClass: "text-center" }, [
         _c(
           "button",
-          { staticClass: "btn btn-info btn-sm", attrs: { type: "submit" } },
+          { staticClass: "btn btn-warning btn-sm", attrs: { type: "submit" } },
           [
-            _c("i", { staticClass: "fas fa-eye" }),
+            _c("i", { staticClass: "fas fa-trash-restore" }),
             _vm._v(" " + _vm._s(this.btnText))
           ]
         )

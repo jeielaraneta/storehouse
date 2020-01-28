@@ -59,8 +59,12 @@
                                             <td>{{$member->membership_status}}</td>
                                             <td>{{$member->created_at}}</td>
                                             <td>
+                                                @if (!$member->trashed())
                                                 <show-button route="{{ route('member.show', $member->id) }}" btn-text="View"></show-button>
+                                                @else
                                                 <restore-button route="{{ route('member.restore', $member->id) }}" btn-text="Restore"></restore-button>
+                                                @endif
+                                                
                                             </td>
                                         </tr>
                                     @endforeach

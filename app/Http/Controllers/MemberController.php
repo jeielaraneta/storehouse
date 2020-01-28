@@ -95,6 +95,7 @@ class MemberController extends Controller
     public function show($id)
     {
         $member = $this->member->findorFail($id);
+
         return view('admin/members/member-profile', ['memberData' => $member]);
     }
 
@@ -111,7 +112,9 @@ class MemberController extends Controller
 
         $update = $memberProfile->update($request->all());
 
-        return response()->json([ 'success' => $update ? true : false]);
+        $updated = $request->all();
+
+        return response()->json([ 'success' => $update, 'updates' => $updated]);
     }
 
     /**
@@ -138,8 +141,7 @@ class MemberController extends Controller
 
         $member = $this->member->withTrashed()->find($id);
 
-        $restored = $member->restore();
-
+        $member->restore();
         $member->membership_status = 'Active';
         $member->save();
         
