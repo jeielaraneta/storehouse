@@ -42,7 +42,7 @@ class MemberController extends Controller
      */
     public function index()
     {
-        $member = $this->member->all();
+        $member = $this->member->withTrashed()->get();
         return view('admin/members/member', ['members' => $member]);
     }
 
@@ -95,6 +95,7 @@ class MemberController extends Controller
     public function show($id)
     {
         $member = $this->member->findorFail($id);
+
         return view('admin/members/member-profile', ['memberData' => $member]);
     }
 
@@ -111,7 +112,9 @@ class MemberController extends Controller
 
         $update = $memberProfile->update($request->all());
 
-        return response()->json([ 'success' => $update ? true : false]);
+        $updated = $request->all();
+
+        return response()->json([ 'success' => $update, 'updates' => $updated]);
     }
 
     /**
@@ -125,6 +128,24 @@ class MemberController extends Controller
         $deleted = $this->member->destroy($id);
         
         return redirect('members')->with('status', 'Member succesfully deleted!');
+    }
+
+    /**
+     * Restore the specified resource after soft delete.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function restore($id)
+    {
+
+        $member = $this->member->withTrashed()->find($id);
+
+        $member->restore();
+        $member->membership_status = 'Active';
+        $member->save();
+        
+        return redirect('members')->with('status', 'A member has been restored!');
     }
 
     /**

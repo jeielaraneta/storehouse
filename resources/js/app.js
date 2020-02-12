@@ -44,6 +44,7 @@ Vue.use(VeeValidate);
 
 Vue.component('create-button', require('./components/buttons/createButton.vue').default);
 Vue.component('show-button', require('./components/buttons/showButton.vue').default);
+Vue.component('restore-button', require('./components/buttons/restoreButton.vue').default);
 
 Vue.component('datatable-component', require('./components/datatable/DatatableComponent.vue').default);
 
