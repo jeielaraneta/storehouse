@@ -3,14 +3,14 @@
 		<div v-if="!isHidden">
 			<div class="alert alert-success" role="alert" v-show="isSuccesful">
 				{{alertMessage}}
-		        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		        <button type="button" class="close" data-dismiss="alert" aria-label="Close" v-on:click="isHidden = true">
 		            <span aria-hidden="true">&times;</span>
 		        </button>
 		    </div>
 
 		    <div class="alert alert-danger" role="alert" v-show="!isSuccesful">
 		    	{{alertMessage}}
-		        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		        <button type="button" class="close" data-dismiss="alert" aria-label="Close" v-on:click="isHidden = true">
 		            <span aria-hidden="true">&times;</span>
 		        </button>
 		    </div>
@@ -329,14 +329,14 @@
 					</div>
 				</form>
 
-				<form enctype="multipart/form-data">
+				<form enctype="multipart/form-data" id="membershipStatus" ref="membershipStatus">
 	                <input type="hidden" name="_token" :value="csrf">
 	                <div class="form-group row">
 	                	<label for="membership_status" class="col-sm-2 col-form-label">Membership Status</label>
 					    <div class="col-sm-8">
 
 					    	<select id="membership_status" class="custom-select custom-select mb-3" name="membership_status" v-model:value="membership_status" :disabled="toEditMembershipStatus">
-	                            <option disabled selected>Select membership status</option>
+	                            <option disabled>Select membership status</option>
 	                            <option value="Active">Active</option>
 	                            <option value="Regular attendee">Regular Attendee</option>
 	                            <option value="Visitor">Visitor</option>
@@ -624,7 +624,7 @@
 
 	      		var _id = this.id;
 
-	      		if (this.memberData.membership_status == 'Inactive'){
+	      		if (this.membership_status == 'Inactive'){
 	      			this.$refs.deleteMember.submit();
 	      		}
 

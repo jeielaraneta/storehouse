@@ -2770,7 +2770,7 @@ __webpack_require__.r(__webpack_exports__);
     del: function del() {
       var _id = this.id;
 
-      if (this.memberData.membership_status == 'Inactive') {
+      if (this.membership_status == 'Inactive') {
         this.$refs.deleteMember.submit();
       } else {
         this.isSuccesful = false;
@@ -72721,7 +72721,27 @@ var render = function() {
             },
             [
               _vm._v("\n\t\t\t" + _vm._s(_vm.alertMessage) + "\n\t        "),
-              _vm._m(0)
+              _c(
+                "button",
+                {
+                  staticClass: "close",
+                  attrs: {
+                    type: "button",
+                    "data-dismiss": "alert",
+                    "aria-label": "Close"
+                  },
+                  on: {
+                    click: function($event) {
+                      _vm.isHidden = true
+                    }
+                  }
+                },
+                [
+                  _c("span", { attrs: { "aria-hidden": "true" } }, [
+                    _vm._v("×")
+                  ])
+                ]
+              )
             ]
           ),
           _vm._v(" "),
@@ -72741,7 +72761,27 @@ var render = function() {
             },
             [
               _vm._v("\n\t    \t" + _vm._s(_vm.alertMessage) + "\n\t        "),
-              _vm._m(1)
+              _c(
+                "button",
+                {
+                  staticClass: "close",
+                  attrs: {
+                    type: "button",
+                    "data-dismiss": "alert",
+                    "aria-label": "Close"
+                  },
+                  on: {
+                    click: function($event) {
+                      _vm.isHidden = true
+                    }
+                  }
+                },
+                [
+                  _c("span", { attrs: { "aria-hidden": "true" } }, [
+                    _vm._v("×")
+                  ])
+                ]
+              )
             ]
           )
         ])
@@ -72752,7 +72792,7 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "card-header bg-transparent border-primary" }, [
         _c("div", { staticClass: "row" }, [
-          _vm._m(2),
+          _vm._m(0),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-6" }, [
             _c("div", { staticClass: " btn-group float-right" }, [
@@ -72802,7 +72842,7 @@ var render = function() {
                     domProps: { value: _vm.id }
                   }),
                   _vm._v(" "),
-                  _vm._m(3)
+                  _vm._m(1)
                 ]
               )
             ])
@@ -73324,7 +73364,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm._m(4),
+      _vm._m(2),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
         _c("form", { attrs: { enctype: "multipart/form-data" } }, [
@@ -73910,7 +73950,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm._m(5),
+      _vm._m(3),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
         _c("form", { attrs: { enctype: "multipart/form-data" } }, [
@@ -74010,170 +74050,144 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("form", { attrs: { enctype: "multipart/form-data" } }, [
-          _c("input", {
-            attrs: { type: "hidden", name: "_token" },
-            domProps: { value: _vm.csrf }
-          }),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group row" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-sm-2 col-form-label",
-                attrs: { for: "membership_status" }
-              },
-              [_vm._v("Membership Status")]
-            ),
+        _c(
+          "form",
+          {
+            ref: "membershipStatus",
+            attrs: { enctype: "multipart/form-data", id: "membershipStatus" }
+          },
+          [
+            _c("input", {
+              attrs: { type: "hidden", name: "_token" },
+              domProps: { value: _vm.csrf }
+            }),
             _vm._v(" "),
-            _c("div", { staticClass: "col-sm-8" }, [
+            _c("div", { staticClass: "form-group row" }, [
               _c(
-                "select",
+                "label",
                 {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model:value",
-                      value: _vm.membership_status,
-                      expression: "membership_status",
-                      arg: "value"
-                    }
-                  ],
-                  staticClass: "custom-select custom-select mb-3",
-                  attrs: {
-                    id: "membership_status",
-                    name: "membership_status",
-                    disabled: _vm.toEditMembershipStatus
-                  },
-                  on: {
-                    change: function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.membership_status = $event.target.multiple
-                        ? $$selectedVal
-                        : $$selectedVal[0]
-                    }
-                  }
+                  staticClass: "col-sm-2 col-form-label",
+                  attrs: { for: "membership_status" }
                 },
-                [
-                  _c("option", { attrs: { disabled: "", selected: "" } }, [
-                    _vm._v("Select membership status")
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "Active" } }, [
-                    _vm._v("Active")
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "Regular attendee" } }, [
-                    _vm._v("Regular Attendee")
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "Visitor" } }, [
-                    _vm._v("Visitor")
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "Inactive" } }, [
-                    _vm._v("Inactive")
-                  ])
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _vm.toEditMembershipStatus
-              ? _c("div", { staticClass: "col-sm-2" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-secondary btn-sm float-right mx-3",
-                      attrs: { type: "button" },
-                      on: {
-                        click: function($event) {
-                          _vm.toEditMembershipStatus = false
-                        }
+                [_vm._v("Membership Status")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-8" }, [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model:value",
+                        value: _vm.membership_status,
+                        expression: "membership_status",
+                        arg: "value"
                       }
+                    ],
+                    staticClass: "custom-select custom-select mb-3",
+                    attrs: {
+                      id: "membership_status",
+                      name: "membership_status",
+                      disabled: _vm.toEditMembershipStatus
                     },
-                    [_vm._v("Edit")]
-                  )
-                ])
-              : _c("div", { staticClass: "col-sm-2" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-danger btn-sm float-right mx-1",
-                      attrs: { type: "button" },
-                      on: {
-                        click: function($event) {
-                          _vm.toEditMembershipStatus = true
-                        }
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.membership_status = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
                       }
-                    },
-                    [_vm._v("Cancel")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-success btn-sm float-right mx-1",
-                      attrs: { type: "button" },
-                      on: {
-                        click: [
-                          _vm.updateMembershipStatus,
-                          function($event) {
-                            _vm.isHidden = true
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { disabled: "" } }, [
+                      _vm._v("Select membership status")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "Active" } }, [
+                      _vm._v("Active")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "Regular attendee" } }, [
+                      _vm._v("Regular Attendee")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "Visitor" } }, [
+                      _vm._v("Visitor")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "Inactive" } }, [
+                      _vm._v("Inactive")
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _vm.toEditMembershipStatus
+                ? _c("div", { staticClass: "col-sm-2" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "btn btn-secondary btn-sm float-right mx-3",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            _vm.toEditMembershipStatus = false
                           }
-                        ]
-                      }
-                    },
-                    [_vm._v("Save")]
-                  )
-                ])
-          ])
-        ])
+                        }
+                      },
+                      [_vm._v("Edit")]
+                    )
+                  ])
+                : _c("div", { staticClass: "col-sm-2" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger btn-sm float-right mx-1",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            _vm.toEditMembershipStatus = true
+                          }
+                        }
+                      },
+                      [_vm._v("Cancel")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-success btn-sm float-right mx-1",
+                        attrs: { type: "button" },
+                        on: {
+                          click: [
+                            _vm.updateMembershipStatus,
+                            function($event) {
+                              _vm.isHidden = true
+                            }
+                          ]
+                        }
+                      },
+                      [_vm._v("Save")]
+                    )
+                  ])
+            ])
+          ]
+        )
       ])
     ])
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "close",
-        attrs: {
-          type: "button",
-          "data-dismiss": "alert",
-          "aria-label": "Close"
-        }
-      },
-      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "close",
-        attrs: {
-          type: "button",
-          "data-dismiss": "alert",
-          "aria-label": "Close"
-        }
-      },
-      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-    )
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
