@@ -4,14 +4,14 @@
 		<div v-if="!isHidden">
 			<div class="alert alert-success" role="alert" v-show="isSuccesful">
 				{{alertMessage}}
-		        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		        <button type="button" class="close" data-dismiss="alert" aria-label="Close" v-on:click="isHidden = true">
 		            <span aria-hidden="true">&times;</span>
 		        </button>
 		    </div>
 
 		    <div class="alert alert-danger" role="alert" v-show="!isSuccesful">
 		    	{{alertMessage}}
-		        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		        <button type="button" class="close" data-dismiss="alert" aria-label="Close" v-on:click="isHidden = true">
 		            <span aria-hidden="true">&times;</span>
 		        </button>
 		    </div>
@@ -242,7 +242,7 @@
 	        
 	        </div>
 	        <div class="card-footer text-muted">
-			    Created by: {{this.records.created_by}} Last updated: {{this.records.updated_at}} Updated by: {{this.records.updated_by}} 
+			    Created by: {{this.created_by}} Last updated: {{this.updated_at}} Updated by: {{this.updated_by}} 
 			</div>
 		</div>
 
@@ -315,6 +315,9 @@
                 record_type: this.records.record_type,
                 given_at: this.records.given_at,
                 status: this.records.status,
+                created_by: this.records.created_by,
+                updated_at: this.records.updated_at,
+                updated_by: this.records.updated_by,
 
                 regularGivingChart: [
 			        ["Type", "Amount"],

@@ -1,5 +1,5 @@
 <template>
-	<form ref="restoreMember" method="POST" enctype="multipart/form-data" :action="this.route" @submit.prevent="restore">
+	<form ref="restoreDeleted" method="POST" enctype="multipart/form-data" :action="this.route" @submit.prevent="restore">
   		<input type="hidden" name="_token" :value="csrf">
   		<input type="hidden" name="_method" value="PUT">
 		<div class="text-center">
@@ -25,7 +25,7 @@
       	methods: {
 
 	      	restore() {
-	      		this.$refs.restoreMember.submit();
+	      		this.$refs.restoreDeleted.submit();
 	      	}
       	}
   }

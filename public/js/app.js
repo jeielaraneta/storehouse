@@ -1902,7 +1902,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     restore: function restore() {
-      this.$refs.restoreMember.submit();
+      this.$refs.restoreDeleted.submit();
     }
   }
 });
@@ -3302,6 +3302,9 @@ __webpack_require__.r(__webpack_exports__);
       record_type: this.records.record_type,
       given_at: this.records.given_at,
       status: this.records.status,
+      created_by: this.records.created_by,
+      updated_at: this.records.updated_at,
+      updated_by: this.records.updated_by,
       regularGivingChart: [["Type", "Amount"], ["Tithe", this.records.tithe_amount], ["Love", this.records.love_amount], ["Faith", this.records.faith_amount]],
       specialOfferingChart: [],
       regularGivingChartOptions: {
@@ -72248,7 +72251,7 @@ var render = function() {
   return _c(
     "form",
     {
-      ref: "restoreMember",
+      ref: "restoreDeleted",
       attrs: {
         method: "POST",
         enctype: "multipart/form-data",
@@ -74931,7 +74934,27 @@ var render = function() {
             },
             [
               _vm._v("\n\t\t\t" + _vm._s(_vm.alertMessage) + "\n\t        "),
-              _vm._m(0)
+              _c(
+                "button",
+                {
+                  staticClass: "close",
+                  attrs: {
+                    type: "button",
+                    "data-dismiss": "alert",
+                    "aria-label": "Close"
+                  },
+                  on: {
+                    click: function($event) {
+                      _vm.isHidden = true
+                    }
+                  }
+                },
+                [
+                  _c("span", { attrs: { "aria-hidden": "true" } }, [
+                    _vm._v("×")
+                  ])
+                ]
+              )
             ]
           ),
           _vm._v(" "),
@@ -74951,7 +74974,27 @@ var render = function() {
             },
             [
               _vm._v("\n\t    \t" + _vm._s(_vm.alertMessage) + "\n\t        "),
-              _vm._m(1)
+              _c(
+                "button",
+                {
+                  staticClass: "close",
+                  attrs: {
+                    type: "button",
+                    "data-dismiss": "alert",
+                    "aria-label": "Close"
+                  },
+                  on: {
+                    click: function($event) {
+                      _vm.isHidden = true
+                    }
+                  }
+                },
+                [
+                  _c("span", { attrs: { "aria-hidden": "true" } }, [
+                    _vm._v("×")
+                  ])
+                ]
+              )
             ]
           )
         ])
@@ -74998,7 +75041,7 @@ var render = function() {
     _c("div", { staticClass: "card" }, [
       _c("span", { staticClass: "border-top" }),
       _vm._v(" "),
-      _vm._m(2),
+      _vm._m(0),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
         _c("div", { staticClass: "row mb-5" }, [
@@ -75453,14 +75496,14 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _vm._m(3),
+        _vm._m(1),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-sm-12 table-responsive" }, [
             _c("table", { staticClass: "table table-sm" }, [
               _c("caption", [_vm._v("List of Regular Giving")]),
               _vm._v(" "),
-              _vm._m(4),
+              _vm._m(2),
               _vm._v(" "),
               _c("tbody", [
                 _c("tr", [
@@ -75479,14 +75522,14 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(5),
+        _vm._m(3),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-sm-12 table-responsive" }, [
             _c("table", { staticClass: "table table-sm" }, [
               _c("caption", [_vm._v("List of Special Offerings")]),
               _vm._v(" "),
-              _vm._m(6),
+              _vm._m(4),
               _vm._v(" "),
               _c(
                 "tbody",
@@ -75521,11 +75564,11 @@ var render = function() {
       _c("div", { staticClass: "card-footer text-muted" }, [
         _vm._v(
           "\n\t\t    Created by: " +
-            _vm._s(this.records.created_by) +
+            _vm._s(this.created_by) +
             " Last updated: " +
-            _vm._s(this.records.updated_at) +
+            _vm._s(this.updated_at) +
             " Updated by: " +
-            _vm._s(this.records.updated_by) +
+            _vm._s(this.updated_by) +
             " \n\t\t"
         )
       ])
@@ -75533,40 +75576,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "close",
-        attrs: {
-          type: "button",
-          "data-dismiss": "alert",
-          "aria-label": "Close"
-        }
-      },
-      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "close",
-        attrs: {
-          type: "button",
-          "data-dismiss": "alert",
-          "aria-label": "Close"
-        }
-      },
-      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-    )
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

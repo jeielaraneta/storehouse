@@ -5,7 +5,7 @@
 
     <div class="row mb-2 text-left">
         <div class="col-md-12 ">
-            <create-button route="{{ route('record.create') }}" btn-text="Add New Record"></create-button>
+            <create-button route="{{ route('record.create') }}" btn-text="Add New Record" btn-icon="fas fa-pen-square"></create-button>
         </div>        
     </div>
 
@@ -34,7 +34,7 @@
                                         <tr>
                                             <td>{{$record->agc}}</td>
                                             <td>{{$record->giver_type}}</td>
-                                            <td>{{$record->total_amount}}</td> <!-- &#8369; -->
+                                            <td>{{$record->total_amount}}</td> <!-- &#8369;  <i class="fas fa-pen-square"></i>-->
                                             <td>{{$record->given_at}}</td>
                                             <td>{{$record->created_at}}</td>
                                             <td>{{$record->status}}</td>
